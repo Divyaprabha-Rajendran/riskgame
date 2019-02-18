@@ -1,0 +1,179 @@
+package ca.riskgamet31.maincomps;
+
+import java.util.ArrayList;
+
+/**
+ * An entity representing a country
+ * 
+ * To be used to form the continent and the overall map
+ * 
+ * @author Fareed Tayar
+ * @version 1.0
+ * @since 1.0
+ */
+public class Country
+{
+  
+  /**
+   * Country name
+   */
+  
+  private final String countryName;
+  /**
+   * current player occupying the country
+   */
+  
+  private String currentOccupier; // to change to player when class is ready
+  /**
+   * list of adjacent countries.
+   */
+  
+ 
+  private int armies;
+  
+  /**
+   * creates new country object.
+   * 
+   * @param countryName       name of county
+   * @param neighbours ArryList of countries
+   */
+  public Country(String countryName, ArrayList<Country> neighbours) throws NullPointerException
+	{
+	  super();
+	  
+	  if (countryName == null) throw new NullPointerException("Null country name or neighbours reference");
+	  
+	  this.countryName = countryName.toUpperCase();
+	  this.armies = 0;
+	  this.currentOccupier = "dumy".toUpperCase();
+	}
+  
+  /**
+   * Creates new country object.
+   * 
+   * @param countryName name of country
+   */
+  public Country(String countryName)
+	{
+	  this(countryName, new ArrayList<Country>());
+	}
+  
+  /**
+   * return the name of country.
+   * 
+   * @return the name of this country.
+   */
+  public String getCountryName()
+	{
+	  return countryName;
+	}
+  
+   
+  /**
+   * return current player occupying this country.
+   * 
+   * @return current player occupying this country
+   */
+  public String getCurrentOccupier()
+	{
+	  return currentOccupier;
+	}
+  
+  /**
+   * changes current country occupier.
+   * 
+   * @param newOccupier new player won this country.
+   */
+  public void setCurrentOccupier(String newOccupier)
+	{
+	  this.currentOccupier = newOccupier;
+	}
+  
+    /**
+   * current armies in this country.
+   * 
+   * @return current armies in this country.
+   */
+  public int getArmies()
+	{
+	  return armies;
+	}
+  
+  /**
+   * increase number of armies in this country.
+   * 
+   * @param armiesNumber armies to increase.
+   * @return new total armies in country.
+   */
+  public int increaseArmies(int armiesNumber)
+	{
+	  
+	  this.setArmies(this.getArmies() + armiesNumber);
+	  return this.getArmies();
+	  
+	}
+  
+  /**
+   * reduce number of armies in the country. 
+   * <code>if (this.getArmies() - armiesNumber)</code> is less than zero
+   *  the method returns -99
+   * 
+   * @param armiesNumber armies to increase.
+   * @return new total armies in country, if total is .
+   */
+  public int reduceArmies(int armiesNumber)
+	{
+	  
+	  int tempArmies = this.getArmies() - armiesNumber;
+	  
+	  if (tempArmies > 0)
+		{
+		  this.setArmies(tempArmies);
+		  return this.getArmies();
+		} else
+		  return -99;
+	}
+  
+  /**
+   * set number of armies
+   * 
+   * @param armies new number of armies
+   */
+  public void setArmies(int armies)
+	{
+	  this.armies = armies;
+	}
+  
+  /**
+   * Compares to countries by name. overrides Object's equal method.
+   * 
+   * @param otherCountry country to compare with.
+   * @return returns true if both country objects have the same name.
+   */
+  @Override
+  public boolean equals(Object otherCountry)
+	{
+	  
+	  if (otherCountry == null)
+		return false;
+	  if (!(otherCountry instanceof Country))
+		return false;
+	  if (otherCountry == this)
+		return true;
+	  return (this.getCountryName().equals(((Country) otherCountry).getCountryName()));  
+	  
+	}
+  
+  /**
+   * returns string representation of the country. 
+   * @return string representation of the country.
+   */
+  @Override
+  public String toString()
+	{
+	  
+	  return "[" + this.getCountryName() + ":" + this.getArmies() + ":" + this
+		  .getCurrentOccupier() + "]";
+	}
+  
+}
