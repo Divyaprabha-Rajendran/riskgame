@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 1.0
  */
-public class Node
+public class GraphNode
   {
 	
 	/**
@@ -24,23 +24,23 @@ public class Node
 	/**
 	 * parent node in the graph.
 	 */
-	private Node parentNode;
+	private GraphNode parentNode;
 	/**
 	 * list of neighboring nodes
 	 */
-	private ArrayList<Node> neighbors;
+	private ArrayList<GraphNode> neighbors;
 	
 	/**
 	 * Instantiates new node object
 	 * 
 	 * @param nodeData the country data of this node.
 	 */
-	public Node(Country nodeData)
+	public GraphNode(Country nodeData)
 	  {
 		this.nodeData = nodeData;
 		this.distance = -1;
 		this.parentNode = null;
-		this.neighbors = new ArrayList<Node>();
+		this.neighbors = new ArrayList<GraphNode>();
 	  }
 
 	/**
@@ -56,7 +56,7 @@ public class Node
 	 * returns array list of neighboring nodes.
 	 * @return array list of neighboring nodes.
 	 */
-	public ArrayList<Node> getNodeNeighbors()
+	public ArrayList<GraphNode> getNodeNeighbors()
 	{
 	  return this.neighbors;
 	}
@@ -83,7 +83,7 @@ public class Node
 	 * returns its parent node.
 	 * @return its parent node.
 	 */
-	public Node getParentNode()
+	public GraphNode getParentNode()
 	  {
 		return parentNode;
 	  }
@@ -92,7 +92,7 @@ public class Node
 	 * sets parent node
 	 * @param parentNode node's parent.
 	 */
-	public void setParentNode(Node parentNode)
+	public void setParentNode(GraphNode parentNode)
 	  {
 		this.parentNode = parentNode;
 	  }
@@ -101,7 +101,7 @@ public class Node
 	 * adds new neighbor 
 	 * @param neighbor new neighbor
 	 */
-	public void addNeighbor(Node neighbor)
+	public void addNeighbor(GraphNode neighbor)
 	{
 	  
 	  this.getNodeNeighbors().add(neighbor);
@@ -112,7 +112,7 @@ public class Node
 	 * remove a neighbor from list of neighbors.
 	 * @param neighbor the neighbor to be removed.
 	 */
-	public void removeNeighbor(Node neighbor)
+	public void removeNeighbor(GraphNode neighbor)
 		{
 		  
 		  this.getNodeNeighbors().remove(neighbor);
@@ -131,11 +131,11 @@ public class Node
 		  
 		  if (otherNode == null)
 			return false;
-		  if (!(otherNode instanceof Node))
+		  if (!(otherNode instanceof GraphNode))
 			return false;
 		  if (otherNode == this)
 			return true;
-		  return (this.getNodeData().equals(((Node) otherNode).getNodeData()));  
+		  return (this.getNodeData().equals(((GraphNode) otherNode).getNodeData()));  
 		  
 		}
 	

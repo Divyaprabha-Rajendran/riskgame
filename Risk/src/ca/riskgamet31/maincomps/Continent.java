@@ -37,8 +37,8 @@ public class Continent
 		this.additionalBonusArmies = additionalBonusArmies;
 		this.continentGraph = continentGraph;
 	  }
-
-
+	
+	
 	/**
 	 * provides continent name
 	 * 
@@ -60,6 +60,18 @@ public class Continent
 	  }
 
 	
+	
+	
+	public Graph getContinentGraph() {
+		return continentGraph;
+	}
+
+
+	public void setContinentGraph(Graph continentGraph) {
+		this.continentGraph = continentGraph;
+	}
+
+
 	/**
 	 * checks whether this continent is connected graph or not.
 	 * @return true if connected graph.

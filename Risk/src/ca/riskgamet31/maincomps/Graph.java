@@ -17,21 +17,21 @@ public class Graph
   /**
    * list of nodes constituting this graph.
    */
-  private ArrayList<Node> graphNodes;
+  private ArrayList<GraphNode> graphNodes;
   /**
    * queue item to host nodes while processing.
    */
-  private LinkedList<Node> processingList;
+  private LinkedList<GraphNode> processingList;
   
   /**
    * construct new graph object.
    * 
    * @param graphNodes <code>ArrayList</code> of graph nodes
    */
-  public Graph(ArrayList<Node> graphNodes)
+  public Graph(ArrayList<GraphNode> graphNodes)
 	{
 	  this.graphNodes = graphNodes;
-	  this.processingList = new LinkedList<Node>();
+	  this.processingList = new LinkedList<GraphNode>();
 	}
   
   /**
@@ -41,7 +41,7 @@ public class Graph
 	{
 	  
 	  this.graphNodes = new ArrayList<>();
-	  this.processingList = new LinkedList<Node>();
+	  this.processingList = new LinkedList<GraphNode>();
 	  
 	}
   
@@ -49,7 +49,7 @@ public class Graph
    * provides reference to graph nodes <code>ArrayList</code>
    * @return reference to graph nodes <code>ArrayList</code>
    */
-  public ArrayList<Node> getGraphNodes()
+  public ArrayList<GraphNode> getGraphNodes()
 	{
 	  return graphNodes;
 	}
@@ -59,7 +59,7 @@ public class Graph
    * 
    * @param graphNodes graph nodes array list reference.
    */
-  public void setGraphNodes(ArrayList<Node> graphNodes)
+  public void setGraphNodes(ArrayList<GraphNode> graphNodes)
 	{
 	  this.graphNodes = graphNodes;
 	}
@@ -69,7 +69,7 @@ public class Graph
    * 
    * @return processing list queue.
    */
-  public LinkedList<Node> getProcessingList()
+  public LinkedList<GraphNode> getProcessingList()
 	{
 	  return processingList;
 	}
@@ -79,7 +79,7 @@ public class Graph
    * 
    * @param newNode new node to be added.
    */
-  public void addNode(Node newNode)
+  public void addNode(GraphNode newNode)
 	{
 	  this.getGraphNodes().add(newNode);
 	}
@@ -90,7 +90,7 @@ public class Graph
    * @param node node to be removed
    * @return true if the provided node is found and removed.
    */
-  public boolean removeNode(Node node)
+  public boolean removeNode(GraphNode node)
 	{
 	  
 	  return this.getGraphNodes().remove(node);
@@ -105,7 +105,7 @@ public class Graph
 	  
 	  this.getProcessingList().clear();
 	  
-	  for (Node node : this.getGraphNodes())
+	  for (GraphNode node : this.getGraphNodes())
 		{
 		  node.setDistance(-1);
 		  node.setParentNode(null);
@@ -120,16 +120,16 @@ public class Graph
 	{
 	  int tempdistance = 0;
 	  cleanProcessingData();
-	  Node rootNode = this.getGraphNodes().get(0);
+	  GraphNode rootNode = this.getGraphNodes().get(0);
 	  rootNode.setDistance(tempdistance++);
 	  this.getProcessingList().add(rootNode);
 	  
 	  while (!this.getProcessingList().isEmpty())
 		{
-		  Node node = this.getProcessingList().getFirst();
-		  ArrayList<Node> nodeNeighbors = node.getNodeNeighbors();
+		  GraphNode node = this.getProcessingList().getFirst();
+		  ArrayList<GraphNode> nodeNeighbors = node.getNodeNeighbors();
 		  
-		  for (Node neighborC : nodeNeighbors)
+		  for (GraphNode neighborC : nodeNeighbors)
 			{
 			  if (neighborC.getDistance() < 0)
 				{
