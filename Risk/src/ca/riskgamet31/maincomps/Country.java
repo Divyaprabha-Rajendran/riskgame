@@ -1,17 +1,22 @@
 package ca.riskgamet31.maincomps;
 
 import java.util.ArrayList;
+import java.util.Observable;
+
+import ca.riskgamet31.views.countryView;
 
 /**
  * An entity representing a country
  * 
- * To be used to form the continent and the overall map
+ * To be used for the Graph node data
+ * every country will create and register a view
+ * Observable model is used.
  * 
  * @author Fareed Tayar
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
-public class Country
+public class Country extends Observable
 {
   
   /**
@@ -46,6 +51,9 @@ public class Country
 	  this.countryName = countryName.toUpperCase();
 	  this.armies = 0;
 	  this.currentOccupier = "dumy".toUpperCase();
+	  countryView viewer = new countryView(countryName.toLowerCase());
+	  this.addObserver(viewer);
+	  
 	}
   
   /**
@@ -65,6 +73,7 @@ public class Country
    */
   public String getCountryName()
 	{
+	  
 	  return countryName;
 	}
   
@@ -87,6 +96,8 @@ public class Country
   public void setCurrentOccupier(String newOccupier)
 	{
 	  this.currentOccupier = newOccupier;
+	  this.setChanged();
+	  this.notifyObservers();
 	}
   
     /**
@@ -142,6 +153,8 @@ public class Country
   public void setArmies(int armies)
 	{
 	  this.armies = armies;
+	  this.setChanged();
+	  this.notifyObservers();
 	}
   
   /**

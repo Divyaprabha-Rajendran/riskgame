@@ -207,7 +207,7 @@ public class CreateMap
 	
 	public static void main(String args[])
 	{
-		CreateMap cmap=new CreateMap("C:\\Users\\SONY\\Java_workspace\\Risk\\Risk\\Risk_MapData\\map.xml");
+		CreateMap cmap=new CreateMap("C:\\Users\\Fareed Tayar\\git\\riskgame\\Risk\\Risk_MapData\\map.xml");
 		cmap.loadMapData();
 		cmap.getContinents();
 		System.out.println(cmap.mapData.size());
