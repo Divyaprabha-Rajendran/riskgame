@@ -167,6 +167,8 @@ public class Graph
 	/**
 	 * process for path discovery starts from a node and process the graph using
 	 * DFS
+	 * if both countries are the same , this should be checked by caller
+	 * will return true if same country been selected as from and to
 	 * 
 	 */
 	
