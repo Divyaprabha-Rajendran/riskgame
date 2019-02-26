@@ -139,4 +139,9 @@ public class GraphNode
 		  
 		}
 	
+	@Override 
+	public String toString()
+	{
+	  return this.getNodeData().toString() +":"+this.distance;
+	}
   }

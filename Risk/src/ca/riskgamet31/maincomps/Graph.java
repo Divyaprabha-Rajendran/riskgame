@@ -121,14 +121,17 @@ public class Graph
 	public void processGraph()
 	  {
 		int tempdistance = 0;
-		cleanProcessingData();
+		this.cleanProcessingData();
+		//for(GraphNode node: this.getGraphNodes())
+		//	System.out.println(node.toString());
+			
 		GraphNode rootNode = this.getGraphNodes().get(0);
 		rootNode.setDistance(tempdistance++);
 		this.getProcessingList().add(rootNode);
 		
 		while (!this.getProcessingList().isEmpty())
 		  {
-			GraphNode node = this.getProcessingList().getFirst();
+			GraphNode node = this.getProcessingList().removeFirst();
 			ArrayList<GraphNode> nodeNeighbors = node.getNodeNeighbors();
 			
 			for (GraphNode neighborC : nodeNeighbors)
@@ -142,7 +145,10 @@ public class Graph
 			  }
 			  
 		  }
-		  
+		
+		//for(GraphNode node: this.getGraphNodes())
+		//System.out.println(node.toString());
+		
 	  }
 	  
 	/**
@@ -155,11 +161,7 @@ public class Graph
 		
 		this.processGraph();
 		
-		boolean connected = this.getGraphNodes().stream().anyMatch((E) ->
-		  {
-			return E.getDistance() < 0;
-		  });
-		
+		boolean connected = this.getGraphNodes().stream().anyMatch((E) -> E.getDistance() < 0);
 		return !connected;
 		
 	  }
@@ -167,8 +169,6 @@ public class Graph
 	/**
 	 * process for path discovery starts from a node and process the graph using
 	 * DFS
-	 * if both countries are the same , this should be checked by caller
-	 * will return true if same country been selected as from and to
 	 * 
 	 */
 	
@@ -183,9 +183,9 @@ public class Graph
 		while (graphIterator.hasNext())
 		  {
 			GraphNode tempNode = graphIterator.next();
-			if (tempNode.getNodeData().getCountryName().equals(fromCountry))
+			if (tempNode.getNodeData().getCountryName().equals(fromCountry.toUpperCase()))
 			  fromNode = tempNode;
-			if (tempNode.getNodeData().getCountryName().equals(toCountry))
+			if (tempNode.getNodeData().getCountryName().equals(toCountry.toUpperCase()))
 			  toNode = tempNode;
 		  }
 		  
@@ -203,7 +203,7 @@ public class Graph
 			
 			while (!this.getProcessingList().isEmpty() && !pathExists)
 			  {
-				GraphNode node = this.getProcessingList().getFirst();
+				GraphNode node = this.getProcessingList().removeFirst();
 				ArrayList<GraphNode> nodeNeighbors = node.getNodeNeighbors();
 				
 				for (GraphNode neighborC : nodeNeighbors)
