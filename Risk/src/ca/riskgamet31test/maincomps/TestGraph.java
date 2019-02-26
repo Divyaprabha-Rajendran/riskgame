@@ -183,5 +183,4 @@ class TestGraph
 		  assertTrue(testGraph.isConnected());
 	  }
 	  
-	  
   }
