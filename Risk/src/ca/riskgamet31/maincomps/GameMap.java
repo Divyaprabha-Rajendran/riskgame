@@ -9,12 +9,12 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 1.0
  */
-public class Map
+public class GameMap
   {
 	/**
 	 * the map xml file, for info only 
 	 */
-	private String mapFile;
+	private String gameMapFile;
 	/**
 	 * a list of continent objects composing the map
 	 */
@@ -22,7 +22,7 @@ public class Map
 	/**
 	 * a graph object consists of all map nodes
 	 */
-	private Graph mapGraph = new Graph();
+	private Graph gameMapGraph = new Graph();
 	
 	
 	/**
@@ -30,12 +30,12 @@ public class Map
 	 * @param continentsList list of continent objects
 	 * @param mapGraph map graph
 	 */
-	public Map(String mapFile, ArrayList<Continent> continentsList,
-	    Graph mapGraph)
+	public GameMap(String gameMapFile, ArrayList<Continent> continentsList,
+	    Graph gameMapGraph)
 	  {
-		this.mapFile = mapFile;
+		this.gameMapFile = gameMapFile;
 		this.continentsList = continentsList;
-		this.mapGraph = mapGraph;
+		this.gameMapGraph = gameMapGraph;
 	  }
 
 	/**
@@ -44,24 +44,24 @@ public class Map
 	public boolean isConnected()
 	
 	{
-	  return this.mapGraph.isConnected();
+	  return this.gameMapGraph.isConnected();
 	}
 	
 	
 	/**
 	 * @return the name of map xml file
 	 */
-	public String getMapFile()
+	public String getGameMapFile()
 	  {
-		return mapFile;
+		return gameMapFile;
 	  }
 
 	/**
 	 * @param mapFile sets the map xml file
 	 */
-	public void setMapFile(String mapFile)
+	public void setGameMapFile(String mapFile)
 	  {
-		this.mapFile = mapFile;
+		this.gameMapFile = mapFile;
 	  }
 
 	/**
@@ -83,17 +83,17 @@ public class Map
 	/**
 	 * @return map graph object
 	 */
-	public Graph getMapGraph()
+	public Graph getGameMapGraph()
 	  {
-		return mapGraph;
+		return gameMapGraph;
 	  }
 
 	/**
 	 * @param mapGraph new map graph object
 	 */
-	public void setMapGraph(Graph mapGraph)
+	public void setGameMapGraph(Graph mapGraph)
 	  {
-		this.mapGraph = mapGraph;
+		this.gameMapGraph = mapGraph;
 	  }
 	
   }
