@@ -20,7 +20,7 @@ public class Player
 	private int army; 
 	
 	
-	ArrayList<Country> country;
+	ArrayList<GraphNode> countryNode;
 	ArrayList<Continent> continent;
 	
 	public Player(String playersName,int army) throws NullPointerException
@@ -36,18 +36,18 @@ public class Player
 		return playersName;
 	}
 		
-	public void addCountry(Country country)
+	public void addCountry(GraphNode country)
 	{
-		this.country.add(country);
+		this.countryNode.add(country);
 	}
-	public ArrayList<Country> getCountry()
+	public ArrayList<GraphNode> getCountry()
 	{
-		return country;
+		return countryNode;
 	}
 	
-	public void removeCountry(Country country)
+	public void removeCountry(GraphNode country)
 	{
-		this.country.remove(country);
+		this.countryNode.remove(country);
 		
 	}
 	public void addContinent(Continent continent)
