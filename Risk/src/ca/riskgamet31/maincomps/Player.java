@@ -84,4 +84,50 @@ public class Player
   }
 		
   }
+  
+//YD 
+  public int reinforcementArmiesCalc()
+  {
+	  int armiesForCountries = 0;
+	  int armiesForContinentsBonus = 0;
+	  int armiesForCards = 0;
+	  int totalArmiesToAdd = 0;
+	  if(this.getCountry().size() < 12)
+	  {
+		  armiesForCountries = 3;
+	  }
+	  else
+	  {
+		  armiesForCountries = this.getCountry().size() / 3;
+	  }
+	  int continentCount = this.getContinent().size();
+	  if(continentCount > 0)
+	  {
+		  for(int i = 0; i < continentCount; i++)
+		  {
+			  armiesForContinentsBonus = armiesForContinentsBonus + this.getContinent().get(i).getAdditionalBonusArmies();
+		  }
+	  }
+	  totalArmiesToAdd = armiesForCountries + armiesForContinentsBonus + armiesForCards;
+	  this.incrementArmies(totalArmiesToAdd);
+	  return totalArmiesToAdd;
+  }
+  
+  //YD
+  public void incrementArmies(int a)
+  {
+	  this.army += a; 
+  }
+  
+  //YD
+  public void decrementArmies(int a)
+  {
+	  this.army -= a; 
+  }
+  
+  //YD
+  public int getPlayerArmies()
+  {
+	  return this.army;
+  }
 }
