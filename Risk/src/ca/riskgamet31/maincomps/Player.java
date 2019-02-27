@@ -13,7 +13,7 @@ import java.util.Map.Entry;
  * @version 1.0
  * @since 1.0
  */
-class Players
+public class Player
 {
    
 	private final String playersName;
@@ -23,7 +23,7 @@ class Players
 	ArrayList<Country> country;
 	ArrayList<Continent> continent;
 	
-	public Players(String playersName,int army) throws NullPointerException
+	public Player(String playersName,int army) throws NullPointerException
 	{
 		 if (playersName == null) throw new NullPointerException("Null Player name");
 		 this.playersName=playersName;
