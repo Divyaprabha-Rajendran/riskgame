@@ -36,28 +36,28 @@ public class Player
 		return playersName;
 	}
 		
-	public void addCountry(ArrayList<Country> country)
+	public void addCountry(Country country)
 	{
-		this.country = country;
+		this.country.add(country);
 	}
 	public ArrayList<Country> getCountry()
 	{
 		return country;
 	}
 	
-	public void removeCountry(String countryName)
+	public void removeCountry(Country country)
 	{
-		country.remove(countryName);
+		this.country.remove(country);
 		
 	}
-	public void addContinent(ArrayList<Continent> continent)
+	public void addContinent(Continent continent)
 	{
-		this.continent=continent;
+		this.continent.add(continent);
 		
 	}
-	public void removeContinent(String continentname)
+	public void removeContinent(Continent continent)
 	{
-		continent.remove(continentname);
+		this.continent.remove(continent);
 		
 	}
 	public ArrayList<Continent> getContinent()
