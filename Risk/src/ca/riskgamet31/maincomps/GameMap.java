@@ -1,6 +1,5 @@
 package ca.riskgamet31.maincomps;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -19,7 +18,7 @@ public class GameMap
 	/**
 	 * a list of continent objects composing the map
 	 */
-	private HashMap<String,Continent> continentsList = new HashMap<String,Continent>();
+	private HashMap<String,Continent> continentsList = new HashMap<>();
 	/**
 	 * a graph object consists of all map nodes
 	 */
@@ -31,7 +30,7 @@ public class GameMap
 	 * @param continentsList list of continent objects
 	 * @param mapGraph map graph
 	 */
-	public GameMap(String gameMapFile, HashMap<String,Continent> continentsList,
+	public GameMap(String gameMapFile, HashMap<String, Continent> continentsList,
 	    Graph gameMapGraph)
 	  {
 		this.gameMapFile = gameMapFile;
@@ -68,7 +67,7 @@ public class GameMap
 	/**
 	 * @return an ArrayList of map continents
 	 */
-	public HashMap<String,Continent> getContinentsList()
+	public HashMap<String, Continent> getContinentsList()
 	  {
 		return continentsList;
 	  }
@@ -76,7 +75,7 @@ public class GameMap
 	/**
 	 * @param continentsList updates maps arrayList of continents
 	 */
-	public void setContinentsList(HashMap<String,Continent> continentsList)
+	public void setContinentsList(HashMap<String, Continent> continentsList)
 	  {
 		this.continentsList = continentsList;
 	  }
