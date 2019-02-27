@@ -13,7 +13,7 @@ import java.util.Map.Entry;
  * @version 1.0
  * @since 1.0
  */
-class Players
+public class Player
 {
    
 	private final String playersName;
@@ -23,7 +23,7 @@ class Players
 	ArrayList<Country> country;
 	ArrayList<Continent> continent;
 	
-	public Players(String playersName,int army) throws NullPointerException
+	public Player(String playersName,int army) throws NullPointerException
 	{
 		 if (playersName == null) throw new NullPointerException("Null Player name");
 		 this.playersName=playersName;
@@ -83,5 +83,51 @@ class Players
 		return -1;
   }
 		
+  }
+  
+//YD 
+  public int reinforcementArmiesCalc()
+  {
+	  int armiesForCountries = 0;
+	  int armiesForContinentsBonus = 0;
+	  int armiesForCards = 0;
+	  int totalArmiesToAdd = 0;
+	  if(this.getCountry().size() < 12)
+	  {
+		  armiesForCountries = 3;
+	  }
+	  else
+	  {
+		  armiesForCountries = this.getCountry().size() / 3;
+	  }
+	  int continentCount = this.getContinent().size();
+	  if(continentCount > 0)
+	  {
+		  for(int i = 0; i < continentCount; i++)
+		  {
+			  armiesForContinentsBonus = armiesForContinentsBonus + this.getContinent().get(i).getAdditionalBonusArmies();
+		  }
+	  }
+	  totalArmiesToAdd = armiesForCountries + armiesForContinentsBonus + armiesForCards;
+	  this.incrementArmies(totalArmiesToAdd);
+	  return totalArmiesToAdd;
+  }
+  
+  //YD 
+  public void incrementArmies(int a)
+  {
+	  this.army += a; 
+  }
+  
+  //YD
+  public void decrementArmies(int a)
+  {
+	  this.army -= a; 
+  }
+  
+  //YD
+  public int getPlayerArmies()
+  {
+	  return this.army;
   }
 }
