@@ -18,7 +18,7 @@ public class GameMap
 	/**
 	 * a list of continent objects composing the map
 	 */
-	private HashMap<String,Continent> continentsList = new HashMap<>(42);
+	private HashMap<String,Continent> continentsList = new HashMap<>();
 	/**
 	 * a graph object consists of all map nodes
 	 */
