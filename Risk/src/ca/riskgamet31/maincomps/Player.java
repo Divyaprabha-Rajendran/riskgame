@@ -21,6 +21,7 @@ public class Player
 	
 	
 	ArrayList<GraphNode> countryNode;
+	// must be changed to Graph..for path finding
 	ArrayList<Continent> continent;
 	
 	public Player(String playersName,int army) throws NullPointerException
@@ -28,7 +29,8 @@ public class Player
 		 if (playersName == null) throw new NullPointerException("Null Player name");
 		 this.playersName=playersName;
 		 this.army=army; 
-		 
+		 this.countryNode=new ArrayList<GraphNode>(); 
+		 this.continent=new ArrayList<Continent>(); 
 	}
 	
 	public String getplayersName() 
@@ -40,6 +42,7 @@ public class Player
 	{
 		this.countryNode.add(country);
 	}
+	
 	public ArrayList<GraphNode> getCountry()
 	{
 		return countryNode;
