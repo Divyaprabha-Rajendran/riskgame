@@ -40,6 +40,9 @@ public class CreateMap
 	HashMap<String,GraphNode> countryMap = null;
 	HashMap<String,Continent> mapData = null;
 	
+	public CreateMap() {
+		
+	}
 	
 	public CreateMap(String xmlPath)
 	{
@@ -202,6 +205,13 @@ public class CreateMap
 		}
 	}
 	
+	public Continent getContinentByName(String continentName) {
+		return mapData.get(continentName);
+    }
+	
+	public Country getCountryByName(String countryName) {
+		return countryMap.get(countryName).getNodeData();
+    }
 	
 	public void displayMap()
 	{

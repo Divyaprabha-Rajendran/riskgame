@@ -18,12 +18,11 @@ public class Player
    
 	private final String playersName;
 	private int army; 
-	
+	private Hand hand;
 	
 	ArrayList<GraphNode> countryNode;
-	// must be changed to Graph..for path finding
 	ArrayList<Continent> continent;
-	
+	public static int turnInCardsCount; // static because for every player object the count should be incremented
 	public Player(String playersName,int army) throws NullPointerException
 	{
 		 if (playersName == null) throw new NullPointerException("Null Player name");
@@ -31,6 +30,7 @@ public class Player
 		 this.army=army; 
 		 this.countryNode=new ArrayList<GraphNode>(); 
 		 this.continent=new ArrayList<Continent>(); 
+		 hand = new Hand();
 	}
 	
 	public String getplayersName() 
@@ -111,6 +111,7 @@ public class Player
 			  armiesForContinentsBonus = armiesForContinentsBonus + this.getContinent().get(i).getAdditionalBonusArmies();
 		  }
 	  }
+	  armiesForCards = this.turnInCardsArmies();
 	  totalArmiesToAdd = armiesForCountries + armiesForContinentsBonus + armiesForCards;
 	  this.incrementArmies(totalArmiesToAdd);
 	  return totalArmiesToAdd;
@@ -132,5 +133,32 @@ public class Player
   public int getPlayerArmies()
   {
 	  return this.army;
+  }
+  
+  public int getTurnInCards()
+  {
+	  turnInCardsCount++;
+	  return turnInCardsCount;
+  }
+  
+  public void addNewCard(Card card)
+  {
+	  hand.addCard(card);
+  }
+  
+  public ArrayList<Card> getPlayerCards()
+  {
+	  return hand.getCardsFromHand();
+  }
+  
+  public void removeCards(int[] cardIndexes)
+  {
+	  hand.removeCardsFromHand(cardIndexes[0], cardIndexes[1], cardIndexes[2]);
+  }
+  
+  public int turnInCardsArmies()
+  {
+	  int turnInCardsArmiesCount = turnInCardsCount * 5;
+	  return turnInCardsArmiesCount;
   }
 }
