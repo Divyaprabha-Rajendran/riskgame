@@ -96,4 +96,22 @@ public class GameMap
 		this.gameMapGraph = mapGraph;
 	  }
 	
+	/**
+	 * 
+	 * to view Maps continent information
+	 * 
+	 */
+	
+	public void viewGameMap() {
+	  
+	  for (Continent continent : this.getContinentsList().values())
+		{
+		  
+		  continent.viewContinent();
+		  
+		}
+	  
+	  
+	}
+	
   }

@@ -223,5 +223,25 @@ public class Graph
 		  }
 		return pathExists;
 	  }
+	/**
+	 * to display the main information of the country's graphNode.
+	 */
+	public void viewGraph()
+	{
 	  
+	  int i = 0;
+	  
+	  for (GraphNode gNode : this.getGraphNodes()) 
+		{
+		 	
+		  System.out.print(gNode.toString()+"\t");
+		  i++;
+		  if ((i % 3) == 0)
+			System.out.println("");
+		  
+		}
+	  
+	}
+	
+	
   }
