@@ -9,6 +9,8 @@ import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.maincomps.PlayerModel;
+import ca.riskgamet31.Configuration.Constants;
+
 
 public class StartUpPhase 
 {
@@ -29,15 +31,15 @@ public class StartUpPhase
 		  switch (NoOfPlayers)
 		  {
 		case 3:
-			return 35;
+			return Constants.ARMIES_3_PLAYERS;
 		case 4:
-			return 30;
+			return Constants.ARMIES_4_PLAYERS;
 		case 5:
-			return 25;
+			return Constants.ARMIES_5_PLAYERS;
 		case 6:
-			return 20;
+			return Constants.ARMIES_6_PLAYERS;
 		default:
-			return -1;
+			return Constants.ARMIES_NOTVALID_PLAYERS;
 		  }
 	  }
 	
