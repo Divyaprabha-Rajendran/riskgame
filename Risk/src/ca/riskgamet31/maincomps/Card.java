@@ -1,10 +1,23 @@
 package ca.riskgamet31.maincomps;
 
+/**
+ * Card class
+ * 
+ * @author YD
+ * @version 1.0
+ * @since 1.0
+ */
 public class Card {
 	
 	private final String type;
     private final Country country;
-
+    
+    /**
+	 * constructs new card object
+	 * 
+	 * @param One of three types of card
+	 * @param Country object
+	 */
     public Card( String type, Country country ) {
 		this.type = type;
 		this.country = country;
