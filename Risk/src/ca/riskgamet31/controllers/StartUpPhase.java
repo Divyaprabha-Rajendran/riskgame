@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
-import com.sun.corba.se.impl.orbutil.graph.Node;
 
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.GraphNode;
@@ -14,7 +13,6 @@ import ca.riskgamet31.maincomps.PlayerModel;
 public class StartUpPhase 
 {
 	private int playerCount;
-	
 	
 	
 	public int getPlayerCount() {
@@ -78,6 +76,7 @@ public class StartUpPhase
 		Scanner scan = new Scanner(System.in);
 		for (Player player : players.getPlayerList())
 		{
+			System.out.println("Assigning armies for Player "+player.getplayersName());
 			while (player.getPlayerArmies()!=0)
 			{
 				System.out.println("Number of armies left..."+player.getPlayerArmies());
@@ -86,7 +85,7 @@ public class StartUpPhase
 				for (GraphNode node : country_nodes)
 				{
 					owned_by_player.add(node.getNodeData().getCountryName());
-					System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
+					//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
 				}
 				System.out.println("Enter the country name");
 				String country_name = scan.nextLine();
@@ -95,25 +94,27 @@ public class StartUpPhase
 					System.out.println("Enter the number of armies to place..");
 					int armies=scan.nextInt();
 					System.out.println(armies);
-					if(armies<player.getPlayerArmies())
+					if(armies<=player.getPlayerArmies())
 					{
-						System.out.println("making changes 1");
 						for (GraphNode node : country_nodes)
 						{
 							System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
-							if (node.getNodeData().getCountryName()==country_name.trim())
+							if (node.getNodeData().getCountryName().equals(country_name.trim()))
 							{
-								System.out.println("making changes");
 								node.getNodeData().setArmies(node.getNodeData().getArmies()+armies);
 								player.decrementArmies(armies);
 							}
 						}
 					}
 					else
+					{
 						System.out.println("No sufficient armies");
+					}
 				}
 				else
+				{
 					System.out.println("Country not found...try again");
+				}
 			}
 		}
 	}

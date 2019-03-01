@@ -17,12 +17,15 @@ public class Player
 {
    
 	private final String playersName;
-	private int army; 
+	private int army; //rem=name
 	private Hand hand;
-	
+	// create a player graph..
 	ArrayList<GraphNode> countryNode;
-	ArrayList<Continent> continent;
+	
+	ArrayList<Continent> continent; // remove
 	public static int turnInCardsCount; // static because for every player object the count should be incremented
+	
+	
 	public Player(String playersName,int army) throws NullPointerException
 	{
 		 if (playersName == null) throw new NullPointerException("Null Player name");
@@ -95,7 +98,7 @@ public class Player
 	  int armiesForContinentsBonus = 0;
 	  int armiesForCards = 0;
 	  int totalArmiesToAdd = 0;
-	  if(this.getCountry().size() < 12)
+	  if(this.getCountry().size() < 9)
 	  {
 		  armiesForCountries = 3;
 	  }
