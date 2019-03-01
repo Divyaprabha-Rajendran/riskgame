@@ -9,7 +9,14 @@ package ca.riskgamet31.maincomps;
  */
 public class Card {
 	
+	/**
+	 * Type of card
+	 */
 	private final String type;
+	
+	/**
+	 * Country object
+	 */
     private final Country country;
     
     /**
