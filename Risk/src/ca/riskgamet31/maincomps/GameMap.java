@@ -2,6 +2,8 @@ package ca.riskgamet31.maincomps;
 
 import java.util.HashMap;
 
+import sun.misc.Contended;
+
 /**
  * main map Object
  * 
@@ -123,6 +125,34 @@ public class GameMap
 		}
 	  
 	  
+	}
+	
+	/**
+	 * will return number of armies the player will get by owning complete continents
+	 * 
+	 * @param playerName player name to get additional continent bonus for
+	 * @return number of armies the player will get by owning complete continents
+	 */
+	
+	public int bonusArmiesForPlayer (String playerName)
+	
+	  {
+	  
+		int playersbonusArmies = 0;
+		
+	  for (Continent continent: this.getContinentsList().values())
+		{
+		  
+		  		if (!(continent.getContinentGraph().getGraphNodes()
+		  			.stream().map((c) -> c.getNodeData().getCurrentOccupier())
+		  			.anyMatch((o) -> !o.equals(playerName))))
+		  		  {
+		  			playersbonusArmies += continent.getAdditionalBonusArmies();
+		  		  }
+		  
+		}
+		
+	  return playersbonusArmies;
 	}
 	
   }
