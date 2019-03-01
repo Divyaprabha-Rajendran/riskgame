@@ -26,6 +26,11 @@ public class StartGame
 		StartUp = new StartUpPhase();
 	}
 	
+	public void getMapInput()
+	{
+		
+	}
+	
 	public void createGameMap(String xmlpath)
 	{
 		CreateMap cmap=new CreateMap(xmlpath);
@@ -70,7 +75,7 @@ public class StartGame
     	
     	for (Player player : game.Players.getPlayerList())
     	{
-    		System.out.println(player.getplayersName());
+    		System.out.println(player.getplayerName());
     		for (GraphNode node : player.getCountry())
     		{
     			System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
