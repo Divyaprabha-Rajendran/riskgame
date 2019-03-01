@@ -42,7 +42,7 @@ public class Country extends Observable
    * @param countryName       name of county
    * @param neighbours ArryList of countries
    */
-  public Country(String countryName, ArrayList<Country> neighbours) throws NullPointerException
+  public Country(String countryName) throws NullPointerException
 	{
 	  super();
 	  
@@ -56,16 +56,7 @@ public class Country extends Observable
 	  
 	}
   
-  /**
-   * Creates new country object.
-   * 
-   * @param countryName name of country
-   */
-  public Country(String countryName)
-	{
-	  this(countryName, new ArrayList<Country>());
-	}
-  
+    
   /**
    * return the name of country.
    * 
