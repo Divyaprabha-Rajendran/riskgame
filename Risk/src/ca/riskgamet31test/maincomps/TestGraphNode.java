@@ -44,7 +44,7 @@ public class TestGraphNode {
 	void setUp() throws Exception
 	  {
 		ArrayList<Country> neighbours = new ArrayList<>();
-		Country c = new Country("India", neighbours);
+		Country c = new Country("India");
 		GraphNode Gn = new GraphNode(c);
 	  }
 	  
@@ -60,7 +60,7 @@ public class TestGraphNode {
 	public void testgetNodeData()
 	  {
 		ArrayList<Country> neighbours = new ArrayList<>();
-		Country c = new Country("India", neighbours);
+		Country c = new Country("India");
 		GraphNode Gn = new GraphNode(c);
 		String con ="India";
 		assertEquals(con, Gn.getNodeData().toString());
@@ -79,7 +79,7 @@ public class TestGraphNode {
 	public void TestgetDistance()
 	  {
 		ArrayList<Country> neighbours = new ArrayList<>();
-		Country c = new Country("India", neighbours);
+		Country c = new Country("India");
 		GraphNode Gn = new GraphNode(c);
 		assertEquals(3, Gn.getDistance());
 	  }
@@ -89,7 +89,7 @@ public void TestgetParentNode()
 {     
 String con ="asia";
 ArrayList<Country> neighbours = new ArrayList<>();
-Country c = new Country("India", neighbours);
+Country c = new Country("India");
 GraphNode Gn = new GraphNode(c);
 	assertEquals(con, Gn.getNodeData().toString());
 }
