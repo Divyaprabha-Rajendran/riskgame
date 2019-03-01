@@ -36,6 +36,7 @@ public class Player
 		 this.army=army; 
 		// this.countryNode=new ArrayList<GraphNode>(); 
 		 //this.continent=new ArrayList<Continent>(); 
+		 playerCountryGraph = new Graph();
 		 hand = new Hand();
 	}
 	
