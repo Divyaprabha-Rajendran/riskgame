@@ -70,7 +70,7 @@ public class StartGame
     	
     	for (Player player : game.Players.getPlayerList())
     	{
-    		System.out.println(player.getplayersName());
+    		System.out.println(player.getplayerName());
     		for (GraphNode node : player.getCountry())
     		{
     			System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
