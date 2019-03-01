@@ -9,7 +9,6 @@ import ca.riskgamet31.maincomps.Continent;
 
 /**
  * To validate the map input data.
- * yet to be implemented
  * 
  * @author Divyaprabha Rajendran
  * @version 1.1
@@ -113,7 +112,6 @@ public class ValidationMapInput
        public boolean checkLinks(String fromName, String ToName, HashSet<String> continentSet)
        
        {
-    	 
     	 
     	 return continentSet.contains(ToName) || continentSet.contains(fromName)|| ToName.equals(fromName);
     	 

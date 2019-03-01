@@ -30,6 +30,12 @@ import org.w3c.dom.Element;
  * @since 1.0
  */
 
+
+/**
+ * @author SONY
+ *
+ */
+
 public class CreateMap 
 {
 	
@@ -44,6 +50,8 @@ public class CreateMap
 		
 	}
 	
+	
+	
 	public CreateMap(String xmlPath)
 	{
 		xmlFile = new File(xmlPath);
@@ -52,6 +60,11 @@ public class CreateMap
 		countryMap=new HashMap<String,GraphNode>();
 		mapData=new HashMap<String,Continent>();
 	}
+	
+	/**
+	 * Create a document builder and factory to load the xml file and its contents.
+	 *
+	 */
 	
 	public void loadMapData()
 	{
@@ -79,7 +92,11 @@ public class CreateMap
         
 	}
 	
-	
+	/**
+	 * creates a GraphNode and creates a country and assign it to GraphNode
+	 * @param name of the country object
+	 *
+	 */
 	public GraphNode createGraphNode(String countryName)
 	{
 		countrySet.add(countryName);
@@ -89,6 +106,14 @@ public class CreateMap
 		return newNode;
 	}
 	
+	/**
+	 * Create a continent object, assign the name,additionalBonusArmies and country read from XML file.
+	 * @param ContinentName
+	 * @param additionalBonusArmies
+	 * @param countriesList
+	 * @return continent Object 
+	 */
+	
 	public Continent createContinents(String ContinentName, int additionalBonusArmies, ArrayList<GraphNode> countriesList)
 	{
 		continentSet.add(ContinentName);
@@ -97,6 +122,12 @@ public class CreateMap
 		return currentContinent;
 	}
 	
+	/**
+	 * Get all countries belonging to a continent read from XML file.
+	 * @param continentElement 
+	 * @return countriesList an arraylist of countries.
+	 *
+	 */
 	public ArrayList<GraphNode> getCountries(Element continentElement) 
 	{
 		ArrayList<GraphNode> countriesList = new ArrayList<GraphNode>();
@@ -112,6 +143,11 @@ public class CreateMap
         
         return countriesList;
 	}
+	
+	/**
+	 * Get all the continent elements from XML file.
+	 *
+	 */
 	
 	public void getContinents()
 	{
@@ -132,6 +168,11 @@ public class CreateMap
 		}
 	}
 	
+	/**
+	 * Get the links elements from the XML file and get the from-country and to-country.
+	 *
+	 */
+	
 	public void processLinks()
 	{
 		NodeList linkList = xmlDoc.getElementsByTagName("link");
@@ -150,6 +191,12 @@ public class CreateMap
 		}
 		System.out.println("***********************************************************************************");
 	}
+	
+	/**
+	 * Establish link from a country to another country by adding it to each others's neighbours list. 
+	 * @param from_country
+	 * @param to_country
+	 */
 	
 	public void addLinks(String from_country,String to_country)
 	{
@@ -179,12 +226,23 @@ public class CreateMap
 		
 	}
 	 
+	/**
+	 * returns all the GraphNode objects with countries as arraylist
+	 *
+	 */
+
 	public ArrayList<GraphNode> getAllCountryNodes()
 	{
 		ArrayList<GraphNode> countryNodes = new ArrayList<GraphNode>(countryMap.values());
 		return countryNodes;
 	}
 	
+	/**
+	 * displays all the countries available within the continent
+	 * @param contienent 
+	 *
+	 */
+
 	public void displayContinentGraph(Continent continent)
 	{ 
 		Graph continentGraph = continent.getContinentGraph();
@@ -213,6 +271,11 @@ public class CreateMap
 		return countryMap.get(countryName).getNodeData();
     }
 	
+	/**
+	 * displays the contents of the gameMap. 
+	 *
+	 */
+	
 	public void displayMap()
 	{
 		for (Entry<String, Continent> entry : mapData.entrySet())
@@ -231,10 +294,6 @@ public class CreateMap
 		processLinks();
 		return mapData;
 	}
-
-	
-	
-	
 	
 	public File getXmlFile()
 	  {
