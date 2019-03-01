@@ -33,12 +33,12 @@ import org.w3c.dom.Element;
 public class CreateMap 
 {
 	
-	File xmlFile=null;
-	Document xmlDoc=null;
-	HashSet<String> countrySet=null;
-	HashSet<String> continentSet = null;
-	HashMap<String,GraphNode> countryMap = null;
-	HashMap<String,Continent> mapData = null;
+	private File xmlFile=null;
+	private Document xmlDoc=null;
+	private HashSet<String> countrySet=null;
+	private HashSet<String> continentSet = null;
+	private HashMap<String,GraphNode> countryMap = null;
+	private HashMap<String,Continent> mapData = null;
 	
 	public CreateMap() {
 		
@@ -231,7 +231,71 @@ public class CreateMap
 		processLinks();
 		return mapData;
 	}
+
 	
+	
+	
+	
+	public File getXmlFile()
+	  {
+		return xmlFile;
+	  }
+
+	public void setXmlFile(File xmlFile)
+	  {
+		this.xmlFile = xmlFile;
+	  }
+
+	public Document getXmlDoc()
+	  {
+		return xmlDoc;
+	  }
+
+	public void setXmlDoc(Document xmlDoc)
+	  {
+		this.xmlDoc = xmlDoc;
+	  }
+
+	public HashSet<String> getCountrySet()
+	  {
+		return countrySet;
+	  }
+
+	public void setCountrySet(HashSet<String> countrySet)
+	  {
+		this.countrySet = countrySet;
+	  }
+
+	public HashSet<String> getContinentSet()
+	  {
+		return continentSet;
+	  }
+
+	public void setContinentSet(HashSet<String> continentSet)
+	  {
+		this.continentSet = continentSet;
+	  }
+
+	public HashMap<String, GraphNode> getCountryMap()
+	  {
+		return countryMap;
+	  }
+
+	public void setCountryMap(HashMap<String, GraphNode> countryMap)
+	  {
+		this.countryMap = countryMap;
+	  }
+
+	public HashMap<String, Continent> getMapData()
+	  {
+		return mapData;
+	  }
+
+	public void setMapData(HashMap<String, Continent> mapData)
+	  {
+		this.mapData = mapData;
+	  }
+
 	public static void main(String args[])
 	{
 		CreateMap cmap=new CreateMap("C:\\Users\\Yash Doshi\\git\\master\\Risk\\Risk_MapData\\map.xml");
