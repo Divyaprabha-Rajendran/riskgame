@@ -11,7 +11,11 @@ import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.maincomps.PlayerModel;
 import ca.riskgamet31.Configuration.Constants;
 
-
+/**
+ * Creates players, assign countries to players and distributes players according to player's input.
+ * @author Divyaprabha Rajendran
+ *
+ */
 public class StartUpPhase 
 {
 	private int playerCount;
@@ -25,10 +29,15 @@ public class StartUpPhase
 		this.playerCount = playerCount;
 	}
 
-	
-	public int getArmy(int NoOfPlayers)
+	/**
+	 * returns the number of armies for each player according to number of players.
+	 * @param noOfPlayers
+	 * @return numberOfArmies.
+	 */
+
+	public int getArmy(int noOfPlayers)
 	  {
-		  switch (NoOfPlayers)
+		  switch (noOfPlayers)
 		  {
 		case 3:
 			return Constants.ARMIES_3_PLAYERS;
@@ -43,13 +52,26 @@ public class StartUpPhase
 		  }
 	  }
 	
-	
+	/**
+	 *Creates a player object and add it to playermodel
+	 * @param playername
+	 * @return player
+	 *
+	 */
+
 	public Player createPlayers(String playerName)
 	{
 		int army_count=getArmy(playerCount);
 		Player player=new Player(playerName,army_count);
 		return player;
 	}
+	
+	/**
+	 * Distribute the countries available among players in  roundrobin fashion.
+	 * @param players
+	 * @param gamemap
+	 *
+	 */
 	
 	public void distributeCountries(PlayerModel players, GameMap map )
 	{
@@ -74,6 +96,12 @@ public class StartUpPhase
 				watchdog=0;
 		}
 	}
+	
+	/**
+	 * Distribute the armies of every player among the countries the player owns. 
+	 * The method executes till all the player's armies are distributed.
+	 * @param players 
+	 */
 	
 	public void distributeArmies(PlayerModel players)
 	{
