@@ -94,12 +94,24 @@ public class ValidationMapInput
     	 
        }
        
+       /**
+        * check if the country name is a continent name.
+        * @param countryName
+        * @param continentSet
+        */
+
        public boolean checkCountryAgainstContinents(String countryName, HashSet<String> continentSet)
        {
     	
     	 return continentSet.contains(countryName);
     	 
        }
+       
+       /**
+        * check if the continent name is a country name.
+        * @param continentName
+        * @param countrySet
+        */
        
        public boolean checkContinentAgainstCountries(String continentName, HashSet<String> countrySet)
          {
@@ -108,6 +120,12 @@ public class ValidationMapInput
       	 
          }
        
+       /**
+        * check that both from and to country are not same and not a continent name.
+        * @param fromName
+        * @param ToName
+        * @param continentSet
+        */
        
        public boolean checkLinks(String fromName, String ToName, HashSet<String> continentSet)
        
@@ -116,6 +134,4 @@ public class ValidationMapInput
     	 return continentSet.contains(ToName) || continentSet.contains(fromName)|| ToName.equals(fromName);
     	 
        }
-       
-      
 }
