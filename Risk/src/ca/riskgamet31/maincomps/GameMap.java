@@ -18,12 +18,22 @@ public class GameMap
 	/**
 	 * a list of continent objects composing the map
 	 */
-	private HashMap<String,Continent> continentsList = new HashMap<>();
+	private HashMap<String,Continent> continentsList;
 	/**
 	 * a graph object consists of all map nodes
 	 */
-	private Graph gameMapGraph = new Graph();
+	private Graph gameMapGraph ;
 	
+	/**
+	 * Constructor to create map element objects.
+	 */
+	
+	public GameMap()
+	{
+	  gameMapFile = "";
+	  gameMapGraph = new Graph();
+	  continentsList = new HashMap<>();
+	}
 	
 	/**
 	 * @param mapFile reference map xml file
@@ -33,6 +43,7 @@ public class GameMap
 	public GameMap(String gameMapFile, HashMap<String, Continent> continentsList,
 	    Graph gameMapGraph)
 	  {
+		this();
 		this.gameMapFile = gameMapFile;
 		this.continentsList = continentsList;
 		this.gameMapGraph = gameMapGraph;
@@ -95,5 +106,23 @@ public class GameMap
 	  {
 		this.gameMapGraph = mapGraph;
 	  }
+	
+	/**
+	 * 
+	 * to view Maps continent information
+	 * 
+	 */
+	
+	public void viewGameMap() {
+	  
+	  for (Continent continent : this.getContinentsList().values())
+		{
+		  
+		  continent.viewContinent();
+		  
+		}
+	  
+	  
+	}
 	
   }

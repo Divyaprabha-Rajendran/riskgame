@@ -107,4 +107,16 @@ public class Continent
 		return "Continent [continent Name=" + continentName + ", Bonus Armies=" + additionalBonusArmies + "]";
 	  }
 	
+	/**
+	 * 
+	 */
+	
+	public void viewContinent() {
+	  
+	  System.out.println(this.toString());
+	  
+	  this.getContinentGraph().viewGraph();
+	  
+	}
+	
   }

@@ -35,6 +35,7 @@ public class CreateMap
 	
 	File xmlFile=null;
 	Document xmlDoc=null;
+	HashSet<String> countrySet=null;
 	HashSet<String> continentSet = null;
 	HashMap<String,GraphNode> countryMap = null;
 	HashMap<String,Continent> mapData = null;
@@ -46,6 +47,7 @@ public class CreateMap
 	public CreateMap(String xmlPath)
 	{
 		xmlFile = new File(xmlPath);
+		countrySet=new HashSet<String>();
 		continentSet=new HashSet<String>();
 		countryMap=new HashMap<String,GraphNode>();
 		mapData=new HashMap<String,Continent>();
@@ -80,6 +82,7 @@ public class CreateMap
 	
 	public GraphNode createGraphNode(String countryName)
 	{
+		countrySet.add(countryName);
 		Country currentCountry=new Country(countryName);
 		GraphNode newNode = new GraphNode(currentCountry);
 		countryMap.put(countryName,newNode);
@@ -175,6 +178,12 @@ public class CreateMap
 		}
 		
 	}
+	 
+	public ArrayList<GraphNode> getAllCountryNodes()
+	{
+		ArrayList<GraphNode> countryNodes = new ArrayList<GraphNode>(countryMap.values());
+		return countryNodes;
+	}
 	
 	public void displayContinentGraph(Continent continent)
 	{ 
@@ -204,7 +213,7 @@ public class CreateMap
 		return countryMap.get(countryName).getNodeData();
     }
 	
-	public void displayMap(HashMap<String,Continent> mapData)
+	public void displayMap()
 	{
 		for (Entry<String, Continent> entry : mapData.entrySet())
 		{
@@ -215,14 +224,22 @@ public class CreateMap
 		}
 	}
 	
+	public HashMap<String,Continent> generateGraph() 
+	{
+		loadMapData();
+		getContinents();
+		processLinks();
+		return mapData;
+	}
+	
 	public static void main(String args[])
 	{
 		CreateMap cmap=new CreateMap("C:\\Users\\Yash Doshi\\git\\master\\Risk\\Risk_MapData\\map.xml");
 		cmap.loadMapData();
 		cmap.getContinents();
 		System.out.println(cmap.mapData.size());
-		cmap.displayMap(cmap.mapData);
+		cmap.displayMap();
 		cmap.processLinks();
-		cmap.displayMap(cmap.mapData);
+		cmap.displayMap();
 	}
 }

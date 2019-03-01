@@ -28,6 +28,8 @@ public class Player
 		 if (playersName == null) throw new NullPointerException("Null Player name");
 		 this.playersName=playersName;
 		 this.army=army; 
+		 this.countryNode=new ArrayList<GraphNode>(); 
+		 this.continent=new ArrayList<Continent>(); 
 		 hand = new Hand();
 	}
 	
@@ -40,6 +42,7 @@ public class Player
 	{
 		this.countryNode.add(country);
 	}
+	
 	public ArrayList<GraphNode> getCountry()
 	{
 		return countryNode;
