@@ -14,21 +14,42 @@ import ca.riskgamet31.mapdata.CreateMap;
 /**
  * main Players class
  * 
- * @author Chitra
+ * @author YD
  * @version 1.0
  * @since 1.0
  */
 public class Player
 {
-   
+	/**
+	 * Player's Name
+	 */
 	private final String playersName;
-	private int army; //rem=name
-	private Hand hand; // create a player graph..
+	/**
+	 * Armies that player contains for reinforcement phase
+	 */
+	private int army;
+	/**
+	 * Player's hand to hold cards
+	 */
+	private Hand hand;
+	/**
+	 * Processing list for the graph node used to check path
+	 */
 	private LinkedList<GraphNode> processingList;
+	/**
+	 * Player Graph
+	 */
 	private Graph playerCountryGraph;
+	/**
+	 * Turn In count during game
+	 */
 	public static int turnInCardsCount; // static because for every player object the count should be incremented
 	
-	
+	/**
+	 * Constructs a new Player object
+	 * @param Player's name
+	 * @param Armies that player contains for reinforcement phase
+	 */
 	public Player(String playersName,int army) throws NullPointerException
 	{
 		 if (playersName == null) throw new NullPointerException("Null Player name");
@@ -44,7 +65,10 @@ public class Player
 	{
 		return playersName;
 	}
-		
+	/**
+	 * To add country GraphNode to player's graph
+	 * @param Country graph node
+	 */
 	public void addCountry(GraphNode country)
 	{
 		this.playerCountryGraph.addNode(country);
@@ -54,7 +78,10 @@ public class Player
 	{
 		return playerCountryGraph.getGraphNodes();
 	}
-	
+	/**
+	 * To remove country from player's graph
+	 * @param Country graph node
+	 */
 	public void removeCountry(GraphNode country)
 	{
 		this.playerCountryGraph.removeNode(country);
@@ -62,6 +89,10 @@ public class Player
 	}
   
 //YD 
+	/**
+	 * To calculate the reinforcement armies
+	 * @return No. of reinforcement armies that player will get
+	 */
 	public int reinforcementArmiesCalc()
 	  {
 		  int armiesForCountries = 0;
@@ -82,12 +113,20 @@ public class Player
 	  }
   
   //YD 
+	/**
+	 * To increment reinforcemet armies in player's graph
+	 * @param No. of armies to be incremented
+	 */
   public void incrementArmies(int a)
   {
 	  this.army += a; 
   }
   
   //YD
+  	/**
+	 * To decrement reinforcemet armies in player's graph
+	 * @param No. of armies to be decremented
+	 */
   public void decrementArmies(int a)
   {
 	  this.army -= a; 
@@ -105,6 +144,10 @@ public class Player
 	  return turnInCardsCount;
   }
   //YD
+  	/**
+	 * To add a new card to player's hand
+	 * @param card object
+	 */
   public void addNewCard(Card card)
   {
 	  hand.addCard(card);
@@ -115,44 +158,64 @@ public class Player
 	  return hand.getCardsFromHand();
   }
   //YD
+  	/**
+	 * To remove cards from player's hand
+	 * @param indicies of cards to be removed
+	 */
   public void removeCards(int[] cardIndexes)
   {
 	  hand.removeCardsFromHand(cardIndexes[0], cardIndexes[1], cardIndexes[2]);
   }
   //YD
+  	/**
+	 * To calculate the reinforcement armies by turning in cards
+	 * @return reinforcement armies by turning in cards value
+	 */
   public int turnInCardsArmies()
   {
 	  int turnInCardsArmiesCount = turnInCardsCount * 5;
 	  return turnInCardsArmiesCount;
   }
   //YD
+  	/**
+	 * Reinfrce phase starting method
+	 * according to user's entered armies, reinforcement will be performed
+	 * @param Name of country to reinforce
+	 */
   public void reinforce(String countryName) {
 		CreateMap mp = new CreateMap();
 		Country co = mp.getCountryByName(countryName);
-		if(co.getCurrentOccupier().equalsIgnoreCase("dummy") || this.getplayerName().equals(co.getCurrentOccupier()))
+		if(co != null)
 		{
-			int armiesToPut = 0;
-			//rnd = new Random();
-			this.reinforcementArmiesCalc();
-			int reinforcementArmiesCount = this.getPlayerArmies();
-			System.out.println("Total available reinforcements are " + reinforcementArmiesCount);
-			System.out.println("How many armies do you want to put to reinforce country " + countryName);
-			Scanner s = new Scanner(System.in);
-			try {
-				armiesToPut = Integer.parseInt(s.nextLine());
-			}
-			catch(NumberFormatException e)
+			if(co.getCurrentOccupier().equalsIgnoreCase("dummy") || this.getplayerName().equals(co.getCurrentOccupier()))
 			{
-				System.out.println("Please, enter a valid input");
-			}
-			if(armiesToPut > reinforcementArmiesCount)
-			{
-				System.out.println("Input should be less than reinforcements you have");
+				int armiesToPut = 0;
+				//rnd = new Random();
+				this.reinforcementArmiesCalc();
+				int reinforcementArmiesCount = this.getPlayerArmies();
+				System.out.println("Total available reinforcements are " + reinforcementArmiesCount);
+				System.out.println("How many armies do you want to put to reinforce country " + countryName);
+				Scanner s = new Scanner(System.in);
+				try {
+					armiesToPut = Integer.parseInt(s.nextLine());
+				}
+				catch(NumberFormatException e)
+				{
+					System.out.println("Please, enter a valid input");
+				}
+				if(armiesToPut > reinforcementArmiesCount)
+				{
+					System.out.println("Input should be less than reinforcements you have");
+				}
+				else
+				{
+					this.decrementArmies(armiesToPut);
+					co.increaseArmies(armiesToPut);
+				}
 			}
 			else
 			{
-				this.decrementArmies(armiesToPut);
-				co.increaseArmies(armiesToPut);
+				System.out.println("Please choose correct input");
 			}
 		}
 		else
@@ -161,44 +224,56 @@ public class Player
 		}
 	}
 //YD
+	/**
+	 * Fortification phase starting method
+	 * according to user's entered armies, fortification will be performrd
+	 * @param Name of country to reinforce
+	 */
 public void fortification(String countryOne, String countryTwo)
 {
 	  	CreateMap mp = new CreateMap();
 		Country coOne = mp.getCountryByName(countryOne);
 		Country coTwo = mp.getCountryByName(countryTwo);
 		int armiesToTransfer = 0;
-		if(this.getplayerName().equals(coOne.getCurrentOccupier()) && this.getplayerName().equals(coTwo.getCurrentOccupier()))
+		if(coOne != null && coTwo != null)
 		{
-			//check that both countries have same occupier
-			if(this.findPath(countryOne, countryTwo))
+			if(this.getplayerName().equals(coOne.getCurrentOccupier()) && this.getplayerName().equals(coTwo.getCurrentOccupier()))
 			{
-				System.out.println("Enter how many armies you want to fortify from " + countryOne + " to " + countryTwo);
-				Scanner s = new Scanner(System.in);
-				try {
-					armiesToTransfer = Integer.parseInt(s.nextLine());
-				}
-				catch(NumberFormatException e)
+				//check that both countries have same occupier
+				if(this.findPath(countryOne, countryTwo))
 				{
-					System.out.println("Please, enter a valid input");
-				}
-				if(coOne.getArmies() >= armiesToTransfer)
-				{
-					coOne.reduceArmies(armiesToTransfer);
-					coTwo.increaseArmies(armiesToTransfer);	
+					System.out.println("Enter how many armies you want to fortify from " + countryOne + " to " + countryTwo);
+					Scanner s = new Scanner(System.in);
+					try {
+						armiesToTransfer = Integer.parseInt(s.nextLine());
+					}
+					catch(NumberFormatException e)
+					{
+						System.out.println("Please, enter a valid input");
+					}
+					if(coOne.getArmies() >= armiesToTransfer)
+					{
+						coOne.reduceArmies(armiesToTransfer);
+						coTwo.increaseArmies(armiesToTransfer);	
+					}
+					else
+					{
+						System.out.println("You do not have " + armiesToTransfer + " armies to transfer from " + countryOne + " to " + countryTwo);
+					}
 				}
 				else
 				{
-					System.out.println("You do not have " + armiesToTransfer + " armies to transfer from " + countryOne + " to " + countryTwo);
+					System.out.println("There is no valid path between " + countryOne + " to " + countryTwo);
 				}
 			}
 			else
 			{
-				System.out.println("There is no valid path between " + countryOne + " to " + countryTwo);
+				System.out.println("Both countries are not own by same player");
 			}
 		}
 		else
 		{
-			System.out.println("Both countries are not own by same player");
+			System.out.println("Input is not valid");
 		}
 }
 //YD
@@ -207,6 +282,12 @@ public LinkedList<GraphNode> getProcessingList()
 	return processingList;
 }
 //YD
+/**
+ * To check that whether there is any path possible from given country to given country 
+ * @param Country name from the path should be checked
+ * @param Country name to the given country
+ * @return whether that path is exist or not
+ */
 public boolean findPath(String fromCountry, String toCountry)
 {
 	  boolean pathExists = false;
@@ -257,6 +338,9 @@ public boolean findPath(String fromCountry, String toCountry)
 			return pathExists;
 		  }
 //YD
+/**
+ * to clear all graphnodes from processing list
+ */
 public void cleanProcessingData()
 {
 	
