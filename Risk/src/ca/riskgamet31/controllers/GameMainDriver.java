@@ -19,6 +19,13 @@ import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.maincomps.PlayerModel;
 import ca.riskgamet31.mapdata.CreateMap;
 
+/**
+ * Main driver class for the execution of game.
+ * Loading map, creating players and distribution of countries and armies happens here.
+ * @author Divyaprabha Rajendran
+ * @version 1.0
+ *
+ */
 public class GameMainDriver
   {
 	
@@ -33,6 +40,12 @@ public class GameMainDriver
 		StartUp = new StartUpPhase();
 	}
 	
+	/**
+	 * Gives different options to create a gamemap and returns the file path of the chosen XML file
+	 * @return xmlFilePath
+	 *
+	 */
+
 	public String getFileInput() throws IOException
 	{
 		File xmlFile = new File("C:\\Users\\SONY\\Java_workspace\\Risk\\Risk\\Risk_MapData\\default_map.xml");
@@ -96,6 +109,12 @@ public class GameMainDriver
 
 	}
 	
+	/**
+	 * Creates the gamemap from the CreateMap Class for the player.
+	 * @param xmlPath
+	 *
+	 */
+
 	public void createGameMap(String xmlpath)
 	{
 		CreateMap cmap=new CreateMap(xmlpath);
@@ -107,6 +126,12 @@ public class GameMainDriver
 		cmap.displayMap();	
 	}
 	
+	/**
+	 * Creates players for the game after checking pre-conditions.
+	 * A player name cannot have special characters and duplication is not allowed.
+	 * 
+	 */
+
 	public void createPlayer()
 	{
 		Scanner scan = new Scanner(System.in);
@@ -138,13 +163,19 @@ public class GameMainDriver
     	}
 	}
 	
+	/**
+	 * sets up the game by calling the distributeCountries which randomly distributes countries among players.
+	 * Once the countries are distributed, armies are distributed among countries the player own.
+	 *
+	 */
+
 	public void setUpGame()
 	{
 		StartUp.distributeCountries(Players, Risk);
 		StartUp.distributeArmies(Players);
 	}
 	
-	
+		
 	public static void main(String[] args)
 	  {
 		
