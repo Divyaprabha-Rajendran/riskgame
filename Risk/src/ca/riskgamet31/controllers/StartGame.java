@@ -26,6 +26,11 @@ public class StartGame
 		StartUp = new StartUpPhase();
 	}
 	
+	public void getMapInput()
+	{
+		
+	}
+	
 	public void createGameMap(String xmlpath)
 	{
 		CreateMap cmap=new CreateMap(xmlpath);
