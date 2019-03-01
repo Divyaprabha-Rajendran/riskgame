@@ -87,7 +87,7 @@ public class StartUpPhase
 				for (GraphNode node : country_nodes)
 				{
 					owned_by_player.add(node.getNodeData().getCountryName());
-					//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
+					System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
 				}
 				System.out.println("Enter the country name");
 				String country_name = scan.next().trim().toUpperCase();
