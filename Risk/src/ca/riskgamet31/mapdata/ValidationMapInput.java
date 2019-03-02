@@ -34,10 +34,10 @@ public class ValidationMapInput
     	 * @param countryName country name to check
     	 * @return true if valid country name
     	 */
-       public boolean validateCountryName(String countryName)
+       public boolean validateCountryorContinentName(String Name)
        {
 
-    	 Matcher countryNameMatcher	= validCountryNamePattern.matcher(countryName);
+    	 Matcher countryNameMatcher	= validCountryNamePattern.matcher(Name);
 
     	   return countryNameMatcher.matches();
        }
