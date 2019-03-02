@@ -132,12 +132,12 @@ public class CreateMap
 	{
 		ArrayList<GraphNode> countriesList = new ArrayList<GraphNode>();
 		NodeList countryList = continentElement.getElementsByTagName("country");
-        System.out.println(countryList.getLength());
+        //System.out.println(countryList.getLength());
         for (int temp = 0; temp < countryList.getLength(); temp++)
 		{
         	Node countryNode = countryList.item(temp);
         	String country_name=countryNode.getTextContent();
-        	System.out.println("Creating country "+country_name);
+        	//System.out.println("Creating country "+country_name);
         	countriesList.add(createGraphNode(country_name));
 		}
         
@@ -160,10 +160,10 @@ public class CreateMap
 				Element continentElement = (Element) continentNode;
 				String continentName=continentElement.getElementsByTagName("name").item(0).getTextContent();
 				int additionalBonusArmies=Integer.parseInt(continentElement.getElementsByTagName("bonus-armies").item(0).getTextContent());
-				System.out.println("Creating continent "+continentName);
+				//System.out.println("Creating continent "+continentName);
 				ArrayList<GraphNode> countriesList=getCountries(continentElement);
 				mapData.put(continentName, createContinents(continentName, additionalBonusArmies, countriesList));
-				System.out.println("**************************************************************************");
+				//System.out.println("**************************************************************************");
 			}
 		}
 	}
@@ -185,11 +185,11 @@ public class CreateMap
 				Element curr_element = (Element) curr_node;
 				String from_country=curr_element.getElementsByTagName("from-country").item(0).getTextContent();
 				String to_country=curr_element.getElementsByTagName("to-country").item(0).getTextContent();
-				System.out.println("processing links for "+to_country);
+				//System.out.println("processing links for "+to_country);
 				addLinks(from_country, to_country);
 			}
 		}
-		System.out.println("***********************************************************************************");
+		//System.out.println("***********************************************************************************");
 	}
 	
 	/**
@@ -259,7 +259,7 @@ public class CreateMap
 				neighbours=neighbours+n_node.getNodeData().getCountryName()+",";
 			}
 			
-			System.out.println(continent.getContinentName()+"--->"+curr_country+"--------->"+neighbours);
+			//System.out.println(continent.getContinentName()+"--->"+curr_country+"--------->"+neighbours);
 		}
 	}
 	
@@ -282,7 +282,10 @@ public class CreateMap
 		{
 			String key = entry.getKey().toString();
 			Continent continent = entry.getValue();
-			displayContinentGraph(continent);
+			// changed by fareed to test continent built in continentView method
+			continent.viewContinent();
+			//displayContinentGraph(continent);
+			System.out.println();
 			System.out.println("***************************************************************************");
 		}
 	}
@@ -360,7 +363,7 @@ public class CreateMap
 		CreateMap cmap=new CreateMap("C:\\Users\\Yash Doshi\\git\\master\\Risk\\Risk_MapData\\map.xml");
 		cmap.loadMapData();
 		cmap.getContinents();
-		System.out.println(cmap.mapData.size());
+		//System.out.println(cmap.mapData.size());
 		cmap.displayMap();
 		cmap.processLinks();
 		cmap.displayMap();

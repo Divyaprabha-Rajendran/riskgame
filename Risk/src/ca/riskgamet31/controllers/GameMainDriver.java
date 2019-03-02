@@ -48,7 +48,7 @@ public class GameMainDriver
 
 	public String getFileInput() throws IOException
 	{
-		File xmlFile = new File("C:\\Users\\SONY\\Java_workspace\\Risk\\Risk\\Risk_MapData\\default_map.xml");
+		File xmlFile = new File("Risk_MapData\\default_map.xml");
 		Scanner scan = new Scanner(System.in);
 		
 	    
@@ -82,7 +82,7 @@ public class GameMainDriver
 	    		break;
 	    		}
 	    case 2: {
-	    		xmlFile = new File("C:\\Users\\SONY\\Java_workspace\\Risk\\Risk\\Risk_MapData\\edit_default_map.xml");
+	    		xmlFile = new File("Risk_MapData\\edit_default_map.xml");
 	    		if (Desktop.isDesktopSupported())
 	            	{
 	                	Desktop.getDesktop().open(xmlFile);
@@ -94,7 +94,7 @@ public class GameMainDriver
 	    		break;
 	    		}
 	    case 3: {
-	    		xmlFile = new File("C:\\Users\\SONY\\Java_workspace\\Risk\\Risk\\Risk_MapData\\default_map.xml");
+	    		xmlFile = new File("Risk_MapData\\default_map.xml");
 	    		break;
 	    		}
 	    case 4:

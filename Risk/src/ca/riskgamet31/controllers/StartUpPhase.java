@@ -1,5 +1,6 @@
 package ca.riskgamet31.controllers;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -77,15 +78,19 @@ public class StartUpPhase
 	{
 		ArrayList<GraphNode> graph_nodes = map.getGameMapGraph().getGraphNodes();
 		int watchdog=0;
-		for (GraphNode node : graph_nodes)
-		{
-			if(watchdog<playerCount)
+		// changed by fareed to provide random distribution even for the same map file
+		//for (GraphNode node : graph_nodes)
+		SecureRandom random = new SecureRandom();
+		
+		while (graph_nodes.size() > 0){
+			GraphNode node = graph_nodes.remove(random.nextInt(graph_nodes.size()));
+		  if(watchdog<playerCount)
 			{
 				Player curr_player=players.getPlayerList().get(watchdog);
 				//System.out.println(curr_player.getplayersName());
 				//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
-				System.out.println(curr_player.getplayerName());
-				System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
+				//System.out.println(curr_player.getplayerName());
+				//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
 				curr_player.addCountry(node);
 				curr_player.decrementArmies(1);
 				node.getNodeData().setCurrentOccupier(curr_player.getplayerName());
@@ -107,17 +112,19 @@ public class StartUpPhase
 	{
 		Scanner scan = new Scanner(System.in);
 		for (Player player : players.getPlayerList())
-		{
+		{	System.out.println();
 			System.out.println("Assigning armies for Player "+player.getplayerName());
 			while (player.getPlayerArmies()!=0)
 			{
+			  	System.out.println();
 				System.out.println("Number of armies left..."+player.getPlayerArmies());
 				ArrayList<GraphNode> country_nodes=player.getCountry();
 				HashSet<String> owned_by_player=new HashSet<String>();
 				for (GraphNode node : country_nodes)
 				{
 					owned_by_player.add(node.getNodeData().getCountryName());
-					System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
+					//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
+					System.out.println(node.toString());
 				}
 				System.out.println("Enter the country name");
 				String country_name = scan.next().trim().toUpperCase();
