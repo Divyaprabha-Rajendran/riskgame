@@ -60,6 +60,23 @@ public class ValidationMapInput
        }
        
        /**
+        * check if continent exists
+        * 
+        * @param continentName country name to check
+        * @param continentset existing list of countries 
+        * @return true if continent already exist
+        */
+       
+       public boolean checkExistingContinent(String continentName , HashSet<String> continentset)
+       {
+    	  
+    	 boolean exists = false;
+    	 
+    	 return continentset.stream().anyMatch((x) -> x.equals(continentName)); 
+    	 
+       }
+       
+       /**
         * check if both names are equal
         * 
         * @param countryName1
