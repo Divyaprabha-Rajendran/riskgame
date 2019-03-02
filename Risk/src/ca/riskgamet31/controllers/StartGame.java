@@ -2,6 +2,7 @@ package ca.riskgamet31.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import ca.riskgamet31.*;
@@ -60,6 +61,8 @@ public class StartGame
 	
     public static void main(String args[])
     {
+    	try
+    	{
     	System.out.println("Welcome to RISK...");
     	StartGame game=new StartGame();
     	Scanner scan = new Scanner(System.in);
@@ -68,7 +71,7 @@ public class StartGame
     	game.createGameMap(xmlpath);
     	
     	System.out.println("Enter the number of players..");
-    	int no_players = scan.nextInt();
+    	int no_players = Integer.parseInt(scan.nextLine());
     		
     	game.startUp(no_players);
     	System.out.println("Start up phase completed....");
@@ -80,6 +83,15 @@ public class StartGame
     		{
     			System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
     		}
+    	}
+    	}
+    	catch(InputMismatchException | NumberFormatException e)
+    	{
+    		System.out.println("Please, enter a valid input");
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println("Error: " + e.getMessage());
     	}
     }
 }
