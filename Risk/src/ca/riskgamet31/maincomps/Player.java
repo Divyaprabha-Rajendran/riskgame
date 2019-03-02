@@ -227,7 +227,8 @@ public class Player
 	/**
 	 * Fortification phase starting method
 	 * according to user's entered armies, fortification will be performrd
-	 * @param Name of country to reinforce
+	 * @param Name of country, from which armies we need to fortify
+	 * @param Name of country, to which armies we will fortify 
 	 */
 public void fortification(String countryOne, String countryTwo)
 {
