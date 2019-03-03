@@ -1,7 +1,7 @@
 package ca.riskgamet31.mapdata;
 
 import ca.riskgamet31.maincomps.*;
-import jdk.nashorn.internal.ir.VarNode;
+
 
 import java.io.File;
 import java.io.IOException;
