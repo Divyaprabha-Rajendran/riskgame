@@ -13,7 +13,7 @@ import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.maincomps.PlayerModel;
-import ca.riskgamet31.Configuration.Constants;
+import ca.riskgamet31.configuration.Constants;
 
 /**
  * Creates players, assign countries to players and distributes players according to player's input.
