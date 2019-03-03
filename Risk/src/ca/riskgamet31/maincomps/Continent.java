@@ -1,6 +1,6 @@
 package ca.riskgamet31.maincomps;
 
-
+import ca.riskgamet31.mapdata.ValidateMapInput;
 /**
  * main continent class
  * 
@@ -24,6 +24,7 @@ public class Continent
 	 */
 	private Graph continentGraph;
 	
+	private ValidateMapInput validateData = new ValidateMapInput();
 	/**
 	 * constructs new continent object
 	 * 
@@ -33,6 +34,7 @@ public class Continent
 	 */
 	public Continent(String continentName, int additionalBonusArmies , Graph continentGraph)
 	  {
+		validateData.validateCountryorContinentName(continentName);
 		this.continentName = continentName;
 		this.additionalBonusArmies = additionalBonusArmies;
 		this.continentGraph = continentGraph;

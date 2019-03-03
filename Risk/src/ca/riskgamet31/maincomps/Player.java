@@ -8,7 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.naming.InvalidNameException;
+
+import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.mapdata.CreateMap;
 
 /**
@@ -49,16 +54,29 @@ public class Player
 	 * Constructs a new Player object
 	 * @param Player's name
 	 * @param Armies that player contains for reinforcement phase
+	 * @throws InvalidPlayerNameException 
+	 * @throws InvalidNameException 
 	 */
-	public Player(String playersName,int army) throws NullPointerException
+	public Player(String playersName,int army) throws NullPointerException, InvalidNameException, InvalidPlayerNameException
 	{
 		 if (playersName == null) throw new NullPointerException("Null Player name");
+		 validateInput(playersName);
 		 this.playersName=playersName;
 		 this.army=army; 
 		// this.countryNode=new ArrayList<GraphNode>(); 
 		 //this.continent=new ArrayList<Continent>(); 
 		 playerCountryGraph = new Graph();
 		 hand = new Hand();
+	}
+	
+	public void validateInput(String playersName) throws InvalidNameException, InvalidPlayerNameException 
+	{
+		Pattern name_pattern = Pattern.compile("[^A-Za-z0-9]");
+		Matcher match = name_pattern.matcher(playersName);
+		if(match.find()==true)
+		{
+			throw new InvalidPlayerNameException("Player name contains special characters "+playersName);
+		}
 	}
 	
 	public String getplayerName() 

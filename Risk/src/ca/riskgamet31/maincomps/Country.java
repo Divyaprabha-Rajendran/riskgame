@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import ca.riskgamet31.views.countryView;
+import ca.riskgamet31.mapdata.ValidateMapInput;
 
 /**
  * An entity representing a country
@@ -36,6 +37,8 @@ public class Country extends Observable
  
   private int armies;
   
+  private ValidateMapInput validateData = new ValidateMapInput();
+  
   /**
    * creates new country object.
    * 
@@ -47,7 +50,7 @@ public class Country extends Observable
 	  super();
 	  
 	  if (countryName == null) throw new NullPointerException("Null country name or neighbours reference");
-	  
+	  validateData.validateCountryorContinentName(countryName);
 	  this.countryName = countryName.toUpperCase();
 	  this.armies = 0;
 	  this.currentOccupier = "dumy".toUpperCase();

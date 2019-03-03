@@ -1,7 +1,7 @@
 package ca.riskgamet31.mapdata;
 
 import ca.riskgamet31.maincomps.*;
-
+import jdk.nashorn.internal.ir.VarNode;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +45,7 @@ public class CreateMap
 	private HashSet<String> continentSet = null;
 	private HashMap<String,GraphNode> countryMap = null;
 	private HashMap<String,Continent> mapData = null;
+	private ValidateMapInput validateMap=null;
 	
 	public CreateMap() {
 		
@@ -59,6 +60,7 @@ public class CreateMap
 		continentSet=new HashSet<String>();
 		countryMap=new HashMap<String,GraphNode>();
 		mapData=new HashMap<String,Continent>();
+		validateMap = new ValidateMapInput();
 	}
 	
 	/**
@@ -99,6 +101,8 @@ public class CreateMap
 	 */
 	public GraphNode createGraphNode(String countryName)
 	{
+		validateMap.checkExistingCountry(countryName, countrySet);
+		validateMap.checkContinentAgainstCountries(countryName, continentSet);
 		countrySet.add(countryName);
 		Country currentCountry=new Country(countryName);
 		GraphNode newNode = new GraphNode(currentCountry);
@@ -114,11 +118,14 @@ public class CreateMap
 	 * @return continent Object 
 	 */
 	
-	public Continent createContinents(String ContinentName, int additionalBonusArmies, ArrayList<GraphNode> countriesList)
+	public Continent createContinents(String continentName, int additionalBonusArmies, ArrayList<GraphNode> countriesList)
 	{
-		continentSet.add(ContinentName);
+		validateMap.checkExistingContinent(continentName, continentSet);
+		validateMap.checkContinentAgainstCountries(continentName, countrySet);
+		Continent currentContinent=null;
+		continentSet.add(continentName);
 		Graph continentGraph = new Graph(countriesList);
-		Continent currentContinent = new Continent(ContinentName,additionalBonusArmies,continentGraph);
+		currentContinent = new Continent(continentName,additionalBonusArmies,continentGraph);
 		return currentContinent;
 	}
 	

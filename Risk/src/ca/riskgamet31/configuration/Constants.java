@@ -1,4 +1,4 @@
-package ca.riskgamet31.Configuration;
+package ca.riskgamet31.configuration;
 
 public class Constants 
 {

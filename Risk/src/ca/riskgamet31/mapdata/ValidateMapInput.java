@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ca.riskgamet31.maincomps.Continent;
+import ca.riskgamet31.exceptions.*;
 
 /**
  * To validate the map input data.
@@ -15,13 +16,13 @@ import ca.riskgamet31.maincomps.Continent;
  * @since 1.0
  */
 
-public class ValidationMapInput 
+public class ValidateMapInput 
 {
   
   		private Pattern validCountryNamePattern ;
   		private Matcher matcher ;
 	
-  		public ValidationMapInput()
+  		public ValidateMapInput()
   		{
   		  
   		validCountryNamePattern = Pattern.compile("^[a-zA-Z0-9]*$");
@@ -34,13 +35,14 @@ public class ValidationMapInput
     	 * @param countryName country name to check
     	 * @return true if valid country name
     	 */
-       public boolean validateCountryorContinentName(String Name)
+       public void validateCountryorContinentName(String Name)
        {
+    	   Matcher countryNameMatcher	= validCountryNamePattern.matcher(Name);
     	   
-    	 
-    	 Matcher countryNameMatcher	= validCountryNamePattern.matcher(Name);
-
-    	   return countryNameMatcher.matches();
+    	   if( countryNameMatcher.find()==false)
+    	   {
+    		   throw new  InvalidNameException("Data is invalid. Special characters not allowed "+Name);
+    	   }
        }
        
        /**
@@ -51,12 +53,13 @@ public class ValidationMapInput
         * @return true if country already exist
         */
        
-       public boolean checkExistingCountry(String countryName , HashSet<String> countryset)
+       public void checkExistingCountry(String countryName , HashSet<String> countryset)
        {
     	  
-    	 boolean exists = false;
-    	 
-    	 return countryset.stream().anyMatch((x) -> x.equals(countryName)); 
+    	 if(countryset.stream().anyMatch((x) -> x.equals(countryName))==true)
+    	 {
+    		 throw new InvalidCountryException("Country exists already "+countryName);
+    	 } 
     	 
        }
        
@@ -68,12 +71,12 @@ public class ValidationMapInput
         * @return true if continent already exist
         */
        
-       public boolean checkExistingContinent(String continentName , HashSet<String> continentset)
+       public void checkExistingContinent(String continentName , HashSet<String> continentset)
        {
-    	  
-    	 boolean exists = false;
-    	 
-    	 return continentset.stream().anyMatch((x) -> x.equals(continentName)); 
+    	 if(continentset.stream().anyMatch((x) -> x.equals(continentName))==true)
+    	 {
+    		 throw new InvalidContinentException("Continent exists already "+continentName);
+    	 } 
     	 
        }
        
@@ -95,7 +98,7 @@ public class ValidationMapInput
         * @param mapData continents objects
         * @return true if any continent does not have a country associate with it.
         */
-       public boolean checkCountinentWithoutCountry(HashMap<String,Continent> mapData)
+       public void checkCountinentWithoutCountry(HashMap<String,Continent> mapData)
        
        {
     	 boolean invalid = false;
@@ -104,11 +107,10 @@ public class ValidationMapInput
     	   {
     		 
     		 if (continent.getContinentGraph().getGraphNodes().size() == 0) 
-    		   invalid = true;
+    		   throw new InvalidContinentException("Continent has no countries associated "+continent.getContinentName());
     		 
     	   }
     	 
-    	 return invalid;
     	 
        }
        
@@ -118,10 +120,13 @@ public class ValidationMapInput
         * @param continentSet
         */
 
-       public boolean checkCountryAgainstContinents(String countryName, HashSet<String> continentSet)
+       public void checkCountryAgainstContinents(String countryName, HashSet<String> continentSet)
        {
     	
-    	 return continentSet.contains(countryName);
+    	 if (continentSet.contains(countryName))
+    	 {
+    		 throw new InvalidCountryException("value is a continent name "+countryName);
+    	 }
     	 
        }
        
@@ -131,11 +136,12 @@ public class ValidationMapInput
         * @param countrySet
         */
        
-       public boolean checkContinentAgainstCountries(String continentName, HashSet<String> countrySet)
+       public void checkContinentAgainstCountries(String continentName, HashSet<String> countrySet)
          {
-      	
-      	 return countrySet.contains(continentName);
-      	 
+    	 if (countrySet.contains(continentName))
+    	 	{
+    		 throw new InvalidContinentException("value is a country name "+continentName);
+    	 	}
          }
        
        /**
@@ -145,11 +151,13 @@ public class ValidationMapInput
         * @param continentSet
         */
        
-       public boolean checkLinks(String fromName, String ToName, HashSet<String> continentSet)
+       public void checkLinks(String fromName, String ToName, HashSet<String> continentSet)
        
        {
-    	 
-    	 return continentSet.contains(ToName) || continentSet.contains(fromName)|| ToName.equals(fromName);
-    	 
+    	 if(continentSet.contains(ToName) || continentSet.contains(fromName)|| ToName.equals(fromName))
+    	 {
+    		 throw new InvalidLinkException("Countries may have a contient name or from and to country are same");
+    	 }
+    	  
        }
 }
