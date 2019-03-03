@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import javax.naming.InvalidNameException;
+
 import ca.riskgamet31.*;
+import ca.riskgamet31.exceptions.InvalidPlayerException;
+import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
@@ -42,7 +46,7 @@ public class StartGame
 		cmap.displayMap();	
 	}
 	
-	public void startUp(int no_players) 
+	public void startUp(int no_players) throws NullPointerException, InvalidNameException, InvalidPlayerNameException, InvalidPlayerException 
 	{
 		StartUp.setPlayerCount(no_players);
 		Scanner scan = new Scanner(System.in);
@@ -58,7 +62,7 @@ public class StartGame
 	}
 	
 	
-    public static void main(String args[])
+    public static void main(String args[]) throws NullPointerException, InvalidNameException, InvalidPlayerNameException, InvalidPlayerException
     {
     	System.out.println("Welcome to RISK...");
     	StartGame game=new StartGame();
