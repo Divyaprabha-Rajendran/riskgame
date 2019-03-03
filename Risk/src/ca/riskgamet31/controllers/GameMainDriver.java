@@ -9,9 +9,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+import javax.naming.InvalidNameException;
 import javax.swing.JFileChooser;
 
+import ca.riskgamet31.exceptions.InvalidPlayerException;
+import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
@@ -48,7 +50,7 @@ public class GameMainDriver
 
 	public String getFileInput() throws IOException
 	{
-		File xmlFile = new File("C:\\Users\\SONY\\Java_workspace\\Risk\\Risk\\Risk_MapData\\default_map.xml");
+		File xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\default_map.xml");
 		Scanner scan = new Scanner(System.in);
 		
 	    
@@ -82,7 +84,7 @@ public class GameMainDriver
 	    		break;
 	    		}
 	    case 2: {
-	    		xmlFile = new File("C:\\Users\\SONY\\Java_workspace\\Risk\\Risk\\Risk_MapData\\edit_default_map.xml");
+	    		xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\test_default_map.xml");
 	    		if (Desktop.isDesktopSupported())
 	            	{
 	                	Desktop.getDesktop().open(xmlFile);
@@ -94,7 +96,7 @@ public class GameMainDriver
 	    		break;
 	    		}
 	    case 3: {
-	    		xmlFile = new File("C:\\Users\\SONY\\Java_workspace\\Risk\\Risk\\Risk_MapData\\default_map.xml");
+	    		xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\default_map.xml");
 	    		break;
 	    		}
 	    case 4:
@@ -129,37 +131,37 @@ public class GameMainDriver
 	/**
 	 * Creates players for the game after checking pre-conditions.
 	 * A player name cannot have special characters and duplication is not allowed.
+	 * @throws InvalidNameException 
+	 * @throws NullPointerException 
 	 * 
 	 */
 
-	public void createPlayer()
+	public void createPlayer() throws NullPointerException, InvalidNameException
 	{
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Enter the number of players...");
 		int no_players=scan.nextInt();
 		StartUp.setPlayerCount(no_players);
-		Pattern name_pattern = Pattern.compile("[^A-Za-z0-9]");
+		
 		int i=0;
 		while(i<no_players)
     	{
+			try
+			{
     		System.out.println("Enter player name...");
     		String name = scan.next();
-    		if (!name.equals(null))
-    		{
-    		Matcher match = name_pattern.matcher(name);
-    			if(!match.find()==true)
-    			{
-    				Player player=StartUp.createPlayers(name);
-    				Players.setPlayerList(player);
-    				i=i+1;
-    			}
-    			else
-    				System.out.println("invalid player name..");
-    		}
-    		else
-    		{
-    			System.out.println("Please enter player name again..");
-    		}
+    		Player player=StartUp.createPlayers(name);
+			Players.setPlayerList(player);
+			i=i+1;
+			}
+			catch(InvalidPlayerException exception )
+			{
+				System.out.println(exception);
+			}
+			catch(InvalidPlayerNameException exception)
+			{
+				System.out.println(exception);
+			}
     	}
 	}
 	
@@ -178,7 +180,6 @@ public class GameMainDriver
 		
 	public static void main(String[] args)
 	  {
-		
 		GameMainDriver driver = new GameMainDriver();
 		try 
 		{
@@ -188,8 +189,15 @@ public class GameMainDriver
 			driver.setUpGame();
 		} 
 		catch (IOException e) 
+		{	
+			e.printStackTrace();
+		} 
+		catch (NullPointerException e) 
 		{
-			
+			e.printStackTrace();
+		} 
+		catch (InvalidNameException e) 
+		{	
 			e.printStackTrace();
 		}
 		
