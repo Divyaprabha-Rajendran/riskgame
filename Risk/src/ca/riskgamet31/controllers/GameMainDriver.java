@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import javax.naming.InvalidNameException;
 import javax.swing.JFileChooser;
 
+import ca.riskgamet31.exceptions.InvalidPlayerCountInput;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Continent;
@@ -147,9 +148,25 @@ public class GameMainDriver
 
 	public void createPlayer() throws NullPointerException, InvalidNameException
 	{
+		int no_players = 0;
+		
 		Scanner scan = new Scanner(System.in);
+		do
+		{
+		try
+		{
 		System.out.println("Enter the number of players...");
-		int no_players=scan.nextInt();
+		no_players=scan.nextInt();
+		if(no_players > 6 || no_players <3)
+		{
+			throw new InvalidPlayerCountInput("You can choose players of 3 to 6");
+		}
+		}
+		catch(InvalidPlayerCountInput e)
+		{
+			System.out.println(e);
+		}
+		}while(no_players > 6 || no_players < 3);
 		StartUp.setPlayerCount(no_players);
 		
 		int i=0;
