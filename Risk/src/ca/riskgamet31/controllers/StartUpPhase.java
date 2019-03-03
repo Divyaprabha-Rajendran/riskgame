@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import javax.naming.InvalidNameException;
 
+import ca.riskgamet31.configuration.Constants;
+import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.maincomps.PlayerModel;
-import ca.riskgamet31.Configuration.Constants;
 
 /**
  * Creates players, assign countries to players and distributes players according to player's input.
@@ -56,10 +58,13 @@ public class StartUpPhase
 	 *Creates a player object and add it to playermodel
 	 * @param playername
 	 * @return player
+	 * @throws InvalidPlayerNameException 
+	 * @throws InvalidNameException 
+	 * @throws NullPointerException 
 	 *
 	 */
 
-	public Player createPlayers(String playerName)
+	public Player createPlayers(String playerName) throws NullPointerException, InvalidNameException, InvalidPlayerNameException
 	{
 		int army_count=getArmy(playerCount);
 		Player player=new Player(playerName,army_count);
