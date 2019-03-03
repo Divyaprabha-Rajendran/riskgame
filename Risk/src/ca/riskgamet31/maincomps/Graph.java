@@ -231,15 +231,19 @@ public class Graph
 	public void viewGraph()
 	{
 	  
-	  int i = 0;
+	  //int i = 0;
 	  
 	  for (GraphNode gNode : this.getGraphNodes()) 
 		{
 		 	
-		  System.out.print(gNode.toString()+"\t");
-		  i++;
-		  if ((i % 3) == 0)
-			System.out.println("");
+		  System.out.println(gNode.toString()+"\t\t");
+		  for(GraphNode neibghor : gNode.getNodeNeighbors())
+			{
+			  System.out.println("\tNGR:"+neibghor.toString());
+			}
+		  //i++;
+		  //if ((i % 3) == 0)
+			//System.out.println("");
 		  
 		}
 	  
