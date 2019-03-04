@@ -23,6 +23,7 @@ public class TestGameMap
 	{
 		int expected=7;
 		assertNotEquals(expected,G1.bonusArmiesForPlayer("P1"));
+		
 	}
 	
 }
