@@ -143,12 +143,15 @@ public class GameMap
 	  for (Continent continent: this.getContinentsList().values())
 		{
 		  
-		  		if (!(continent.getContinentGraph().getGraphNodes()
+		  		if ((continent.getContinentGraph().getGraphNodes()
 		  			.stream().map((c) -> c.getNodeData().getCurrentOccupier())
 		  			.anyMatch((o) -> !o.equals(playerName))))
 		  		  {
+		  			
+		  		  }else
+		  			{
 		  			playersbonusArmies += continent.getAdditionalBonusArmies();
-		  		  }
+		  			}
 		  
 		}
 		

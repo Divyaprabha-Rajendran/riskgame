@@ -115,7 +115,7 @@ public class Graph
 	  }
 	  
 	/**
-	 * starts from a node and process the graph using DFS
+	 * starts from a node and process the graph using BFS
 	 * 
 	 */
 	public void processGraph()
@@ -168,7 +168,7 @@ public class Graph
 	  
 	/**
 	 * process for path discovery starts from a node and process the graph using
-	 * DFS
+	 * BFS
 	 * 
 	 */
 	
@@ -180,6 +180,7 @@ public class Graph
 		Iterator<GraphNode> graphIterator = this.getGraphNodes().iterator();
 		GraphNode rootNode;
 		GraphNode fromNode = null, toNode = null;
+		String owner = "";
 		while (graphIterator.hasNext())
 		  {
 			GraphNode tempNode = graphIterator.next();
@@ -200,7 +201,7 @@ public class Graph
 			rootNode = fromNode;
 			rootNode.setDistance(tempdistance++);
 			this.getProcessingList().add(rootNode);
-			
+			owner = rootNode.getNodeData().getCurrentOccupier();
 			while (!this.getProcessingList().isEmpty() && !pathExists)
 			  {
 				GraphNode node = this.getProcessingList().removeFirst();
@@ -208,7 +209,7 @@ public class Graph
 				
 				for (GraphNode neighborC : nodeNeighbors)
 				  {
-					if (neighborC.getDistance() < 0)
+					if (neighborC.getDistance() < 0 && neighborC.getNodeData().getCurrentOccupier().equals(owner))
 					  {
 						neighborC.setDistance(tempdistance);
 						neighborC.setParentNode(node);

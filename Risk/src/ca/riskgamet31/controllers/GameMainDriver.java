@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.naming.InvalidNameException;
 import javax.swing.JFileChooser;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import ca.riskgamet31.exceptions.InvalidPlayerCountInput;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
@@ -63,6 +65,7 @@ public class GameMainDriver
 	    
 	    
 	    boolean continueEditing=true;
+	    
 	    while(continueEditing) 
 	    {
 	    	System.out.println("Choose an option...");
@@ -199,11 +202,76 @@ public class GameMainDriver
 
 	public void setUpGame()
 	{
+		
 		StartUp.distributeCountries(Players, Risk);
-		StartUp.distributeArmies(Players);
+		
+		ArrayList<Player> players = Players.getPlayerList();
+		
+		for (Player player : players)
+		  {
+		StartUp.distributeArmies(player);
+		  }
+		
+		for (Player player : players)
+		  {
+		player.reinforcementArmiesCalc(Risk);
+		  }
+		
+		
 	}
 	
+	
+	
+	public void playGame() {
+	  
+	  boolean endGame = false;
+	  Player currentPlayer;
+	  int turnID = 0;
+	  Scanner in = new Scanner(System.in);
+	  
+	  while (!endGame)
+		{
+		  
+		currentPlayer = this.Players.getPlayerList().get(turnID++);
+		//reinforcement phase
+		System.out.println("Turn is for "+ currentPlayer.getplayerName());
+		System.out.println("\t starting reinforcement phase");
+		currentPlayer.distributeArmies();
+		  
 		
+		
+		/// attack phase
+		// attack
+		// check if game should end , if yes break
+		
+		// recalculate reinforcement armies for both players
+		currentPlayer.reinforcementArmiesCalc(Risk);
+		
+		
+		// fortification phase
+		String text = "";
+		System.out.println("\t starting fortification phase");
+		System.out.println("Enter Y if you want to fortify");
+		do
+		  {
+			if (in.hasNextLine())
+			   text = in.nextLine();
+		  } while (text.length() == 0);
+		
+		if (text.toUpperCase().equals("Y"))
+		  {
+		  currentPlayer.fortification();
+		  }
+		
+		
+		if (turnID >= this.Players.getPlayerList().size())
+		  turnID = 0;
+		
+		}
+	  
+	}
+	
+	
 	public static void main(String[] args)
 	  {
 		GameMainDriver driver = new GameMainDriver();
@@ -213,6 +281,8 @@ public class GameMainDriver
 			driver.createGameMap(xmlpath);
 			driver.createPlayer();
 			driver.setUpGame();
+			driver.Risk.viewGameMap();
+			driver.playGame();
 		} 
 		catch (IOException e) 
 		{	

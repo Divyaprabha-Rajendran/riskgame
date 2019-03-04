@@ -33,6 +33,9 @@
 			<name>northamerica</name>
 			<bonus-armies>10</bonus-armies>
 			<country>usa</country>
+			<country>canada</country>
+			<country>mexico</country>
+			<country>cuba</country>
 		</continent>
 		<continent>
 			<name>southamerica</name>
@@ -136,8 +139,20 @@
 			<to-country>germany,italy,turkey</to-country>
 		</link>
 		<link>
+			<from-country>canada</from-country>
+			<to-country>usa</to-country>
+		</link>
+		<link>
 			<from-country>usa</from-country>
-			<to-country>italy,ghana</to-country>
+			<to-country>canada,mexico,cuba,italy,ghana</to-country>
+		</link>
+		<link>
+			<from-country>mexico</from-country>
+			<to-country>usa,cuba,colombia</to-country>
+		</link>
+		<link>
+			<from-country>cuba</from-country>
+			<to-country>mexico,usa</to-country>
 		</link>
 		<link>
 			<from-country>brazil</from-country>
@@ -157,7 +172,7 @@
 		</link>
 		<link>
 			<from-country>colombia</from-country>
-			<to-country>peru,brazil</to-country>
+			<to-country>peru,brazil,mexico</to-country>
 		</link>
 		<link>
 			<from-country>congo</from-country>

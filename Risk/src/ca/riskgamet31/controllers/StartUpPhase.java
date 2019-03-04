@@ -7,6 +7,10 @@ import java.util.Scanner;
 
 import javax.naming.InvalidNameException;
 
+import com.sun.prism.Graphics;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
+
 import ca.riskgamet31.configuration.Constants;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.GameMap;
@@ -82,25 +86,44 @@ public class StartUpPhase
 	
 	public void distributeCountries(PlayerModel players, GameMap map )
 	{
-		ArrayList<GraphNode> graph_nodes = map.getGameMapGraph().getGraphNodes();
+		ArrayList<GraphNode> actual_graph_nodes = map.getGameMapGraph().getGraphNodes();
+		int actualSize = map.getGameMapGraph().getGraphNodes().size();
+		ArrayList<String> graph_nodes = new ArrayList<>(actualSize);
+		
+		for(int i = 0 ; i < actualSize ; i++)
+		  {
+			graph_nodes.add(actual_graph_nodes.get(i).getNodeData().getCountryName());
+			
+		  }
+		
 		int watchdog=0;
 		// changed by fareed to provide random distribution even for the same map file
 		//for (GraphNode node : graph_nodes)
 		SecureRandom random = new SecureRandom();
 		
 		while (graph_nodes.size() > 0){
-			GraphNode node = graph_nodes.remove(random.nextInt(graph_nodes.size()));
+			
 		  if(watchdog<playerCount)
 			{
+			  String node = graph_nodes.remove(random.nextInt(graph_nodes.size()));
 				Player curr_player=players.getPlayerList().get(watchdog);
 				//System.out.println(curr_player.getplayersName());
 				//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
 				//System.out.println(curr_player.getplayerName());
 				//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
-				curr_player.addCountry(node);
+				GraphNode selectedNode = null;
+				
+				for (GraphNode gnode : actual_graph_nodes)
+				  {
+					if (gnode.getNodeData().getCountryName().equals(node))
+					  selectedNode = gnode;
+					  
+				  }
+				
+				curr_player.addCountry(selectedNode);
 				curr_player.decrementArmies(1);
-				node.getNodeData().setCurrentOccupier(curr_player.getplayerName());
-				node.getNodeData().setArmies(1);
+				selectedNode.getNodeData().setCurrentOccupier(curr_player.getplayerName());
+				selectedNode.getNodeData().setArmies(1);
 				watchdog=watchdog+1;
 			}
 			else
@@ -114,11 +137,11 @@ public class StartUpPhase
 	 * @param players 
 	 */
 	
-	public void distributeArmies(PlayerModel players)
+	public void distributeArmies(Player player)
 	{
 		Scanner scan = new Scanner(System.in);
-		for (Player player : players.getPlayerList())
-		{	System.out.println();
+		
+			System.out.println();
 			System.out.println("Assigning armies for Player "+player.getplayerName());
 			while (player.getPlayerArmies()!=0)
 			{
@@ -139,9 +162,25 @@ public class StartUpPhase
 				{
 				if(owned_by_player.contains(country_name))
 				{
-					System.out.println("Enter the number of armies to place..");
-					int armies=scan.nextInt();
-					System.out.println(armies);
+				  int armies= 0;
+					boolean validInput = false;
+					String text="";
+					do
+					  {
+						
+						System.out.println("Enter the number of armies to place..");
+						do
+						  {
+							if (scan.hasNextLine())
+							  text = scan.nextLine();
+						  } while (text.length() == 0);
+					if (text.matches("\\d+"))
+					  validInput=true;
+					  }while(!validInput);
+					armies = Integer.parseInt(text);
+					
+					//System.out.println(armies);
+										
 					if(armies<=player.getPlayerArmies())
 					{
 						for (GraphNode node : country_nodes)
@@ -169,7 +208,7 @@ public class StartUpPhase
 					System.out.println("null value...try again");
 				}
 			}
-		}
+		
 	}
 			
 }

@@ -59,7 +59,10 @@ public class StartGame
     		Players.setPlayerList(player);
     	}
 		StartUp.distributeCountries(Players, Risk);
-		StartUp.distributeArmies(Players);
+		
+		ArrayList<Player> players = Players.getPlayerList();
+		for (Player player : players)
+		StartUp.distributeArmies(player);
 	}
 	
 	
