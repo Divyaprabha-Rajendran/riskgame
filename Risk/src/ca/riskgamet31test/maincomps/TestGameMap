@@ -1,0 +1,28 @@
+package ca.riskgamet31test.maincomps;
+
+import static org.junit.Assert.*;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import ca.riskgamet31.maincomps.GameMap;
+import ca.riskgamet31.maincomps.Player;
+
+public class TestGameMap 
+{
+	static GameMap G1;
+	static Player p1;
+	@BeforeClass
+	public static void testsetup()
+    {
+	    G1=new GameMap();
+	    p1=new Player("P1",7);
+    }
+	@Test
+	public void testbonusArmiesForPlayer()
+	{
+		int expected=7;
+		assertNotEquals(expected,G1.bonusArmiesForPlayer("P1"));
+	}
+	
+}
