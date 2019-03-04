@@ -2,9 +2,12 @@ package ca.riskgamet31test.maincomps;
 
 import static org.junit.Assert.*;
 
+import javax.naming.InvalidNameException;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Player;
 
@@ -16,7 +19,12 @@ public class TestGameMap
 	public static void testsetup()
     {
 	    G1=new GameMap();
-	    p1=new Player("P1",7);
+	    try {
+			p1=new Player("P1",7);
+		} catch (NullPointerException | InvalidNameException | InvalidPlayerNameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 	@Test
 	public void testbonusArmiesForPlayer()
