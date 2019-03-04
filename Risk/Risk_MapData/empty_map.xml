@@ -8,22 +8,10 @@
 			<country></country>
 			<country></country>
 			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
 		</continent>
 		<continent>
 			<name></name>
 			<bonus-armies></bonus-armies>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
 			<country></country>
 			<country></country>
 			<country></country>
@@ -49,12 +37,6 @@
 		<continent>
 			<name></name>
 			<bonus-armies></bonus-armies>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
-			<country></country>
 			<country></country>
 			<country></country>
 			<country></country>
@@ -70,94 +52,6 @@
 		</continent>
 	</continents>
 	<country-links>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
 		<link>
 			<from-country></from-country>
 			<to-country></to-country>
