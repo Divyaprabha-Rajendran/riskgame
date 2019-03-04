@@ -38,7 +38,9 @@ public class GameMainDriver
 	private GameMap Risk;
 	private PlayerModel Players;
 	StartUpPhase StartUp;
-		
+	/**
+	 * constructor for game main driver	
+	 */
 	public GameMainDriver()
 	{
 		Risk=null;
