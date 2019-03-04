@@ -1,7 +1,9 @@
 package ca.riskgamet31.mapdata;
 
+import ca.riskgamet31.exceptions.InvalidContinentException;
+import ca.riskgamet31.exceptions.InvalidCountryException;
 import ca.riskgamet31.maincomps.*;
-import jdk.nashorn.internal.ir.VarNode;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -30,11 +32,6 @@ import org.w3c.dom.Element;
  * @since 1.0
  */
 
-
-/**
- * @author SONY
- *
- */
 
 public class CreateMap 
 {
@@ -140,6 +137,8 @@ public class CreateMap
 		ArrayList<GraphNode> countriesList = new ArrayList<GraphNode>();
 		NodeList countryList = continentElement.getElementsByTagName("country");
         //System.out.println(countryList.getLength());
+		try
+		{
         for (int temp = 0; temp < countryList.getLength(); temp++)
 		{
         	Node countryNode = countryList.item(temp);
@@ -147,7 +146,11 @@ public class CreateMap
         	//System.out.println("Creating country "+country_name);
         	countriesList.add(createGraphNode(country_name));
 		}
-        
+		}
+		catch(Exception e)
+		{
+			e = new InvalidCountryException("Multiple countries need to be present or continent element is malformed");
+		}
         return countriesList;
 	}
 	
@@ -159,6 +162,8 @@ public class CreateMap
 	public void getContinents()
 	{
 		NodeList continentList = xmlDoc.getElementsByTagName("continent");
+		try
+		{
 		for (int temp = 0; temp < continentList.getLength(); temp++)
 		{
 			Node continentNode = continentList.item(temp);	
@@ -172,6 +177,11 @@ public class CreateMap
 				mapData.put(continentName, createContinents(continentName, additionalBonusArmies, countriesList));
 				//System.out.println("**************************************************************************");
 			}
+		}
+		}
+		catch(Exception e)
+		{
+			e = new InvalidContinentException("Atleast a single continent must be present or continent element is malformed");
 		}
 	}
 	
@@ -367,7 +377,7 @@ public class CreateMap
 
 	public static void main(String args[])
 	{
-		CreateMap cmap=new CreateMap("C:\\Users\\Yash Doshi\\git\\master\\Risk\\Risk_MapData\\map.xml");
+		CreateMap cmap=new CreateMap("\\Risk_MapData\\map.xml");
 		cmap.loadMapData();
 		cmap.getContinents();
 		//System.out.println(cmap.mapData.size());

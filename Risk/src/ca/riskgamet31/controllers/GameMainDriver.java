@@ -14,6 +14,7 @@ import javax.naming.InvalidNameException;
 import javax.swing.JFileChooser;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
+import ca.riskgamet31.exceptions.InvalidGraphException;
 import ca.riskgamet31.exceptions.InvalidPlayerCountInput;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
@@ -121,7 +122,6 @@ public class GameMainDriver
 	    };
 	    
 	    return xmlFile.getPath();
-
 	}
 	
 	/**
@@ -135,8 +135,14 @@ public class GameMainDriver
 		CreateMap cmap=new CreateMap(xmlpath);
 		HashMap<String,Continent> continentsList = cmap.generateGraph();
 		Graph gameMapGraph = new Graph(cmap.getAllCountryNodes());
-		
-		Risk=new GameMap(xmlpath, continentsList, gameMapGraph);
+		if(gameMapGraph.isConnected())
+		{
+			System.out.println("The graph is valid");
+			gameMapGraph.viewGraph();
+			Risk=new GameMap(xmlpath, continentsList, gameMapGraph);
+		}
+		else
+			throw new InvalidGraphException("Invalid Map..graph is no connected..");
 		
 		cmap.displayMap();	
 	}
