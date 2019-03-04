@@ -292,7 +292,7 @@ public void fortification()
   		do
   		  {
   		System.out.println("enter destination country:");
-  		
+  		//test
   		do
 		  {
 			if (s.hasNextLine())
