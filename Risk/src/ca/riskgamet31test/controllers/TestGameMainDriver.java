@@ -12,6 +12,12 @@ import ca.riskgamet31.controllers.PlayerModel;
 import ca.riskgamet31.controllers.StartUpPhase;
 import ca.riskgamet31.maincomps.Player;
 
+/**
+ * Tests the TestGameMainDriver class
+ * @author Chitra
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class TestGameMainDriver 
 {
