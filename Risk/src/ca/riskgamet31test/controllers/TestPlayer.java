@@ -1,4 +1,4 @@
-package ca.riskgamet31test.maincomps;
+package ca.riskgamet31test.controllers;
 
 import static org.junit.Assert.*;
 
