@@ -123,10 +123,7 @@ public class CreateMap
 		Continent currentContinent=null;
 		continentSet.add(continentName);
 		Graph continentGraph = new Graph(countriesList);
-		if(continentGraph.isConnected())
 		currentContinent = new Continent(continentName,additionalBonusArmies,continentGraph);
-		else
-			throw new InvalidGraphException("Continent is not a connected graph");
 		return currentContinent;
 	}
 	
@@ -182,6 +179,9 @@ public class CreateMap
 				//System.out.println("**************************************************************************");
 			}
 		}
+		
+		
+		
 		}
 		catch(Exception e)
 		{
@@ -316,6 +316,13 @@ public class CreateMap
 		loadMapData();
 		getContinents();
 		processLinks();
+		
+		for (Continent continent : mapData.values())
+		  {
+			if (!continent.getContinentGraph().isConnected())
+			  throw new InvalidContinentException(continent.getContinentName() + " is not a connected graph.");
+		  }
+		
 		return mapData;
 	}
 	

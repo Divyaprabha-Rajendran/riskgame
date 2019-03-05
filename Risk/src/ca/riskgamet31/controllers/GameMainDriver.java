@@ -95,18 +95,19 @@ public class GameMainDriver
 	    		break;
 	    		}
 	    case 2: {
-	    		xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\test_default_map.xml");
-
-	    		//xmlFile = new File("Risk_MapData\\edit_default_map.xml"); //commented because of conflicts
-
-	    		if (Desktop.isDesktopSupported())
-	            	{
-	                	Desktop.getDesktop().open(xmlFile);
-	            	}
-	            	else
-	            	{
-	            		System.out.println("not a valid file");
-	            	}
+	    		
+	      			int choice = chooser.showOpenDialog(chooser);
+	      			if (choice != JFileChooser.APPROVE_OPTION) return "";
+	      			xmlFile = chooser.getSelectedFile();
+            	    if (Desktop.isDesktopSupported())
+                    {
+                        Desktop.getDesktop().open(xmlFile);
+                    }
+                    else
+                    {
+                        System.out.println("not a valid file");
+                    }
+            	    System.out.println(xmlFile.getAbsolutePath());
 	    		break;
 	    		}
 	    case 3: {
@@ -134,19 +135,27 @@ public class GameMainDriver
 
 	public void createGameMap(String xmlpath)
 	{
-		CreateMap cmap=new CreateMap(xmlpath);
+		try
+		  {
+	  	CreateMap cmap=new CreateMap(xmlpath);
+		
 		HashMap<String,Continent> continentsList = cmap.generateGraph();
 		Graph gameMapGraph = new Graph(cmap.getAllCountryNodes());
 		if(gameMapGraph.isConnected())
 		{
-			System.out.println("The graph is valid");
+			System.out.println("The Map graph is valid");
 			gameMapGraph.viewGraph();
 			Risk=new GameMap(xmlpath, continentsList, gameMapGraph);
 		}
 		else
 			throw new InvalidGraphException("Invalid Map..graph is no connected..");
 		
-		cmap.displayMap();	
+		cmap.displayMap();
+		  }catch(InvalidGraphException iex)
+		  {
+			System.out.println(iex.getMessage());
+		  }
+			
 	}
 	
 	/**
@@ -178,6 +187,8 @@ public class GameMainDriver
 			System.out.println(e);
 		}
 		}while(no_players > 6 || no_players < 3);
+		
+		
 		StartUp.setPlayerCount(no_players);
 		
 		int i=0;
@@ -278,6 +289,7 @@ public class GameMainDriver
 		}
 	  
 	}
+	
 	
 	
 	public static void main(String[] args)

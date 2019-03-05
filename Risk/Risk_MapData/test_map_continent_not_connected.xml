@@ -33,9 +33,6 @@
 			<name>northamerica</name>
 			<bonus-armies>10</bonus-armies>
 			<country>usa</country>
-			<country>canada</country>
-			<country>mexico</country>
-			<country>cuba</country>
 		</continent>
 		<continent>
 			<name>southamerica</name>
@@ -72,11 +69,15 @@
 	<country-links>
 		<link>
 			<from-country>india</from-country>
-			<to-country>china,nepal,srilanka</to-country>
+			<to-country>china,pakistan,nepal,srilanka</to-country>
 		</link>
 		<link>
 			<from-country>china</from-country>
-			<to-country>india,nepal,japan,mongolia,srilanka,newzealand</to-country>
+			<to-country>india,pakistan,nepal,japan,mongolia,srilanka</to-country>
+		</link>
+		<link>
+			<from-country>pakistan</from-country>
+			<to-country>india,china,mongolia,turkey</to-country>
 		</link>
 		<link>
 			<from-country>nepal</from-country>
@@ -100,7 +101,7 @@
 		</link>
 		<link>
 			<from-country>mongolia</from-country>
-			<to-country>china,japan</to-country>
+			<to-country>china,japan,pakistan</to-country>
 		</link>
 		<link>
 			<from-country>germany</from-country>
@@ -124,7 +125,7 @@
 		</link>
 		<link>
 			<from-country>turkey</from-country>
-			<to-country>italy,swiss,germany,poland,egypt</to-country>
+			<to-country>italy,swiss,germany,poland,pakistan,egypt</to-country>
 		</link>
 		<link>
 			<from-country>britain</from-country>
@@ -135,20 +136,8 @@
 			<to-country>germany,italy,turkey</to-country>
 		</link>
 		<link>
-			<from-country>canada</from-country>
-			<to-country>usa</to-country>
-		</link>
-		<link>
 			<from-country>usa</from-country>
-			<to-country>canada,mexico,cuba,italy,ghana</to-country>
-		</link>
-		<link>
-			<from-country>mexico</from-country>
-			<to-country>usa,cuba,colombia</to-country>
-		</link>
-		<link>
-			<from-country>cuba</from-country>
-			<to-country>mexico,usa</to-country>
+			<to-country>italy,ghana</to-country>
 		</link>
 		<link>
 			<from-country>brazil</from-country>
@@ -168,7 +157,7 @@
 		</link>
 		<link>
 			<from-country>colombia</from-country>
-			<to-country>peru,brazil,mexico</to-country>
+			<to-country>peru,brazil</to-country>
 		</link>
 		<link>
 			<from-country>congo</from-country>
@@ -196,7 +185,7 @@
 		</link>
 		<link>
 			<from-country>zimbabwe</from-country>
-			<to-country>congo,angola,southafrica,newzealand</to-country>
+			<to-country>congo,angola,southafrica</to-country>
 		</link>
 		<link>
 			<from-country>sudan</from-country>
@@ -220,11 +209,8 @@
 		</link>
 		<link>
 			<from-country>westaustralia</from-country>
-			<to-country>eastaustralia,newzealand</to-country>
+			<to-country>eastaustralia</to-country>
 		</link>
-		<link>
-			<from-country>newzealand</from-country>
-			<to-country>westaustralia,china,zimbabwe</to-country>
-		</link>
+		
 	</country-links>
 </risk>
