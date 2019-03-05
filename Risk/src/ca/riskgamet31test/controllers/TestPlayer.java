@@ -154,6 +154,7 @@ public class TestPlayer
 	@Test
 	public void testfortification()
 	{
+		
 		int armiesForCountry1BeforeFortification = c1.getArmies();
 		int armiesForCountry2BeforeFortification = c2.getArmies();
 		p1.fortification();
