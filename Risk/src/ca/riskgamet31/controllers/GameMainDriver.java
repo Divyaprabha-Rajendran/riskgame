@@ -97,7 +97,6 @@ public class GameMainDriver
 	            }
 	    		break;
 	    		}
-<<<<<<< HEAD
 	    case 2: {
 	    		
 	      			int choice = chooser.showOpenDialog(chooser);
@@ -111,25 +110,10 @@ public class GameMainDriver
                     {
                         System.out.println("not a valid file");
                     }
-            	    System.out.println(xmlFile.getAbsolutePath());
-=======
-	    case 2: {
-	    		xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\test_default_map.xml");
-
-	    		//xmlFile = new File("Risk_MapData\\edit_default_map.xml"); //commented because of conflicts
-
-	    		if (Desktop.isDesktopSupported())
-	            	{
-	                	Desktop.getDesktop().open(xmlFile);
-	            	}
-	            	else
-	            	{
-	            		System.out.println("not a valid file");
-	            	}
->>>>>>> branch 'master' of https://ftayar@bitbucket.org/soen6441_students/riskgame.git
-	    		break;
+            	    
+            	   break; 
 	    		}
-	    case 3: {
+	    	    case 3: {
 	    		xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\default_map.xml");
 
 	    		//xmlFile = new File("Risk_MapData\\default_map.xml"); //commented because of conflictsS
