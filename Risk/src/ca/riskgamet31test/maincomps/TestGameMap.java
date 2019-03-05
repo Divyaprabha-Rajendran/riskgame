@@ -11,6 +11,12 @@ import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Player;
 
+/**
+ * Tests the GameMap  class
+ * @author Chitra
+ * @version 1.0
+ * @since 1.0
+ */
 public class TestGameMap 
 {
 	static GameMap G1;
