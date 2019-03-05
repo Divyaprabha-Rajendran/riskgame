@@ -20,6 +20,12 @@ import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
 
+/**
+ * Tests the StartupPhase class
+ * @author Chitra
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class TestStartupPhase 
 {
