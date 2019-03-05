@@ -58,6 +58,8 @@ public class TestPlayer
 	    g4 = new GraphNode(c4);
 	    g5 = new GraphNode(c5);
 	    g6 = new GraphNode(c6);
+	    g1.addNeighbor(g2);
+	    g1.addNeighbor(g3);
 	    try {
 			p1=new Player("player1",7);
 		} catch (NullPointerException | InvalidNameException | InvalidPlayerNameException e) {
@@ -92,23 +94,7 @@ public class TestPlayer
 		card2=new Card("Cavalry",c1);
 		card3=new Card("Artillery",c1);
 	}
-	/*@Test
-	public void testreinforce()
-	{ 
 	
-		p1.addCountry(g2);
-		System.out.println(p1);
-		A1=p1.getPlayerArmies();
-		
-		p1.reinforce("Russia");
-		
-		A2=p1.getPlayerArmies();
-		System.out.println(A2);
-		assertEquals(A1, A2);
-	
-	
-		
-	}*/
 	@Test
 	public void testCountry()
 	{
@@ -144,32 +130,36 @@ public class TestPlayer
 		int[] A5= new int[A4];
 		p1.removeCards(A5);
 		A3=p1.getPlayerCards().size();
-		assertEquals(0,A3);
-		
+		assertEquals(0,A3);	
 	}
-	
-//	@Test
-//	public void testfortification()
-//	{
-//	   //A1=p1.getPlayerArmies();
-//		p1.fortification();
-//		//A2=p1.getPlayerArmies();
-//		//assertEquals(A1, A2);
-//		
-//	}
 	
 	@Test
 	public void testreinforcementArmiesCalc()
 	{
 		int expected = 10;
-//		System.out.println(p1.reinforcementArmiesCalc(GM1));
-//		System.out.println(p1.getCountry().size());
-//		System.out.println(GM1.getContinentsList());
-//		System.out.println(p1.getplayerName());
-//		System.out.println(c1.getCurrentOccupier());
-//		System.out.println(GM1.bonusArmiesForPlayer(p1.getplayerName()));
 		assertEquals(expected,p1.reinforcementArmiesCalc(GM1));
 	}
 	
-
+	@Test
+	public void testdistributeArmies()
+	{
+		int armiesForCountry1BeforeReinforcement = c1.getArmies();
+		int armiesForPlayerBeforeReinforcement = p1.getPlayerArmies();
+		p1.distributeArmies();
+		int armiesForCountry1AfterReinforcement = c1.getArmies();
+		int armiesForPlayerAfterReinforcement = p1.getPlayerArmies();
+		assertEquals(armiesForCountry1BeforeReinforcement + armiesForPlayerBeforeReinforcement, armiesForCountry1AfterReinforcement + armiesForPlayerAfterReinforcement);
+	}
+	
+	@Test
+	public void testfortification()
+	{
+		int armiesForCountry1BeforeFortification = c1.getArmies();
+		int armiesForCountry2BeforeFortification = c2.getArmies();
+		p1.fortification();
+		int armiesForCountry1AfterFortification = c1.getArmies();
+		int armiesForCountry2AfterFortification = c2.getArmies();
+		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
+		
+	}
 }
