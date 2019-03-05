@@ -1,9 +1,10 @@
-package ca.riskgamet31.maincomps;
+package ca.riskgamet31.controllers;
 
 import java.util.ArrayList;
 
 import ca.riskgamet31.exceptions.InvalidLinkException;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
+import ca.riskgamet31.maincomps.Player;
 
 public class PlayerModel 
 {

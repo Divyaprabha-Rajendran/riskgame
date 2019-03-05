@@ -9,10 +9,10 @@ import javax.naming.InvalidNameException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import ca.riskgamet31.controllers.PlayerModel;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Player;
-import ca.riskgamet31.maincomps.PlayerModel;
 
 public class TestPlayerModel
 {

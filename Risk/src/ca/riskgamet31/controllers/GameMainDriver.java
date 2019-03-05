@@ -22,7 +22,6 @@ import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.Player;
-import ca.riskgamet31.maincomps.PlayerModel;
 import ca.riskgamet31.mapdata.CreateMap;
 
 /**
