@@ -120,9 +120,5 @@
 			<from-country></from-country>
 			<to-country></to-country>
 		</link>
-		<link>
-			<from-country></from-country>
-			<to-country></to-country>
-		</link>
 	</country-links>
 </risk>
