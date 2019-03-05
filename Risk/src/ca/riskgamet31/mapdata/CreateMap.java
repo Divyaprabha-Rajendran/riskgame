@@ -2,6 +2,7 @@ package ca.riskgamet31.mapdata;
 
 import ca.riskgamet31.exceptions.InvalidContinentException;
 import ca.riskgamet31.exceptions.InvalidCountryException;
+import ca.riskgamet31.exceptions.InvalidGraphException;
 import ca.riskgamet31.maincomps.*;
 
 
@@ -122,7 +123,10 @@ public class CreateMap
 		Continent currentContinent=null;
 		continentSet.add(continentName);
 		Graph continentGraph = new Graph(countriesList);
+		if(continentGraph.isConnected())
 		currentContinent = new Continent(continentName,additionalBonusArmies,continentGraph);
+		else
+			throw new InvalidGraphException("Continent is not a connected graph");
 		return currentContinent;
 	}
 	
