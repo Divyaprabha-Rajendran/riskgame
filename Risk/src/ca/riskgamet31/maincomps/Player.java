@@ -276,14 +276,15 @@ public void fortification()
   		do
 		  {
 			if (s.hasNext())
-			  tempText =  s.next();
+			  tempText =  s.next().trim().toUpperCase();
 		  } while (tempText.length() == 0);
 		
   		final String fromcountry1 = tempText;
   		fromCountry = fromcountry1;
   		if (this.getPlayerGraph().getGraphNodes().stream().map((x) -> x.getNodeData().getCountryName()).anyMatch((x) -> x.equals(fromcountry1)))
   		  valid = true;
-  		
+  		else
+  			System.out.println("check country name and ownership");
   		  }while (!valid);
   		
   		// get destination country
@@ -296,7 +297,7 @@ public void fortification()
   		do
 		  {
 			if (s.hasNextLine())
-			  tempText =  s.nextLine();
+			  tempText =  s.nextLine().trim().toUpperCase();
 		  } while (tempText.length() == 0);
   		
   		final String toCountry1 = tempText;
@@ -305,8 +306,9 @@ public void fortification()
   		if ((this.getPlayerGraph().getGraphNodes().stream().map((x) -> x.getNodeData().getCountryName()).anyMatch((x) -> x.equals(toCountry1))) && !toCountry.equals(fromCountry))
   		  {  
   			valid = true;
-  		System.out.println("check country name and ownership");
   		  }
+  		else
+  		System.out.println("check country name and ownership");
   		  }while (!valid);
   		
   		tempText = "";
@@ -331,6 +333,8 @@ public void fortification()
   		  
   		noOfArmies = Integer.parseInt(nOArmies);
   		  }
+  		else
+  			System.out.println("please enter valid input");
   		  }
   		while(armiesNotInt);
   		
