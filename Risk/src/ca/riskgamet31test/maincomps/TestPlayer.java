@@ -3,6 +3,7 @@ package ca.riskgamet31test.maincomps;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.naming.InvalidNameException;
 
@@ -15,6 +16,7 @@ import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.Country;
+import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
@@ -27,31 +29,65 @@ import junit.framework.Assert;
  */
 public class TestPlayer
 {
-	static Country c1,c2,c3;
-	static GraphNode g1,g2;
+	static Country c1,c2,c3,c4,c5,c6;
+	static GraphNode g1,g2,g3,g4,g5,g6;
 	static Player p1;
 	static Graph G1;
+	static Graph G2;
 	static Continent C1;
-	
+	static Continent C2;
+	static GameMap GM1;
 	static Card card1,card2,card3;
 	int	A1,A2,A3;
+	static HashMap<String, Continent> HM1 = new HashMap<>();
 	@BeforeClass
 	public static void testsetup()
 	{
+		G1 = new Graph();
+		G2 = new Graph();
 	    c1=new Country("Dubai");
 	    c2=new Country("Russia");
 	    c3=new Country("Qator");
-	  
+	    c4=new Country("India");
+	    c5=new Country("China");
+	    c6=new Country("Shrilanka");
+	    
 	    g1=new GraphNode(c1);
 	    g2=new GraphNode(c2);
+	    g3 = new GraphNode(c3);
+	    g4 = new GraphNode(c4);
+	    g5 = new GraphNode(c5);
+	    g6 = new GraphNode(c6);
 	    try {
 			p1=new Player("player1",7);
 		} catch (NullPointerException | InvalidNameException | InvalidPlayerNameException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		G1=new Graph();
-		C1=new Continent("Africa",3,G1);
+		GM1=new GameMap();
+		G2.addNode(g1);
+		G2.addNode(g2);
+		G2.addNode(g3);
+		G1.addNode(g4);
+		G1.addNode(g5);
+		G1.addNode(g6);
+		C1=new Continent("Africa",3,G2);
+		C2 = new Continent("Asia", 5, G1);
+		HM1.put("Africa", C1);
+		HM1.put("Asia", C2);
+		GM1.setContinentsList(HM1);
+		g1.getNodeData().setCurrentOccupier(p1.getplayerName());
+		g2.getNodeData().setCurrentOccupier(p1.getplayerName());
+		g3.getNodeData().setCurrentOccupier(p1.getplayerName());
+		g4.getNodeData().setCurrentOccupier(p1.getplayerName());
+		g5.getNodeData().setCurrentOccupier(p1.getplayerName());
+		g6.getNodeData().setCurrentOccupier(p1.getplayerName());
+		p1.addCountry(g1);
+		p1.addCountry(g2);
+		p1.addCountry(g3);
+		p1.addCountry(g4);
+		p1.addCountry(g5);
+		p1.addCountry(g6);
 		card1=new Card("Infantry",c1);
 		card2=new Card("Cavalry",c1);
 		card3=new Card("Artillery",c1);
@@ -91,7 +127,7 @@ public class TestPlayer
 	{
 		int army1=12;
 		//p1.incrementArmies(12);
-		assertNotEquals(army1,p1);
+		//assertNotEquals(army1,p1);
 		p1.decrementArmies(army1);
 		assertNotEquals(army1, p1);
 	}
@@ -112,22 +148,28 @@ public class TestPlayer
 		
 	}
 	
-	/*@Test
-	public void testfortification()
-	{
-	   A1=p1.getPlayerArmies();
-		p1.fortification("Russia","Qator");
-		A2=p1.getPlayerArmies();
-		assertEquals(A1, A2);
-		
-	}*/
-	
 //	@Test
-//	public void testreinforcementArmiesCalc()
+//	public void testfortification()
 //	{
-//		int expected=3;
-//		assertEquals(expected,p1.reinforcementArmiesCalc());
+//	   //A1=p1.getPlayerArmies();
+//		p1.fortification();
+//		//A2=p1.getPlayerArmies();
+//		//assertEquals(A1, A2);
+//		
 //	}
+	
+	@Test
+	public void testreinforcementArmiesCalc()
+	{
+		int expected = 10;
+//		System.out.println(p1.reinforcementArmiesCalc(GM1));
+//		System.out.println(p1.getCountry().size());
+//		System.out.println(GM1.getContinentsList());
+//		System.out.println(p1.getplayerName());
+//		System.out.println(c1.getCurrentOccupier());
+//		System.out.println(GM1.bonusArmiesForPlayer(p1.getplayerName()));
+		assertEquals(expected,p1.reinforcementArmiesCalc(GM1));
+	}
 	
 
 }
