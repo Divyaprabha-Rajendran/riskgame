@@ -47,7 +47,10 @@ public class GameMainDriver
 		Players=new PlayerModel();
 		StartUp = new StartUpPhase();
 	}
-	
+	  public PlayerModel  getPlayerList()
+	   {
+		   return Players;
+	   }
 	/**
 	 * Gives different options to create a gamemap and returns the file path of the chosen XML file
 	 * @return xmlFilePath
