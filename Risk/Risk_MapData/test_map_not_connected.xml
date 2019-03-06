@@ -76,7 +76,7 @@
 		</link>
 		<link>
 			<from-country>china</from-country>
-			<to-country>india,nepal,japan,mongolia,srilanka,newzealand</to-country>
+			<to-country>india,nepal,japan,mongolia,srilanka</to-country>
 		</link>
 		<link>
 			<from-country>nepal</from-country>
@@ -196,7 +196,7 @@
 		</link>
 		<link>
 			<from-country>zimbabwe</from-country>
-			<to-country>congo,angola,southafrica,newzealand</to-country>
+			<to-country>congo,angola,southafrica</to-country>
 		</link>
 		<link>
 			<from-country>sudan</from-country>
@@ -224,7 +224,7 @@
 		</link>
 		<link>
 			<from-country>newzealand</from-country>
-			<to-country>westaustralia,china,zimbabwe</to-country>
+			<to-country>westaustralia</to-country>
 		</link>
 	</country-links>
 </risk>
