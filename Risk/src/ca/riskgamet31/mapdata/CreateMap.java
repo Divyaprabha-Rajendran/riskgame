@@ -207,6 +207,7 @@ public class CreateMap
 				String from_country=curr_element.getElementsByTagName("from-country").item(0).getTextContent();
 				String to_country=curr_element.getElementsByTagName("to-country").item(0).getTextContent();
 				//System.out.println("processing links for "+to_country);
+				validateMap.checkLinks(from_country, to_country, continentSet);
 				addLinks(from_country, to_country);
 			}
 		}
