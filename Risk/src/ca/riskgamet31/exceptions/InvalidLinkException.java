@@ -10,5 +10,7 @@ public class InvalidLinkException extends RuntimeException
 	public InvalidLinkException(String cause)
 	{
 		super(cause);
+		System.err.println(cause);
+		
 	}
 }

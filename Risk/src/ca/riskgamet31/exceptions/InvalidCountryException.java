@@ -10,5 +10,7 @@ public class InvalidCountryException extends RuntimeException
 	public InvalidCountryException(String cause)
 	{
 		super(cause);
+		System.err.println(cause);
+		
 	}
 }

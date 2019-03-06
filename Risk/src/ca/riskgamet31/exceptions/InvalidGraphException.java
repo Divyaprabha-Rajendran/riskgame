@@ -10,5 +10,7 @@ public class InvalidGraphException extends RuntimeException
 	public InvalidGraphException(String cause)
 	{
 		super(cause);
+		System.err.println(cause);
+		
 	}
 }

@@ -10,5 +10,7 @@ public class InvalidContinentException extends RuntimeException
 	public InvalidContinentException(String cause)
 	{
 		super(cause);
+		System.err.println(cause);
+		
 	}
 }
