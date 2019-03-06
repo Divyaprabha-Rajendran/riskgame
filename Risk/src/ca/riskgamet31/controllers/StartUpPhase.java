@@ -50,7 +50,7 @@ public class StartUpPhase
 	 * returns the number of armies for each player according to number of
 	 * players.
 	 * 
-	 * @param noOfPlayers
+	 * @param noOfPlayers noOfPlayers
 	 * @return numberOfArmies.
 	 */
 	public int getArmy(int noOfPlayers)
@@ -75,10 +75,10 @@ public class StartUpPhase
 	 * 
 	 * @param playerName name of the player
 	 * @return player
-	 * @throws InvalidPlayerNameException
-	 * @throws InvalidNameException
-	 * @throws NullPointerException
-	 * @throws                            javax.naming.InvalidNameException
+	 * @throws InvalidPlayerNameException InvalidPlayerNameException
+	 * @throws InvalidNameException InvalidNameException
+	 * @throws NullPointerException NullPointerException
+	 * @throws javax.naming.InvalidNameException InvalidNameException
 	 *
 	 */
 	public Player createPlayers(String playerName) throws NullPointerException,
@@ -93,7 +93,7 @@ public class StartUpPhase
 	/**
 	 * Distribute the countries available among players in roundrobin fashion.
 	 * 
-	 * @param PlayerModel players list
+	 * @param players players list
 	 * @param map         game map
 	 *
 	 */
@@ -146,7 +146,7 @@ public class StartUpPhase
 	 * Distribute the armies of every player among the countries the player
 	 * owns. The method executes till all the player's armies are distributed.
 	 * 
-	 * @param players
+	 * @param player player object to distribute armies for
 	 */
 	public void distributeArmies(Player player)
 	  {

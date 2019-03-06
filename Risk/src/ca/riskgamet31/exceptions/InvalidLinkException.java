@@ -10,7 +10,7 @@ public class InvalidLinkException extends RuntimeException
 	/**
 	 * InvalidLinkException
 	 * 
-	 * @param cause @param cause
+	 * @param cause cause of the error
 	 */
 	public InvalidLinkException(String cause)
 	  {

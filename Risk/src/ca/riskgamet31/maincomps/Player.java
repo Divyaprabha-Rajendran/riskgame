@@ -39,17 +39,15 @@ public class Player
 	/**
 	 * Turn In count during game
 	 */
-	public static int turnInCardsCount; // static because for every player
-	                                    // object the count should be
-	                                    // incremented
-	
+	public static int turnInCardsCount; 
 	/**
 	 * Constructs a new Player object
 	 * 
-	 * @param        Player's name
-	 * @param Armies that player contains for reinforcement phase
-	 * @throws InvalidPlayerNameException
-	 * @throws InvalidNameException
+	 * @param playersName  Player's name
+	 * @param army Armies that player contains for reinforcement phase
+	 * @throws NullPointerException NullPointerException
+	 * @throws InvalidNameException InvalidNameException
+	 * @throws InvalidPlayerNameException InvalidPlayerNameException
 	 */
 	public Player(String playersName, int army) throws NullPointerException,
 	    InvalidNameException, InvalidPlayerNameException
@@ -67,8 +65,8 @@ public class Player
 	 * validate the input
 	 * 
 	 * @param playersName name of the player
-	 * @throws InvalidNameException
-	 * @throws InvalidPlayerNameException
+	 * @throws InvalidNameException InvalidNameException
+	 * @throws InvalidPlayerNameException InvalidPlayerNameException
 	 */
 	public void validateInput(String playersName) throws InvalidNameException,
 	    InvalidPlayerNameException
@@ -94,7 +92,7 @@ public class Player
 	/**
 	 * To add country GraphNode to player's graph
 	 * 
-	 * @param Country graph node
+	 * @param country graph node
 	 */
 	public void addCountry(GraphNode country)
 	  {
@@ -114,7 +112,7 @@ public class Player
 	/**
 	 * To remove country from player's graph
 	 * 
-	 * @param Country graph node
+	 * @param country graph node
 	 */
 	public void removeCountry(GraphNode country)
 	  {
@@ -122,11 +120,11 @@ public class Player
 		
 	  }
 	  
-	// YD
+	
 	/**
 	 * To calculate the reinforcement armies
-	 * 
-	 * @return No. of reinforcement armies that player will get
+	 * @param gameMap game map
+	 * @return  No. of reinforcement armies that player will get
 	 */
 	public int reinforcementArmiesCalc(GameMap gameMap)
 	  {
@@ -137,7 +135,6 @@ public class Player
 		armiesForCountries = this.getCountry().size() / 3;
 		armiesForContinentsBonus = gameMap.bonusArmiesForPlayer(this
 		    .getplayerName());
-		// armiesForCards = this.turnInCardsArmies();
 		totalArmiesToAdd = armiesForCountries + armiesForContinentsBonus + armiesForCards;
 		if (totalArmiesToAdd < 3)
 		  {
@@ -147,11 +144,11 @@ public class Player
 		return totalArmiesToAdd;
 	  }
 	  
-	// YD
+	
 	/**
-	 * To increment reinforcemet armies in player's graph
+	 * To increment reinforcement armies in player's graph
 	 * 
-	 * @param No. of armies to be incremented
+	 * @param a No. of armies to be incremented
 	 */
 	public void setArmies(int a)
 	  {
@@ -159,9 +156,9 @@ public class Player
 	  }
 	  
 	/**
-	 * To decrement reinforcemet armies in player's graph
+	 * To decrement reinforcement armies in player's graph
 	 * 
-	 * @param No. of armies to be decremented
+	 * @param a No. of armies to be decremented
 	 */
 	public void decrementArmies(int a)
 	  {
@@ -169,7 +166,7 @@ public class Player
 	  }
 	  
 	/**
-	 * to get palyers armies
+	 * to get players armies
 	 * 
 	 * @return number of player armies
 	 */
@@ -192,7 +189,7 @@ public class Player
 	/**
 	 * To add a new card to player's hand
 	 * 
-	 * @param card object
+	 * @param card card object
 	 */
 	public void addNewCard(Card card)
 	  {
@@ -212,7 +209,7 @@ public class Player
 	/**
 	 * To remove cards from player's hand
 	 * 
-	 * @param indicies of cards to be removed
+	 * @param cardIndexes indexes of cards to be removed
 	 */
 	public void removeCards(int[] cardIndexes)
 	  {
@@ -231,9 +228,9 @@ public class Player
 	  }
 	  
 	/**
-	 * get palyer graph
+	 * get player graph
 	 * 
-	 * @return palyer graph
+	 * @return player graph
 	 */
 	public Graph getPlayerGraph()
 	  {
@@ -242,10 +239,8 @@ public class Player
 	  
 	/**
 	 * Fortification phase starting method according to user's entered armies,
-	 * fortification will be performrd
+	 * fortification will be performed
 	 * 
-	 * @param Name of country, from which armies we need to fortify
-	 * @param Name of country, to which armies we will fortify
 	 */
 	public void fortification()
 	  {
@@ -371,7 +366,6 @@ public class Player
 	 * Distribute the armies of every player among the countries the player
 	 * owns. The method executes till all the player's armies are distributed.
 	 * 
-	 * @param players
 	 */
 	public void distributeArmies()
 	  {

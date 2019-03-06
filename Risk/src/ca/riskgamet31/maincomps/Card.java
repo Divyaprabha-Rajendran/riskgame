@@ -23,8 +23,8 @@ public class Card
 	/**
 	 * constructs new card object
 	 * 
-	 * @param One     of three types of card
-	 * @param Country object
+	 * @param type  one of three types of card
+	 * @param country country Object
 	 */
 	public Card(String type, Country country)
 	  {

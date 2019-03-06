@@ -34,7 +34,8 @@ public class DeckOfCards
 	 * Constructor to create deck of cards and also to assign cards countries
 	 * and type of cards
 	 * 
-	 * @param ArrayList of countries
+	 * @param countries ArrayList of countries
+	 * 
 	 */
 	public DeckOfCards(ArrayList<Country> countries)
 	  {

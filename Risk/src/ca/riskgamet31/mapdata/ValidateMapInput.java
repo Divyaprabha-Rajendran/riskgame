@@ -18,13 +18,19 @@ import ca.riskgamet31.maincomps.Continent;
  * @version 1.1
  * @since 1.0
  */
-
 public class ValidateMapInput
   {
-	
+	/**
+	 * pattern field
+	 */
 	private Pattern validCountryNamePattern;
+	/**
+	 * matcher field
+	 */
 	private Matcher matcher;
-	
+	/**
+	 * constructor with proper default pattern
+	 */
 	public ValidateMapInput()
 	  {
 		
@@ -35,8 +41,8 @@ public class ValidateMapInput
 	/**
 	 * method to validate country names
 	 * 
-	 * @param countryName country name to check
-	 * @return true if valid country name
+	 * @param Name country name to check
+	 * 
 	 */
 	public void validateCountryorContinentName(String Name)
 	  {
@@ -53,9 +59,8 @@ public class ValidateMapInput
 	 * 
 	 * @param countryName country name to check
 	 * @param countryset  existing list of countries
-	 * @return true if country already exist
+	 * 
 	 */
-	
 	public void checkExistingCountry(String countryName,
 	    HashSet<String> countryset)
 	  {
@@ -72,9 +77,8 @@ public class ValidateMapInput
 	 * 
 	 * @param continentName country name to check
 	 * @param continentset  existing list of countries
-	 * @return true if continent already exist
+	 * 
 	 */
-	
 	public void checkExistingContinent(String continentName,
 	    HashSet<String> continentset)
 	  {
@@ -89,8 +93,8 @@ public class ValidateMapInput
 	/**
 	 * check if both names are equal
 	 * 
-	 * @param countryName1
-	 * @param countryName2
+	 * @param countryName1 first country
+	 * @param countryName2 second country
 	 * @return true if both name are equal
 	 */
 	public boolean checkSimilarNames(String countryName1, String countryName2)
@@ -103,7 +107,7 @@ public class ValidateMapInput
 	 * check if any continent does not have countries associated
 	 * 
 	 * @param mapData continents objects
-	 * @return true if any continent does not have a country associate with it.
+	 * 
 	 */
 	public void checkCountinentWithoutCountry(
 	    HashMap<String, Continent> mapData)
@@ -125,10 +129,9 @@ public class ValidateMapInput
 	/**
 	 * check if the country name is a continent name.
 	 * 
-	 * @param countryName
-	 * @param continentSet
+	 * @param countryName country name
+	 * @param continentSet continent list
 	 */
-	
 	public void checkCountryAgainstContinents(String countryName,
 	    HashSet<String> continentSet)
 	  {
@@ -143,10 +146,9 @@ public class ValidateMapInput
 	/**
 	 * check if the continent name is a country name.
 	 * 
-	 * @param continentName
-	 * @param countrySet
+	 * @param continentName continent name
+	 * @param countrySet country list
 	 */
-	
 	public void checkContinentAgainstCountries(String continentName,
 	    HashSet<String> countrySet)
 	  {
@@ -160,11 +162,10 @@ public class ValidateMapInput
 	 * check that both from and to country are not same and not a continent
 	 * name.
 	 * 
-	 * @param fromName
-	 * @param ToName
-	 * @param continentSet
+	 * @param fromName first country
+	 * @param ToName second country
+	 * @param continentSet continent set
 	 */
-	
 	public void checkLinks(String fromName, String ToName,
 	    HashSet<String> continentSet)
 	  

@@ -40,7 +40,7 @@ public class Country extends Observable
 	 * creates new country object.
 	 * 
 	 * @param countryName name of county
-	 * @param neighbours  ArryList of countries
+	 * @throws NullPointerException NullPointerException
 	 */
 	public Country(String countryName) throws NullPointerException
 	  {

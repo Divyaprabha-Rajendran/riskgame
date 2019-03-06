@@ -27,7 +27,6 @@ public class GameMap
 	/**
 	 * Constructor to create map element objects.
 	 */
-	
 	public GameMap()
 	  {
 		gameMapFile = "";
@@ -36,9 +35,9 @@ public class GameMap
 	  }
 	  
 	/**
-	 * @param mapFile        reference map xml file
+	 * @param gameMapFile        reference map xml file
 	 * @param continentsList list of continent objects
-	 * @param mapGraph       map graph
+	 * @param gameMapGraph       map graph
 	 */
 	public GameMap(String gameMapFile,
 	    HashMap<String, Continent> continentsList, Graph gameMapGraph)
@@ -111,7 +110,6 @@ public class GameMap
 	 * to view Maps continent information
 	 * 
 	 */
-	
 	public void viewGameMap()
 	  {
 		

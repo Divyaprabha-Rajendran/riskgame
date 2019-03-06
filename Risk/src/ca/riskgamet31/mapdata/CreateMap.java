@@ -98,8 +98,8 @@ public class CreateMap
 	/**
 	 * creates a GraphNode and creates a country and assign it to GraphNode
 	 * 
-	 * @param name of the country object
-	 *
+	 * @param countryName of the country object
+	 * @return graph Node
 	 */
 	public GraphNode createGraphNode(String countryName)
 	  {
@@ -116,7 +116,7 @@ public class CreateMap
 	 * Create a continent object, assign the name,additionalBonusArmies and
 	 * country read from XML file.
 	 * 
-	 * @param ContinentName         ContinentName
+	 * @param continentName         ContinentName
 	 * @param additionalBonusArmies additionalBonusArmies
 	 * @param countriesList         countriesList
 	 * @return continent Object continent Object
@@ -258,7 +258,7 @@ public class CreateMap
 	  
 	/**
 	 * returns all the GraphNode objects with countries as arraylist
-	 *
+	 *@return list of graph nodes
 	 */
 	public ArrayList<GraphNode> getAllCountryNodes()
 	  {
@@ -270,7 +270,7 @@ public class CreateMap
 	/**
 	 * displays all the countries available within the continent
 	 * 
-	 * @param contienent
+	 * @param continent continent to display its graph nodes 
 	 *
 	 */
 	public void displayContinentGraph(Continent continent)

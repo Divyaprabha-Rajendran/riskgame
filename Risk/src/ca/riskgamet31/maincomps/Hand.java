@@ -34,7 +34,7 @@ public class Hand
 	/**
 	 * Add card to hand
 	 * 
-	 * @param Card object
+	 * @param card card object
 	 */
 	public void addCard(Card card)
 	  {
@@ -42,6 +42,10 @@ public class Hand
 		hand.add(card);
 	  }
 	  
+	/**
+	 * return array list of cards
+	 * @return array list of cards
+	 */
 	public ArrayList<Card> getCardsFromHand()
 	  {
 		return hand;
@@ -50,9 +54,9 @@ public class Hand
 	/**
 	 * Remove cards from hand
 	 * 
-	 * @param index of cards to be removed
-	 * @param index of cards to be removed
-	 * @param index of cards to be removed
+	 * @param index1 index of cards to be removed
+	 * @param index2 index of cards to be removed
+	 * @param index3 index of cards to be removed
 	 */
 	public void removeCardsFromHand(int index1, int index2, int index3)
 	  {
@@ -89,9 +93,9 @@ public class Hand
 	/**
 	 * Check that whether player can turn in cards or not
 	 * 
-	 * @param index of card that can be turned in
-	 * @param index of card that can be turned in
-	 * @param index of card that can be turned in
+	 * @param index1 index of card that can be turned in
+	 * @param index2 index of card that can be turned in
+	 * @param index3 index of card that can be turned in
 	 * @return whether player can turn in cards or not
 	 */
 	public boolean canTurnInCards(int index1, int index2, int index3)

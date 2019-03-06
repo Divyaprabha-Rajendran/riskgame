@@ -41,7 +41,7 @@ public class PlayerModel
 	 * to set player
 	 * 
 	 * @param player player to be added to the list
-	 * @throws InvalidPlayerException
+	 * @throws InvalidPlayerException InvalidPlayerException
 	 */
 	public void setPlayerList(Player player) throws InvalidPlayerException
 	  {
@@ -53,7 +53,7 @@ public class PlayerModel
 	 * to validate the player
 	 * 
 	 * @param player player to be validated
-	 * @throws InvalidPlayerException
+	 * @throws InvalidPlayerException InvalidPlayerException
 	 */
 	public void validateNewPlayer(Player player) throws InvalidPlayerException
 	  {

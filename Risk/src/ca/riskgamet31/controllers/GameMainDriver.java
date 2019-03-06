@@ -67,7 +67,9 @@ public class GameMainDriver
 	 * Gives different options to create a gamemap and returns the file path of
 	 * the chosen XML file
 	 * 
-	 * @return xmlFilePath
+	 * @param GM main driver of the game
+	 * @return xmlFilePath map xml file path
+	 * @throws IOException IOException
 	 *
 	 */
 	public String getFileInput(GameMainDriver GM) throws IOException
@@ -184,8 +186,8 @@ public class GameMainDriver
 	 * Creates players for the game after checking pre-conditions. A player name
 	 * cannot have special characters and duplication is not allowed.
 	 * 
-	 * @throws InvalidNameException
-	 * @throws NullPointerException
+	 * @throws InvalidNameException InvalidNameException
+	 * @throws NullPointerException NullPointerException
 	 * 
 	 */
 	public void createPlayer() throws NullPointerException, InvalidNameException
@@ -309,7 +311,7 @@ public class GameMainDriver
 	/**
 	 * main method of the game
 	 * 
-	 * @param args
+	 * @param args command line args
 	 */
 	public static void main(String[] args)
 	  {
