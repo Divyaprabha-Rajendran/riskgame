@@ -33,7 +33,6 @@ import ca.riskgamet31.mapdata.CreateMap;
  */
 public class GameMainDriver
   {
-	
 	private GameMap Risk;
 	private PlayerModel Players;
 	StartUpPhase StartUp;
