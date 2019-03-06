@@ -160,8 +160,8 @@ public class GameMainDriver
 	 */
 	public void createGameMap(String xmlpath)
 	  {
-		try
-		  {
+		//try
+		 // {
 			CreateMap cmap = new CreateMap(xmlpath);
 			
 			HashMap<String, Continent> continentsList = cmap.generateGraph();
@@ -175,10 +175,10 @@ public class GameMainDriver
 			  throw new InvalidGraphException("Invalid Map..graph is no connected..");
 			
 			cmap.displayMap();
-		  } catch (InvalidGraphException iex)
-		  {
-			System.out.println(iex.getMessage());
-		  }
+		  //} catch (InvalidGraphException iex)
+		  //{
+		//	System.out.println(iex.getMessage());
+		  //}
 		  
 	  }
 	  
