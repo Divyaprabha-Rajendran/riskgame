@@ -125,7 +125,7 @@ public class ValidateMapInput
     	
     	 if (continentSet.contains(countryName))
     	 {
-    		 throw new InvalidCountryException("value is a continent name "+countryName);
+    		 throw new InvalidCountryException("country name is not valid as it is a continent name   "+countryName);
     	 }
     	 
        }
@@ -140,7 +140,7 @@ public class ValidateMapInput
          {
     	 if (countrySet.contains(continentName))
     	 	{
-    		 throw new InvalidContinentException("value is a country name "+continentName);
+    		 throw new InvalidContinentException("continent name is not valid as it is a country name   "+continentName);
     	 	}
          }
        
