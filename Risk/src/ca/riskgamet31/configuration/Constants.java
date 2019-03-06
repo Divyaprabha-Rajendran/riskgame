@@ -2,11 +2,12 @@ package ca.riskgamet31.configuration;
 
 /**
  * Class for constants to define
+ * 
  * @author Yash Doshi
- *@version 1.0
+ * @version 1.0
  */
-public class Constants 
-{
+public class Constants
+  {
 	/**
 	 * Armies if 3 players are playing
 	 */
@@ -31,4 +32,4 @@ public class Constants
 	 * Armies if not valid player count is entered
 	 */
 	public static final int ARMIES_NOTVALID_PLAYERS = -1;
-}
+  }

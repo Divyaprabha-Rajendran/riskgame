@@ -1,6 +1,6 @@
 package ca.riskgamet31test.maincomps;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
@@ -13,11 +13,14 @@ import org.junit.Test;
 import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.DeckOfCards;
+
 /**
-* test class for testin graph functions
-*@author Ishpreet Singh
-*/ 
-public class TestDeckOfCards {
+ * test class for testin graph functions
+ * 
+ * @author Ishpreet Singh
+ */
+public class TestDeckOfCards
+  {
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -51,10 +54,10 @@ public class TestDeckOfCards {
 	public void tearDown() throws Exception
 	  {
 	  }
-	
+	  
 	@Test
 	public void TestaddNewCard()
-	{
+	  {
 		ArrayList<Country> neighbours = new ArrayList<>();
 		ArrayList<Card> nei = new ArrayList<>();
 		Country cn = new Country("india");
@@ -62,18 +65,18 @@ public class TestDeckOfCards {
 		Country conu = new Country("myanmar");
 		Country count = new Country("srilanka");
 		Country countr = new Country("AUSTRALIA");
-       // neighbours.add(cn);
-       // neighbours.add(con);
-       // neighbours.add(conu);
-       // neighbours.add(count);
-        
-       // String[] expected={"india","bang","myanmar","srilanka","australia"};
-		DeckOfCards doc = new DeckOfCards(neighbours); 
-		Card ca = new Card("Infantry",countr);
+		// neighbours.add(cn);
+		// neighbours.add(con);
+		// neighbours.add(conu);
+		// neighbours.add(count);
+		
+		// String[] expected={"india","bang","myanmar","srilanka","australia"};
+		DeckOfCards doc = new DeckOfCards(neighbours);
+		Card ca = new Card("Infantry", countr);
 		System.out.println(ca.getCardType());
 		doc.addNewCard(ca);
-	    assertEquals(ca,doc.drawCard());
+		assertEquals(ca, doc.drawCard());
 		
-	}
-
-}
+	  }
+	  
+  }

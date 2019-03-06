@@ -1,6 +1,7 @@
 package ca.riskgamet31test.maincomps;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 import java.util.ArrayList;
 
@@ -13,13 +14,14 @@ import org.junit.Test;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.GraphNode;
 
-
 /**
-* test class for testin graph functions
-* @author Ishpreet Singh
-*/
-public class TestGraphNode {
-  
+ * test class for testin graph functions
+ * 
+ * @author Ishpreet Singh
+ */
+public class TestGraphNode
+  {
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -62,10 +64,11 @@ public class TestGraphNode {
 		ArrayList<Country> neighbours = new ArrayList<>();
 		Country c = new Country("India");
 		GraphNode Gn = new GraphNode(c);
-		String con ="INDIA";
+		String con = "INDIA";
 		assertEquals(con, Gn.getNodeData().getCountryName());
 	  }
-	//@Test
+	  
+	// @Test
 //	public void  TestgetNodeNeighbors()
 //	{
 //		ArrayList<Country> neighbours = new ArrayList<>();
@@ -83,47 +86,49 @@ public class TestGraphNode {
 		GraphNode Gn = new GraphNode(c);
 		assertEquals(-1, Gn.getDistance());
 	  }
-	
-@Test
-public void TestgetParentNode()
-{     
-String con ="INDIA";
-ArrayList<Country> neighbours = new ArrayList<>();
-Country c = new Country("INDIA");
-GraphNode Gn = new GraphNode(c);
-assertEquals(con, Gn.getNodeData().getCountryName());
-    
-}
-@Test 
-public void TestAddNeighbour()
-{
-	String con ="INDIA";
-	ArrayList<Country> neighbours = new ArrayList<>();
-	Country c = new Country("INDIA");
-	Country d= new Country("BANGLADESH");
-	GraphNode Gn = new GraphNode(c);
-	GraphNode Gn1 = new GraphNode(d);
-	Gn1.addNeighbor(Gn);
-	 assertEquals("INDIA",Gn1.getNodeNeighbors().get(0).getNodeData().getCountryName());
-	}
-@Test
-public void TestRemoveNeighbour()
-{
-	String con ="INDIA";
-	ArrayList<Country> neighbours = new ArrayList<>();
-	Country c = new Country("INDIA");
-	Country d= new Country("BANGLADESH");
-	Country f= new Country("SRILANKA");
-	GraphNode Gn = new GraphNode(c);
-	GraphNode Gn1 = new GraphNode(d);
-	GraphNode Gn2 = new GraphNode(f);
-	Gn1.addNeighbor(Gn);
-	
-	Gn1.addNeighbor(Gn2);
-	Gn1.removeNeighbor(Gn);
-	assertNotSame("INDIA",Gn1.getNodeNeighbors().get(0).getNodeData().getCountryName());
-	
-	
-	}
-}
-
+	  
+	@Test
+	public void TestgetParentNode()
+	  {
+		String con = "INDIA";
+		ArrayList<Country> neighbours = new ArrayList<>();
+		Country c = new Country("INDIA");
+		GraphNode Gn = new GraphNode(c);
+		assertEquals(con, Gn.getNodeData().getCountryName());
+		
+	  }
+	  
+	@Test
+	public void TestAddNeighbour()
+	  {
+		String con = "INDIA";
+		ArrayList<Country> neighbours = new ArrayList<>();
+		Country c = new Country("INDIA");
+		Country d = new Country("BANGLADESH");
+		GraphNode Gn = new GraphNode(c);
+		GraphNode Gn1 = new GraphNode(d);
+		Gn1.addNeighbor(Gn);
+		assertEquals("INDIA", Gn1.getNodeNeighbors().get(0).getNodeData()
+		    .getCountryName());
+	  }
+	  
+	@Test
+	public void TestRemoveNeighbour()
+	  {
+		String con = "INDIA";
+		ArrayList<Country> neighbours = new ArrayList<>();
+		Country c = new Country("INDIA");
+		Country d = new Country("BANGLADESH");
+		Country f = new Country("SRILANKA");
+		GraphNode Gn = new GraphNode(c);
+		GraphNode Gn1 = new GraphNode(d);
+		GraphNode Gn2 = new GraphNode(f);
+		Gn1.addNeighbor(Gn);
+		
+		Gn1.addNeighbor(Gn2);
+		Gn1.removeNeighbor(Gn);
+		assertNotSame("INDIA", Gn1.getNodeNeighbors().get(0).getNodeData()
+		    .getCountryName());
+		
+	  }
+  }

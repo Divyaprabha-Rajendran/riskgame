@@ -1,8 +1,6 @@
 package ca.riskgamet31test.maincomps;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,12 +10,14 @@ import org.junit.Test;
 
 import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Country;
-import ca.riskgamet31.maincomps.GraphNode;
+
 /**
-* test class for testin graph functions
-*@author Ishpreet Singh
-*/ 
-public class TestCard {
+ * test class for testin graph functions
+ * 
+ * @author Ishpreet Singh
+ */
+public class TestCard
+  {
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -41,8 +41,8 @@ public class TestCard {
 	@Before
 	void setUp() throws Exception
 	  {
-		Country cn =new Country("india");
-		Card ca = new Card("Infantry",cn);
+		Country cn = new Country("india");
+		Card ca = new Card("Infantry", cn);
 	  }
 	  
 	/**
@@ -52,21 +52,23 @@ public class TestCard {
 	void tearDown() throws Exception
 	  {
 	  }
+	  
 	@Test
-	public void TestgetCardName() 
-	{ 
-		Country cn =new Country("india");
-		Card ca = new Card("Infantry",cn);
+	public void TestgetCardName()
+	  {
+		Country cn = new Country("india");
+		Card ca = new Card("Infantry", cn);
 		String s = "india Infantry";
-		assertEquals(s,ca.getCardName());
-	}
+		assertEquals(s, ca.getCardName());
+	  }
+	  
 	@Test
-	public void TestgetCardType() 
-	{ 
-		Country cn =new Country("india");
-		Card ca = new Card("Infantry",cn);
+	public void TestgetCardType()
+	  {
+		Country cn = new Country("india");
+		Card ca = new Card("Infantry", cn);
 		String s = "Infantry";
-		assertEquals(s,ca.getCardType());
-	}
-
-}
+		assertEquals(s, ca.getCardType());
+	  }
+	  
+  }
