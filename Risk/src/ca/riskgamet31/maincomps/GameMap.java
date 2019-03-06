@@ -2,8 +2,6 @@ package ca.riskgamet31.maincomps;
 
 import java.util.HashMap;
 
-
-
 /**
  * main map Object
  * 
@@ -14,53 +12,52 @@ import java.util.HashMap;
 public class GameMap
   {
 	/**
-	 * the map xml file, for info only 
+	 * the map xml file, for info only
 	 */
 	private String gameMapFile;
 	/**
 	 * a list of continent objects composing the map
 	 */
-	private HashMap<String,Continent> continentsList;
+	private HashMap<String, Continent> continentsList;
 	/**
 	 * a graph object consists of all map nodes
 	 */
-	private Graph gameMapGraph ;
+	private Graph gameMapGraph;
 	
 	/**
 	 * Constructor to create map element objects.
 	 */
 	
 	public GameMap()
-	{
-	  gameMapFile = "";
-	  gameMapGraph = new Graph();
-	  continentsList = new HashMap<>();
-	}
-	
+	  {
+		gameMapFile = "";
+		gameMapGraph = new Graph();
+		continentsList = new HashMap<>();
+	  }
+	  
 	/**
-	 * @param mapFile reference map xml file
+	 * @param mapFile        reference map xml file
 	 * @param continentsList list of continent objects
-	 * @param mapGraph map graph
+	 * @param mapGraph       map graph
 	 */
-	public GameMap(String gameMapFile, HashMap<String, Continent> continentsList,
-	    Graph gameMapGraph)
+	public GameMap(String gameMapFile,
+	    HashMap<String, Continent> continentsList, Graph gameMapGraph)
 	  {
 		this();
 		this.gameMapFile = gameMapFile;
 		this.continentsList = continentsList;
 		this.gameMapGraph = gameMapGraph;
 	  }
-
+	  
 	/**
 	 * @return true only and only if the map is a connected graph.
 	 */
 	public boolean isConnected()
-	
-	{
-	  return this.gameMapGraph.isConnected();
-	}
-	
-	
+	  
+	  {
+		return this.gameMapGraph.isConnected();
+	  }
+	  
 	/**
 	 * @return the name of map xml file
 	 */
@@ -68,7 +65,7 @@ public class GameMap
 	  {
 		return gameMapFile;
 	  }
-
+	  
 	/**
 	 * @param mapFile sets the map xml file
 	 */
@@ -76,7 +73,7 @@ public class GameMap
 	  {
 		this.gameMapFile = mapFile;
 	  }
-
+	  
 	/**
 	 * @return an ArrayList of map continents
 	 */
@@ -84,7 +81,7 @@ public class GameMap
 	  {
 		return continentsList;
 	  }
-
+	  
 	/**
 	 * @param continentsList updates maps arrayList of continents
 	 */
@@ -92,7 +89,7 @@ public class GameMap
 	  {
 		this.continentsList = continentsList;
 	  }
-
+	  
 	/**
 	 * @return map graph object
 	 */
@@ -100,7 +97,7 @@ public class GameMap
 	  {
 		return gameMapGraph;
 	  }
-
+	  
 	/**
 	 * @param mapGraph new map graph object
 	 */
@@ -108,54 +105,56 @@ public class GameMap
 	  {
 		this.gameMapGraph = mapGraph;
 	  }
-	
+	  
 	/**
 	 * 
 	 * to view Maps continent information
 	 * 
 	 */
 	
-	public void viewGameMap() {
-	  
-	  for (Continent continent : this.getContinentsList().values())
-		{
+	public void viewGameMap()
+	  {
+		
+		for (Continent continent : this.getContinentsList().values())
+		  {
+			
+			continent.viewContinent();
+			
+		  }
 		  
-		  continent.viewContinent();
-		  
-		}
+	  }
 	  
-	  
-	}
-	
 	/**
-	 * will return number of armies the player will get by owning complete continents
+	 * will return number of armies the player will get by owning complete
+	 * continents
 	 * 
 	 * @param playerName player name to get additional continent bonus for
-	 * @return number of armies the player will get by owning complete continents
+	 * @return number of armies the player will get by owning complete
+	 *         continents
 	 */
 	
-	public int bonusArmiesForPlayer (String playerName)
-	
-	  {
+	public int bonusArmiesForPlayer(String playerName)
 	  
+	  {
+		
 		int playersbonusArmies = 0;
 		
-	  for (Continent continent: this.getContinentsList().values())
-		{
+		for (Continent continent : this.getContinentsList().values())
+		  {
+			
+			if ((continent.getContinentGraph().getGraphNodes().stream().map((
+			    c) -> c.getNodeData().getCurrentOccupier()).anyMatch((o) -> !o
+			        .equals(playerName))))
+			  {
+				
+			  } else
+			  {
+				playersbonusArmies += continent.getAdditionalBonusArmies();
+			  }
+			  
+		  }
 		  
-		  		if ((continent.getContinentGraph().getGraphNodes()
-		  			.stream().map((c) -> c.getNodeData().getCurrentOccupier())
-		  			.anyMatch((o) -> !o.equals(playerName))))
-		  		  {
-		  			
-		  		  }else
-		  			{
-		  			playersbonusArmies += continent.getAdditionalBonusArmies();
-		  			}
-		  
-		}
-		
-	  return playersbonusArmies;
-	}
-	
+		return playersbonusArmies;
+	  }
+	  
   }

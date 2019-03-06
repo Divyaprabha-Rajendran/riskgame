@@ -1,6 +1,7 @@
 package ca.riskgamet31.maincomps;
 
 import ca.riskgamet31.mapdata.ValidateMapInput;
+
 /**
  * main continent class
  * 
@@ -8,7 +9,7 @@ import ca.riskgamet31.mapdata.ValidateMapInput;
  * @version 1.0
  * @since 1.0
  */
-public class Continent 
+public class Continent
   {
 	
 	/**
@@ -16,7 +17,7 @@ public class Continent
 	 */
 	private final String continentName;
 	/**
-	 * value of additional armies for this continent. 
+	 * value of additional armies for this continent.
 	 */
 	private final int additionalBonusArmies;
 	/**
@@ -25,22 +26,23 @@ public class Continent
 	private Graph continentGraph;
 	
 	private ValidateMapInput validateData = new ValidateMapInput();
+	
 	/**
 	 * constructs new continent object
 	 * 
-	 * @param continentName name of continent
+	 * @param continentName         name of continent
 	 * @param additionalBonusArmies additional armies
-	 * @param continentGraph graph object
+	 * @param continentGraph        graph object
 	 */
-	public Continent(String continentName, int additionalBonusArmies , Graph continentGraph)
+	public Continent(String continentName, int additionalBonusArmies,
+	    Graph continentGraph)
 	  {
 		validateData.validateCountryorContinentName(continentName);
 		this.continentName = continentName;
 		this.additionalBonusArmies = additionalBonusArmies;
 		this.continentGraph = continentGraph;
 	  }
-	
-	
+	  
 	/**
 	 * provides continent name
 	 * 
@@ -50,56 +52,68 @@ public class Continent
 	  {
 		return continentName;
 	  }
-
-
+	  
 	/**
 	 * provides additional armies value.
+	 * 
 	 * @return provides additional armies value.
 	 */
 	public int getAdditionalBonusArmies()
 	  {
 		return additionalBonusArmies;
 	  }
-
+	  
+	/**
+	 * to get continent graph
+	 * 
+	 * @return continent graph
+	 */
 	
-	
-	
-	public Graph getContinentGraph() {
+	public Graph getContinentGraph()
+	  {
 		return continentGraph;
-	}
-
-
-	public void setContinentGraph(Graph continentGraph) {
+	  }
+	  
+	/**
+	 * to set continent graph
+	 * 
+	 * @param continentGraph continent graph
+	 */
+	public void setContinentGraph(Graph continentGraph)
+	  {
 		this.continentGraph = continentGraph;
-	}
-
-
+	  }
+	  
 	/**
 	 * checks whether this continent is connected graph or not.
+	 * 
 	 * @return true if connected graph.
 	 */
-	public boolean isConnected() {
+	public boolean isConnected()
+	  {
+		
+		return this.continentGraph.isConnected();
+		
+	  }
 	  
-	  return this.continentGraph.isConnected();
-	  
-	}
-	
-	/** 
+	/**
 	 * overrides Object's equal method.
-	 * @return true if both continents have similar names. 
+	 * 
+	 * @return true if both continents have similar names.
 	 */
 	@Override
 	public boolean equals(Object otherContinent)
 	  {
 		if (otherContinent == null)
-			return false;
-		  if (!(otherContinent instanceof Continent))
-			return false;
-		  if (otherContinent == this)
-			return true;
-		  return (this.getContinentName().equals(((Continent) otherContinent).getContinentName()));
+		  return false;
+		if (!(otherContinent instanceof Continent))
+		  return false;
+		if (otherContinent == this)
+		  return true;
+		return (this.getContinentName().equals(((Continent) otherContinent)
+		    .getContinentName()));
 	  }
-
+	  
 	/**
 	 * returns a string representation of the continent
 	 */
@@ -108,17 +122,21 @@ public class Continent
 	  {
 		return "Continent [continent Name=" + continentName + ", Bonus Armies=" + additionalBonusArmies + "]";
 	  }
-	
+	  
 	/**
 	 * 
 	 */
 	
-	public void viewContinent() {
+	/**
+	 * prints a view of the continent graph elements
+	 */
+	public void viewContinent()
+	  {
+		
+		System.out.println(this.toString());
+		
+		this.getContinentGraph().viewGraph();
+		
+	  }
 	  
-	  System.out.println(this.toString());
-	  
-	  this.getContinentGraph().viewGraph();
-	  
-	}
-	
   }

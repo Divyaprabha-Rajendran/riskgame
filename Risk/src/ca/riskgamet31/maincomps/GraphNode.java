@@ -42,106 +42,118 @@ public class GraphNode
 		this.parentNode = null;
 		this.neighbors = new ArrayList<GraphNode>();
 	  }
-
+	  
 	/**
 	 * returns the country component of the node.
+	 * 
 	 * @return country component of the node.
 	 */
 	public Country getNodeData()
 	  {
 		return nodeData;
 	  }
-	
+	  
 	/**
 	 * returns array list of neighboring nodes.
+	 * 
 	 * @return array list of neighboring nodes.
 	 */
 	public ArrayList<GraphNode> getNodeNeighbors()
-	{
-	  return this.neighbors;
-	}
-
+	  {
+		return this.neighbors;
+	  }
+	  
 	/**
 	 * returns the distance from parent node in the graph.
+	 * 
 	 * @return the distance from parent node in the graph.
 	 */
 	public int getDistance()
 	  {
 		return distance;
 	  }
-
+	  
 	/**
 	 * sets the distance from parent node in the graph.
+	 * 
 	 * @param distance distance from parent node in the graph.
 	 */
 	public void setDistance(int distance)
 	  {
 		this.distance = distance;
 	  }
-
+	  
 	/**
 	 * returns its parent node.
+	 * 
 	 * @return its parent node.
 	 */
 	public GraphNode getParentNode()
 	  {
 		return parentNode;
 	  }
-
+	  
 	/**
 	 * sets parent node
+	 * 
 	 * @param parentNode node's parent.
 	 */
 	public void setParentNode(GraphNode parentNode)
 	  {
 		this.parentNode = parentNode;
 	  }
-	
+	  
 	/**
-	 * adds new neighbor 
+	 * adds new neighbor
+	 * 
 	 * @param neighbor new neighbor
 	 */
 	public void addNeighbor(GraphNode neighbor)
-	{
+	  {
+		
+		this.getNodeNeighbors().add(neighbor);
+		
+	  }
 	  
-	  this.getNodeNeighbors().add(neighbor);
-	  
-	}
-	
 	/**
 	 * remove a neighbor from list of neighbors.
+	 * 
 	 * @param neighbor the neighbor to be removed.
 	 */
 	public void removeNeighbor(GraphNode neighbor)
-		{
-		  
-		  this.getNodeNeighbors().remove(neighbor);
-		  
-		}
-
+	  {
+		
+		this.getNodeNeighbors().remove(neighbor);
+		
+	  }
+	  
 	/**
-	 * returns if two nodes are equals or not
-	 * based on country's equal method.
+	 * returns if two nodes are equals or not based on country's equal method.
+	 * 
 	 * @return true if both nodes have country with the same name.
 	 * @see Country#equals(Object)
 	 */
 	@Override
-	  public boolean equals(Object otherNode)
-		{
-		  
-		  if (otherNode == null)
-			return false;
-		  if (!(otherNode instanceof GraphNode))
-			return false;
-		  if (otherNode == this)
-			return true;
-		  return (this.getNodeData().equals(((GraphNode) otherNode).getNodeData()));  
-		  
-		}
-	
-	@Override 
+	public boolean equals(Object otherNode)
+	  {
+		
+		if (otherNode == null)
+		  return false;
+		if (!(otherNode instanceof GraphNode))
+		  return false;
+		if (otherNode == this)
+		  return true;
+		return (this.getNodeData().equals(((GraphNode) otherNode)
+		    .getNodeData()));
+		
+	  }
+	  
+	/**
+	 * returns a string representation of graph node data object
+	 */
+	@Override
 	public String toString()
-	{
-	  return this.getNodeData().toString();
-	}
+	  {
+		return this.getNodeData().toString();
+	  }
   }

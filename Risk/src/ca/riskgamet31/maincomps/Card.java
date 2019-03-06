@@ -7,7 +7,8 @@ package ca.riskgamet31.maincomps;
  * @version 1.0
  * @since 1.0
  */
-public class Card {
+public class Card
+  {
 	
 	/**
 	 * Type of card
@@ -17,28 +18,47 @@ public class Card {
 	/**
 	 * Country object
 	 */
-    private final Country country;
-    
-    /**
+	private final Country country;
+	
+	/**
 	 * constructs new card object
 	 * 
-	 * @param One of three types of card
+	 * @param One     of three types of card
 	 * @param Country object
 	 */
-    public Card( String type, Country country ) {
+	public Card(String type, Country country)
+	  {
 		this.type = type;
 		this.country = country;
-    }
-	
-	public String getCardName() {
+	  }
+	  
+	/**
+	 * to get card name
+	 * 
+	 * @return card name
+	 */
+	public String getCardName()
+	  {
 		return country.getCountryName() + ", " + type;
-	}
-
-    public String getCardType() {
+	  }
+	  
+	/**
+	 * to get card type
+	 * 
+	 * @return the type of the card
+	 */
+	public String getCardType()
+	  {
 		return type;
-    }
-
-    public Country getCountryObj() {
+	  }
+	  
+	/**
+	 * to get country object
+	 * 
+	 * @return country object
+	 */
+	public Country getCountryObj()
+	  {
 		return country;
-    }
-}
+	  }
+  }

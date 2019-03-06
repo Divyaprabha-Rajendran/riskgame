@@ -122,9 +122,7 @@ public class Graph
 	  {
 		int tempdistance = 0;
 		this.cleanProcessingData();
-		//for(GraphNode node: this.getGraphNodes())
-		//	System.out.println(node.toString());
-			
+		
 		GraphNode rootNode = this.getGraphNodes().get(0);
 		rootNode.setDistance(tempdistance++);
 		this.getProcessingList().add(rootNode);
@@ -145,10 +143,7 @@ public class Graph
 			  }
 			  
 		  }
-		
-		//for(GraphNode node: this.getGraphNodes())
-		//System.out.println(node.toString());
-		
+		  
 	  }
 	  
 	/**
@@ -161,7 +156,8 @@ public class Graph
 		
 		this.processGraph();
 		
-		boolean connected = this.getGraphNodes().stream().anyMatch((E) -> E.getDistance() < 0);
+		boolean connected = this.getGraphNodes().stream().anyMatch((E) -> E
+		    .getDistance() < 0);
 		return !connected;
 		
 	  }
@@ -184,9 +180,11 @@ public class Graph
 		while (graphIterator.hasNext())
 		  {
 			GraphNode tempNode = graphIterator.next();
-			if (tempNode.getNodeData().getCountryName().equals(fromCountry.toUpperCase()))
+			if (tempNode.getNodeData().getCountryName().equals(fromCountry
+			    .toUpperCase()))
 			  fromNode = tempNode;
-			if (tempNode.getNodeData().getCountryName().equals(toCountry.toUpperCase()))
+			if (tempNode.getNodeData().getCountryName().equals(toCountry
+			    .toUpperCase()))
 			  toNode = tempNode;
 		  }
 		  
@@ -209,7 +207,8 @@ public class Graph
 				
 				for (GraphNode neighborC : nodeNeighbors)
 				  {
-					if (neighborC.getDistance() < 0 && neighborC.getNodeData().getCurrentOccupier().equals(owner))
+					if (neighborC.getDistance() < 0 && neighborC.getNodeData()
+					    .getCurrentOccupier().equals(owner))
 					  {
 						neighborC.setDistance(tempdistance);
 						neighborC.setParentNode(node);
@@ -224,31 +223,24 @@ public class Graph
 		  }
 		return pathExists;
 	  }
-	
-	
+	  
 	/**
 	 * to display the main information of the country's graphNode.
 	 */
 	public void viewGraph()
-	{
-	  
-	  //int i = 0;
-	  
-	  for (GraphNode gNode : this.getGraphNodes()) 
-		{
-		 	
-		  System.out.println(gNode.toString()+"\t\t");
-		  for(GraphNode neibghor : gNode.getNodeNeighbors())
-			{
-			  System.out.println("\tNGR:"+neibghor.toString());
-			}
-		  //i++;
-		  //if ((i % 3) == 0)
-			//System.out.println("");
+	  {
+		
+		for (GraphNode gNode : this.getGraphNodes())
+		  {
+			
+			System.out.println(gNode.toString() + "\t\t");
+			for (GraphNode neibghor : gNode.getNodeNeighbors())
+			  {
+				System.out.println("\tNGR:" + neibghor.toString());
+			  }
+			  
+		  }
 		  
-		}
+	  }
 	  
-	}
-	
-	
   }
