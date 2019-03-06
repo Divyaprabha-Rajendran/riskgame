@@ -5,7 +5,6 @@
 			<name>asia</name>
 			<bonus-armies>10</bonus-armies>
 			<country>india</country>
-			<country>china</country>
 			<country>pakistan</country>
 			<country>nepal</country>
 			<country>srilanka</country>
@@ -20,6 +19,7 @@
 			<bonus-armies>10</bonus-armies>
 			<country>germany</country>
 			<country>italy</country>
+			<country>india</country>
 			<country>france</country>
 			<country>norway</country>
 			<country>ireland</country>
@@ -80,7 +80,7 @@
 		</link>
 		<link>
 			<from-country>pakistan</from-country>
-			<to-country>pakistan</to-country>
+			<to-country>india,china,mongolia,turkey</to-country>
 		</link>
 		<link>
 			<from-country>nepal</from-country>
