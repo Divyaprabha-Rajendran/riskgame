@@ -25,13 +25,24 @@ import ca.riskgamet31.configuration.Constants;
  */
 public class StartUpPhase 
 {
+	/**
+	 * count of players
+	 */
 	private int playerCount;
 	
 	
+	/**
+	 * to get count of players
+	 * @return count of players
+	 */
 	public int getPlayerCount() {
 		return playerCount;
 	}
 
+	/**
+	 * to set count of players
+	 * @param playerCount count of players
+	 */
 	public void setPlayerCount(int playerCount) {
 		this.playerCount = playerCount;
 	}
@@ -41,7 +52,6 @@ public class StartUpPhase
 	 * @param noOfPlayers
 	 * @return numberOfArmies.
 	 */
-
 	public int getArmy(int noOfPlayers)
 	  {
 		  switch (noOfPlayers)
@@ -61,7 +71,7 @@ public class StartUpPhase
 	
 	/**
 	 *Creates a player object and add it to playermodel
-	 * @param playername
+	 * @param playerName name of the player
 	 * @return player
 	 * @throws InvalidPlayerNameException 
 	 * @throws InvalidNameException 
@@ -69,7 +79,6 @@ public class StartUpPhase
 	 * @throws javax.naming.InvalidNameException 
 	 *
 	 */
-
 	public Player createPlayers(String playerName) throws NullPointerException, InvalidNameException, InvalidPlayerNameException, javax.naming.InvalidNameException
 	{
 		int army_count=getArmy(playerCount);
@@ -79,11 +88,10 @@ public class StartUpPhase
 	
 	/**
 	 * Distribute the countries available among players in  roundrobin fashion.
-	 * @param players
-	 * @param gamemap
+	 * @param PlayerModel players list
+	 * @param map game map
 	 *
 	 */
-	
 	public void distributeCountries(PlayerModel players, GameMap map )
 	{
 		ArrayList<GraphNode> actual_graph_nodes = map.getGameMapGraph().getGraphNodes();
@@ -97,8 +105,6 @@ public class StartUpPhase
 		  }
 		
 		int watchdog=0;
-		// changed by fareed to provide random distribution even for the same map file
-		//for (GraphNode node : graph_nodes)
 		SecureRandom random = new SecureRandom();
 		
 		while (graph_nodes.size() > 0){
@@ -107,10 +113,6 @@ public class StartUpPhase
 			{
 			  String node = graph_nodes.remove(random.nextInt(graph_nodes.size()));
 				Player curr_player=players.getPlayerList().get(watchdog);
-				//System.out.println(curr_player.getplayersName());
-				//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
-				//System.out.println(curr_player.getplayerName());
-				//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
 				GraphNode selectedNode = null;
 				
 				for (GraphNode gnode : actual_graph_nodes)
@@ -136,7 +138,6 @@ public class StartUpPhase
 	 * The method executes till all the player's armies are distributed.
 	 * @param players 
 	 */
-	
 	public void distributeArmies(Player player)
 	{
 		Scanner scan = new Scanner(System.in);
@@ -152,7 +153,6 @@ public class StartUpPhase
 				for (GraphNode node : country_nodes)
 				{
 					owned_by_player.add(node.getNodeData().getCountryName());
-					//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
 					System.out.println(node.toString());
 				}
 				System.out.println("Enter the country name");
@@ -178,14 +178,11 @@ public class StartUpPhase
 					  validInput=true;
 					  }while(!validInput);
 					armies = Integer.parseInt(text);
-					
-					//System.out.println(armies);
-										
+									
 					if(armies<=player.getPlayerArmies())
 					{
 						for (GraphNode node : country_nodes)
 						{
-							//System.out.println(node.getNodeData().getCountryName()+"--------->"+node.getNodeData().getArmies());
 							if (node.getNodeData().getCountryName().equals(country_name.trim()))
 							{
 								node.getNodeData().setArmies(node.getNodeData().getArmies()+armies);

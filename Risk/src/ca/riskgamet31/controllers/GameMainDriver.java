@@ -33,9 +33,17 @@ import ca.riskgamet31.mapdata.CreateMap;
  */
 public class GameMainDriver
   {
-	
+	/**
+	 * game map member
+	 */
 	private GameMap Risk;
+	/**
+	 * player model member
+	 */
 	private PlayerModel Players;
+	/**
+	 * startup phase member
+	 */
 	StartUpPhase StartUp;
 	
 	/**
@@ -47,23 +55,25 @@ public class GameMainDriver
 		Players=new PlayerModel();
 		StartUp = new StartUpPhase();
 	}
+	/**
+	 * to get players list
+	 * @return players list
+	 */
 	  public PlayerModel  getPlayerList()
 	   {
 		   return Players;
 	   }
+	  
 	/**
 	 * Gives different options to create a gamemap and returns the file path of the chosen XML file
 	 * @return xmlFilePath
 	 *
 	 */
-
 	public String getFileInput() throws IOException
 	{
 
 		File xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\default_map.xml");
 		
-		//File xmlFile = new File("Risk_MapData\\default_map.xml"); //commented because of conflicts
-
 		Scanner scan = new Scanner(System.in);
 		
 	    
@@ -116,7 +126,7 @@ public class GameMainDriver
 	    	    case 3: {
 	    		xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\default_map.xml");
 
-	    		//xmlFile = new File("Risk_MapData\\default_map.xml"); //commented because of conflictsS
+	    		
 	    		break;
 	    		}
 	    case 4:
@@ -131,11 +141,10 @@ public class GameMainDriver
 	}
 	
 	/**
-	 * Creates the gamemap from the CreateMap Class for the player.
-	 * @param xmlPath
+	 * Creates the game map from the CreateMap Class for the player.
+	 * @param xmlpath xml file path
 	 *
 	 */
-
 	public void createGameMap(String xmlpath)
 	{
 		try
@@ -168,7 +177,6 @@ public class GameMainDriver
 	 * @throws NullPointerException 
 	 * 
 	 */
-
 	public void createPlayer() throws NullPointerException, InvalidNameException
 	{
 		int no_players = 0;
@@ -221,7 +229,6 @@ public class GameMainDriver
 	 * Once the countries are distributed, armies are distributed among countries the player own.
 	 *
 	 */
-
 	public void setUpGame()
 	{
 		
@@ -242,8 +249,10 @@ public class GameMainDriver
 		
 	}
 	
-	
-	
+	/**
+	 * a method representing each turn
+	 * 
+	 */
 	public void playGame() {
 	  
 	  boolean endGame = false;
@@ -293,8 +302,10 @@ public class GameMainDriver
 	  
 	}
 	
-	
-	
+	/**
+	 * main method of the game
+	 * @param args
+	 */
 	public static void main(String[] args)
 	  {
 		GameMainDriver driver = new GameMainDriver();

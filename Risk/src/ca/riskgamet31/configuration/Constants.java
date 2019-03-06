@@ -3,7 +3,7 @@ package ca.riskgamet31.configuration;
 /**
  * Class for constants to define
  * @author Yash Doshi
- *
+ *@version 1.0
  */
 public class Constants 
 {
