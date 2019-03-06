@@ -2,7 +2,7 @@
 <risk>
 	<continents>
 		<continent>
-			<name>asia#</name>
+			<name>asia</name>
 			<bonus-armies>10</bonus-armies>
 			<country>india</country>
 			<country>asia</country>
