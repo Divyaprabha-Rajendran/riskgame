@@ -57,7 +57,7 @@ public class GameMainDriver
 	 *
 	 */
 
-	public String getFileInput() throws IOException
+	public String getFileInput(GameMainDriver GM) throws IOException
 	{
 
 		File xmlFile = new File(System.getProperty("user.dir")+"\\Risk_MapData\\default_map.xml");
@@ -121,12 +121,19 @@ public class GameMainDriver
 	    		}
 	    case 4:
 	    		{
+	    			try
+	    			{
+	    			GM.createGameMap(xmlFile.getPath());
 	    			continueEditing=false;
+	    			}
+	    			catch(Exception e)
+	    			{
+	    				//System.out.println(e.getMessage());
+	    			}
 	    			break;
 	    		}
 	    	}
 	    };
-	    
 	    return xmlFile.getPath();
 	}
 	
@@ -300,13 +307,18 @@ public class GameMainDriver
 		GameMainDriver driver = new GameMainDriver();
 		try 
 		{
-			String xmlpath=driver.getFileInput();
-			driver.createGameMap(xmlpath);
+			String xmlpath=driver.getFileInput(driver);
+			//driver.createGameMap(xmlpath);
 			driver.createPlayer();
 			driver.setUpGame();
 			driver.Risk.viewGameMap();
 			driver.playGame();
 		} 
+		catch (InvalidNameException e) 
+		{	
+			e.printStackTrace();
+			
+		}
 		catch (IOException e) 
 		{	
 			e.printStackTrace();
@@ -315,10 +327,7 @@ public class GameMainDriver
 		{
 			e.printStackTrace();
 		} 
-		catch (InvalidNameException e) 
-		{	
-			e.printStackTrace();
-		}
+		
 		
 	  }
 	  
