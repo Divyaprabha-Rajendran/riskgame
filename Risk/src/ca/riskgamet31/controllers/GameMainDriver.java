@@ -99,8 +99,10 @@ public class GameMainDriver
 				  {
 					int choice = chooser.showOpenDialog(chooser);
 					if (choice != JFileChooser.APPROVE_OPTION)
-					  return "";
-					xmlFile = chooser.getSelectedFile();
+					  xmlFile = new File(System
+						    .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
+					else
+					  xmlFile = chooser.getSelectedFile();
 					if (Desktop.isDesktopSupported())
 					  {
 						Desktop.getDesktop().open(xmlFile);
@@ -115,8 +117,10 @@ public class GameMainDriver
 					
 					int choice = chooser.showOpenDialog(chooser);
 					if (choice != JFileChooser.APPROVE_OPTION)
-					  return "";
-					xmlFile = chooser.getSelectedFile();
+					  xmlFile = new File(System
+						    .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
+					else
+					  xmlFile = chooser.getSelectedFile();
 					if (Desktop.isDesktopSupported())
 					  {
 						Desktop.getDesktop().open(xmlFile);
@@ -160,8 +164,6 @@ public class GameMainDriver
 	 */
 	public void createGameMap(String xmlpath)
 	  {
-		//try
-		 // {
 			CreateMap cmap = new CreateMap(xmlpath);
 			
 			HashMap<String, Continent> continentsList = cmap.generateGraph();
@@ -175,10 +177,7 @@ public class GameMainDriver
 			  throw new InvalidGraphException("Invalid Map..graph is no connected..");
 			
 			cmap.displayMap();
-		  //} catch (InvalidGraphException iex)
-		  //{
-		//	System.out.println(iex.getMessage());
-		  //}
+		  
 		  
 	  }
 	  
