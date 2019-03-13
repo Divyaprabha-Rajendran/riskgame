@@ -18,7 +18,7 @@ import ca.riskgamet31.mapdata.CreateMap;
 /**
  * Tests the CreateMap class
  * 
- * @author Chitra Gunasekaran
+ * @author Chitra 
  * @version 1.0
  * @since 1.0
  */
