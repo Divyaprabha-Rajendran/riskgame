@@ -7,8 +7,8 @@ import java.util.Collections;
 /**
  * Class of Dice to get the result of rolling of dices
  * @author YD
- * @version 
- * @since
+ * @version 1.0
+ * @since 1.0
  * 
  */
 public class Dice {
@@ -18,6 +18,9 @@ public class Dice {
 	 */
 	private int[] rollResultOfDices;
 	
+	/**
+	 * Dice Constructor
+	 */
 	public Dice()
 	{
 		
