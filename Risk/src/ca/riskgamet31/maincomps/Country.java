@@ -27,7 +27,7 @@ public class Country extends Observable
 	 * current player occupying the country
 	 */
 	
-	private String currentOccupier; // to change to player when class is ready
+	private String currentOccupier;
 	/**
 	 * list of adjacent countries.
 	 */
@@ -51,7 +51,7 @@ public class Country extends Observable
 		validateData.validateCountryorContinentName(countryName);
 		this.countryName = countryName.toUpperCase();
 		this.armies = 0;
-		this.currentOccupier = "dumy".toUpperCase();
+		this.currentOccupier = "DUMY";
 		countryView viewer = new countryView(countryName.toLowerCase());
 		this.addObserver(viewer);
 		

@@ -38,7 +38,7 @@ public class Continent
 	    Graph continentGraph)
 	  {
 		validateData.validateCountryorContinentName(continentName);
-		this.continentName = continentName;
+		this.continentName = continentName.toUpperCase();
 		this.additionalBonusArmies = additionalBonusArmies;
 		this.continentGraph = continentGraph;
 	  }

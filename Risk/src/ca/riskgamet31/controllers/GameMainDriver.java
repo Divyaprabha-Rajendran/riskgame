@@ -41,6 +41,7 @@ public class GameMainDriver
 	/**
 	 * startup phase member
 	 */
+	
 	StartUpPhase StartUp;
 	
 	/**
