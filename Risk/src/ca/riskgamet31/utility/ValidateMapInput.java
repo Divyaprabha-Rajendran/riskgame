@@ -1,4 +1,4 @@
-package ca.riskgamet31.mapdata;
+package ca.riskgamet31.utility;
 
 import java.util.HashMap;
 import java.util.HashSet;

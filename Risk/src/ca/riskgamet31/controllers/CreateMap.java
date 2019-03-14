@@ -1,4 +1,4 @@
-package ca.riskgamet31.mapdata;
+package ca.riskgamet31.controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +23,7 @@ import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
+import ca.riskgamet31.utility.ValidateMapInput;
 
 /**
  * Creation of Map done from reading the xml file Creating continents and adding

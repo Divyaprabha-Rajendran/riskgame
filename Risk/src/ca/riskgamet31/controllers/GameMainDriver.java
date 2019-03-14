@@ -18,7 +18,6 @@ import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.Player;
-import ca.riskgamet31.mapdata.CreateMap;
 
 /**
  * Main driver class for the execution of game. Loading map, creating players

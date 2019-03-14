@@ -1,4 +1,4 @@
-package ca.riskgamet31.configuration;
+package ca.riskgamet31.utility;
 
 /**
  * Class for constants to define

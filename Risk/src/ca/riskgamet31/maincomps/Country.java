@@ -2,7 +2,7 @@ package ca.riskgamet31.maincomps;
 
 import java.util.Observable;
 
-import ca.riskgamet31.mapdata.ValidateMapInput;
+import ca.riskgamet31.utility.ValidateMapInput;
 import ca.riskgamet31.views.countryView;
 
 /**
@@ -28,13 +28,12 @@ public class Country extends Observable
 	 */
 	
 	private String currentOccupier;
+	
 	/**
 	 * list of adjacent countries.
 	 */
-	
 	private int armies;
 	
-	private ValidateMapInput validateData = new ValidateMapInput();
 	
 	/**
 	 * creates new country object.
@@ -48,12 +47,11 @@ public class Country extends Observable
 		
 		if (countryName == null)
 		  throw new NullPointerException("Null country name or neighbours reference");
-		validateData.validateCountryorContinentName(countryName);
 		this.countryName = countryName.toUpperCase();
 		this.armies = 0;
 		this.currentOccupier = "DUMY";
-		countryView viewer = new countryView(countryName.toLowerCase());
-		this.addObserver(viewer);
+		//countryView viewer = new countryView(countryName.toLowerCase());
+		//this.addObserver(viewer);
 		
 	  }
 	  

@@ -10,10 +10,10 @@ import javax.naming.InvalidNameException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import ca.riskgamet31.controllers.CreateMap;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
-import ca.riskgamet31.mapdata.CreateMap;
 
 /**
  * Tests the CreateMap class
