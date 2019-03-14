@@ -1,6 +1,5 @@
-ca.riskgamet31.configuration
 ca.riskgamet31.controllers
 ca.riskgamet31.exceptions
 ca.riskgamet31.maincomps
-ca.riskgamet31.mapdata
+ca.riskgamet31.utility
 ca.riskgamet31.views
