@@ -1,11 +1,10 @@
 package ca.riskgamet31.exceptions;
 
 /**
- * @author Divyaprabha Runtime Exception class if the country or continent has
- *         special characters
- * 
+ * Exception class if the country or continent has special characters
+ * @author Divyaprabha
  */
-public class InvalidNameException extends RuntimeException
+public class InvalidNameException extends Exception
   {
 	/**
 	 * InvalidNameException

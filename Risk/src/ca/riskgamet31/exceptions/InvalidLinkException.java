@@ -1,11 +1,10 @@
 package ca.riskgamet31.exceptions;
 
 /**
- * @author Divyaprabha Runtime Exception class if the from and to country are
- *         same or either of the country has a continent names
- * 
+ * Exception class if the from and to country are same or either of the country has a continent names
+ * @author Divyaprabha 
  */
-public class InvalidLinkException extends RuntimeException
+public class InvalidLinkException extends Exception
   {
 	/**
 	 * InvalidLinkException

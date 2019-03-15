@@ -1,11 +1,11 @@
 package ca.riskgamet31.exceptions;
 
 /**
- * @author Divyaprabha Runtime Exception class for duplicate continent name or
- *         continent name as exists in a country list
- * 
+ * Exception class for duplicate continent name or
+ * continent name as exists in a country list
+ * @author Divyaprabha 
  */
-public class InvalidContinentException extends RuntimeException
+public class InvalidContinentException extends Exception
   {
 	/**
 	 * @param cause cause for exception
