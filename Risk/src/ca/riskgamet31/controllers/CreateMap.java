@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
 
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,6 +20,9 @@ import org.xml.sax.SAXException;
 
 import ca.riskgamet31.exceptions.InvalidContinentException;
 import ca.riskgamet31.exceptions.InvalidCountryException;
+import ca.riskgamet31.exceptions.InvalidGraphException;
+import ca.riskgamet31.exceptions.InvalidLinkException;
+import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.Graph;
@@ -82,7 +86,7 @@ public class CreateMap
 			mapBuilder = mapFactory.newDocumentBuilder();
 			xmlDoc = mapBuilder.parse(xmlFile);
 			xmlDoc.getDocumentElement().normalize();
-			System.out.println("Document loaded successfully...");
+			System.out.println("Document loaded successfully from "+xmlFile.getAbsolutePath());
 		  } catch (ParserConfigurationException e)
 		  {
 			e.printStackTrace();
@@ -101,15 +105,21 @@ public class CreateMap
 	 * 
 	 * @param countryName of the country object
 	 * @return graph Node
+	 * @throws InvalidNameException If the name of continent or country has special characters or numbers
+	 * @throws InvalidCountryException If there is a duplicate country
 	 */
-	public GraphNode createGraphNode(String countryName)
+	public GraphNode createGraphNode(String countryName) throws InvalidNameException,InvalidCountryException 
 	  {
+		GraphNode newNode=null;
+		
+		validateMap.validateCountryorContinentName(countryName);
 		validateMap.checkExistingCountry(countryName, countrySet);
-		validateMap.checkContinentAgainstCountries(countryName, continentSet);
-		countrySet.add(countryName);
 		Country currentCountry = new Country(countryName);
-		GraphNode newNode = new GraphNode(currentCountry);
+		newNode = new GraphNode(currentCountry);
+		countrySet.add(countryName.toUpperCase());
+		validateMap.checkCountryAgainstContinents(countryName, continentSet);
 		countryMap.put(countryName, newNode);
+		
 		return newNode;
 	  }
 	  
@@ -121,16 +131,30 @@ public class CreateMap
 	 * @param additionalBonusArmies additionalBonusArmies
 	 * @param countriesList         countriesList
 	 * @return continent Object continent Object
+	 * @throws InvalidNameException If the name of continent or country has special characters or numbers
+	 * @throws InvalidContinentException If there is a duplicate continent
 	 */
 	public Continent createContinents(String continentName,
-	    int additionalBonusArmies, ArrayList<GraphNode> countriesList)
+	    int additionalBonusArmies, ArrayList<GraphNode> countriesList) throws InvalidNameException,InvalidContinentException 
 	  {
-		validateMap.checkExistingContinent(continentName, continentSet);
-		validateMap.checkContinentAgainstCountries(continentName, countrySet);
 		Continent currentContinent = null;
-		continentSet.add(continentName);
+		
+		validateMap.validateCountryorContinentName(continentName);
+		validateMap.checkExistingContinent(continentName, continentSet);
 		Graph continentGraph = new Graph(countriesList);
 		currentContinent = new Continent(continentName, additionalBonusArmies, continentGraph);
+		continentSet.add(continentName.toUpperCase());
+		validateMap.checkContinentAgainstCountries(continentName, countrySet);
+		/*catch(InvalidNameException e)
+		{
+			System.out.println(e.getMessage());
+			//e.printStackTrace();
+		}
+		catch(InvalidContinentException e)
+		{
+			System.out.println(e.getMessage());
+			//e1.printStackTrace();
+		}*/
 		return currentContinent;
 	  }
 	  
@@ -139,36 +163,51 @@ public class CreateMap
 	 * 
 	 * @param continentElement continentElement
 	 * @return countriesList an arraylist of countries.
-	 *
+	 * @throws InvalidNameException If the name of continent or country has special characters or numbers
+	 * @throws InvalidCountryException If there is a duplicate country
+	 * @throws InvalidGraphException If the graph is invalid
 	 */
-	public ArrayList<GraphNode> getCountries(Element continentElement)
+	public ArrayList<GraphNode> getCountries(Element continentElement) throws InvalidNameException, InvalidCountryException, InvalidGraphException
 	  {
 		ArrayList<GraphNode> countriesList = new ArrayList<GraphNode>();
 		NodeList countryList = continentElement.getElementsByTagName("country");
-		try
-		  {
+		if(countryList.getLength()>0)
+		{
 			for (int temp = 0; temp < countryList.getLength(); temp++)
 			  {
 				Node countryNode = countryList.item(temp);
 				String country_name = countryNode.getTextContent();
+				if(country_name.length()==0)
+					throw new NullPointerException();
 				countriesList.add(createGraphNode(country_name));
 			  }
-		  } catch (Exception e)
+		}
+		 /* } catch (Exception e)
 		  {
-			e = new InvalidCountryException("Multiple countries need to be present or continent element is malformed");
-		  }
+			//e = new InvalidCountryException("Multiple countries need to be present or continent element is malformed");
+			// e.printStackTrace();
+			 System.out.println(e.getMessage());
+		  }*/
+		
+		else
+		{
+			throw new InvalidGraphException("Continent "+continentElement
+					    .getElementsByTagName("name").item(0).getTextContent()+" has no countries present");
+		}
 		return countriesList;
 	  }
 	  
 	/**
 	 * Get all the continent elements from XML file.
-	 *
+	 * @throws InvalidGraphException If the graph is invalid
+	 * @throws Exception For handling null values and XML malformed exceptions.
 	 */
-	public void getContinents()
+	public void getContinents() throws InvalidGraphException,Exception
 	  {
 		NodeList continentList = xmlDoc.getElementsByTagName("continent");
-		try
-		  {
+		
+		if(continentList.getLength()>0)
+		{
 			for (int temp = 0; temp < continentList.getLength(); temp++)
 			  {
 				Node continentNode = continentList.item(temp);
@@ -176,7 +215,9 @@ public class CreateMap
 				  {
 					Element continentElement = (Element) continentNode;
 					String continentName = continentElement
-					    .getElementsByTagName("name").item(0).getTextContent();
+					    .getElementsByTagName("name").item(0).getTextContent().trim();
+					if(continentName.length()==0)
+						throw new NullPointerException();
 					int additionalBonusArmies = Integer
 					    .parseInt(continentElement
 					        .getElementsByTagName("bonus-armies").item(0)
@@ -186,21 +227,24 @@ public class CreateMap
 					    .put(continentName, createContinents(continentName, additionalBonusArmies, countriesList));
 				  }
 			  }
-			  
-		  } catch (Exception e)
-		  {
-			e = new InvalidContinentException("Atleast a single continent must be present or continent element is malformed");
-		  }
+		}
+		
+		else
+		{
+			throw new InvalidGraphException("XML has no continents present");
+		}
+		  
 	  }
 	  
 	/**
 	 * Get the links elements from the XML file and get the from-country and
 	 * to-country.
-	 *
+	 * @throws InvalidLinkException If from and to countries are same.
 	 */
 	
-	public void processLinks()
+	public void processLinks() throws InvalidLinkException
 	  {
+		
 		NodeList linkList = xmlDoc.getElementsByTagName("link");
 		for (int temp = 0; temp < linkList.getLength(); temp++)
 		  {
@@ -214,11 +258,11 @@ public class CreateMap
 				String to_country = curr_element
 				    .getElementsByTagName("to-country").item(0)
 				    .getTextContent();
-				validateMap.checkLinks(from_country, to_country, continentSet);
 				addLinks(from_country, to_country);
 			  }
 		  }
-		  
+		
+		
 	  }
 	  
 	/**
@@ -227,8 +271,9 @@ public class CreateMap
 	 * 
 	 * @param from_country from_country
 	 * @param to_country   to country
+	 * @throws InvalidLinkException If from and to countries are same.
 	 */
-	public void addLinks(String from_country, String to_country)
+	public void addLinks(String from_country, String to_country) throws InvalidLinkException
 	  {
 		String[] to_countries;
 		GraphNode from_country_obj = countryMap.get(from_country);
@@ -238,6 +283,7 @@ public class CreateMap
 			to_countries = to_country.split(",");
 			for (String country : to_countries)
 			  {
+				validateMap.checkLinks(from_country, country, continentSet);
 				to_country_obj = countryMap.get(country);
 				if (!(to_country_obj.getNodeNeighbors()
 				    .contains(from_country_obj)))
@@ -337,8 +383,10 @@ public class CreateMap
 	 * geneart graph
 	 * 
 	 * @return hash map of graph
+	 * @throws InvalidLinkException If from and to countries are same.
+	 * @throws Exception For handling null values and XML malformed exceptions. 
 	 */
-	public HashMap<String, Continent> generateGraph()
+	public HashMap<String, Continent> generateGraph() throws InvalidLinkException, Exception
 	  {
 		loadMapData();
 		getContinents();
@@ -347,8 +395,13 @@ public class CreateMap
 		for (Continent continent : mapData.values())
 		  {
 			if (!continent.getContinentGraph().isConnected())
-			  throw new InvalidContinentException(continent
-			      .getContinentName() + " is not a connected graph.");
+				try {
+					throw new InvalidContinentException(continent
+					      .getContinentName() + " is not a connected graph.");
+				} catch (InvalidContinentException e) {
+					System.out.println(e.getMessage());
+					//e.printStackTrace();
+				}
 		  }
 		  
 		return mapData;
