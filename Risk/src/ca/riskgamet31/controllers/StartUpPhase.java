@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
+
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.GameMap;
@@ -76,14 +77,11 @@ public class StartUpPhase
 	 * @param playerName name of the player
 	 * @return player
 	 * @throws InvalidPlayerNameException InvalidPlayerNameException
-	 * @throws InvalidNameException InvalidNameException
 	 * @throws NullPointerException NullPointerException
-	 * @throws javax.naming.InvalidNameException InvalidNameException
-	 *
+	 * @throws javax.naming.InvalidNameException 
 	 */
 	public Player createPlayers(String playerName) throws NullPointerException,
-	    InvalidNameException, InvalidPlayerNameException,
-	    javax.naming.InvalidNameException
+	     InvalidPlayerNameException, InvalidNameException
 	  {
 		int army_count = getArmy(playerCount);
 		Player player = new Player(playerName, army_count);
@@ -92,7 +90,6 @@ public class StartUpPhase
 	  
 	/**
 	 * Distribute the countries available among players in roundrobin fashion.
-	 * 
 	 * @param players players list
 	 * @param map         game map
 	 *
