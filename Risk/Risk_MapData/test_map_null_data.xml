@@ -4,7 +4,7 @@
 		<continent>
 			<name>asia</name>
 			<bonus-armies>10</bonus-armies>
-			<country>india</country>
+			<country></country>
 			<country>china</country>
 			<country>pakistan</country>
 			<country>nepal</country>
@@ -73,7 +73,7 @@
 		</link>
 		<link>
 			<from-country>china</from-country>
-			<to-country>india,pakistan,nepal,japan,mongolia,srilanka</to-country>
+			<to-country>india,pakistan,nepal,japan,mongolia,srilanka,newzealand</to-country>
 		</link>
 		<link>
 			<from-country>pakistan</from-country>
@@ -185,7 +185,7 @@
 		</link>
 		<link>
 			<from-country>zimbabwe</from-country>
-			<to-country>congo,angola,southafrica</to-country>
+			<to-country>congo,angola,southafrica,newzealand</to-country>
 		</link>
 		<link>
 			<from-country>sudan</from-country>
@@ -209,8 +209,11 @@
 		</link>
 		<link>
 			<from-country>westaustralia</from-country>
-			<to-country>eastaustralia</to-country>
+			<to-country>eastaustralia,newzealand</to-country>
 		</link>
-		
+		<link>
+			<from-country>newzealand</from-country>
+			<to-country>westaustralia,china,zimbabwe</to-country>
+		</link>
 	</country-links>
 </risk>

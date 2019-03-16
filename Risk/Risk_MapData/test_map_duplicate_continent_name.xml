@@ -16,7 +16,7 @@
 			<country>mongolia</country>
 		</continent>
 		<continent>
-			<name>asia</name>
+			<name>asiA</name>
 			<bonus-armies>10</bonus-armies>
 			<country>germany</country>
 			<country>italy</country>
@@ -96,7 +96,7 @@
 		</link>
 		<link>
 			<from-country>malaysia</from-country>
-			<to-country>japan,china,singapore,malaysia</to-country>
+			<to-country>japan,china,singapore</to-country>
 		</link>
 		<link>
 			<from-country>indonesia</from-country>

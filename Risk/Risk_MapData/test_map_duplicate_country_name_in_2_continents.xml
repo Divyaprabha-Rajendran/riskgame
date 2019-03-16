@@ -19,7 +19,7 @@
 			<bonus-armies>10</bonus-armies>
 			<country>germany</country>
 			<country>italy</country>
-			<country>india</country>
+			<country>INdia</country>
 			<country>france</country>
 			<country>norway</country>
 			<country>ireland</country>
@@ -96,7 +96,7 @@
 		</link>
 		<link>
 			<from-country>malaysia</from-country>
-			<to-country>japan,china,singapore,malaysia</to-country>
+			<to-country>japan,china,singapore</to-country>
 		</link>
 		<link>
 			<from-country>indonesia</from-country>

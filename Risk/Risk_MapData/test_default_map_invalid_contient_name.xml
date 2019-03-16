@@ -2,7 +2,7 @@
 <risk>
 	<continents>
 		<continent>
-			<name>asia#</name>
+			<name>--</name>
 			<bonus-armies>10</bonus-armies>
 			<country>india</country>
 			<country>asia</country>
@@ -81,7 +81,7 @@
 		</link>
 		<link>
 			<from-country>pakistan</from-country>
-			<to-country>pakistan</to-country>
+			<to-country>pakistan,india,china,mongolia,turkey</to-country>
 		</link>
 		<link>
 			<from-country>nepal</from-country>
@@ -97,7 +97,7 @@
 		</link>
 		<link>
 			<from-country>malaysia</from-country>
-			<to-country>japan,china,singapore,malaysia</to-country>
+			<to-country>japan,china,singapore</to-country>
 		</link>
 		<link>
 			<from-country>indonesia</from-country>

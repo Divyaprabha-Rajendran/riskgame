@@ -77,7 +77,7 @@
 		</link>
 		<link>
 			<from-country>pakistan</from-country>
-			<to-country>india,china,mongolia,turkey</to-country>
+			<to-country>pakistan,india,china,mongolia,turkey</to-country>
 		</link>
 		<link>
 			<from-country>nepal</from-country>
@@ -93,7 +93,7 @@
 		</link>
 		<link>
 			<from-country>malaysia</from-country>
-			<to-country>japan,china,singapore,malaysia</to-country>
+			<to-country>japan,china,singapore</to-country>
 		</link>
 		<link>
 			<from-country>indonesia</from-country>

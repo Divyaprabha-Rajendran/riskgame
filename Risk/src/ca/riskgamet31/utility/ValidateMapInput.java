@@ -34,7 +34,7 @@ public class ValidateMapInput
 	public ValidateMapInput()
 	  {
 		
-		validCountryNamePattern = Pattern.compile("^[a-zA-Z0-9]*$");
+		validCountryNamePattern = Pattern.compile("^[a-zA-Z]*$");
 		
 	  }
 	  
@@ -42,9 +42,9 @@ public class ValidateMapInput
 	 * method to validate country names
 	 * 
 	 * @param Name country name to check
-	 * 
+	 * @throws InvalidNameException If the name of continent or country has special characters or numbers
 	 */
-	public void validateCountryorContinentName(String Name)
+	public void validateCountryorContinentName(String Name) throws InvalidNameException
 	  {
 		Matcher countryNameMatcher = validCountryNamePattern.matcher(Name);
 		
@@ -59,13 +59,13 @@ public class ValidateMapInput
 	 * 
 	 * @param countryName country name to check
 	 * @param countryset  existing list of countries
-	 * 
+	 * @throws InvalidCountryException If there is a duplicate country
 	 */
 	public void checkExistingCountry(String countryName,
-	    HashSet<String> countryset)
+	    HashSet<String> countryset) throws InvalidCountryException 
 	  {
 		
-		if (countryset.stream().anyMatch((x) -> x.equals(countryName)) == true)
+		if (countryset.stream().anyMatch((x) -> x.equalsIgnoreCase(countryName)) == true)
 		  {
 			throw new InvalidCountryException("Country exists already " + countryName);
 		  }
@@ -77,13 +77,13 @@ public class ValidateMapInput
 	 * 
 	 * @param continentName country name to check
 	 * @param continentset  existing list of countries
-	 * 
+	 * @throws InvalidContinentException If there is a duplicate continent.
 	 */
 	public void checkExistingContinent(String continentName,
-	    HashSet<String> continentset)
+	    HashSet<String> continentset) throws InvalidContinentException 
 	  {
 		if (continentset.stream().anyMatch((x) -> x
-		    .equals(continentName)) == true)
+		    .equalsIgnoreCase(continentName)) == true)
 		  {
 			throw new InvalidContinentException("Continent exists already " + continentName);
 		  }
@@ -100,17 +100,17 @@ public class ValidateMapInput
 	public boolean checkSimilarNames(String countryName1, String countryName2)
 	  {
 		
-		return countryName1.equals(countryName2) ? true : false;
+		return countryName1.equalsIgnoreCase(countryName2) ? true : false;
 	  }
 	  
 	/**
 	 * check if any continent does not have countries associated
 	 * 
 	 * @param mapData continents objects
-	 * 
+	 * @throws InvalidContinentException If there is a duplicate continent.
 	 */
 	public void checkCountinentWithoutCountry(
-	    HashMap<String, Continent> mapData)
+	    HashMap<String, Continent> mapData) throws InvalidContinentException 
 	  
 	  {
 		boolean invalid = false;
@@ -131,12 +131,12 @@ public class ValidateMapInput
 	 * 
 	 * @param countryName country name
 	 * @param continentSet continent list
+	 * @throws InvalidCountryException If there is a duplicate country 
 	 */
 	public void checkCountryAgainstContinents(String countryName,
-	    HashSet<String> continentSet)
+	    HashSet<String> continentSet) throws InvalidCountryException
 	  {
-		
-		if (continentSet.contains(countryName))
+		if (continentSet.contains(countryName.toUpperCase()))
 		  {
 			throw new InvalidCountryException("country name is not valid as it is a continent name   " + countryName);
 		  }
@@ -148,11 +148,12 @@ public class ValidateMapInput
 	 * 
 	 * @param continentName continent name
 	 * @param countrySet country list
+	 * @throws InvalidContinentException If there is a duplicate continent.
 	 */
 	public void checkContinentAgainstCountries(String continentName,
-	    HashSet<String> countrySet)
+	    HashSet<String> countrySet) throws InvalidContinentException 
 	  {
-		if (countrySet.contains(continentName))
+		if (countrySet.contains(continentName.toUpperCase()))
 		  {
 			throw new InvalidContinentException("continent name is not valid as it is a country name   " + continentName);
 		  }
@@ -165,15 +166,16 @@ public class ValidateMapInput
 	 * @param fromName first country
 	 * @param ToName second country
 	 * @param continentSet continent set
+	 * @throws InvalidLinkException If from and to countries are same.
 	 */
 	public void checkLinks(String fromName, String ToName,
-	    HashSet<String> continentSet)
+	    HashSet<String> continentSet) throws InvalidLinkException
 	  
 	  {
-		if (continentSet.contains(ToName) || continentSet
-		    .contains(fromName) || ToName.equals(fromName))
+		if ((continentSet.contains(ToName.toUpperCase())) || (continentSet
+		    .contains(fromName.toUpperCase())) ||  (ToName.equalsIgnoreCase(fromName)))
 		  {
-			throw new InvalidLinkException("Countries may have a contient name or from and to country are same");
+			throw new InvalidLinkException("Countries may have a contient name or from and to country are same "+fromName+"---->"+ToName);
 		  }
 		  
 	  }
