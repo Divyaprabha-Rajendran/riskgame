@@ -78,7 +78,7 @@ public class StartUpPhase
 	 * @return player
 	 * @throws InvalidPlayerNameException InvalidPlayerNameException
 	 * @throws NullPointerException NullPointerException
-	 * @throws javax.naming.InvalidNameException 
+	 * @throws InvalidNameException if the name has numbers or symbol
 	 */
 	public Player createPlayers(String playerName) throws NullPointerException,
 	     InvalidPlayerNameException, InvalidNameException
