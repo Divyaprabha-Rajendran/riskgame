@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import javax.naming.InvalidNameException;
 import javax.swing.JFileChooser;
 
+import ca.riskgamet31.exceptions.InvalidContinentException;
+import ca.riskgamet31.exceptions.InvalidCountryException;
 import ca.riskgamet31.exceptions.InvalidGraphException;
+import ca.riskgamet31.exceptions.InvalidLinkException;
+import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerCountInput;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
@@ -18,6 +21,7 @@ import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.controllers.CreateMap;
 
 /**
  * Main driver class for the execution of game. Loading map, creating players
@@ -32,7 +36,7 @@ public class GameMainDriver
 	/**
 	 * game map member
 	 */
-	private GameMap Risk;
+	private GameMap risk;
 	/**
 	 * player model member
 	 */
@@ -48,7 +52,7 @@ public class GameMainDriver
 	 */
 	public GameMainDriver()
 	  {
-		Risk = null;
+		risk = null;
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
 	  }
@@ -87,32 +91,15 @@ public class GameMainDriver
 		while (continueEditing)
 		  {
 			System.out.println("Choose an option...");
-			System.out.println("1. open a new map...");
-			System.out.println("2. edit existing map...");
-			System.out.println("3. open default map..");
-			System.out.println("4. start playing..");
+			System.out.println("1. open and edit existing map...");
+			System.out.println("2. open default map..");
+			System.out.println("3. start playing..");
 			int option = scan.nextInt();
 			
 			switch (option)
 			  {
+				
 				case 1:
-				  {
-					int choice = chooser.showOpenDialog(chooser);
-					if (choice != JFileChooser.APPROVE_OPTION)
-					  xmlFile = new File(System
-						    .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
-					else
-					  xmlFile = chooser.getSelectedFile();
-					if (Desktop.isDesktopSupported())
-					  {
-						Desktop.getDesktop().open(xmlFile);
-					  } else
-					  {
-						System.out.println("not a valid file");
-					  }
-					break;
-				  }
-				case 2:
 				  {
 					
 					int choice = chooser.showOpenDialog(chooser);
@@ -131,23 +118,50 @@ public class GameMainDriver
 					  
 					break;
 				  }
-				case 3:
+				case 2:
 				  {
 					xmlFile = new File(System
 					    .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
 					
 					break;
 				  }
-				case 4:
+				case 3:
 				  {
 					try
 					  {
 						GM.createGameMap(xmlFile.getPath());
 						continueEditing = false;
-					  } catch (Exception e)
-					  {
-						// System.out.println(e.getMessage());
 					  }
+					catch(InvalidNameException e)
+					{
+						System.out.println(e.getMessage());
+					}
+					catch(InvalidCountryException e)
+					{
+						System.out.println(e.getMessage());
+					}
+					catch(InvalidContinentException e)
+					{
+						System.out.println(e.getMessage());
+						
+					}
+					catch (InvalidGraphException e)
+					  {
+						System.out.println(e.getMessage());
+						//e.printStackTrace();
+					  }
+					catch(InvalidLinkException e)
+					{
+						System.out.println(e.getMessage());
+						//e.printStackTrace();
+					}
+					catch(Exception e)
+					{
+						System.err.println(e.getMessage());
+						System.err.println("XML file is malformed.");
+						//e.printStackTrace();
+					}
+					
 					break;
 				  }
 			  }
@@ -160,9 +174,15 @@ public class GameMainDriver
 	 * Creates the game map from the CreateMap Class for the player.
 	 * 
 	 * @param xmlpath xml file path
-	 *
+	 * @throws InvalidGraphException If the graph is invalid 
+	 * @throws InvalidNameException If the name of continent or country has special characters or numbers
+	 * @throws InvalidCountryException If there is a duplicate country
+	 * @throws InvalidContinentException If there is a duplicate continent.
+	 * @throws InvalidLinkException If from and to countries are same.
+	 * @throws Exception For handling null values and XML malformed exceptions.
 	 */
-	public void createGameMap(String xmlpath)
+	public void createGameMap(String xmlpath) throws InvalidGraphException, InvalidNameException,InvalidCountryException,
+	InvalidContinentException,InvalidLinkException,Exception
 	  {
 			CreateMap cmap = new CreateMap(xmlpath);
 			
@@ -172,7 +192,7 @@ public class GameMainDriver
 			  {
 				System.out.println("The Map graph is valid");
 				gameMapGraph.viewGraph();
-				Risk = new GameMap(xmlpath, continentsList, gameMapGraph);
+				risk = new GameMap(xmlpath, continentsList, gameMapGraph);
 			  } else
 			  throw new InvalidGraphException("Invalid Map..graph is no connected..");
 			
@@ -241,7 +261,7 @@ public class GameMainDriver
 	public void setUpGame()
 	  {
 		
-		StartUp.distributeCountries(Players, Risk);
+		StartUp.distributeCountries(Players, risk);
 		
 		ArrayList<Player> players = Players.getPlayerList();
 		
@@ -252,7 +272,7 @@ public class GameMainDriver
 		  
 		for (Player player : players)
 		  {
-			player.reinforcementArmiesCalc(Risk);
+			player.reinforcementArmiesCalc(risk);
 		  }
 		  
 	  }
@@ -283,7 +303,7 @@ public class GameMainDriver
 			// check if game should end , if yes break
 			
 			// recalculate reinforcement armies for both players
-			currentPlayer.reinforcementArmiesCalc(Risk);
+			currentPlayer.reinforcementArmiesCalc(risk);
 			
 			// fortification phase
 			String text = "";
@@ -321,7 +341,7 @@ public class GameMainDriver
 			// driver.createGameMap(xmlpath);
 			driver.createPlayer();
 			driver.setUpGame();
-			driver.Risk.viewGameMap();
+			driver.risk.viewGameMap();
 			driver.playGame();
 		  } catch (InvalidNameException e)
 		  {
