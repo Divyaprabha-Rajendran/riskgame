@@ -6,8 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.naming.InvalidNameException;
-
+import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 
 /**
