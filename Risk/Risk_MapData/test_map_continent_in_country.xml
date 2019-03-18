@@ -3,7 +3,7 @@
 	<continents>
 		<continent>
 			<name>Asia</name>
-			<bonus-armies>df</bonus-armies>
+			<bonus-armies>10</bonus-armies>
 			<country>india</country>
 			<country>china</country>
 			<country>Asia</country>
@@ -20,7 +20,6 @@
 			<bonus-armies>10</bonus-armies>
 			<country>germany</country>
 			<country>italy</country>
-			<country>asia</country>
 			<country>norway</country>
 			<country>ireland</country>
 			<country>turkey</country>

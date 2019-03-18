@@ -80,7 +80,7 @@
 		</link>
 		<link>
 			<from-country>pakistan</from-country>
-			<to-country>pakistan#,india,china,mongolia,turkey</to-country>
+			<to-country>pakistan,india,china,mongolia,turkey</to-country>
 		</link>
 		<link>
 			<from-country>nepal</from-country>
