@@ -112,12 +112,9 @@ public class CreateMap
 	  {
 		GraphNode newNode=null;
 		
-		validateMap.validateCountryorContinentName(countryName);
-		validateMap.checkExistingCountry(countryName, countrySet);
+		
 		Country currentCountry = new Country(countryName);
 		newNode = new GraphNode(currentCountry);
-		countrySet.add(countryName.toUpperCase());
-		validateMap.checkCountryAgainstContinents(countryName, continentSet);
 		countryMap.put(countryName, newNode);
 		
 		return newNode;
@@ -139,12 +136,12 @@ public class CreateMap
 	  {
 		Continent currentContinent = null;
 		
-		validateMap.validateCountryorContinentName(continentName);
-		validateMap.checkExistingContinent(continentName, continentSet);
+		
+		
 		Graph continentGraph = new Graph(countriesList);
 		currentContinent = new Continent(continentName, additionalBonusArmies, continentGraph);
-		continentSet.add(continentName.toUpperCase());
-		validateMap.checkContinentAgainstCountries(continentName, countrySet);
+		
+		
 		/*catch(InvalidNameException e)
 		{
 			System.out.println(e.getMessage());
@@ -179,6 +176,11 @@ public class CreateMap
 				String country_name = countryNode.getTextContent();
 				if(country_name.length()==0)
 					throw new NullPointerException();
+				
+				validateMap.validateCountryorContinentName(country_name);
+				validateMap.checkExistingCountry(country_name, countrySet);
+				validateMap.checkCountryAgainstContinents(country_name, continentSet);
+				countrySet.add(country_name.toUpperCase());
 				countriesList.add(createGraphNode(country_name));
 			  }
 		}
@@ -218,10 +220,17 @@ public class CreateMap
 					    .getElementsByTagName("name").item(0).getTextContent().trim();
 					if(continentName.length()==0)
 						throw new NullPointerException();
+					
 					int additionalBonusArmies = Integer
 					    .parseInt(continentElement
 					        .getElementsByTagName("bonus-armies").item(0)
 					        .getTextContent());
+					
+					validateMap.validateCountryorContinentName(continentName);
+					validateMap.checkExistingContinent(continentName, continentSet);
+					validateMap.checkContinentAgainstCountries(continentName, countrySet);
+					continentSet.add(continentName.toUpperCase());
+					
 					ArrayList<GraphNode> countriesList = getCountries(continentElement);
 					mapData
 					    .put(continentName, createContinents(continentName, additionalBonusArmies, countriesList));
@@ -235,6 +244,7 @@ public class CreateMap
 		}
 		  
 	  }
+	
 	  
 	/**
 	 * Get the links elements from the XML file and get the from-country and
@@ -380,7 +390,7 @@ public class CreateMap
 	  }
 	  
 	/**
-	 * geneart graph
+	 * generate graph
 	 * 
 	 * @return hash map of graph
 	 * @throws InvalidLinkException If from and to countries are same.
