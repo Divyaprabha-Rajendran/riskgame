@@ -21,10 +21,10 @@ public class DeckOfCards
 	 */
 	private ArrayList<Card> deckOfCards;
 	
-	/**
-	 * country arraylist
-	 */
-	private ArrayList<Country> countries;
+//	/**
+//	 * country arraylist
+//	 */
+//	private ArrayList<Country> countries;
 	/**
 	 * DrawCard object of card type
 	 */
@@ -37,20 +37,20 @@ public class DeckOfCards
 	 * @param countries ArrayList of countries
 	 * 
 	 */
-	public DeckOfCards(ArrayList<Country> countries)
+	public DeckOfCards(ArrayList<GraphNode> graphNodes)
 	  {
 		
-		Collections.shuffle(countries);
+		Collections.shuffle(graphNodes);
 		
 		typesOfCards = new String[]
 		  { "Infantry", "Cavalry", "Artillery" };
 		  
 		deckOfCards = new ArrayList<Card>();
 		
-		for (int i = 0, j = 0; i < countries.size(); i++, j++)
+		for (int i = 0, j = 0; i < graphNodes.size(); i++, j++)
 		  {
 			
-			deckOfCards.add(new Card(typesOfCards[j], countries.get(i)));
+			deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i).getNodeData().getCountryName()));
 			if (j == 2)
 			  j = 0;
 		  }

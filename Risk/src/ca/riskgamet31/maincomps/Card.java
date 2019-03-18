@@ -18,18 +18,18 @@ public class Card
 	/**
 	 * Country object
 	 */
-	private final Country country;
+	private final String countryName;
 	
 	/**
 	 * constructs new card object
 	 * 
 	 * @param type  one of three types of card
-	 * @param country country Object
+	 * @param country country Name
 	 */
-	public Card(String type, Country country)
+	public Card(String type, String countryName)
 	  {
 		this.type = type;
-		this.country = country;
+		this.countryName = countryName;
 	  }
 	  
 	/**
@@ -39,7 +39,7 @@ public class Card
 	 */
 	public String getCardName()
 	  {
-		return country.getCountryName() + ", " + type;
+		return countryName + ", " + type;
 	  }
 	  
 	/**
@@ -57,8 +57,19 @@ public class Card
 	 * 
 	 * @return country object
 	 */
-	public Country getCountryObj()
+	public String getCountryName()
 	  {
-		return country;
+		return countryName;
+	  }
+	
+	/**
+	 * returns string representation of the card
+	 * 
+	 * @return string representation of the card
+	 */
+	@Override
+	public String toString()
+	  {
+		return "[" + this.getCardName() + "]";
 	  }
   }
