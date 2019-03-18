@@ -20,7 +20,7 @@ public class Hand
 	/**
 	 * ArrayList of cards which will be stored by player
 	 */
-	private ArrayList<Card> hand;
+	private ArrayList<Card> handWithCards;
 	
 	/**
 	 * Constructor to create Hand object
@@ -28,7 +28,7 @@ public class Hand
 	public Hand()
 	  {
 		
-		hand = new ArrayList<Card>();
+		handWithCards = new ArrayList<Card>();
 	  }
 	  
 	/**
@@ -39,7 +39,7 @@ public class Hand
 	public void addCard(Card card)
 	  {
 		
-		hand.add(card);
+		handWithCards.add(card);
 	  }
 	  
 	/**
@@ -48,7 +48,7 @@ public class Hand
 	 */
 	public ArrayList<Card> getCardsFromHand()
 	  {
-		return hand;
+		return handWithCards;
 	  }
 	  
 	/**
@@ -63,9 +63,9 @@ public class Hand
 		
 		if (canTurnInCards(index1, index2, index3) == true)
 		  {
-			hand.remove(index3);
-			hand.remove(index2);
-			hand.remove(index1);
+			handWithCards.remove(index3);
+			handWithCards.remove(index2);
+			handWithCards.remove(index1);
 			
 		  } else
 		  {
@@ -83,7 +83,7 @@ public class Hand
 		
 		mustTurnInCards = false;
 		
-		if (hand.size() >= 5)
+		if (handWithCards.size() >= 5)
 		  {
 			mustTurnInCards = true;
 		  }
@@ -103,19 +103,19 @@ public class Hand
 		
 		mustTurnInCards = false;
 		
-		if (hand.size() >= 3)
+		if (handWithCards.size() >= 3)
 		  {
-			if (hand.get(index1).getCardType().equals(hand.get(index2)
-			    .getCardType()) && hand.get(index1).getCardType().equals(hand
+			if (handWithCards.get(index1).getCardType().equals(handWithCards.get(index2)
+			    .getCardType()) && handWithCards.get(index1).getCardType().equals(handWithCards
 			        .get(index3).getCardType()))
 			  {
 				// If all three cards have the same type
 				mustTurnInCards = true;
 				
-			  } else if (!hand.get(index1).getCardType().equals(hand.get(index2)
-			      .getCardType()) && !hand.get(index1).getCardType().equals(hand
-			          .get(index3).getCardType()) && !hand.get(index2)
-			              .getCardType().equals(hand.get(index3).getCardType()))
+			  } else if (!handWithCards.get(index1).getCardType().equals(handWithCards.get(index2)
+			      .getCardType()) && !handWithCards.get(index1).getCardType().equals(handWithCards
+			          .get(index3).getCardType()) && !handWithCards.get(index2)
+			              .getCardType().equals(handWithCards.get(index3).getCardType()))
 			  {
 				// If all three cards have different types
 				mustTurnInCards = true;
