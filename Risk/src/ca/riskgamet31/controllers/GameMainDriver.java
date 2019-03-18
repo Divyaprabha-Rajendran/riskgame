@@ -140,25 +140,25 @@ public class GameMainDriver
 					  }
 					catch(InvalidNameException e)
 					{
-						System.out.println(e.getMessage());
+						//System.out.println(e.getMessage());
 					}
 					catch(InvalidCountryException e)
 					{
-						System.out.println(e.getMessage());
+						//System.out.println(e.getMessage());
 					}
 					catch(InvalidContinentException e)
 					{
-						System.out.println(e.getMessage());
+						//System.out.println(e.getMessage());
 						
 					}
 					catch (InvalidGraphException e)
 					  {
-						System.out.println(e.getMessage());
+						//System.out.println(e.getMessage());
 						//e.printStackTrace();
 					  }
 					catch(InvalidLinkException e)
 					{
-						System.out.println(e.getMessage());
+						//System.out.println(e.getMessage());
 						//e.printStackTrace();
 					}
 					catch(Exception e)
