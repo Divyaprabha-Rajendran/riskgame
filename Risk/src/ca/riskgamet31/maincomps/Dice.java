@@ -3,6 +3,8 @@ package ca.riskgamet31.maincomps;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Class of Dice to get the result of rolling of dices
@@ -45,7 +47,7 @@ public class Dice {
 		}
 		
 		Arrays.sort(rollResultOfDices);
-		Collections.reverse(Arrays.asList(rollResultOfDices));
+		int[] rollResultOfDicesReverse = IntStream.range(0,numberOfDices).map(i -> rollResultOfDices[numberOfDices-i-1]).toArray();
 		
 		return rollResultOfDices;
 	}
