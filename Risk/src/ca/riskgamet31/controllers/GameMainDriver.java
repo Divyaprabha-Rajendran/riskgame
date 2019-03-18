@@ -18,6 +18,7 @@ import ca.riskgamet31.exceptions.InvalidPlayerCountInput;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Continent;
+import ca.riskgamet31.maincomps.DeckOfCards;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.Player;
@@ -50,6 +51,11 @@ public class GameMainDriver
 	/**
 	 * constructor for game main driver
 	 */
+	
+	/**
+	 * Deck of card for a game
+	 */
+	DeckOfCards deck;
 	public GameMainDriver()
 	  {
 		risk = null;
@@ -274,7 +280,8 @@ public class GameMainDriver
 		  {
 			player.reinforcementArmiesCalc(risk);
 		  }
-		  
+		//to set the cards in deck of cards 
+		deck = new DeckOfCards(risk.getGameMapGraph().getGraphNodes());
 	  }
 	  
 	/**
@@ -288,22 +295,46 @@ public class GameMainDriver
 		Player currentPlayer;
 		int turnID = 0;
 		Scanner in = new Scanner(System.in);
-		
+		String text1 = "";
+		boolean won = false;
 		while (!endGame)
 		  {
 			
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
+			//to add reinforcement calc for the cards
+			// recalculate reinforcement armies for both players
+						currentPlayer.reinforcementArmiesCalc(risk);
+			
 			// reinforcement phase
 			System.out.println("Turn is for " + currentPlayer.getplayerName());
 			System.out.println("\t starting reinforcement phase");
 			currentPlayer.distributeArmies();
 			
 			/// attack phase
-			// attack
-			// check if game should end , if yes break
-			
-			// recalculate reinforcement armies for both players
-			currentPlayer.reinforcementArmiesCalc(risk);
+			do {
+				
+				System.out.println("\t starting attack phase");
+				System.out.println("Enter Y if you want to attack");
+				// check if game should end , if yes break
+				do
+				  {
+					if (in.hasNextLine())
+					  text1 = in.nextLine();
+				  } while (text1.length() == 0);
+				  
+				if (text1.toUpperCase().equals("Y"))
+				  {
+				
+				boolean	wonRound = currentPlayer.attack(this);
+				if(wonRound)
+					won = true;
+				  }
+				}while(text1.toUpperCase().equals("Y"));
+				
+				if(won)
+				{
+					currentPlayer.addNewCard(this.getDeck().drawCard());
+				}
 			
 			// fortification phase
 			String text = "";
@@ -319,7 +350,12 @@ public class GameMainDriver
 			  {
 				currentPlayer.fortification();
 			  }
-			  
+			if(this.Players.getPlayerList().size() == 1)
+			{
+				endGame = true;
+				System.out.println("Player " + this.Players.getPlayerList().get(0).getplayerName() + " Won the game");
+			}  
+			
 			if (turnID >= this.Players.getPlayerList().size())
 			  turnID = 0;
 			
@@ -356,5 +392,22 @@ public class GameMainDriver
 		  }
 		  
 	  }
+	/**
+	 * get the game map object
+	 * @return game map object
+	 */
+	public GameMap getGameMap()
+	{
+		return risk;
+	}
+	
+	/**
+	 * Deck of cards object
+	 * @return object for the deck pf cards
+	 */
+	public DeckOfCards getDeck()
+	{
+		return deck;
+	}
 	  
   }

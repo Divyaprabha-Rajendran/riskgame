@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 
@@ -337,8 +338,7 @@ public class Player
 			if (this.getPlayerGraph().findPath(fromCountry, toCountry))
 			  path = true;
 			else
-			  System.out
-			      .println("there is no path between base and distination countries.");
+			  System.out.println("there is no path between base and distination countries.");
 			
 			if (noOfArmies >= fromCountryobj.getArmies())
 			  System.out.println("not enough armies to move");
@@ -443,5 +443,291 @@ public class Player
 		  }
 		  
 	  }
+	
+	/**
+	 * attack phase starting method
+	 * @param we will need gameMap to check adgecency between two countries owened by two different players
+	 */
+	public boolean attack(GameMainDriver driver) // we will need gameMap to check adgecency between two countries owened by two different players
+	{
+		Scanner s = new Scanner(System.in);
+		String attackerCountry, defenderCountry;
+		boolean path = false;
+		String tempText = "";
+		int noOfDicesForAttacker = 0;
+		int noOfDicesForDefender = 0;
+		int[] attackerRolls;
+		int[] defenderRolls;
+		int attackerLosses = 0;
+		int defenderLosses = 0;
+		Country attackerCountryobj = new Country("dumy");
+		Country defenderCountryobj = new Country("dumy");
+		GraphNode attackerCountryNode = new GraphNode(attackerCountryobj);
+		GraphNode defenderCountryNode = new GraphNode(defenderCountryobj);
+		Player defenderObj = null;
+		Dice dice = new Dice();
+		this.getPlayerGraph().viewGraph();
+		int min = 0, max = 0;
+		int transferArmies = 0;
+		boolean won = false;
+		int attackerArmiesToSet = 0, defenderArmiesToSet = 0;
+		do
+		  {
+			
+			// get base country
+			boolean valid = false;
+			do
+			  {
+				System.out.println("enter attacker country:");
+				
+				do
+				  {
+					if (s.hasNext())
+					  tempText = s.next().trim().toUpperCase();
+				  } while (tempText.length() == 0);
+				  
+				final String fromcountry1 = tempText;
+				attackerCountry = fromcountry1;
+				if (this.getPlayerGraph().getGraphNodes().stream().map((x) -> x
+				    .getNodeData().getCountryName()).anyMatch((x) -> x
+				        .equals(fromcountry1)))
+				  valid = true;
+				else
+				  System.out.println("check country name and ownership");
+				
+			  } while (!valid);
+			  
+			// get destination country
+			tempText = "";
+			valid = false;
+			do
+			  {
+				System.out.println("enter defender country:");
+				// test
+				do
+				  {
+					if (s.hasNextLine())
+					  tempText = s.nextLine().trim().toUpperCase();
+				  } while (tempText.length() == 0);
+				  
+				final String toCountry1 = tempText;
+				defenderCountry = toCountry1;
+				
+				if ((this.getPlayerGraph().getGraphNodes().stream().map((x) -> x
+				    .getNodeData().getCountryName()).anyMatch((x) -> x
+				        .equals(toCountry1))) && !defenderCountry.equals(attackerCountry))
+				  {
+					System.out.println("both countries should not be owned by a same player");
+				  } else
+				  {
+					  valid = true;
+					  
+				  }
+			  } while (!valid);
+			
+			for (GraphNode gNode : this.getPlayerGraph().getGraphNodes())
+			  {
+				
+				if ((gNode.getNodeData().getCountryName().equals(attackerCountry)))
+					attackerCountryNode = gNode;
+			  }
+			
+			for (GraphNode gNode : driver.getGameMap().getGameMapGraph().getGraphNodes())
+			  {
+				
+				if ((gNode.getNodeData().getCountryName().equals(defenderCountry)))
+					defenderCountryNode = gNode;
+			  }
+			if (attackerCountryNode.getNodeNeighbors().contains(defenderCountryNode))
+			{
+				if(attackerCountryNode.getNodeData().getArmies() < 2)
+				{
+					System.out.println("attacker country should have atleast more than one army to attack");
+					path = false;
+				}
+				else
+				  path = true;
+			}
+				else
+				  System.out.println("there is no path between base and distination countries.");
+			
+			
+		  }while(!path || attackerCountry.equals(defenderCountry));
+			//make country objs from country names
+			
+			
+			//to get dice input for attacker
+			noOfDicesForAttacker = getDiceInput(attackerCountryNode.getNodeData(), "a");
+			attackerRolls = dice.roll(noOfDicesForAttacker);
+			//to get dice input for defender
+			noOfDicesForDefender = getDiceInput(defenderCountryNode.getNodeData(), "d");
+			defenderRolls = dice.roll(noOfDicesForDefender);
+				
+				if (attackerRolls[0] > defenderRolls[0]) {
+					defenderLosses++;
+				}
+				else if (attackerRolls[0] <= defenderRolls[0]) {
+					attackerLosses++;
+				}
+				// Index 1 = second highest pair
+				if (noOfDicesForAttacker > 1 && noOfDicesForDefender > 1) {
+				
+					if (attackerRolls[1] > defenderRolls[1]) {
+						defenderLosses++;
+						
+					} else if (attackerRolls[1] <= defenderRolls[1]) {
+						attackerLosses++;
+					}
+				}
+				// Calculate losses
+				System.out.println("<COMBAT REPORT>");
+				attackerArmiesToSet = attackerCountryNode.getNodeData().getArmies() - attackerLosses;
+				defenderArmiesToSet = defenderCountryNode.getNodeData().getArmies() - defenderLosses;
+				if(attackerArmiesToSet >= 0 && defenderArmiesToSet >= 0)
+				{
+					attackerCountryNode.getNodeData().setArmies(attackerArmiesToSet);
+					defenderCountryNode.getNodeData().setArmies(defenderArmiesToSet);
+				}
+				//attackerCountryNode.getNodeData().reduceArmies(attackerLosses);
+				//defenderCountryNode.getNodeData().reduceArmies(defenderLosses);
+				//attackerCountryNode.getNodeData().increaseArmies(defenderLosses);
+				//defenderCountryNode.getNodeData().increaseArmies(attackerLosses);
+				for(Player defender : driver.getPlayerList().getPlayerList())
+				{
+					if(defender.getplayerName().equals(defenderCountryNode.getNodeData().getCurrentOccupier()))
+					{
+						defenderObj = defender;
+					}
+				}
+				//attackerCountryNode.getNodeData().getCurrentOccupier()
+				
+				if(defenderCountryNode.getNodeData().getArmies() < 1 && defenderObj != null)
+				{
+				 //remove country from defender player's list
+				//add country to attacker's list
+				//if defender has no country left then remove that palyer from players list
+				//set occupier name fot defender country as attacker name
+					defenderObj.removeCountry(defenderCountryNode);
+					this.addCountry(defenderCountryNode);
+					defenderCountryNode.getNodeData().setCurrentOccupier(this.getplayerName());
+					//transfer armies min and max
+					min = noOfDicesForAttacker;
+					max = attackerCountryNode.getNodeData().getArmies() - 1;
+					boolean transferArmiesValid = false;
+					boolean isInt = false;
+					if(min > max)
+					{
+						int temp = min;
+						min = max;
+						max = temp;
+					}
+					System.out.println("You must transfer " + min + " to " + max + " armies to your conqured territory");
+					do
+					{
+						do
+						{
+						System.out.println("enter number of armies to transfer");
+						//transferArmies = s.nextInt();
+						//tempText = "";
+						do
+						  {
+							if (s.hasNextLine())
+							  tempText = s.next();
+						  } while (tempText.length() == 0);
+						  
+						String trArmies = tempText;
+						
+						if (trArmies.matches("\\d+"))
+						  {
+							isInt = true;
+							
+							transferArmies = Integer.parseInt(trArmies);
+						  } else
+						  System.out.println("please enter valid input");
+						}while(!isInt);
+						if(transferArmies < min || transferArmies > max)
+							System.out.println("Please enter input from valid range");
+						else
+							transferArmiesValid = true;
+						
+					}while(!transferArmiesValid);
+					attackerCountryNode.getNodeData().reduceArmies(transferArmies);
+					defenderCountryNode.getNodeData().increaseArmies(transferArmies);
+					won = true;
+				}
+				
+				if(defenderObj.getCountry().size() == 0)
+				{
+					for(Card card : defenderObj.hand.getCardsFromHand())
+					{
+						this.addNewCard(card);
+						defenderObj.getPlayerCards().remove(card);
+					}
+				//---------	//defenderObj.hand.getCardsFromHand();
+					driver.getPlayerList().getPlayerList().remove(defenderObj);
+					
+					//------------- if attacker has more than 5 cards then he has to draw cards immediately
+				}
+				
+		  return won;
+	}
+	
+	/**
+	 * To get the dice input after rolling it
+	 * @param country of attacker of defender
+	 * @param identifier that whether dice is rolling for attacker or defender
+	 * @return output of rolled dice input
+	 */
+	public int getDiceInput(Country countryObj, String i)
+	{
+		Scanner s = new Scanner(System.in);
+		int noOfDices = 0;
+		String tempText = "";
+		boolean dicesNotInt = true;
+		boolean diceCountValid = true;
+		int maxDice = 0;
+		if(i.equals("a"))
+			maxDice = 3;
+		else
+			maxDice = 2;
+		do {
+		do
+		  {
+			if(i.equals("a"))
+			System.out.println("enter number of dices to roll for attacker:");
+			else
+			System.out.println("enter number of dices to roll for defender:");
+			
+			do
+			  {
+				if (s.hasNextLine())
+				  tempText = s.next();
+			  } while (tempText.length() == 0);
+			  
+			String nODices = tempText;
+			
+			if (nODices.matches("\\d+"))
+			  {
+				dicesNotInt = false;
+				
+				noOfDices = Integer.parseInt(nODices);
+			  } else
+			  System.out.println("please enter valid input");
+		  }while(dicesNotInt);
+		
+		//check that number of dices should be between 1 to 3;
+			
+			if(noOfDices  < 1 || noOfDices > maxDice || noOfDices > countryObj.getArmies())
+			{
+				System.out.println("number of dices should be between 1 to 3 or number of dices should be less than attacker country armies");
+			}
+			else
+			{
+				diceCountValid = false;
+			}
+		  } while (diceCountValid);
+			//attackerRolls = dice.roll(noOfDices);
+			return noOfDices;
+	}
 	  
   }
