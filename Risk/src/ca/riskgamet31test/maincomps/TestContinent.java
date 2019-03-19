@@ -45,8 +45,7 @@ public class TestContinent
 	 */
 
 	@BeforeClass
-	public static void Testsetup() throws NullPointerException,
-	    InvalidNameException, InvalidPlayerNameException
+	public static void Testsetup() 
 	  {
 		G1 = new Graph();
 		c1 = new Country("Dubai");
