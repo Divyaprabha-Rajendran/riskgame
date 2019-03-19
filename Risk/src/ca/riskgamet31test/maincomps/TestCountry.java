@@ -51,7 +51,7 @@ public class TestCountry
 	  @Test(expected = NullPointerException.class)
 	  public void testCountry()
 	  {
-		  Country cn = new Country("null");  
+		  Country cn = new Country(null);  
 	  }
 	
 	/**
@@ -81,11 +81,11 @@ public class TestCountry
 	public void testequals()
 	  {
 		Country cn = new Country("INDIA");
-		assertFalse(cn.equals("PAKISTAN"));
+		assertFalse(cn.getCountryName().equals("PAKISTAN"));
 		Country cn1 = new Country("INDIA");
-		assertFalse(cn1.equals(""));
+		assertFalse(cn1.getCountryName().equals(""));
 		Country cn2 = new Country("INDIA");
-		assertTrue(cn2.equals("INDIA"));
+		assertTrue(cn2.getCountryName().equals("INDIA"));
 		
 		
 	  }
