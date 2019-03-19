@@ -3,6 +3,8 @@ package ca.riskgamet31test.controllers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import javax.naming.InvalidNameException;
@@ -28,17 +30,42 @@ import ca.riskgamet31.maincomps.Player;
  */
 public class TestPlayer
   {
+	/**
+	 * Country Class Reference
+	 */
 	static Country c1, c2, c3, c4, c5, c6;
+	/**
+	 * GraphNode Class Reference
+	 */
 	static GraphNode g1, g2, g3, g4, g5, g6;
+	/**
+	 * Player Class Reference
+	 */
 	static Player p1;
-	static Graph G1;
-	static Graph G2;
-	static Continent C1;
-	static Continent C2;
+	/**
+	 * Graph Class Reference
+	 */
+	static Graph G1,G2;
+	/**
+	 * Continent Class Reference
+	 */
+	static Continent C1,C2;
+	/**
+	 * GameMap Class Reference
+	 */
 	static GameMap GM1;
+	/**
+	 * Card Class Reference
+	 */
 	static Card card1, card2, card3;
+	
 	int A1, A2, A3;
 	static HashMap<String, Continent> HM1 = new HashMap<>();
+	/**
+	 * Object created before all the test method 
+	 * 
+	 */
+
 	
 	@BeforeClass
 	public static void testsetup()
@@ -63,12 +90,16 @@ public class TestPlayer
 		try
 		  {
 			p1 = new Player("player1", 7);
-		  } catch (NullPointerException | InvalidNameException
-		      | InvalidPlayerNameException e)
-		  {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		  }
+		  catch (NullPointerException | InvalidPlayerNameException e)
+		  {
+			  e.printStackTrace();
+		  } 
+		catch (ca.riskgamet31.exceptions.InvalidNameException e) 
+		{
+			
+			e.printStackTrace();
+		}
 		GM1 = new GameMap();
 		G2.addNode(g1);
 		G2.addNode(g2);
@@ -93,11 +124,14 @@ public class TestPlayer
 		p1.addCountry(g4);
 		p1.addCountry(g5);
 		p1.addCountry(g6);
-		card1 = new Card("Infantry", c1);
-		card2 = new Card("Cavalry", c1);
-		card3 = new Card("Artillery", c1);
+		card1 = new Card("Infantry", c1.getCountryName());
+		card2 = new Card("Cavalry", c1.getCountryName());
+		card3 = new Card("Artillery", c1.getCountryName());
 	  }
-	  
+	/**
+	 * add and remove Country from player graph test method 
+	 */  
+
 	@Test
 	public void testCountry()
 	  {
@@ -110,17 +144,21 @@ public class TestPlayer
 		A3 = p1.getCountry().size();
 		assertEquals(A1, A3);
 	  }
-	  
+	/**
+	 * Decrement army test method 
+	 */  
+
 	@Test
 	public void testarmies()
 	  {
 		int army1 = 12;
-		// p1.incrementArmies(12);
-		// assertNotEquals(army1,p1);
 		p1.decrementArmies(army1);
 		assertNotEquals(army1, p1);
 	  }
-	  
+	/**
+	 * Add and remove card from players graph test method 
+	 */ 
+
 	@Test
 	public void testcard()
 	  {
@@ -136,35 +174,51 @@ public class TestPlayer
 		A3 = p1.getPlayerCards().size();
 		assertEquals(0, A3);
 	  }
-	  
+	/**
+	 * reinforcement Armies Calculation test method 
+	 */ 
+  
 	@Test
 	public void testreinforcementArmiesCalc()
 	  {
 		int expected = 10;
 		assertEquals(expected, p1.reinforcementArmiesCalc(GM1));
 	  }
-	  
+	/**
+	 * Distribute armies test method  
+	 */
 	@Test
 	public void testdistributeArmies()
 	  {
 		int armiesForCountry1BeforeReinforcement = c1.getArmies();
 		int armiesForPlayerBeforeReinforcement = p1.getPlayerArmies();
+		String input = "Dubai\n10";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+	    System.setIn(in);
 		p1.distributeArmies();
 		int armiesForCountry1AfterReinforcement = c1.getArmies();
 		int armiesForPlayerAfterReinforcement = p1.getPlayerArmies();
 		assertEquals(armiesForCountry1BeforeReinforcement + armiesForPlayerBeforeReinforcement, armiesForCountry1AfterReinforcement + armiesForPlayerAfterReinforcement);
 	  }
-	  
+
+	/**
+	 * fortification armies test method  
+	 */
 	@Test
 	public void testfortification()
 	  {
 		
 		int armiesForCountry1BeforeFortification = c1.getArmies();
 		int armiesForCountry2BeforeFortification = c2.getArmies();
+		String input = "Dubai\nrussia\n5";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+	    System.setIn(in);
 		p1.fortification();
 		int armiesForCountry1AfterFortification = c1.getArmies();
 		int armiesForCountry2AfterFortification = c2.getArmies();
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
 		
 	  }
-  }
+}
+
+  
