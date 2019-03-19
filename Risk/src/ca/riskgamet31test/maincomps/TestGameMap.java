@@ -1,5 +1,7 @@
 package ca.riskgamet31test.maincomps;
 
+
+
 import static org.junit.Assert.assertNotEquals;
 
 import javax.naming.InvalidNameException;
@@ -15,14 +17,24 @@ import ca.riskgamet31.maincomps.Player;
  * Tests the GameMap class
  * 
  * @author Chitra
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 public class TestGameMap
   {
+	/**
+	 * GameMap Class Reference
+	 */
 	static GameMap G1;
+	/**
+	 * Player Class Reference
+	 */
 	static Player p1;
-	
+	/**
+	 * Object created before all the test method 
+	 * 
+	 */
+
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -30,14 +42,21 @@ public class TestGameMap
 		try
 		  {
 			p1 = new Player("P1", 7);
-		  } catch (NullPointerException | InvalidNameException
-		      | InvalidPlayerNameException e)
-		  {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		  }
+		 catch (NullPointerException | InvalidPlayerNameException e)
+		  {
+			e.printStackTrace();
+		  } 
+		 catch (ca.riskgamet31.exceptions.InvalidNameException e) 
+		{
+			e.printStackTrace();
+		}
 	  }
-	  
+	/**
+	 * Distribute armies among the player test method 
+	 * 
+	 */
+  
 	@Test
 	public void testbonusArmiesForPlayer()
 	  {
