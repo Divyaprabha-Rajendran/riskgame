@@ -18,26 +18,20 @@ import ca.riskgamet31.maincomps.Card;
  */
 public class TestCard
   {
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	  {
 		
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception
 	  {
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@Before
 	public void setUp() throws Exception
 	  {
@@ -45,9 +39,7 @@ public class TestCard
 		
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@After
 	public void tearDown() throws Exception
 	  {
