@@ -24,7 +24,7 @@ public class Card
 	 * constructs new card object
 	 * 
 	 * @param type  one of three types of card
-	 * @param country country Name
+	 * @param countryName country Name
 	 */
 	public Card(String type, String countryName)
 	  {

@@ -34,7 +34,7 @@ public class DeckOfCards
 	 * Constructor to create deck of cards and also to assign cards countries
 	 * and type of cards
 	 * 
-	 * @param countries ArrayList of countries
+	 * @param graphNodes ArrayList of countries
 	 * 
 	 */
 	public DeckOfCards(ArrayList<GraphNode> graphNodes)

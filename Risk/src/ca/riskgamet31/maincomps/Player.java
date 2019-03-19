@@ -446,7 +446,8 @@ public class Player
 	
 	/**
 	 * attack phase starting method
-	 * @param we will need gameMap to check adgecency between two countries owened by two different players
+	 * @param driver main driver of the game
+	 * @return true if conquered the country.
 	 */
 	public boolean attack(GameMainDriver driver) // we will need gameMap to check adgecency between two countries owened by two different players
 	{
@@ -674,8 +675,8 @@ public class Player
 	
 	/**
 	 * To get the dice input after rolling it
-	 * @param country of attacker of defender
-	 * @param identifier that whether dice is rolling for attacker or defender
+	 * @param countryObj country of attacker of defender
+	 * @param i identifier that whether dice is rolling for attacker or defender
 	 * @return output of rolled dice input
 	 */
 	public int getDiceInput(Country countryObj, String i)
