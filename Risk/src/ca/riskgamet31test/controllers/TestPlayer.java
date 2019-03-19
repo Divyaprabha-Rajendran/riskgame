@@ -195,7 +195,7 @@ public class TestPlayer
 		String input = "Dubai\n10";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
-		p1.distributeArmies();
+		p1.reinforcement();
 		int armiesForCountry1AfterReinforcement = c1.getArmies();
 		int armiesForPlayerAfterReinforcement = p1.getPlayerArmies();
 		assertEquals(armiesForCountry1BeforeReinforcement + armiesForPlayerBeforeReinforcement, armiesForCountry1AfterReinforcement + armiesForPlayerAfterReinforcement);

@@ -308,7 +308,7 @@ public class GameMainDriver
 			// reinforcement phase
 			System.out.println("Turn is for " + currentPlayer.getplayerName());
 			System.out.println("\t starting reinforcement phase");
-			currentPlayer.distributeArmies();
+			currentPlayer.reinforcement();
 			
 			/// attack phase
 			do {

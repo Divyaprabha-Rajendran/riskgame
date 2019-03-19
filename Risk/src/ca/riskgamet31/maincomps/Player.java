@@ -366,7 +366,7 @@ public class Player
 	 * owns. The method executes till all the player's armies are distributed.
 	 * 
 	 */
-	public void distributeArmies()
+	public void reinforcement()
 	  {
 		Scanner scan = new Scanner(System.in);
 		
