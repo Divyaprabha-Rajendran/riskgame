@@ -60,9 +60,10 @@ public class TestGameMainDriver
 	  
 	/**
 	 * Testing the Create Player method
+	 * @throws ca.riskgamet31.exceptions.InvalidNameException 
 	 */
 	@Test
-	public void TestcreatePlayer() throws NullPointerException,InvalidNameException
+	public void TestcreatePlayer() throws NullPointerException,InvalidNameException, ca.riskgamet31.exceptions.InvalidNameException
 	  {
 		P1 = G1.getPlayerList();
 		int a1 = P1.getPlayerList().size();
