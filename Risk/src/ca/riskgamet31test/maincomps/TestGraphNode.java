@@ -22,25 +22,22 @@ import ca.riskgamet31.maincomps.GraphNode;
 public class TestGraphNode
   {
 	
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	  {
 		
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception
 	  {
 	  }
 	  
 	/**
-	 * @throws java.lang.Exception
+	 * setup method for test grap node
+	 * @throws Exception if some thing went wrong
 	 */
 	@Before
 	public void setUp() throws Exception
@@ -50,9 +47,7 @@ public class TestGraphNode
 		GraphNode Gn = new GraphNode(c);
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@After
 	public void tearDown() throws Exception
 	  {
