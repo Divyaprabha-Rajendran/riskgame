@@ -25,7 +25,7 @@ import ca.riskgamet31.maincomps.Player;
  * Tests the Player class
  * 
  * @author Chitra
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 public class TestPlayer
