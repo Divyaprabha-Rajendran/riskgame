@@ -29,9 +29,7 @@ import ca.riskgamet31.controllers.StartUpPhase;
 public class TestGameMainDriver
   {
 	/**
-	 * 
-	 * GameMainDriver Class Reference 
-	 * 
+	 * GameMainDriver Class Reference  
 	 */
 	static GameMainDriver G1;
 	/**
