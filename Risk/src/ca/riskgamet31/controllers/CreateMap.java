@@ -89,13 +89,16 @@ public class CreateMap
 			System.out.println("Document loaded successfully from "+xmlFile.getAbsolutePath());
 		  } catch (ParserConfigurationException e)
 		  {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			
 		  } catch (SAXException e)
 		  {
-			e.printStackTrace();
+			
+			System.out.println(e.getMessage());
 		  } catch (IOException e)
 		  {
-			e.printStackTrace();
+			
+			System.out.println(e.getMessage());
 		  }
 		  
 	  }
@@ -142,16 +145,7 @@ public class CreateMap
 		currentContinent = new Continent(continentName, additionalBonusArmies, continentGraph);
 		
 		
-		/*catch(InvalidNameException e)
-		{
-			System.out.println(e.getMessage());
-			//e.printStackTrace();
-		}
-		catch(InvalidContinentException e)
-		{
-			System.out.println(e.getMessage());
-			//e1.printStackTrace();
-		}*/
+		
 		return currentContinent;
 	  }
 	  
@@ -184,12 +178,7 @@ public class CreateMap
 				countriesList.add(createGraphNode(country_name));
 			  }
 		}
-		 /* } catch (Exception e)
-		  {
-			//e = new InvalidCountryException("Multiple countries need to be present or continent element is malformed");
-			// e.printStackTrace();
-			 System.out.println(e.getMessage());
-		  }*/
+		
 		
 		else
 		{
@@ -410,7 +399,7 @@ public class CreateMap
 					      .getContinentName() + " is not a connected graph.");
 				} catch (InvalidContinentException e) {
 					System.out.println(e.getMessage());
-					//e.printStackTrace();
+					
 				}
 		  }
 		  

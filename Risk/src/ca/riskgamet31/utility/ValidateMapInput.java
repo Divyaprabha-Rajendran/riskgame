@@ -136,7 +136,6 @@ public class ValidateMapInput
 	public void checkCountryAgainstContinents(String countryName,
 	    HashSet<String> continentSet) throws InvalidCountryException
 	  {
-		System.out.println("validating country "+countryName);
 		if (continentSet.contains(countryName.toUpperCase()))
 		  {
 			throw new InvalidCountryException("country name is not valid as it is a continent name   " + countryName);

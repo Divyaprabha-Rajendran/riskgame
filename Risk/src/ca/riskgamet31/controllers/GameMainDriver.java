@@ -91,7 +91,7 @@ public class GameMainDriver
 		Scanner scan = new Scanner(System.in);
 		
 		JFileChooser chooser = new JFileChooser();
-		
+		chooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Risk_MapData"));
 		boolean continueEditing = true;
 		
 		while (continueEditing)
