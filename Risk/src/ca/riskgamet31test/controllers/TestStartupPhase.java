@@ -20,7 +20,7 @@ import ca.riskgamet31.maincomps.Player;
  * Tests the StartupPhase class
  * 
  * @author Chitra
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 
