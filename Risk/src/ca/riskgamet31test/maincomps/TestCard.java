@@ -55,7 +55,7 @@ public class TestCard
 	
 	
 	  /**
-	   * Test method for testing if we are getting correct card name
+	   * Test method for testing if we are getting correct card 
 	   */
 	@Test
 	public void TestgetCardName()
