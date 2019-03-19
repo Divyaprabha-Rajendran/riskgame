@@ -23,11 +23,27 @@ import ca.riskgamet31.maincomps.GraphNode;
 
 public class TestContinent
   {
+	/**
+	 * Continent Class Reference
+	 */
 	static Continent C1, C2;
+	/**
+	 * Country Class Reference
+	 */
 	static Country c1, c2, c3;
+	/**
+	 * GraphNode Class Reference
+	 */
 	static GraphNode g6, g5, g4;
+	/**
+	 * Graph Class Reference
+	 */
 	static Graph G1;
-	
+	/**
+	 * Object created before all the test method 
+	 * 
+	 */
+
 	@BeforeClass
 	public static void Testsetup() throws NullPointerException,
 	    InvalidNameException, InvalidPlayerNameException
@@ -44,7 +60,10 @@ public class TestContinent
 		G1.addNode(g6);
 		C1 = new Continent("africa", 4, G1);
 	  }
-	  
+	/**
+	 * true if both continents have similar names test method 
+	 */ 
+
 	@Test
 	public void testEqual()
 	  {
