@@ -29,9 +29,7 @@ import ca.riskgamet31.controllers.StartUpPhase;
 public class TestGameMainDriver
   {
 	/**
-	 * 
-	 * GameMainDriver Class Reference 
-	 * 
+	 * GameMainDriver Class Reference  
 	 */
 	static GameMainDriver G1;
 	/**
@@ -59,11 +57,14 @@ public class TestGameMainDriver
 	  }
 	  
 	/**
+	 * 
 	 * Testing the Create Player method
-	 * @throws ca.riskgamet31.exceptions.InvalidNameException 
+	 * @throws ca.riskgamet31.exceptions.InvalidNameException Gives Invalid Name Exception
+	 * @throws NullPointerException Gives null pointer exception
+	 * 
 	 */
 	@Test
-	public void TestcreatePlayer() throws NullPointerException,InvalidNameException, ca.riskgamet31.exceptions.InvalidNameException
+	public void TestcreatePlayer() throws NullPointerException,ca.riskgamet31.exceptions.InvalidNameException
 	  {
 		P1 = G1.getPlayerList();
 		int a1 = P1.getPlayerList().size();
