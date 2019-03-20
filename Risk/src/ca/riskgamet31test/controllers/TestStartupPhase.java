@@ -47,12 +47,13 @@ public class TestStartupPhase
 	
 	/**
 	 * Object created before all the test method 
-	 * 
+	 * @throws NullPointerException Gives Null pointer Exception
+	 * @throws InvalidPlayerNameException  Gives Invalid Player Exception
+	 * @throws ca.riskgamet31.exceptions.InvalidNameException Gives Invalid Name Exception
 	 */
-
 	@BeforeClass
 	public static void Testsetup() throws NullPointerException,
-	    InvalidNameException, InvalidPlayerNameException, ca.riskgamet31.exceptions.InvalidNameException
+	     InvalidPlayerNameException, ca.riskgamet31.exceptions.InvalidNameException
 	  {
 		S1 = new StartUpPhase();
 		p1 = new Player("P1", 4);
@@ -62,7 +63,7 @@ public class TestStartupPhase
 		G2 = new GraphNode(C2);
 		p1.addCountry(G1);
 		p1.addCountry(G2);
-		
+	
 	  }
 	/**
 	 * Distribute Armies among the country test method 

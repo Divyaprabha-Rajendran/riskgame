@@ -15,32 +15,29 @@ import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.GraphNode;
 
 /**
- * test class for testin graph functions
+ * test class for testing graph functions
  * 
  * @author Ishpreet Singh
  */
 public class TestGraphNode
   {
 	
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	  {
 		
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception
 	  {
 	  }
 	  
 	/**
-	 * @throws java.lang.Exception
+	 * setup method for test grap node
+	 * @throws Exception if some thing went wrong
 	 */
 	@Before
 	public void setUp() throws Exception
@@ -50,14 +47,14 @@ public class TestGraphNode
 		GraphNode Gn = new GraphNode(c);
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@After
 	public void tearDown() throws Exception
 	  {
 	  }
-	  
+	/**
+	 * TO test if we are getting correct node data
+	  */
 	@Test
 	public void testgetNodeData()
 	  {
@@ -78,6 +75,9 @@ public class TestGraphNode
 //	String neighbour[] =  {"pakistan","bangladesh","bhutan","nepal"};	
 //	assertArrayEquals(neighbour,gn.getNodeNeighbors().toString());
 //	}
+	/**
+	 * TO test distance between graph node it will be -1 as we have not specifed any 
+	 */
 	@Test
 	public void TestgetDistance()
 	  {
@@ -86,7 +86,9 @@ public class TestGraphNode
 		GraphNode Gn = new GraphNode(c);
 		assertEquals(-1, Gn.getDistance());
 	  }
-	  
+	 /**
+	  * To test if we are getting correct parent node 
+	  */
 	@Test
 	public void TestgetParentNode()
 	  {
@@ -97,7 +99,9 @@ public class TestGraphNode
 		assertEquals(con, Gn.getNodeData().getCountryName());
 		
 	  }
-	  
+	  /**
+	   * TO test if adding a neighbor works as required
+	   */
 	@Test
 	public void TestAddNeighbour()
 	  {
@@ -111,7 +115,9 @@ public class TestGraphNode
 		assertEquals("INDIA", Gn1.getNodeNeighbors().get(0).getNodeData()
 		    .getCountryName());
 	  }
-	  
+	  /**
+	   * To test if removing a neighbor works as required
+	   */
 	@Test
 	public void TestRemoveNeighbour()
 	  {

@@ -13,6 +13,7 @@ import org.junit.Test;
 import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.DeckOfCards;
+import ca.riskgamet31.maincomps.GraphNode;
 
 /**
  * test class for testin graph functions
@@ -21,49 +22,46 @@ import ca.riskgamet31.maincomps.DeckOfCards;
  */
 public class TestDeckOfCards
   {
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	  {
 		
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception
 	  {
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
+	 /**
+	  * setup method for deck of cards
+	  * @throws Exception if something went wrong
+	  */
 	@Before
 	public void setUp() throws Exception
 	  {
-		
+		ArrayList<GraphNode> neighbours = new ArrayList<>();
+		ArrayList<Card> nei = new ArrayList<>();
+		Country countr = new Country("AUSTRALIA");
 	  }
 	  
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@After
 	public void tearDown() throws Exception
 	  {
 	  }
+	/**
+	 *Test for deck of cards if add functionality is working properly 
+	 */
 	  
 	@Test
 	public void TestaddNewCard()
 	  {
-		ArrayList<Country> neighbours = new ArrayList<>();
+		ArrayList<GraphNode> neighbours = new ArrayList<>();
 		ArrayList<Card> nei = new ArrayList<>();
-		Country cn = new Country("india");
-		Country con = new Country("bang");
-		Country conu = new Country("myanmar");
-		Country count = new Country("srilanka");
 		Country countr = new Country("AUSTRALIA");
 		// neighbours.add(cn);
 		// neighbours.add(con);
@@ -72,7 +70,7 @@ public class TestDeckOfCards
 		
 		// String[] expected={"india","bang","myanmar","srilanka","australia"};
 		DeckOfCards doc = new DeckOfCards(neighbours);
-		Card ca = new Card("Infantry", countr);
+		Card ca = new Card("Infantry", countr.getCountryName());
 		System.out.println(ca.getCardType());
 		doc.addNewCard(ca);
 		assertEquals(ca, doc.drawCard());
