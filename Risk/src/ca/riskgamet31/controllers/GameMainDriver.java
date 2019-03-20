@@ -3,8 +3,10 @@ package ca.riskgamet31.controllers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.PhantomReference;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -26,6 +28,7 @@ import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputRequester;
+import ca.riskgamet31.views.PhaseView;
 import ca.riskgamet31.views.countryView;
 import ca.riskgamet31.controllers.CreateMap;
 
@@ -37,7 +40,7 @@ import ca.riskgamet31.controllers.CreateMap;
  * @version 1.0
  *
  */
-public class GameMainDriver
+public class GameMainDriver extends Observable
   {
 	/**
 	 * game map member
@@ -63,6 +66,10 @@ public class GameMainDriver
 	 * Turn In count during game
 	 */
 	public static int turnInCardsCount; 
+	/**
+	 * phase info data structure to be passed to phase view observer
+	 */
+	private ArrayList<String> phaseInfo ;
 	
 	/**
 	 * constructor for game main driver
@@ -73,14 +80,24 @@ public class GameMainDriver
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
 		turnInCardsCount = 1;
+		phaseInfo = new ArrayList<>();
+		PhaseView phaseview = new PhaseView();
+		this.addObserver(phaseview);
 	  }
-	  
+	/**
+	 * to get how many times players exchanged cards  
+	 * @return number of times players exchanged cards.
+	 */
 	public int getTurnInCardsCount()
 	  {
 		
 		return turnInCardsCount;
 	  }
 
+	/**
+	 * to update number of times players exchanged cards
+	 * @param turnInCardsCount new number of times cards been exchanged.
+	 */
 	public void setTurnInCardsCount(int turnInCardsCount)
 	  {
 		this.turnInCardsCount = turnInCardsCount;
@@ -243,6 +260,9 @@ public class GameMainDriver
 		int no_players = 0;
 		UserInputRequester uir = new UserInputRequester();
 		InputValidator inpV = new InputValidator();
+		this.updatePhaseInfo("Stratup game phase", "No players yet", "1- Creating players.\n2- Random distribution of countries.\n3- Players allocate armies to their countries\n");
+		this.setChanged();
+		this.notifyObservers(phaseInfo);
 		do
 		  {
 			try
@@ -324,7 +344,23 @@ public class GameMainDriver
 		deck = new DeckOfCards(risk.getGameMapGraph().getGraphNodes());
 		
 	  }
+	
+	/**
+	 * to update current phase information
+	 * @param phaseName current phase name
+	 * @param playerName current player name
+	 * @param phaseActionInfo current phase general actions
+	 */
+	public void updatePhaseInfo(String phaseName,String playerName, String phaseActionInfo) {
 	  
+	  this.phaseInfo.clear();
+	  
+	  phaseInfo.add(phaseName);
+	  phaseInfo.add(playerName);
+	  phaseInfo.add(phaseActionInfo);
+	  
+	}
+	
 	/**
 	 * a method representing each turn
 	 * 
@@ -345,12 +381,19 @@ public class GameMainDriver
 			currentPlayer.reinforcementArmiesCalc(risk);
 			
 			// reinforcement phase
-			System.out.println("Turn is for " + currentPlayer.getplayerName());
-			System.out.println("\t starting reinforcement phase");
+			//System.out.println("Turn is for " + currentPlayer.getplayerName());
+			//System.out.println("\t starting reinforcement phase");
+			this.updatePhaseInfo("Reinforcement Phase", currentPlayer.getplayerName(), "1- calculate addtional armies.\n2- allocate additional armies granted to player.\n");
+			this.setChanged();
+			this.notifyObservers(phaseInfo);
+			
 			currentPlayer.reinforcement();
 			
 			/// attack phase
-			System.out.println("\t starting attack phase");
+			//System.out.println("\t starting attack phase");
+			this.updatePhaseInfo("Attack phase", currentPlayer.getplayerName(), "1- Choose to attack or not.\n2- Attack as many times as needed\n3- win a card if one territory been occupied.");
+			this.setChanged();
+			this.notifyObservers(phaseInfo);
 			
 			currentPlayer.attack( this);
 			
@@ -361,9 +404,12 @@ public class GameMainDriver
 				}
 			
 			// fortification phase
-			String text = "";
-			System.out.println("\t starting fortification phase");
-			System.out.println();
+			
+			//System.out.println("\t starting fortification phase");
+			this.updatePhaseInfo("Fortification phase", currentPlayer.getplayerName(), "1- Choose to fortify or not.\n2- move as many armies as need to one territory.\n");
+			this.setChanged();
+			this.notifyObservers(phaseInfo);
+			
 			String userInput = userInputReq.requestUserInput("Enter Y if you want to fortify");
 			if (userInput.toUpperCase().equals("Y"))
 			  {
