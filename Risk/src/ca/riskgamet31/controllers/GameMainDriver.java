@@ -29,6 +29,7 @@ import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputRequester;
 import ca.riskgamet31.views.PhaseView;
+import ca.riskgamet31.views.PlayersWorldDominationView;
 import ca.riskgamet31.views.countryView;
 import ca.riskgamet31.controllers.CreateMap;
 
@@ -71,6 +72,8 @@ public class GameMainDriver extends Observable
 	 */
 	private ArrayList<String> phaseInfo ;
 	
+	private PlayersWorldDominationView playerWorldDominationView;
+	
 	/**
 	 * constructor for game main driver
 	 */
@@ -83,6 +86,8 @@ public class GameMainDriver extends Observable
 		phaseInfo = new ArrayList<>();
 		PhaseView phaseview = new PhaseView();
 		this.addObserver(phaseview);
+		
+		playerWorldDominationView = new PlayersWorldDominationView();
 	  }
 	/**
 	 * to get how many times players exchanged cards  
@@ -371,6 +376,8 @@ public class GameMainDriver extends Observable
 		boolean endGame = false;
 		Player currentPlayer;
 		int turnID = 0;
+		
+		this.addObserver(this.playerWorldDominationView);
 		
 		while (!endGame)
 		  {
