@@ -42,13 +42,14 @@ public class Dice {
 		for(int i = 0; i < rollResultOfDices.length; i++)
 		{
 			random = new SecureRandom();
-			roll = random.nextInt(6) + 1;
+			roll = random.nextInt(6) +1;
 			rollResultOfDices[i] = roll;
 		}
 		
 		Arrays.sort(rollResultOfDices);
+		
 		int[] rollResultOfDicesReverse = IntStream.range(0,numberOfDices).map(i -> rollResultOfDices[numberOfDices-i-1]).toArray();
 		
-		return rollResultOfDices;
+		return rollResultOfDicesReverse;
 	}
 }

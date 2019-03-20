@@ -34,6 +34,10 @@ public class Country extends Observable
 	 */
 	private int armies;
 	
+	/**
+	 * viewer of the counter (observer pattern)
+	 */
+	countryView viewer;
 	
 	/**
 	 * creates new country object.
@@ -50,7 +54,7 @@ public class Country extends Observable
 		this.countryName = countryName.toUpperCase();
 		this.armies = 0;
 		this.currentOccupier = "DUMY";
-		//countryView viewer = new countryView(countryName.toLowerCase());
+		this.viewer = new countryView(countryName.toUpperCase());
 		//this.addObserver(viewer);
 		
 	  }
@@ -97,7 +101,27 @@ public class Country extends Observable
 	  {
 		return armies;
 	  }
-	  
+	
+	/**
+	 * to get country viewer object
+	 * 
+	 * @return country viewer object
+	 */
+	public countryView getViewer()
+	  {
+		return viewer;
+	  }
+
+	/**
+	 * to set country's viewer object.
+	 * 
+	 * @param viewer viewer object of this country.
+	 */
+	public void setViewer(countryView viewer)
+	  {
+		this.viewer = viewer;
+	  }
+
 	/**
 	 * increase number of armies in this country.
 	 * 

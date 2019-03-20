@@ -18,10 +18,15 @@ import ca.riskgamet31.exceptions.InvalidPlayerCountInput;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Continent;
+import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.DeckOfCards;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
+import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.utility.InputValidator;
+import ca.riskgamet31.utility.UserInputRequester;
+import ca.riskgamet31.views.countryView;
 import ca.riskgamet31.controllers.CreateMap;
 
 /**
@@ -48,21 +53,39 @@ public class GameMainDriver
 	
 	StartUpPhase StartUp;
 	
-	/**
-	 * constructor for game main driver
-	 */
 	
 	/**
 	 * Deck of card for a game
 	 */
 	DeckOfCards deck;
+	
+	/**
+	 * Turn In count during game
+	 */
+	public static int turnInCardsCount; 
+	
+	/**
+	 * constructor for game main driver
+	 */
 	public GameMainDriver()
 	  {
 		risk = null;
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
+		turnInCardsCount = 1;
 	  }
 	  
+	public int getTurnInCardsCount()
+	  {
+		
+		return turnInCardsCount;
+	  }
+
+	public void setTurnInCardsCount(int turnInCardsCount)
+	  {
+		this.turnInCardsCount = turnInCardsCount;
+	  }
+
 	/**
 	 * to get players list
 	 * 
@@ -196,13 +219,13 @@ public class GameMainDriver
 			Graph gameMapGraph = new Graph(cmap.getAllCountryNodes());
 			if (gameMapGraph.isConnected())
 			  {
-				System.out.println("The Map graph is valid");
-				gameMapGraph.viewGraph();
+				System.out.println("Risk game file and associated graphs and sub-graphs are valid... :)");
+				//gameMapGraph.viewGraph();
 				risk = new GameMap(xmlpath, continentsList, gameMapGraph);
 			  } else
 			  throw new InvalidGraphException("Invalid Map..graph is no connected..");
 			
-			cmap.displayMap();
+			//cmap.displayMap();
 		  
 		  
 	  }
@@ -218,14 +241,19 @@ public class GameMainDriver
 	public void createPlayer() throws NullPointerException, InvalidNameException
 	  {
 		int no_players = 0;
-		
-		Scanner scan = new Scanner(System.in);
+		UserInputRequester uir = new UserInputRequester();
+		InputValidator inpV = new InputValidator();
 		do
 		  {
 			try
 			  {
-				System.out.println("Enter the number of players...");
-				no_players = scan.nextInt();
+				String userInput = "";
+				do
+				  {
+				userInput = uir.requestUserInput("Enter the number of players...");
+				
+				  }while(!inpV.validateNumbers(userInput));
+				no_players = Integer.parseInt(userInput);
 				if (no_players > 6 || no_players < 3)
 				  {
 					throw new InvalidPlayerCountInput("You can choose players of 3 to 6");
@@ -243,8 +271,15 @@ public class GameMainDriver
 		  {
 			try
 			  {
-				System.out.println("Enter player name...");
-				String name = scan.next();
+				
+				String name = "", userInput="";
+				do
+				  {
+				userInput = uir.requestUserInput("Enter player name...");
+				
+				  }while(!inpV.validateAlphaNum(userInput));
+				
+				name = userInput;
 				Player player = StartUp.createPlayers(name);
 				Players.setPlayerList(player);
 				i = i + 1;
@@ -276,12 +311,18 @@ public class GameMainDriver
 			StartUp.distributeArmies(player);
 		  }
 		  
+		for (GraphNode gNode : risk.getGameMapGraph().getGraphNodes())
+		  {
+			gNode.getNodeData().addObserver(gNode.getNodeData().getViewer());
+			
+		  }
 		for (Player player : players)
 		  {
 			player.reinforcementArmiesCalc(risk);
 		  }
 		//to set the cards in deck of cards 
 		deck = new DeckOfCards(risk.getGameMapGraph().getGraphNodes());
+		
 	  }
 	  
 	/**
@@ -290,20 +331,18 @@ public class GameMainDriver
 	 */
 	public void playGame()
 	  {
-		
+		UserInputRequester userInputReq = new UserInputRequester();
 		boolean endGame = false;
 		Player currentPlayer;
 		int turnID = 0;
-		Scanner in = new Scanner(System.in);
-		String text1 = "";
-		boolean won = false;
+		
 		while (!endGame)
 		  {
 			
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
 			//to add reinforcement calc for the cards
 			// recalculate reinforcement armies for both players
-						currentPlayer.reinforcementArmiesCalc(risk);
+			currentPlayer.reinforcementArmiesCalc(risk);
 			
 			// reinforcement phase
 			System.out.println("Turn is for " + currentPlayer.getplayerName());
@@ -311,50 +350,26 @@ public class GameMainDriver
 			currentPlayer.reinforcement();
 			
 			/// attack phase
-			do {
-				
-				System.out.println("\t starting attack phase");
-				System.out.println("Enter Y if you want to attack");
-				// check if game should end , if yes break
-				do
-				  {
-					if (in.hasNextLine())
-					  text1 = in.nextLine();
-				  } while (text1.length() == 0);
-				  
-				if (text1.toUpperCase().equals("Y"))
-				  {
-				
-				boolean	wonRound = currentPlayer.attack(this);
-				if(wonRound)
-					won = true;
-				  }
-				}while(text1.toUpperCase().equals("Y"));
-				
-				if(won)
+			System.out.println("\t starting attack phase");
+			
+			currentPlayer.attack( this);
+			
+			if(this.Players.getPlayerList().size() == 1)
 				{
-					currentPlayer.addNewCard(this.getDeck().drawCard());
+					endGame = true;
+					System.out.println("Player " + this.Players.getPlayerList().get(0).getplayerName() + " Won the game");
 				}
 			
 			// fortification phase
 			String text = "";
 			System.out.println("\t starting fortification phase");
-			System.out.println("Enter Y if you want to fortify");
-			do
-			  {
-				if (in.hasNextLine())
-				  text = in.nextLine();
-			  } while (text.length() == 0);
-			  
-			if (text.toUpperCase().equals("Y"))
+			System.out.println();
+			String userInput = userInputReq.requestUserInput("Enter Y if you want to fortify");
+			if (userInput.toUpperCase().equals("Y"))
 			  {
 				currentPlayer.fortification();
 			  }
-			if(this.Players.getPlayerList().size() == 1)
-			{
-				endGame = true;
-				System.out.println("Player " + this.Players.getPlayerList().get(0).getplayerName() + " Won the game");
-			}  
+			  
 			
 			if (turnID >= this.Players.getPlayerList().size())
 			  turnID = 0;
