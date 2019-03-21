@@ -107,7 +107,7 @@ public class PhaseView implements Observer
    * to display phase information, this method is called inside the update method.
    */
   public void displayViewInfo() {
-	
+	System.out.println("");
 	System.out.println("---------------------- "+this.getPhaseName()+" -- "+this.getPlayerName()+" ----------------------");
 	System.out.println(this.getPhaseActions());
   }

@@ -58,6 +58,8 @@ public class StartUpPhase
 	  {
 		switch (noOfPlayers)
 		  {
+			case 2:
+			  return Constants.ARMIES_2_PLAYERS;
 			case 3:
 			  return Constants.ARMIES_3_PLAYERS;
 			case 4:

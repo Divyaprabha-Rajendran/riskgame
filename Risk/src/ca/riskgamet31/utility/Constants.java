@@ -11,6 +11,11 @@ public class Constants
 	/**
 	 * Armies if 3 players are playing
 	 */
+	public static final int ARMIES_2_PLAYERS = 40;
+	
+	/**
+	 * Armies if 3 players are playing
+	 */
 	public static final int ARMIES_3_PLAYERS = 35;
 	
 	/**

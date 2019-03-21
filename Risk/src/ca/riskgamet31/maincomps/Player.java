@@ -245,39 +245,45 @@ public class Player
 	 */
 	public void fortification()
 	  {
-		System.out.println(this.getplayerName() + " fortification...");
+		UserInputRequester uir = new UserInputRequester();
 		this.getPlayerGraph().viewGraph();
-		Scanner s = new Scanner(System.in);
+		
 		Graph mp = this.getPlayerGraph();
-		String toCountry, fromCountry;
+		String toCountry = " ", fromCountry=" ";
 		int noOfArmies = 0;
 		boolean path = false;
 		String tempText = "";
 		Country fromCountryobj = new Country("dumy");
 		Country toCountryobj = new Country("dumy");
+		boolean secondtime = false;
+		boolean exit = false;
 		do
 		  {
 			
+			if (secondtime)
+			  {
+			  tempText = uir.requestUserInput("Do you want to continue fortification?");
+			  if (!tempText.equals("Y"))
+				exit = true;
+			  }
 			// get base country
+			if (!exit)
+			  {
 			boolean valid = false;
 			do
 			  {
-				System.out.println("Enter base country:");
+				System.out.println();
 				
-				do
-				  {
-					if (s.hasNext())
-					  tempText = s.next().trim().toUpperCase();
-				  } while (tempText.length() == 0);
-				  
+				tempText = uir.requestUserInput("Enter base country");
+				
 				final String fromcountry1 = tempText;
 				fromCountry = fromcountry1;
-				if (this.getPlayerGraph().getGraphNodes().stream().map((x) -> x
-				    .getNodeData().getCountryName()).anyMatch((x) -> x
-				        .equals(fromcountry1)))
+				if (this.getPlayerGraph().getGraphNodes().stream().anyMatch((x) -> x.getNodeData().getCountryName()
+				        .equals(fromcountry1) 
+				        && x.getNodeData().getArmies() >1 ))
 				  valid = true;
 				else
-				  System.out.println("check country name and ownership");
+				  System.out.println("check country name, ownership and no of armies");
 			  } while (!valid);
 			  
 			// get destination country
@@ -285,14 +291,9 @@ public class Player
 			valid = false;
 			do
 			  {
-				System.out.println("Enter target country:");
-				// test
-				do
-				  {
-					if (s.hasNextLine())
-					  tempText = s.nextLine().trim().toUpperCase();
-				  } while (tempText.length() == 0);
-				  
+				
+				tempText = uir.requestUserInput("Enter target country:");
+				
 				final String toCountry1 = tempText;
 				toCountry = toCountry1;
 				
@@ -311,13 +312,8 @@ public class Player
 			boolean armiesNotInt = true;
 			do
 			  {
-				System.out.println("Enter number of Armies:");
-				do
-				  {
-					if (s.hasNextLine())
-					  tempText = s.nextLine();
-				  } while (tempText.length() == 0);
-				  
+				System.out.println();
+				tempText = uir.requestUserInput("Enter number of Armies:");  
 				String nOArmies = tempText;
 				
 				if (nOArmies.matches("\\d+"))
@@ -346,10 +342,14 @@ public class Player
 			if (toCountry.equals(fromCountry))
 			  System.out
 			      .println("source and destination countries should be different");
+				
+			secondtime = true;  
+			  }
 			
-		  } while (!path || noOfArmies >= fromCountryobj
-		      .getArmies() || toCountry.equals(fromCountry));
-		  
+		  } while ((!path || noOfArmies >= fromCountryobj
+		      .getArmies() || toCountry.equals(fromCountry)) && !exit);
+		  if (!exit)
+			{
 		for (GraphNode gNode : this.getPlayerGraph().getGraphNodes())
 		  {
 			
@@ -359,7 +359,7 @@ public class Player
 		  
 		fromCountryobj.reduceArmies(noOfArmies);
 		toCountryobj.increaseArmies(noOfArmies);
-		
+			}
 	  }
 	  
 	/**
@@ -543,8 +543,9 @@ public class Player
 	 * main attack method
 	 * 
 	 * @param driver main game driver
+	 * @return true if attacker won at least one country
 	 */
-	public void attack(GameMainDriver driver)
+	public boolean attack(GameMainDriver driver)
 	{
 	    UserInputRequester uir = new UserInputRequester();
 		boolean won = false;
@@ -589,14 +590,9 @@ public class Player
 		  }else {
 			System.out.println(this.getplayerName() + " does not have enough armies in any country to attack");
 		  }
-			if(won)
-			{
-			  	Card card = driver.getDeck().drawCard();
-				this.addNewCard(card);
-				System.out.println(this.getplayerName() + " has received "+ card.getCardName());
-			}
+			
 	  
-	  
+	 return won; 
 	}
 	
 	
@@ -647,8 +643,7 @@ public class Player
 			attackerRolls = dice.roll(noOfDicesForAttacker);
 			defenderRolls = dice.roll(noOfDicesForDefender);
 			
-			System.out.println("Attacker dices"+Arrays.toString(attackerRolls));
-			System.out.println("Defender dices"+ Arrays.toString(defenderRolls));
+			
 			defenderLosses = 0;
 			attackerLosses = 0;
 			
@@ -669,7 +664,11 @@ public class Player
 					}
 				}
 				// Calculate losses
+				System.out.println("");
 				System.out.println("<Combat Result>");
+				System.out.println("Attacker dices"+Arrays.toString(attackerRolls));
+				System.out.println("Defender dices"+ Arrays.toString(defenderRolls));
+				
 				attackerArmiesToSet = attackerCountryNode.getNodeData().getArmies() - attackerLosses;
 				defenderArmiesToSet = defenderCountryNode.getNodeData().getArmies() - defenderLosses;
 				
@@ -746,12 +745,15 @@ public class Player
 				
 				if(defenderObj.getCountry().size() == 0)
 				{
+				  
 				  System.out.println(this.getplayerName()+" will receive"+ defenderObj.hand.getCardsFromHand().size()+" cards from player "+defenderObj.getplayerName());
-					for(Card card : defenderObj.hand.getCardsFromHand())
+					
+				  for(Card card : defenderObj.hand.getCardsFromHand())
 					{
 						this.addNewCard(card);
-						defenderObj.getPlayerCards().remove(card);
+						//defenderObj.getPlayerCards().remove(card);
 					}
+					
 				//---------	//defenderObj.hand.getCardsFromHand();
 					driver.getPlayerList().getPlayerList().remove(defenderObj);
 					System.out.println("Player "+defenderObj.getplayerName()+" is removed from game.");

@@ -19,6 +19,7 @@ import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerCountInput;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
+import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.DeckOfCards;
@@ -279,7 +280,7 @@ public class GameMainDriver extends Observable
 				
 				  }while(!inpV.validateNumbers(userInput));
 				no_players = Integer.parseInt(userInput);
-				if (no_players > 6 || no_players < 3)
+				if (no_players > 6 || no_players < 2)
 				  {
 					throw new InvalidPlayerCountInput("You can choose players of 3 to 6");
 				  }
@@ -287,7 +288,7 @@ public class GameMainDriver extends Observable
 			  {
 				System.out.println(e);
 			  }
-		  } while (no_players > 6 || no_players < 3);
+		  } while (no_players > 6 || no_players < 2);
 		  
 		StartUp.setPlayerCount(no_players);
 		
@@ -376,12 +377,12 @@ public class GameMainDriver extends Observable
 		boolean endGame = false;
 		Player currentPlayer;
 		int turnID = 0;
-		
+		boolean won = false;
 		this.addObserver(this.playerWorldDominationView);
 		
 		while (!endGame)
 		  {
-			
+			won = false;
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
 			//to add reinforcement calc for the cards
 			// recalculate reinforcement armies for both players
@@ -390,7 +391,7 @@ public class GameMainDriver extends Observable
 			// reinforcement phase
 			//System.out.println("Turn is for " + currentPlayer.getplayerName());
 			//System.out.println("\t starting reinforcement phase");
-			this.updatePhaseInfo("Reinforcement Phase", currentPlayer.getplayerName(), "1- calculate addtional armies.\n2- allocate additional armies granted to player.\n");
+			this.updatePhaseInfo("Reinforcement Phase", currentPlayer.getplayerName(), "1- Calculate addtional armies.\n2- Allocate additional armies granted to player.\n");
 			this.setChanged();
 			this.notifyObservers(phaseInfo);
 			
@@ -398,11 +399,11 @@ public class GameMainDriver extends Observable
 			
 			/// attack phase
 			//System.out.println("\t starting attack phase");
-			this.updatePhaseInfo("Attack phase", currentPlayer.getplayerName(), "1- Choose to attack or not.\n2- Attack as many times as needed\n3- win a card if one territory been occupied.");
+			this.updatePhaseInfo("Attack phase", currentPlayer.getplayerName(), "1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied.");
 			this.setChanged();
 			this.notifyObservers(phaseInfo);
 			
-			currentPlayer.attack( this);
+			won = currentPlayer.attack( this);
 			
 			if(this.Players.getPlayerList().size() == 1)
 				{
@@ -411,24 +412,40 @@ public class GameMainDriver extends Observable
 				}
 			
 			// fortification phase
-			
+			if (!endGame)
+			  {
 			//System.out.println("\t starting fortification phase");
-			this.updatePhaseInfo("Fortification phase", currentPlayer.getplayerName(), "1- Choose to fortify or not.\n2- move as many armies as need to one territory.\n");
+			this.updatePhaseInfo("Fortification phase", currentPlayer.getplayerName(), "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n");
 			this.setChanged();
 			this.notifyObservers(phaseInfo);
-			
+			if (currentPlayer.getPlayerGraph().getGraphNodes().stream().map(x -> x.getNodeData()).anyMatch((y) -> y.getArmies()>1)
+				&& currentPlayer.getPlayerGraph().getGraphNodes().size()>1)
+			  {
 			String userInput = userInputReq.requestUserInput("Enter Y if you want to fortify");
 			if (userInput.toUpperCase().equals("Y"))
 			  {
 				currentPlayer.fortification();
 			  }
 			  
+			  }else {
+				
+				System.out.println(currentPlayer.getplayerName()+" can't fortify as he does not have more than 1 army in any country");
+				
+			  }
 			
+			
+			if(won)
+				{
+				  	Card card = this.getDeck().drawCard();
+					currentPlayer.addNewCard(card);
+					System.out.println(currentPlayer.getplayerName() + " has received "+ card.getCardName() + " card!");
+				}
 			if (turnID >= this.Players.getPlayerList().size())
 			  turnID = 0;
-			
+		  }
 		  }
 		  
+		System.out.println("Game End");
 	  }
 	  
 	/**
