@@ -128,16 +128,16 @@ public class Player
 	 * @param gameMap game map
 	 * @return  No. of reinforcement armies that player will get
 	 */
-	public int reinforcementArmiesCalc(GameMap gameMap)
+	public int reinforcementArmiesCalc(GameMap gameMap, int armiescardsAmount)
 	  {
 		int armiesForCountries = 0;
 		int armiesForContinentsBonus = 0;
-		int armiesForCards = 0;
+		
 		int totalArmiesToAdd = 0;
 		armiesForCountries = this.getCountry().size() / 3;
 		armiesForContinentsBonus = gameMap.bonusArmiesForPlayer(this
 		    .getplayerName());
-		totalArmiesToAdd = armiesForCountries + armiesForContinentsBonus + armiesForCards;
+		totalArmiesToAdd = armiesForCountries + armiesForContinentsBonus + armiescardsAmount;
 		if (totalArmiesToAdd < 3)
 		  {
 			totalArmiesToAdd = 3;
@@ -207,6 +207,17 @@ public class Player
 		return hand.getCardsFromHand();
 	  }
 	  
+	/**
+	 * returns player's hand.
+	 * @return player's hand.
+	 */
+	public Hand getHand() {
+	  
+	  return this.hand;
+	}
+	
+	
+	
 	/**
 	 * To remove cards from player's hand
 	 * 
@@ -554,8 +565,9 @@ public class Player
 		ArrayList<GraphNode> attDef= new ArrayList<>();
 		GraphNode attackerCountryNode = new GraphNode(new Country("dummy"));
 		GraphNode defenderCountryNode = new GraphNode(new Country("dummy"));
+		int noOfPlayers = noOfPlayers = driver.getPlayerList().getPlayerList().size();
 		
-	  if (this.getPlayerGraph().getGraphNodes().stream().map(x -> x.getNodeData()).anyMatch((y) -> y.getArmies()>1))
+	  if (this.getPlayerGraph().getGraphNodes().stream().map(x -> x.getNodeData()).anyMatch((y) -> y.getArmies()>1) && noOfPlayers > 1)
 		  {
 			
 			this.getPlayerGraph().viewGraph();
@@ -585,10 +597,17 @@ public class Player
 			  }
 			
 			  }
-			}while(attack);
+			
+			noOfPlayers = driver.getPlayerList().getPlayerList().size();
+			
+			}while(attack && noOfPlayers >1);
 			
 		  }else {
-			System.out.println(this.getplayerName() + " does not have enough armies in any country to attack");
+			
+			if (noOfPlayers > 1)
+			  {
+				System.out.println(this.getplayerName() + " does not have enough armies in any country to attack");
+			  }
 		  }
 			
 	  

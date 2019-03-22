@@ -344,7 +344,7 @@ public class GameMainDriver extends Observable
 		  }
 		for (Player player : players)
 		  {
-			player.reinforcementArmiesCalc(risk);
+			player.reinforcementArmiesCalc(risk,0);
 		  }
 		//to set the cards in deck of cards 
 		deck = new DeckOfCards(risk.getGameMapGraph().getGraphNodes());
@@ -386,7 +386,7 @@ public class GameMainDriver extends Observable
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
 			//to add reinforcement calc for the cards
 			// recalculate reinforcement armies for both players
-			currentPlayer.reinforcementArmiesCalc(risk);
+			currentPlayer.reinforcementArmiesCalc(risk,0);
 			
 			// reinforcement phase
 			//System.out.println("Turn is for " + currentPlayer.getplayerName());

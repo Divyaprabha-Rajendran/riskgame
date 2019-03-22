@@ -1,6 +1,8 @@
 package ca.riskgamet31.maincomps;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Hand class which contains cards that player has
@@ -51,6 +53,26 @@ public class Hand
 		return handWithCards;
 	  }
 	  
+	public boolean isElegibleToExchange()
+	{
+	  boolean isElegible = false;
+	  
+	  long numOfTypes = 0 , maxPerType = 0;
+	  Map<String,Integer> handStats = this.getCardsFromHand().stream()
+		  							.collect(Collectors.groupingBy(i-> i.getCardType(),Collectors.reducing(0, e-> 1, Integer::sum)));
+	  
+
+	 numOfTypes = handStats.size();
+	 maxPerType = handStats.values().stream().max((x,y) -> x.intValue()-y.intValue()).get().longValue();
+		  							
+	if (numOfTypes ==3 || maxPerType >=3)
+	  isElegible = true;
+	 
+	 
+	  return isElegible;
+	}
+	
+	
 	/**
 	 * Remove cards from hand
 	 * 
@@ -63,9 +85,9 @@ public class Hand
 		
 		if (canTurnInCards(index1, index2, index3) == true)
 		  {
-			handWithCards.remove(index3);
-			handWithCards.remove(index2);
-			handWithCards.remove(index1);
+			handWithCards.remove(index3-1);
+			handWithCards.remove(index2-1);
+			handWithCards.remove(index1-1);
 			
 		  } else
 		  {
@@ -98,8 +120,12 @@ public class Hand
 	 * @param index3 index of card that can be turned in
 	 * @return whether player can turn in cards or not
 	 */
-	public boolean canTurnInCards(int index1, int index2, int index3)
+	public boolean canTurnInCards(int index1, int index2, int index3) throws IndexOutOfBoundsException
 	  {
+		
+		index1--;
+		index2--;
+		index3--;
 		
 		mustTurnInCards = false;
 		

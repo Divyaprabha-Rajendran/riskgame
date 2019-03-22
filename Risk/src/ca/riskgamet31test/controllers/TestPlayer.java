@@ -182,7 +182,7 @@ public class TestPlayer
 	public void testreinforcementArmiesCalc()
 	  {
 		int expected = 10;
-		assertEquals(expected, p1.reinforcementArmiesCalc(GM1));
+		assertEquals(expected, p1.reinforcementArmiesCalc(GM1,0));
 	  }
 	/**
 	 * Distribute armies test method  

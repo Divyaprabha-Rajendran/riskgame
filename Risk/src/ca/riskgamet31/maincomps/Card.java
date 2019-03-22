@@ -39,7 +39,7 @@ public class Card
 	 */
 	public String getCardName()
 	  {
-		return countryName + ", " + type;
+		return countryName + ":" + type;
 	  }
 	  
 	/**

@@ -3,13 +3,17 @@ package ca.riskgamet31.views;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
+
+import ca.riskgamet31.controllers.GameMainDriver;
+import ca.riskgamet31.maincomps.Player;
 
 /**
  * phase view using Observer pattern
  * @author Fareed Tayar
  *@version 1.2
  */
-public class PhaseView implements Observer
+public class PhaseView extends Observable implements Observer 
   {
 
 	/**
@@ -126,6 +130,26 @@ public class PhaseView implements Observer
 	  this.playerName = ((ArrayList<String>)arg).remove(0);
 	  this.phaseActions = ((ArrayList<String>)arg).remove(0);
 	  this.displayViewInfo();
+	  
+	  if (phaseName.toUpperCase().startsWith("Reinforcement Phase"))
+		{
+		  Optional<Player> currentPlayerOptional = ((GameMainDriver) o).getPlayerList().getPlayerList().stream().filter(x -> x.getplayerName().equals(this.playerName)).findFirst();
+		  Player currentPlayer = currentPlayerOptional.isPresent() ? currentPlayerOptional.get(): null;
+		  if (currentPlayer == null)
+			try
+			  {
+				throw (new Exception());
+			  } catch (Exception e)
+			  {
+				e.printStackTrace();
+			  }
+		  
+		  CardExchangeView cardExchangeView = new CardExchangeView();
+		  this.addObserver(cardExchangeView);
+		  setChanged();
+		  notifyObservers(currentPlayer);
+		  
+		}
 	}
 	
   }
