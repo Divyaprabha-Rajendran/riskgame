@@ -53,7 +53,7 @@ public class Hand
 		return handWithCards;
 	  }
 	  
-	public boolean isElegibleToExchange()
+	public boolean isEligibleToExchange()
 	{
 	  boolean isElegible = false;
 	  
@@ -63,7 +63,7 @@ public class Hand
 	  
 
 	 numOfTypes = handStats.size();
-	 maxPerType = handStats.values().stream().max((x,y) -> x.intValue()-y.intValue()).get().longValue();
+	 maxPerType = handStats.values().stream().max((x,y) -> x.intValue()-y.intValue()).orElse(0).longValue();
 		  							
 	if (numOfTypes ==3 || maxPerType >=3)
 	  isElegible = true;

@@ -1,11 +1,11 @@
 package ca.riskgamet31.views;
 
-import java.util.ArrayList;
+
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
 import ca.riskgamet31.controllers.GameMainDriver;
-import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Hand;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.InputValidator;
@@ -30,6 +30,10 @@ public class CardExchangeView implements Observer
 	  
 	  String userInput = "";
 	  String[] selectedCards;
+	  boolean validSelection = false;
+	  do
+	{
+		  
 	  do {
 	  userInput = uir.requestUserInput(request);
 	  
@@ -37,17 +41,23 @@ public class CardExchangeView implements Observer
 	  
 	  selectedCards = userInput.split("(?<=\\G.{1})");
 	  
-	 if ( hand.canTurnInCards(Integer.parseInt(selectedCards[0]), Integer.parseInt(selectedCards[1]), Integer.parseInt(selectedCards[2])))
+	  validSelection = Integer.parseInt(selectedCards[0]) <= hand.getCardsFromHand().size() && Integer.parseInt(selectedCards[1]) <= hand.getCardsFromHand().size() && Integer.parseInt(selectedCards[2]) <= hand.getCardsFromHand().size();
+		  
+	 if (validSelection && !Arrays.toString(selectedCards).equals("999") && hand.canTurnInCards(Integer.parseInt(selectedCards[0]), Integer.parseInt(selectedCards[1]), Integer.parseInt(selectedCards[2])))
 	   {
 		hand.removeCardsFromHand(Integer.parseInt(selectedCards[0]), Integer.parseInt(selectedCards[1]), Integer.parseInt(selectedCards[2])); 
 	   
 		currentPlayer.setArmies(currentPlayer.getPlayerArmies() + (GameMainDriver.turnInCardsCount++*5));
-	    System.out.println(currentPlayer.getplayerName() + ": is elegible for " + currentPlayer.getPlayerArmies());
-		System.out.println("Current hand has "+ hand.getCardsFromHand());
+	    System.out.println("Now "+currentPlayer.getplayerName() + ": is eligible for " + currentPlayer.getPlayerArmies() +" armies");
+		System.out.println("Current player's hand has "+ hand.getCardsFromHand());
 		executed = true;
+	   }else {
+		 System.out.println("Wrong cards selection");
 	   }
+		}
+	  while (!Arrays.toString(selectedCards).equals("999") && !executed);
 	  
-	  return executed;
+		return executed;
 	}
 	
 	
@@ -60,11 +70,11 @@ public class CardExchangeView implements Observer
 	  //else
 	  	// say not applicable.
 	  Hand playerHand =  currentPlayer.getHand();
-	  
-	  System.out.println(currentPlayer.getplayerName() + ": is elegible for " + currentPlayer.getPlayerArmies());
-	  System.out.println("Current hand has "+ playerHand.getCardsFromHand());
+	  System.out.println("--------------------- Exchange Cards view -------------------------");
+	  System.out.println(currentPlayer.getplayerName() + ": is eligible for " + currentPlayer.getPlayerArmies() + " armies");
+	  System.out.println("Current Player's hand has "+ playerHand.getCardsFromHand());
 	  boolean turnedInCards = false;
-	  if (playerHand.isElegibleToExchange())
+	  if (playerHand.isEligibleToExchange())
 		{
 	  while (playerHand.mustTurnInCards())
 		{

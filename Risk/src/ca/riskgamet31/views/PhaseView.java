@@ -113,7 +113,7 @@ public class PhaseView extends Observable implements Observer
   public void displayViewInfo() {
 	System.out.println("");
 	System.out.println("---------------------- "+this.getPhaseName()+" -- "+this.getPlayerName()+" ----------------------");
-	System.out.println(this.getPhaseActions());
+	System.out.println(this.getPhaseActions()+"\n");
   }
 
 /**
@@ -131,7 +131,7 @@ public class PhaseView extends Observable implements Observer
 	  this.phaseActions = ((ArrayList<String>)arg).remove(0);
 	  this.displayViewInfo();
 	  
-	  if (phaseName.toUpperCase().startsWith("Reinforcement Phase"))
+	  if (phaseName.trim().startsWith("Reinforcement Phase"))
 		{
 		  Optional<Player> currentPlayerOptional = ((GameMainDriver) o).getPlayerList().getPlayerList().stream().filter(x -> x.getplayerName().equals(this.playerName)).findFirst();
 		  Player currentPlayer = currentPlayerOptional.isPresent() ? currentPlayerOptional.get(): null;
@@ -148,7 +148,7 @@ public class PhaseView extends Observable implements Observer
 		  this.addObserver(cardExchangeView);
 		  setChanged();
 		  notifyObservers(currentPlayer);
-		  
+		  this.deleteObserver(cardExchangeView);
 		}
 	}
 	

@@ -3,7 +3,6 @@ package ca.riskgamet31.controllers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.PhantomReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -21,7 +20,6 @@ import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Continent;
-import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.DeckOfCards;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
@@ -31,7 +29,6 @@ import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputRequester;
 import ca.riskgamet31.views.PhaseView;
 import ca.riskgamet31.views.PlayersWorldDominationView;
-import ca.riskgamet31.views.countryView;
 import ca.riskgamet31.controllers.CreateMap;
 
 /**
@@ -106,7 +103,7 @@ public class GameMainDriver extends Observable
 	 */
 	public void setTurnInCardsCount(int turnInCardsCount)
 	  {
-		this.turnInCardsCount = turnInCardsCount;
+		GameMainDriver.turnInCardsCount = turnInCardsCount;
 	  }
 
 	/**

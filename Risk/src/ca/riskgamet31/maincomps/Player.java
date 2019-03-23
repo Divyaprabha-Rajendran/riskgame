@@ -1,6 +1,6 @@
 package ca.riskgamet31.maincomps;
 
-import java.time.Year;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -8,7 +8,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.lang.model.element.NestingKind;
 
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
@@ -565,9 +564,18 @@ public class Player
 		ArrayList<GraphNode> attDef= new ArrayList<>();
 		GraphNode attackerCountryNode = new GraphNode(new Country("dummy"));
 		GraphNode defenderCountryNode = new GraphNode(new Country("dummy"));
-		int noOfPlayers = noOfPlayers = driver.getPlayerList().getPlayerList().size();
+		int noOfPlayers = driver.getPlayerList().getPlayerList().size();
+		boolean mayAttack = this.getPlayerGraph().getGraphNodes().stream()
+			.anyMatch((y) -> 
+			  	{
+			  	  boolean armiesCondition = y.getNodeData().getArmies()>1;
+			  	  boolean defenderCondition = y.getNodeNeighbors().stream().allMatch(z -> z.getNodeData().getCurrentOccupier().equals(this.getplayerName()));
+			  	  return armiesCondition && !defenderCondition;
+			  	});
 		
-	  if (this.getPlayerGraph().getGraphNodes().stream().map(x -> x.getNodeData()).anyMatch((y) -> y.getArmies()>1) && noOfPlayers > 1)
+		//this.getPlayerGraph().getGraphNodes().stream().map(x -> x.getNodeData()).anyMatch((y) -> y.getArmies()>1)
+		
+	  if (mayAttack && noOfPlayers > 1)
 		  {
 			
 			this.getPlayerGraph().viewGraph();
@@ -599,14 +607,23 @@ public class Player
 			  }
 			
 			noOfPlayers = driver.getPlayerList().getPlayerList().size();
+			mayAttack = this.getPlayerGraph().getGraphNodes().stream()
+				.anyMatch((y) -> 
+				  	{
+				  	  boolean armiesCondition = y.getNodeData().getArmies()>1;
+				  	  boolean defenderCondition = y.getNodeNeighbors().stream().allMatch(z -> z.getNodeData().getCurrentOccupier().equals(this.getplayerName()));
+				  	  return armiesCondition && !defenderCondition;
+				  	});
 			
-			}while(attack && noOfPlayers >1);
+			
+			}while(attack && noOfPlayers >1 && mayAttack);
 			
 		  }else {
 			
 			if (noOfPlayers > 1)
 			  {
-				System.out.println(this.getplayerName() + " does not have enough armies in any country to attack");
+				System.out.println(this.getplayerName() + " can't attack from his countries - below");
+				this.getPlayerGraph().viewGraph();
 			  }
 		  }
 			
@@ -684,7 +701,7 @@ public class Player
 				}
 				// Calculate losses
 				System.out.println("");
-				System.out.println("<Combat Result>");
+				System.out.println("<Combat Result>"+"|"+attackerCountryNode.getNodeData().getArmies()+"-"+attackerLosses+":"+defenderCountryNode.getNodeData().getArmies()+"-"+defenderLosses+"|");
 				System.out.println("Attacker dices"+Arrays.toString(attackerRolls));
 				System.out.println("Defender dices"+ Arrays.toString(defenderRolls));
 				
@@ -765,7 +782,7 @@ public class Player
 				if(defenderObj.getCountry().size() == 0)
 				{
 				  
-				  System.out.println(this.getplayerName()+" will receive"+ defenderObj.hand.getCardsFromHand().size()+" cards from player "+defenderObj.getplayerName());
+				  System.out.println(this.getplayerName()+" will receive - "+ defenderObj.hand.getCardsFromHand().size()+" - cards from player "+defenderObj.getplayerName());
 					
 				  for(Card card : defenderObj.hand.getCardsFromHand())
 					{

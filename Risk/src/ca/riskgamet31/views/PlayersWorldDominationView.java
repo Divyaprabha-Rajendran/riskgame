@@ -35,7 +35,7 @@ public class PlayersWorldDominationView implements Observer
 	  final int countryCount  = mapGraphNodes.size();
 	 
 	 Map<String, String> countriesArmiesPerPlayer= mapGraphNodes.stream().map(i -> i.getNodeData())
-			.collect(Collectors.groupingBy(Country::getCurrentOccupier,Collectors.collectingAndThen(Collectors.summarizingInt(Country::getArmies), s -> String.format("%d%%    %d", (s.getCount()*100/countryCount),s.getSum()))));
+			.collect(Collectors.groupingBy(Country::getCurrentOccupier,Collectors.collectingAndThen(Collectors.summarizingInt(Country::getArmies), s -> String.format("%.2f%%    %d", ((float)s.getCount()*100/(float)countryCount),s.getSum()))));
 	 
 	for (Map.Entry<String, String> mapEntry : countriesArmiesPerPlayer.entrySet())		
 	  {
@@ -75,8 +75,8 @@ public class PlayersWorldDominationView implements Observer
 	  calculateWorldDominationInfo(gmd); 
 	  System.out.println("");
 	  System.out.println("-------------------- Players World Domination Statistics --------------------");
-	  System.out.printf("\t\t%-12s %%Owned  NOA  Owned Continents%n","Player:");
-	  System.out.printf("\t\t%-12s ------  ---  ----------------%n","-------");
+	  System.out.printf("\t\t%-12s %%Owned     NOA  Owned Continents%n","Player:");
+	  System.out.printf("\t\t%-12s ------     ---  ----------------%n","-------");
 	  worldDominationViewInfo.forEach((x,y) -> System.out.printf("\t\t%-12s: %s%n",x,y));
 	  System.out.println("");
 	}

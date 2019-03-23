@@ -86,7 +86,7 @@ public class CreateMap
 			mapBuilder = mapFactory.newDocumentBuilder();
 			xmlDoc = mapBuilder.parse(xmlFile);
 			xmlDoc.getDocumentElement().normalize();
-			System.out.println("Document loaded successfully from "+xmlFile.getAbsolutePath());
+			System.out.println("Document loaded successfully from "+xmlFile.getAbsolutePath()+"\n");
 		  } catch (ParserConfigurationException e)
 		  {
 			System.out.println(e.getMessage());

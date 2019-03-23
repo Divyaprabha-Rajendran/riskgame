@@ -49,10 +49,21 @@ public class DeckOfCards
 		
 		for (int i = 0, j = 0; i < graphNodes.size(); i++, j++)
 		  {
-			
+			if (graphNodes.size() < 10)
+			  {
 			deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i).getNodeData().getCountryName()));
 			if (j == 2)
 			  j = 0;
+			deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i).getNodeData().getCountryName()));
+			if (j == 2)
+			  j = 0;
+			
+			  }else {
+				deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i).getNodeData().getCountryName()));
+				if (j == 2)
+				  j = 0;
+				
+			  }
 		  }
 		Collections.shuffle(deckOfCards);
 	  }
