@@ -68,7 +68,7 @@ public class TestGameMainDriver
 	  {
 		P1 = G1.getPlayerList();
 		int a1 = P1.getPlayerList().size();
-		String input = "3\np1\np2\np3\n";
+		String input = "3\nabc\ncde\ngfg\n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 	  	G1.createPlayer();

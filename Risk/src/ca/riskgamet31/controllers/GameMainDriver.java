@@ -300,7 +300,7 @@ public class GameMainDriver extends Observable
 				  {
 				userInput = uir.requestUserInput("Enter player name...");
 				
-				  }while(!inpV.validateAlphaNum(userInput));
+				  }while(!inpV.validateAlphaNum(userInput.trim()));
 				
 				name = userInput;
 				Player player = StartUp.createPlayers(name);

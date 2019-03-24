@@ -12,24 +12,32 @@ public class UserInputRequester
   {
 	
 	/**
-	 * utility method for requesting user input
-	 * @param inputMsg the message to show to user
-	 * @return user's input
+	 * global game user input scanner.
 	 */
-	public String requestUserInput(String inputMsg)
-	  {
+	  private static Scanner sysIn;
 		
-		Scanner sysIn = new Scanner(System.in);
-		String txt = "";
-		
-		do
+		/**
+		 * utility method for requesting user input
+		 * @param inputMsg the message to show to user
+		 * @return user's input
+		 */
+		public static String requestUserInput(String inputMsg)
 		  {
-			System.out.println(inputMsg);
-			if (sysIn.hasNext())
-			  txt = sysIn.next().trim().toUpperCase();
-		  } while (txt.length() == 0);
-		  
-		return txt;
-	  }
+			
+			//Scanner sysIn = new Scanner(System.in);
+			if (sysIn == null) {
+			  sysIn = new Scanner(System.in);
+			}
+			String txt = "";
+			
+			do
+			  {
+				System.out.println(inputMsg);
+				if (sysIn.hasNext())
+				  txt = sysIn.next().trim().toUpperCase();
+			  } while (txt.length() == 0);
+			  
+			return txt;
+	     }
 	  
   }
