@@ -141,6 +141,51 @@ public class StartUpPhase
 		  }
 	  }
 	  
+	
+	public void distributeCountriesSequ(PlayerModel players, GameMap map)
+	  {
+		ArrayList<GraphNode> actual_graph_nodes = map.getGameMapGraph()
+		    .getGraphNodes();
+		int actualSize = map.getGameMapGraph().getGraphNodes().size();
+		ArrayList<String> graph_nodes = new ArrayList<>(actualSize);
+		
+		for (int i = 0; i < actualSize; i++)
+		  {
+			graph_nodes.add(actual_graph_nodes.get(i).getNodeData()
+			    .getCountryName());
+			
+		  }
+		  
+		int watchdog = 0;
+		
+		while (graph_nodes.size() > 0)
+		  {
+			
+			if (watchdog < playerCount)
+			  {
+				String node = graph_nodes.remove(0);
+				Player curr_player = players.getPlayerList().get(watchdog);
+				GraphNode selectedNode = null;
+				
+				for (GraphNode gnode : actual_graph_nodes)
+				  {
+					if (gnode.getNodeData().getCountryName().equals(node))
+					  selectedNode = gnode;
+					
+				  }
+				  
+				curr_player.addCountry(selectedNode);
+				curr_player.decrementArmies(1);
+				selectedNode.getNodeData().setCurrentOccupier(curr_player
+				    .getplayerName());
+				selectedNode.getNodeData().setArmies(1);
+				watchdog = watchdog + 1;
+			  } else
+			  watchdog = 0;
+		  }
+	  }
+	
+	
 	/**
 	 * Distribute the armies of every player among the countries the player
 	 * owns. The method executes till all the player's armies are distributed.
