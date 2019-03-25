@@ -1,22 +1,36 @@
 package ca.riskgamet31test.maincomps;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
-
-class TestGraph
+/**
+ * 
+ * @author Fareed
+ * @version 1.0
+ * @since 1.0
+ *
+ */
+public class TestGraph
   {
-	
-	private Graph testGraph;
-	private GraphNode g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13,
+	/*
+	 *  Graph Class Reference
+	 */
+	public Graph testGraph;
+	/*
+	 *  GraphNode Class Reference
+	 */
+	public GraphNode g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13,
 	    g14, g15;
-	
+	/*
+	 * TestGraph Constructor defined
+	 */
 	public TestGraph()
 	  {
 		
@@ -117,17 +131,22 @@ class TestGraph
 		this.testGraph.addNode(g14);
 		this.testGraph.addNode(g15);
 	  }
-	  
-	@BeforeEach
-	void setUp() throws Exception
+	  /**
+	   * Object created before all the test method 
+	   * 
+	   */
+	@BeforeClass
+public static void setUp() throws Exception
 	  {
 		
 		TestGraph testG = new TestGraph();
 		
 	  }
-	  
+	  /**
+	   *  Finding the graph is connected graph or not
+	   */
 	@Test
-	void testIsConnectedFindPath()
+public	void testIsConnectedFindPath()
 	  {
 		
 		assertFalse(testGraph.isConnected());
