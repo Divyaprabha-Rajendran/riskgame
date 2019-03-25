@@ -13,6 +13,7 @@ import javax.naming.InvalidNameException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import ca.riskgamet31.controllers.CreateMap;
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.controllers.PlayerModel;
 import ca.riskgamet31.controllers.StartUpPhase;
@@ -117,4 +118,18 @@ public class TestGameMainDriver
 	    System.out.println(p2.getCountry());
 	    assertEquals("[INDIA:1:p1]",p1.getPlayerGraph().getGraphNodes().get(2).toString());
        }
+	/**
+	 * reading the invalid map
+	 * @throws InvalidGraphException when map is invalid graph
+	 * @throws InvalidCountryException when the country is duplicate
+	 * @throws InvalidLinkException when the link is disconnected
+	 * @throws Exception when there is exception is unexpectedly
+	 */
+	@Test(expected = ca.riskgamet31.exceptions.InvalidNameException.class)
+	public void TestCreateMap() throws InvalidGraphException,  InvalidCountryException,  InvalidLinkException, Exception
+	{
+		File xmlFile = new File(System
+			    .getProperty("user.dir") + "\\Risk_MapData\\test_default_map_invalid_contient_name.xml");
+		G1.createGameMap(xmlFile.getPath());
+	}
   }
