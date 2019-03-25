@@ -47,9 +47,9 @@ public class TestStartupPhase
 	
 	/**
 	 * Object created before all the test method 
-	 * @throws NullPointerException Gives Null pointer Exception
-	 * @throws InvalidPlayerNameException  Gives Invalid Player Exception
-	 * @throws ca.riskgamet31.exceptions.InvalidNameException Gives Invalid Name Exception
+	 * @throws  NullPointerException  when value is null
+	 * @throws InvalidPlayerNameException when player name is duplicate
+	 * @throws ca.riskgamet31.exceptions.InvalidNameException  when Name is invalid 
 	 */
 	@BeforeClass
 	public static void Testsetup() throws NullPointerException,
