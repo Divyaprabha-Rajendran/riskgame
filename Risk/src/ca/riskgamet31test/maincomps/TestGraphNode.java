@@ -42,9 +42,7 @@ public class TestGraphNode
 	@Before
 	public void setUp() throws Exception
 	  {
-		ArrayList<Country> neighbours = new ArrayList<>();
-		Country c = new Country("India");
-		GraphNode Gn = new GraphNode(c);
+		
 	  }
 	  
 	
