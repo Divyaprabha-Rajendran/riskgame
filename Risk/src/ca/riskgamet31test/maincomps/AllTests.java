@@ -16,7 +16,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * Run the all the test class at once.
  */
 @SuiteClasses(
-  { TestContinent.class,TestCard.class,TestDeckOfCards.class, TestCountry.class, TestGameMap.class,TestGraph.class, TestGraphNode.class })
+  { TestContinent.class,TestHand.class,TestCard.class,TestDeckOfCards.class, TestCountry.class, TestGameMap.class,TestGraph.class, TestGraphNode.class })
 public class AllTests
   {
 	
