@@ -125,6 +125,7 @@ public class Player
 	/**
 	 * To calculate the reinforcement armies
 	 * @param gameMap game map
+	 * @param armiescardsAmount ammount of armies got by exchanging cards
 	 * @return  No. of reinforcement armies that player will get
 	 */
 	public int reinforcementArmiesCalc(GameMap gameMap, int armiescardsAmount)
