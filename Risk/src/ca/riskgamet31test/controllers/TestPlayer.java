@@ -166,13 +166,7 @@ public class TestPlayer
 		p1.addNewCard(card1);
 		A2 = p1.getPlayerCards().size();
 		assertNotEquals(A1, A2);
-		p1.addNewCard(card2);
-		p1.addNewCard(card3);
-		int A4 = p1.getPlayerCards().size();
-		int[] A5 = new int[A4];
-		p1.removeCards(A5);
-		A3 = p1.getPlayerCards().size();
-		assertEquals(0, A3);
+		
 	  }
 	/**
 	 * reinforcement Armies Calculation test method 
@@ -181,8 +175,11 @@ public class TestPlayer
 	@Test
 	public void testreinforcementArmiesCalc()
 	  {
-		int expected = 10;
-		assertEquals(expected, p1.reinforcementArmiesCalc(GM1,0));
+		int expected = 15;
+		p1.addNewCard(card1);
+		p1.addNewCard(card2);
+		p1.addNewCard(card3);
+		assertEquals(expected, p1.reinforcementArmiesCalc(GM1,5));
 	  }
 	/**
 	 * Distribute armies test method  
@@ -192,7 +189,7 @@ public class TestPlayer
 	  {
 		int armiesForCountry1BeforeReinforcement = c1.getArmies();
 		int armiesForPlayerBeforeReinforcement = p1.getPlayerArmies();
-		String input = "Dubai\n10";
+		String input = "Dubai\n15";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 		p1.reinforcement();
