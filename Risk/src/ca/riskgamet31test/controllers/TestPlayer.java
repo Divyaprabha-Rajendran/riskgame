@@ -12,6 +12,8 @@ import javax.naming.InvalidNameException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import ca.riskgamet31.controllers.GameMainDriver;
+import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Continent;
@@ -33,15 +35,16 @@ public class TestPlayer
 	/**
 	 * Country Class Reference
 	 */
-	static Country c1, c2, c3, c4, c5, c6;
+	static Country c1, c2, c3, c4, c5, c6, c7;
 	/**
 	 * GraphNode Class Reference
 	 */
-	static GraphNode g1, g2, g3, g4, g5, g6;
+	static GraphNode g1, g2, g3, g4, g5, g6, g7;
 	/**
 	 * Player Class Reference
 	 */
 	static Player p1;
+	static Player p2;
 	/**
 	 * Graph Class Reference
 	 */
@@ -54,6 +57,8 @@ public class TestPlayer
 	 * GameMap Class Reference
 	 */
 	static GameMap GM1;
+	
+	static GameMainDriver driver;
 	/**
 	 * Card Class Reference
 	 */
@@ -78,18 +83,23 @@ public class TestPlayer
 		c4 = new Country("India");
 		c5 = new Country("China");
 		c6 = new Country("Shrilanka");
-		
+		c7 = new Country("Pakistan");
+		c1.setArmies(15);
+		c7.setArmies(2);
 		g1 = new GraphNode(c1);
 		g2 = new GraphNode(c2);
 		g3 = new GraphNode(c3);
 		g4 = new GraphNode(c4);
 		g5 = new GraphNode(c5);
 		g6 = new GraphNode(c6);
+		g7 = new GraphNode(c7);
 		g1.addNeighbor(g2);
 		g1.addNeighbor(g3);
+		g1.addNeighbor(g7);
 		try
 		  {
 			p1 = new Player("player1", 7);
+			p2 = new Player("player2", 7);
 		  }
 		  catch (NullPointerException | InvalidPlayerNameException e)
 		  {
@@ -107,6 +117,7 @@ public class TestPlayer
 		G1.addNode(g4);
 		G1.addNode(g5);
 		G1.addNode(g6);
+		G2.addNode(g7);
 		C1 = new Continent("Africa", 3, G2);
 		C2 = new Continent("Asia", 5, G1);
 		HM1.put("Africa", C1);
@@ -118,15 +129,27 @@ public class TestPlayer
 		g4.getNodeData().setCurrentOccupier(p1.getplayerName());
 		g5.getNodeData().setCurrentOccupier(p1.getplayerName());
 		g6.getNodeData().setCurrentOccupier(p1.getplayerName());
+		g7.getNodeData().setCurrentOccupier(p2.getplayerName());
 		p1.addCountry(g1);
 		p1.addCountry(g2);
 		p1.addCountry(g3);
 		p1.addCountry(g4);
 		p1.addCountry(g5);
 		p1.addCountry(g6);
+		p2.addCountry(g7);
 		card1 = new Card("Infantry", c1.getCountryName());
 		card2 = new Card("Cavalry", c1.getCountryName());
 		card3 = new Card("Artillery", c1.getCountryName());
+		driver = new GameMainDriver();
+		
+		driver.setGameMap(GM1);
+		try {
+			driver.getPlayerList().setPlayerList(p1);
+			driver.getPlayerList().setPlayerList(p2);
+		} catch (InvalidPlayerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	  }
 	/**
 	 * add and remove Country from player graph test method 
@@ -175,10 +198,11 @@ public class TestPlayer
 	@Test
 	public void testreinforcementArmiesCalc()
 	  {
-		int expected = 15;
+		int expected = 12;
 		p1.addNewCard(card1);
 		p1.addNewCard(card2);
 		p1.addNewCard(card3);
+		//System.out.println(p1.reinforcementArmiesCalc(GM1,5));
 		assertEquals(expected, p1.reinforcementArmiesCalc(GM1,5));
 	  }
 	/**
@@ -188,14 +212,16 @@ public class TestPlayer
 	public void testdistributeArmies()
 	  {
 		int armiesForCountry1BeforeReinforcement = c1.getArmies();
+		int armiesForCountry2BeforeReinforcement = c2.getArmies();
 		int armiesForPlayerBeforeReinforcement = p1.getPlayerArmies();
-		String input = "Dubai\n15";
+		String input = "Dubai\n10\nrussia\n2";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 		p1.reinforcement();
 		int armiesForCountry1AfterReinforcement = c1.getArmies();
+		int armiesForCountry2AfterReinforcement = c2.getArmies();
 		int armiesForPlayerAfterReinforcement = p1.getPlayerArmies();
-		assertEquals(armiesForCountry1BeforeReinforcement + armiesForPlayerBeforeReinforcement, armiesForCountry1AfterReinforcement + armiesForPlayerAfterReinforcement);
+		assertEquals(armiesForCountry1BeforeReinforcement + armiesForCountry2BeforeReinforcement + armiesForPlayerBeforeReinforcement, armiesForCountry1AfterReinforcement + armiesForCountry2AfterReinforcement + armiesForPlayerAfterReinforcement);
 	  }
 
 	/**
@@ -207,7 +233,7 @@ public class TestPlayer
 		
 		int armiesForCountry1BeforeFortification = c1.getArmies();
 		int armiesForCountry2BeforeFortification = c2.getArmies();
-		String input = "Dubai\nrussia\n5";
+		String input = "Dubai\nRussia\n5\n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 		p1.fortification();
@@ -216,6 +242,16 @@ public class TestPlayer
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
 		
 	  }
+	@Test
+	public void testAttack()
+	{
+		String input = "Y\ndubai\npakistan\ny\n3";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+	    System.setIn(in);
+		p1.attack(driver);
+		assertEquals(c1.getCurrentOccupier(), c7.getCurrentOccupier());
+		assertEquals(1, driver.getPlayerList().getPlayerList().size()); //checking End Of Game
+	}
 }
 
   

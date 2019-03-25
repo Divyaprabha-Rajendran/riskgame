@@ -484,6 +484,15 @@ public class GameMainDriver extends Observable
 	}
 	
 	/**
+	 * get the game map object
+	 * @param risk game map object
+	 */
+	public void setGameMap(GameMap risk)
+	{
+		this.risk = risk;
+	}
+	
+	/**
 	 * Deck of cards object
 	 * @return object for the deck pf cards
 	 */
