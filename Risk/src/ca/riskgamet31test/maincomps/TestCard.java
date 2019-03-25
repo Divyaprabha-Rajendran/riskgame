@@ -18,35 +18,7 @@ import ca.riskgamet31.maincomps.Card;
  */
 public class TestCard
   {
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception
-	  {
-		
-	  }
-	  
-	
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception
-	  {
-	  }
-	  
-	
-	@Before
-	public void setUp() throws Exception
-	  {
-		
-		
-	  }
-	  
-	
-	@After
-	public void tearDown() throws Exception
-	  {
-	  }
-	
-	
-	  /**
+	 /**
 	   * Test method for testing if we are getting correct card 
 	   */
 	@Test
@@ -54,8 +26,7 @@ public class TestCard
 	  {
 		
 		Card ca = new Card("Infantry", "india");
-		String s = "india, Infantry";
-		
+		String s = "Infantry";
 		assertEquals(s, ca.getCardName());
 	  }
 	  /**
