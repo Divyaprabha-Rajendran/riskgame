@@ -76,6 +76,8 @@ public class PlayersWorldDominationView implements Observer
 	  
 	/**
 	 * update method to be executed when view is triggered
+	 * @param o observed object
+	 * @param arg data object passed from the observable
 	 */
 	@Override
 	public void update(Observable o, Object arg)

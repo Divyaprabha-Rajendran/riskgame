@@ -57,7 +57,6 @@ public class TestPlayerModel
 	 * Set the players in the Player list test method
 	 * 
 	 */
-	
 	@Test
 	public void testSetPlayerList()
 	  {

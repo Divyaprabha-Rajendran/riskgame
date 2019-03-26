@@ -63,8 +63,7 @@ public class Continent
 	 * to get continent graph
 	 * 
 	 * @return continent graph
-	 */
-	
+	 */	
 	public Graph getContinentGraph()
 	  {
 		return continentGraph;

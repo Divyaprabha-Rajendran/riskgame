@@ -19,13 +19,12 @@ public class Country extends Observable
 	
 	/**
 	 * Country name
-	 */
-	
+	 */	
 	private final String countryName;
+	
 	/**
 	 * current player occupying the country
 	 */
-	
 	private String currentOccupier;
 	
 	/**

@@ -24,7 +24,6 @@ import ca.riskgamet31.maincomps.GraphNode;
  * @version 1.1
  * @since 1.0
  */
-
 public class TestCreateMap
   {
 	/**
@@ -52,7 +51,6 @@ public class TestCreateMap
 	 * Object created before all the test method
 	 * 
 	 */
-	
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -98,7 +96,6 @@ public class TestCreateMap
 	 * @throws ca.riskgamet31.exceptions.InvalidNameException if the name is
 	 *                                                        invalid
 	 */
-	
 	@Test
 	public void TestcreateContinents()
 	    throws ca.riskgamet31.exceptions.InvalidNameException,

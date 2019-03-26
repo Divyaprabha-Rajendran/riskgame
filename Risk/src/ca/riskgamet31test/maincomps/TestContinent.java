@@ -17,7 +17,6 @@ import ca.riskgamet31.maincomps.GraphNode;
  * @version 1.0
  * @since 1.0
  */
-
 public class TestContinent
   {
 	/**
@@ -41,7 +40,6 @@ public class TestContinent
 	 * Object created before all the test method
 	 * 
 	 */
-	
 	@BeforeClass
 	public static void Testsetup()
 	  {
@@ -61,7 +59,6 @@ public class TestContinent
 	/**
 	 * true if both continents have similar names test method
 	 */
-	
 	@Test
 	public void testEqual()
 	  {

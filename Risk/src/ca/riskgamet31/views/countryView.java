@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * view object linked to one country
+ * view object linked to one country using observer pattern
  * 
  * @author Fareed Tayar
  * @version 1.0

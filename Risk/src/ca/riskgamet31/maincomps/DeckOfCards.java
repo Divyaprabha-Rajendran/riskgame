@@ -13,7 +13,9 @@ import java.util.Collections;
  */
 public class DeckOfCards
   {
-	
+	/**
+	 * types of cards
+	 */
 	private String[] typesOfCards;
 	
 	/**

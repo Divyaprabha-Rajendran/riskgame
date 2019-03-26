@@ -38,13 +38,33 @@ import ca.riskgamet31.utility.ValidateMapInput;
  */
 public class CreateMap
   {
-	
+	/**
+	 * xml map file
+	 */
 	private File xmlFile = null;
+	/**
+	 * document object for map file
+	 */
 	private Document xmlDoc = null;
+	/**
+	 * hashmap for countries
+	 */
 	private HashSet<String> countrySet = null;
+	/**
+	 * hashmap for continents
+	 */
 	private HashSet<String> continentSet = null;
+	/**
+	 * graph nodes for countries
+	 */
 	private HashMap<String, GraphNode> countryMap = null;
+	/**
+	 * graph nodes for continents
+	 */
 	private HashMap<String, Continent> mapData = null;
+	/**
+	 * map validate 
+	 */
 	private ValidateMapInput validateMap = null;
 	
 	/**
@@ -248,7 +268,6 @@ public class CreateMap
 	 * 
 	 * @throws InvalidLinkException If from and to countries are same.
 	 */
-	
 	public void processLinks() throws InvalidLinkException
 	  {
 		

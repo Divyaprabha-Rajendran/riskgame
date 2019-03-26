@@ -21,14 +21,37 @@ import ca.riskgamet31.maincomps.Dice;
  */
 public class TestDice
   {
-	
+	/**
+	 * test data member rollResult
+	 */
 	static int[] rollResult;
+	/**
+	 * test data member dice
+	 */
 	static Dice dice;
+	/**
+	 * test data member 1
+	 */
 	static ArrayList<Integer> one;
+	/**
+	 * test data member 2
+	 */
 	static ArrayList<Integer> two;
+	/**
+	 * test data member 3
+	 */
 	static ArrayList<Integer> three;
+	/**
+	 * test data member 4
+	 */
 	static ArrayList<Integer> four;
+	/**
+	 * test data member 5
+	 */
 	static ArrayList<Integer> five;
+	/**
+	 * test data member 6
+	 */
 	static ArrayList<Integer> six;
 	
 	/**

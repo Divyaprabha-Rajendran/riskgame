@@ -135,7 +135,7 @@ public class TestGraph
 	  
 	/**
 	 * Object created before all the test method
-	 * 
+	 * @throws Exception in case new test graph could not be created
 	 */
 	@BeforeClass
 	public static void setUp() throws Exception

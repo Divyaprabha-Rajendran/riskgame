@@ -17,7 +17,6 @@ import ca.riskgamet31.maincomps.Hand;
  * @since 1.0
  *
  */
-
 public class TestHand
   {
 	/**
@@ -117,7 +116,7 @@ public class TestHand
 	  }
 	  
 	/**
-	 * Eligiblity is checked in order to exchange the cards
+	 * Eligibility is checked in order to exchange the cards
 	 */
 	@Test
 	public void testisEligibleToExchange()

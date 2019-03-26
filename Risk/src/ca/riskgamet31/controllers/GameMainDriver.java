@@ -51,7 +51,6 @@ public class GameMainDriver extends Observable
 	/**
 	 * startup phase member
 	 */
-	
 	StartUpPhase StartUp;
 	
 	/**
@@ -67,7 +66,9 @@ public class GameMainDriver extends Observable
 	 * phase info data structure to be passed to phase view observer
 	 */
 	private ArrayList<String> phaseInfo;
-	
+	/**
+	 * player world domination view
+	 */
 	private PlayersWorldDominationView playerWorldDominationView;
 	
 	/**

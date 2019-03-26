@@ -66,7 +66,6 @@ public class TestCountry
 	/**
 	 * To test if armies are reduced
 	 */
-	
 	@Test
 	public void testreduceArmies()
 	  {

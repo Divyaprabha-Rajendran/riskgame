@@ -10,14 +10,30 @@ import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
 
+/**
+ * card exchange view using Observer pattern
+ * @author Fareed Tayar
+ *@since 2.0
+ *version 2.0
+ */
 public class CardExchangeView implements Observer
   {
 	
+	/**
+	 * a no args constructor
+	 */
 	public CardExchangeView()
 	  {
 		
 	  }
 	  
+	/**
+	 * to execute exchange of cards
+	 * @param currentPlayer current player
+	 * @param hand currently player's hand
+	 * @param request selected cards by the player
+	 * @return true if exchange been successful
+	 */
 	public boolean executeTurnInCard(Player currentPlayer, Hand hand,
 	    String request)
 	  {
@@ -78,6 +94,10 @@ public class CardExchangeView implements Observer
 		return executed;
 	  }
 	  
+	/**
+	 * to process exchange of cards
+	 * @param currentPlayer current player exchanging the cards
+	 */
 	public void processCardExchange(Player currentPlayer)
 	  {
 		
@@ -111,6 +131,11 @@ public class CardExchangeView implements Observer
 		  
 	  }
 	  
+	/**
+	 *to be executed when the view is triggered
+	 *@param o the observable object
+	 *@param arg data object passed from observed object
+	 */
 	@Override
 	public void update(Observable o, Object arg)
 	  {
@@ -119,6 +144,12 @@ public class CardExchangeView implements Observer
 		
 	  }
 	  
+	/**
+	 * to verify selected cards indexes are not the same.
+	 * 
+	 * @param request selected cards indexes array
+	 * @return true if it is OK to continue with the exchange
+	 */
 	public boolean checkUniqueNumbers(String[] request)
 	  {
 		boolean uniqueNumber = true;

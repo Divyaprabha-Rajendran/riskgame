@@ -1,7 +1,7 @@
 package ca.riskgamet31.exceptions;
 
 /**
- * Exception if count for number of players is entered unvalid
+ * Exception if count for number of players is entered invalid
  * 
  * @author Yash Doshi
  * 

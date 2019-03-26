@@ -55,7 +55,6 @@ public class TestDeckOfCards
 	/**
 	 * Test for deck of cards if add functionality is working properly
 	 */
-	
 	@Test
 	public void TestaddNewCard()
 	  {

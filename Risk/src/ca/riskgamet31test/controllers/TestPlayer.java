@@ -61,15 +61,19 @@ public class TestPlayer
 	 * Card Class Reference
 	 */
 	static Card card1, card2, card3;
-	
+	/**
+	 * test data members
+	 */
 	int A1, A2, A3;
+	/**
+	 * test data member
+	 */
 	static HashMap<String, Continent> HM1 = new HashMap<>();
 	
 	/**
 	 * Object created before all the test method
 	 * 
-	 */
-	
+	 */	
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -152,7 +156,6 @@ public class TestPlayer
 	/**
 	 * add and remove Country from player graph test method
 	 */
-	
 	@Test
 	public void testCountry()
 	  {
@@ -169,7 +172,6 @@ public class TestPlayer
 	/**
 	 * Decrement army test method
 	 */
-	
 	@Test
 	public void testarmies()
 	  {
@@ -181,7 +183,6 @@ public class TestPlayer
 	/**
 	 * Add and remove card from players graph test method
 	 */
-	
 	@Test
 	public void testcard()
 	  {
@@ -195,7 +196,6 @@ public class TestPlayer
 	/**
 	 * reinforcement Armies Calculation test method
 	 */
-	
 	@Test
 	public void testreinforcementArmiesCalc()
 	  {
@@ -244,7 +244,9 @@ public class TestPlayer
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
 		
 	  }
-	  
+	  /**
+	   * to test attack
+	   */
 	@Test
 	public void testAttack()
 	  {
@@ -252,9 +254,6 @@ public class TestPlayer
 		p1.getPlayerGraph().viewGraph();
 		p1.attack(driver);
 		assertEquals(c1.getCurrentOccupier(), c7.getCurrentOccupier());
-		assertEquals(1, driver.getPlayerList().getPlayerList().size()); // checking
-		                                                                // End
-		                                                                // Of
-		                                                                // Game
+		assertEquals(1, driver.getPlayerList().getPlayerList().size()); 
 	  }
   }

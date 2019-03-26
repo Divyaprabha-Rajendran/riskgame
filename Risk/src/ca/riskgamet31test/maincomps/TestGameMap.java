@@ -31,7 +31,6 @@ public class TestGameMap
 	 * Object created before all the test method
 	 * 
 	 */
-	
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -52,7 +51,6 @@ public class TestGameMap
 	 * Distribute armies among the player test method
 	 * 
 	 */
-	
 	@Test
 	public void testbonusArmiesForPlayer()
 	  {

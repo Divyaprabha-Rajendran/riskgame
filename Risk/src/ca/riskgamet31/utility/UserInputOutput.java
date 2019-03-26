@@ -11,16 +11,25 @@ import java.util.Scanner;
  */
 public class UserInputOutput
   {
-	
+	/**
+	 * instance for user input output
+	 */
 	private static UserInputOutput instance;
-	
+	/**
+	 * scanner to be used for all the game
+	 */
 	private static Scanner scanner;
-	
+	/**
+	 * constructor
+	 */
 	private UserInputOutput()
 	  {
 		scanner = new Scanner(System.in);
 	  }
-	  
+	  /**
+	   * method to return an instance of the class
+	   * @return an instance of the class object
+	   */
 	public static UserInputOutput getInstance()
 	  {
 		

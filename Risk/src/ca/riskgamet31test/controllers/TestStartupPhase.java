@@ -69,7 +69,6 @@ public class TestStartupPhase
 	 * Distribute Armies among the country test method
 	 * 
 	 */
-	
 	@Test
 	public void TestdistributeArmies()
 	  {
