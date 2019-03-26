@@ -26,7 +26,7 @@ import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.InputValidator;
-import ca.riskgamet31.utility.UserInputRequester;
+import ca.riskgamet31.utility.UserInputOutput;
 import ca.riskgamet31.views.PhaseView;
 import ca.riskgamet31.views.PlayersWorldDominationView;
 import ca.riskgamet31.controllers.CreateMap;
@@ -261,7 +261,7 @@ public class GameMainDriver extends Observable
 	public void createPlayer() throws NullPointerException, InvalidNameException
 	  {
 		int no_players = 0;
-		UserInputRequester uir = new UserInputRequester();
+		//UserInputRequester uir = new UserInputRequester();
 		InputValidator inpV = new InputValidator();
 		this.updatePhaseInfo("Stratup game phase", "No players yet", "1- Creating players.\n2- Random distribution of countries.\n3- Players allocate armies to their countries\n");
 		this.setChanged();
@@ -273,7 +273,7 @@ public class GameMainDriver extends Observable
 				String userInput = "";
 				do
 				  {
-				userInput = uir.requestUserInput("Enter the number of players...");
+				userInput = UserInputOutput.getInstance().requestUserInput("Enter the number of players...");
 				
 				  }while(!inpV.validateNumbers(userInput));
 				no_players = Integer.parseInt(userInput);
@@ -298,7 +298,7 @@ public class GameMainDriver extends Observable
 				String name = "", userInput="";
 				do
 				  {
-				userInput = uir.requestUserInput("Enter player name...");
+				userInput = UserInputOutput.getInstance().requestUserInput("Enter player name...");
 				
 				  }while(!inpV.validateAlphaNum(userInput.trim()));
 				
@@ -370,7 +370,7 @@ public class GameMainDriver extends Observable
 	 */
 	public void playGame()
 	  {
-		UserInputRequester userInputReq = new UserInputRequester();
+		//UserInputRequester userInputReq = new UserInputRequester();
 		boolean endGame = false;
 		Player currentPlayer;
 		int turnID = 0;
@@ -418,7 +418,7 @@ public class GameMainDriver extends Observable
 			if (currentPlayer.getPlayerGraph().getGraphNodes().stream().map(x -> x.getNodeData()).anyMatch((y) -> y.getArmies()>1)
 				&& currentPlayer.getPlayerGraph().getGraphNodes().size()>1)
 			  {
-			String userInput = userInputReq.requestUserInput("Enter Y if you want to fortify");
+			String userInput = UserInputOutput.getInstance().requestUserInput("Enter Y if you want to fortify");
 			if (userInput.toUpperCase().equals("Y"))
 			  {
 				currentPlayer.fortification();

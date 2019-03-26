@@ -8,8 +8,28 @@ import java.util.Scanner;
  *@version 2.0
  *@since 2.0
  */
-public class UserInputRequester2
+public class UserInputOutput
   {
+	
+	private static UserInputOutput instance;
+	
+	private  static Scanner scanner;// = new Scanner(System.in);
+	
+	private UserInputOutput() 
+	  {
+		scanner = new Scanner(System.in);
+	  }
+	
+	public static UserInputOutput getInstance() {
+	  
+	  if (instance == null )
+		{
+		  instance = new UserInputOutput();
+		}
+	  
+	  return instance;
+	  
+	}
 	
 	/**
 	 * utility method for requesting user input
@@ -18,15 +38,13 @@ public class UserInputRequester2
 	 */
 	public String requestUserInput(String inputMsg)
 	  {
-		
-		Scanner sysIn = new Scanner(System.in);
 		String txt = "";
 		
 		do
 		  {
 			System.out.println(inputMsg);
-			if (sysIn.hasNext())
-			  txt = sysIn.next().trim().toUpperCase();
+			if (scanner.hasNext())
+			  txt = scanner.next().trim().toUpperCase();
 		  } while (txt.length() == 0);
 		  
 		return txt;

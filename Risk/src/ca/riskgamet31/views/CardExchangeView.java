@@ -9,7 +9,7 @@ import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.maincomps.Hand;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.InputValidator;
-import ca.riskgamet31.utility.UserInputRequester;
+import ca.riskgamet31.utility.UserInputOutput;
 
 public class CardExchangeView implements Observer
   {
@@ -24,7 +24,7 @@ public class CardExchangeView implements Observer
 	
 	public boolean executeTurnInCard(Player currentPlayer,Hand hand,String request) {
 	  
-	  UserInputRequester uir = new UserInputRequester();
+	  //UserInputRequester uir = new UserInputRequester();
 	  InputValidator inpValidator = new InputValidator();
 	  boolean executed = false;
 	  
@@ -35,7 +35,7 @@ public class CardExchangeView implements Observer
 	{
 		  
 	  do {
-	  userInput = uir.requestUserInput(request);
+	  userInput = UserInputOutput.getInstance().requestUserInput(request);
 	  
 	  }while(!inpValidator.validateNumbers(userInput) && userInput.length() == 3);
 	  

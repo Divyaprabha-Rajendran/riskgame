@@ -1,10 +1,8 @@
 package ca.riskgamet31.maincomps;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +10,8 @@ import java.util.regex.Pattern;
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
-import ca.riskgamet31.utility.UserInputRequester;
+import ca.riskgamet31.utility.UserInputOutput;
+
 
 /**
  * main Players class
@@ -256,7 +255,8 @@ public class Player
 	 */
 	public void fortification()
 	  {
-		UserInputRequester uir = new UserInputRequester();
+		//Scanner sIN = new Scanner(System.in);
+		//UserInputRequester uir = new UserInputRequester();
 		this.getPlayerGraph().viewGraph();
 		
 		Graph mp = this.getPlayerGraph();
@@ -273,7 +273,7 @@ public class Player
 			
 			if (secondtime)
 			  {
-			  tempText = uir.requestUserInput("Do you want to continue fortification?");
+			  tempText = UserInputOutput.getInstance().requestUserInput("Do you want to continue fortification?");
 			  if (!tempText.equals("Y"))
 				exit = true;
 			  }
@@ -285,7 +285,7 @@ public class Player
 			  {
 				System.out.println();
 				
-				tempText = uir.requestUserInput("Enter base country");
+				tempText = UserInputOutput.getInstance().requestUserInput("Enter base country");
 				
 				final String fromcountry1 = tempText;
 				fromCountry = fromcountry1;
@@ -303,7 +303,7 @@ public class Player
 			do
 			  {
 				
-				tempText = uir.requestUserInput("Enter target country:");
+				tempText = UserInputOutput.getInstance().requestUserInput("Enter target country:");
 				
 				final String toCountry1 = tempText;
 				toCountry = toCountry1;
@@ -324,7 +324,7 @@ public class Player
 			do
 			  {
 				System.out.println();
-				tempText = uir.requestUserInput("Enter number of Armies:");  
+				tempText = UserInputOutput.getInstance().requestUserInput("Enter number of Armies:");  
 				String nOArmies = tempText;
 				
 				if (nOArmies.matches("\\d+"))
@@ -380,7 +380,7 @@ public class Player
 	 */
 	public void reinforcement()
 	  {
-		Scanner scan = new Scanner(System.in);
+		//Scanner scan = new Scanner(System.in);
 		
 		System.out.println();
 		System.out.println("Assigning armies for Player " + this
@@ -398,9 +398,9 @@ public class Player
 				
 				System.out.println(node.toString());
 			  }
-			System.out.println("Enter the country name");
-			String country_name = scan.next().trim().toUpperCase();
-			
+			//System.out.println("Enter the country name");
+			String country_name = UserInputOutput.getInstance().requestUserInput("Enter the country name");//scan.next().trim().toUpperCase();
+			//String country_name = u.requestUserInput("Enter the country name");
 			if (!country_name.equals(null))
 			  {
 				if (owned_by_player.contains(country_name))
@@ -412,14 +412,15 @@ public class Player
 					do
 					  {
 						
-						System.out
-						    .println("Enter the number of armies to place..");
+						/*System.out
+						   .println("Enter the number of armies to place..");
 						do
 						  {
 							if (scan.hasNextLine())
 							  text = scan.nextLine();
 						  } while (text.length() == 0);
-						  
+						*/
+						text = UserInputOutput.getInstance().requestUserInput("Enter the number of armies to place..");  
 						if (text.matches("\\d+"))
 						  validInput = true;
 						
@@ -463,20 +464,28 @@ public class Player
 	 */
 	public ArrayList<GraphNode> AttDefCountries(GameMainDriver driver)
 	{
-	  
+	  //UserInputRequester uir = new UserInputRequester();
+	 // Scanner sIN = new Scanner(System.in);
 	  GraphNode attackerCountryNode = new GraphNode(new Country("dummy"));
 	  GraphNode defenderCountryNode = new GraphNode(new Country("dummy"));
-	  UserInputRequester uir = new UserInputRequester();
+	  
 	  boolean selectanother = true;
 			
 			// get base country
 			boolean validAcountry = false;
 			boolean validDcountry = false;
-			String Acountry,Dcountry;
+			String Acountry = "",Dcountry="";
 			do
 			  {
 				validAcountry = false;
-				Acountry = uir.requestUserInput("Enter attacking country name or N to exit:" );
+				Acountry = UserInputOutput.getInstance().requestUserInput("Enter attacking country name or N to exit:");
+				/*do
+				  {
+					System.out.println("Enter attacking country name or N to exit:");
+					if (sIN.hasNext())
+					  Acountry = sIN.next().trim().toUpperCase();
+				  } while (Acountry.length() == 0);
+				*/
 				final String Acountry1 = Acountry;
 				
 				if (this.getPlayerGraph().getGraphNodes().stream().anyMatch((x) -> x.getNodeData().getCountryName().equals(Acountry1) 
@@ -514,7 +523,16 @@ public class Player
 					System.out.println(neighbor.toString());
 				}
 				
-				Dcountry = uir.requestUserInput("Enter target country or N to exit:" );
+				Dcountry = UserInputOutput.getInstance().requestUserInput("Enter target country or N to exit:");
+				/*do
+				  {
+					System.out.println("Enter target country or N to exit:");
+					if (sIN.hasNext())
+					  Dcountry = sIN.next().trim().toUpperCase();
+				  } while (Dcountry.length() == 0);
+				
+				*/
+				
 				final String Dcountry1 = Dcountry;
 				if (
 					attackerCountryNode.getNodeNeighbors().stream().map(x -> x.getNodeData())
@@ -558,7 +576,8 @@ public class Player
 	 */
 	public boolean attack(GameMainDriver driver)
 	{
-	    UserInputRequester uir = new UserInputRequester();
+	  	//Scanner sIN = new Scanner(System.in);
+	    //UserInputRequester uir = new UserInputRequester();
 		boolean won = false;
 		boolean allOut = false;
 		boolean attack = false;
@@ -583,7 +602,17 @@ public class Player
 
 		do {
 			
-			String userInput = uir.requestUserInput("Do you want to attack Y/N?");
+			String userInput = UserInputOutput.getInstance().requestUserInput("Do you want to attack Y/N?");
+		  /*String userInput = "";
+			do
+			  {
+				System.out.println("Do you want to attack Y/N?");
+				if (sIN.hasNext())
+				  userInput = sIN.next().trim().toUpperCase();
+			  } while (userInput.length() == 0);
+			
+			*/
+			
 			attack = userInput.toUpperCase().equals("Y")?true:false;   
 			if (attack)
 			  {
@@ -595,8 +624,15 @@ public class Player
 					attackerCountryNode = attDef.remove(0);
 					defenderCountryNode = attDef.remove(0);
 				  
-				String allOutOption = uir.requestUserInput("Attack in All-Out mode Y/N?");
-				
+					String allOutOption = UserInputOutput.getInstance().requestUserInput("Attack in All-Out mode Y/N?");
+				/*	String allOutOption= "";
+				do
+				  {
+					System.out.println("Attack in All-Out mode Y/N?");
+					if (sIN.hasNext())
+					  allOutOption = sIN.next().trim().toUpperCase();
+				  } while (allOutOption.length() == 0);
+				*/
 				allOut = allOutOption.toUpperCase().equals("Y")?true:false;
 				
 			boolean	wonRound = this.attackRound(driver,attackerCountryNode,defenderCountryNode,allOut);
@@ -644,7 +680,7 @@ public class Player
 	 */
 	public boolean attackRound(GameMainDriver driver, GraphNode attackerCountryNode, GraphNode defenderCountryNode, boolean allOut) 
 	{
-		Scanner s = new Scanner(System.in);
+		//Scanner s = new Scanner(System.in);
 		String tempText = "";
 		int noOfDicesForAttacker = 0;
 		int noOfDicesForDefender = 0;
@@ -749,7 +785,7 @@ public class Player
 					{
 						do
 						{
-						System.out.println("Enter number of armies to transfer");
+						/*System.out.println("Enter number of armies to transfer");
 						//transferArmies = s.nextInt();
 						//tempText = "";
 						do
@@ -757,7 +793,8 @@ public class Player
 							if (s.hasNextLine())
 							  tempText = s.next();
 						  } while (tempText.length() == 0);
-						  
+						  */
+						  tempText = UserInputOutput.getInstance().requestUserInput("Enter number of armies to transfer");  
 						String trArmies = tempText;
 						
 						if (trArmies.matches("\\d+"))
@@ -810,7 +847,7 @@ public class Player
 	 */
 	public int getDiceInput(Country countryObj, String i)
 	{
-		Scanner s = new Scanner(System.in);
+		//Scanner s = new Scanner(System.in);
 		int noOfDices = 0;
 		String tempText = "";
 		boolean dicesNotInt = true;
@@ -833,12 +870,13 @@ public class Player
 			System.out.println("Available Armies to defend are:" + (countryObj.getArmies()));		
 			System.out.println("Enter number of armies to defend (max-2):");
 			  }
-			do
+			/*do
 			  {
 				if (s.hasNextLine())
 				  tempText = s.next();
 			  } while (tempText.length() == 0);
-			  
+			  */
+			tempText = UserInputOutput.getInstance().requestUserInput("Enter number of armies to defend (max-2):");
 			String nODices = tempText;
 			
 			if (nODices.matches("\\d+"))

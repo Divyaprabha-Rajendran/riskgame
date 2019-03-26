@@ -44,7 +44,7 @@ public class InputValidator
 		
 		if (input.length() > 0)
 		  {
-			Pattern stringPattern = Pattern.compile("^[0-9]*$");
+			Pattern stringPattern = Pattern.compile("[1-9]*$");//("^[0-9]*$");
 			Matcher matcher = stringPattern.matcher(input);
 			return matcher.matches();
 		  } else
@@ -72,5 +72,7 @@ public class InputValidator
 			return false;
 		  }
 	  }
+	
+	
 	  
   }

@@ -7,8 +7,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 
-import javax.naming.InvalidNameException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,6 +20,7 @@ import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.utility.UserInputOutput;
 
 /**
  * Tests the Player class
@@ -75,6 +74,7 @@ public class TestPlayer
 	@BeforeClass
 	public static void testsetup()
 	  {
+		//UserInputOutput uio = UserInputOutput.getInstance();
 		G1 = new Graph();
 		G2 = new Graph();
 		c1 = new Country("Dubai");
@@ -213,10 +213,11 @@ public class TestPlayer
 	  {
 		int armiesForCountry1BeforeReinforcement = c1.getArmies();
 		int armiesForCountry2BeforeReinforcement = c2.getArmies();
+		System.out.println(armiesForCountry1BeforeReinforcement + "-"+armiesForCountry2BeforeReinforcement);
 		int armiesForPlayerBeforeReinforcement = p1.getPlayerArmies();
-		String input = "Dubai\n10\nrussia\n2";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-	    System.setIn(in);
+		String input = "Dubai\n10\nrussia\n2\n"+"Dubai\nRussia\n5\n"+"Y\ndubai\npakistan\ny\n3\n";
+		InputStream in1 = new ByteArrayInputStream(input.getBytes());
+	    System.setIn(in1);
 		p1.reinforcement();
 		int armiesForCountry1AfterReinforcement = c1.getArmies();
 		int armiesForCountry2AfterReinforcement = c2.getArmies();
@@ -233,21 +234,26 @@ public class TestPlayer
 		
 		int armiesForCountry1BeforeFortification = c1.getArmies();
 		int armiesForCountry2BeforeFortification = c2.getArmies();
-		String input = "Dubai\nRussia\n5\n";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-	    System.setIn(in);
+		//String input = "Dubai\nRussia\n5\n";
+		//InputStream in2 = new ByteArrayInputStream(input.getBytes());
+	    //System.setIn(in2);
+	    p1.getPlayerGraph().viewGraph();
 		p1.fortification();
+		System.out.println("after fortification test method");
 		int armiesForCountry1AfterFortification = c1.getArmies();
 		int armiesForCountry2AfterFortification = c2.getArmies();
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
 		
 	  }
+	
 	@Test
 	public void testAttack()
 	{
-		String input = "Y\ndubai\npakistan\ny\n3";
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-	    System.setIn(in);
+	    
+		//String input = "Y\ndubai\npakistan\ny\n3\n";
+		//InputStream in = new ByteArrayInputStream(input.getBytes());
+	    //System.setIn(in);
+	    p1.getPlayerGraph().viewGraph();
 		p1.attack(driver);
 		assertEquals(c1.getCurrentOccupier(), c7.getCurrentOccupier());
 		assertEquals(1, driver.getPlayerList().getPlayerList().size()); //checking End Of Game
