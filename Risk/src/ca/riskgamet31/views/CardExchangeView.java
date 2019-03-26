@@ -35,9 +35,6 @@ public class CardExchangeView implements Observer
 			  {
 				userInput = UserInputOutput.getInstance()
 				    .requestUserInput(request);
-				System.out.println(inpValidator.validateNumbers(userInput));
-				System.out.println(!inpValidator.validateNumbers(userInput) || userInput
-			      .length() != 3);
 			  } while (!inpValidator.validateNumbers(userInput) || userInput
 			      .length() != 3);
 			  
