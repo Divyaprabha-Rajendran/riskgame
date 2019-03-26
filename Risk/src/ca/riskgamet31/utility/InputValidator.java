@@ -24,7 +24,7 @@ public class InputValidator
 		
 		if (input.length() > 0)
 		  {
-			Pattern stringPattern = Pattern.compile("^[a-zA-Z]*$");
+			Pattern stringPattern = Pattern.compile("^[a-zA-Z0-9]*$");
 			Matcher matcher = stringPattern.matcher(input);
 			return matcher.matches();
 		  } else

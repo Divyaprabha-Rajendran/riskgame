@@ -41,7 +41,7 @@ public class CardExchangeView implements Observer
 	  
 	  selectedCards = userInput.split("(?<=\\G.{1})");
 	  
-	  validSelection = Integer.parseInt(selectedCards[0]) <= hand.getCardsFromHand().size() && Integer.parseInt(selectedCards[1]) <= hand.getCardsFromHand().size() && Integer.parseInt(selectedCards[2]) <= hand.getCardsFromHand().size();
+	  validSelection = (Integer.parseInt(selectedCards[0]) <= hand.getCardsFromHand().size() && Integer.parseInt(selectedCards[0]) > 0) && (Integer.parseInt(selectedCards[1]) <= hand.getCardsFromHand().size() && Integer.parseInt(selectedCards[1]) > 0) && (Integer.parseInt(selectedCards[2]) <= hand.getCardsFromHand().size() && Integer.parseInt(selectedCards[2]) > 0) && checkUniqueNumbers(selectedCards);
 		  
 	 if (validSelection && !Arrays.toString(selectedCards).equals("999") && hand.canTurnInCards(Integer.parseInt(selectedCards[0]), Integer.parseInt(selectedCards[1]), Integer.parseInt(selectedCards[2])))
 	   {
@@ -102,4 +102,18 @@ public class CardExchangeView implements Observer
 	  
 	}
 	
+  public boolean checkUniqueNumbers(String[] request)
+  {
+	  boolean uniqueNumber = true;
+	  Arrays.sort(request);
+	  for(int i = 0; i < request.length; i++)
+	  {
+		 if(request[i].equals(request[i+1]))
+		 {
+			 uniqueNumber = false;
+			 break;
+		 }
+	  }
+	  return uniqueNumber;
+  }
   }
