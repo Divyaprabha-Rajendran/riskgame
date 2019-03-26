@@ -2,7 +2,6 @@ package ca.riskgamet31.maincomps;
 
 import java.util.Observable;
 
-import ca.riskgamet31.utility.ValidateMapInput;
 import ca.riskgamet31.views.countryView;
 
 /**
@@ -55,7 +54,6 @@ public class Country extends Observable
 		this.armies = 0;
 		this.currentOccupier = "DUMY";
 		this.viewer = new countryView(countryName.toUpperCase());
-		//this.addObserver(viewer);
 		
 	  }
 	  
@@ -101,7 +99,7 @@ public class Country extends Observable
 	  {
 		return armies;
 	  }
-	
+	  
 	/**
 	 * to get country viewer object
 	 * 
@@ -111,7 +109,7 @@ public class Country extends Observable
 	  {
 		return viewer;
 	  }
-
+	  
 	/**
 	 * to set country's viewer object.
 	 * 
@@ -121,7 +119,7 @@ public class Country extends Observable
 	  {
 		this.viewer = viewer;
 	  }
-
+	  
 	/**
 	 * increase number of armies in this country.
 	 * 

@@ -23,7 +23,7 @@ public class Card
 	/**
 	 * constructs new card object
 	 * 
-	 * @param type  one of three types of card
+	 * @param type        one of three types of card
 	 * @param countryName country Name
 	 */
 	public Card(String type, String countryName)
@@ -61,7 +61,7 @@ public class Card
 	  {
 		return countryName;
 	  }
-	
+	  
 	/**
 	 * returns string representation of the card
 	 * 

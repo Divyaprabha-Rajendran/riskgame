@@ -1,9 +1,10 @@
 package ca.riskgamet31.exceptions;
 
 /**
- * Exception class for duplicate continent name or
- * continent name as exists in a country list
- * @author Divyaprabha 
+ * Exception class for duplicate continent name or continent name as exists in a
+ * country list
+ * 
+ * @author Divyaprabha
  */
 public class InvalidContinentException extends Exception
   {

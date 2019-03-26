@@ -2,12 +2,9 @@ package ca.riskgamet31test.maincomps;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.naming.InvalidNameException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.Graph;
@@ -39,13 +36,14 @@ public class TestContinent
 	 * Graph Class Reference
 	 */
 	static Graph G1;
+	
 	/**
-	 * Object created before all the test method 
+	 * Object created before all the test method
 	 * 
 	 */
-
+	
 	@BeforeClass
-	public static void Testsetup() 
+	public static void Testsetup()
 	  {
 		G1 = new Graph();
 		c1 = new Country("Dubai");
@@ -59,10 +57,11 @@ public class TestContinent
 		G1.addNode(g6);
 		C1 = new Continent("africa", 4, G1);
 	  }
+	  
 	/**
-	 * true if both continents have similar names test method 
-	 */ 
-
+	 * true if both continents have similar names test method
+	 */
+	
 	@Test
 	public void testEqual()
 	  {

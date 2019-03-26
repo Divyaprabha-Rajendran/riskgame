@@ -28,6 +28,7 @@ public class ValidateMapInput
 	 * matcher field
 	 */
 	private Matcher matcher;
+	
 	/**
 	 * constructor with proper default pattern
 	 */
@@ -42,9 +43,11 @@ public class ValidateMapInput
 	 * method to validate country names
 	 * 
 	 * @param Name country name to check
-	 * @throws InvalidNameException If the name of continent or country has special characters or numbers
+	 * @throws InvalidNameException If the name of continent or country has
+	 *                              special characters or numbers
 	 */
-	public void validateCountryorContinentName(String Name) throws InvalidNameException
+	public void validateCountryorContinentName(String Name)
+	    throws InvalidNameException
 	  {
 		Matcher countryNameMatcher = validCountryNamePattern.matcher(Name);
 		
@@ -62,10 +65,11 @@ public class ValidateMapInput
 	 * @throws InvalidCountryException If there is a duplicate country
 	 */
 	public void checkExistingCountry(String countryName,
-	    HashSet<String> countryset) throws InvalidCountryException 
+	    HashSet<String> countryset) throws InvalidCountryException
 	  {
 		
-		if (countryset.stream().anyMatch((x) -> x.equalsIgnoreCase(countryName)) == true)
+		if (countryset.stream().anyMatch((x) -> x
+		    .equalsIgnoreCase(countryName)) == true)
 		  {
 			throw new InvalidCountryException("Country exists already " + countryName);
 		  }
@@ -80,7 +84,7 @@ public class ValidateMapInput
 	 * @throws InvalidContinentException If there is a duplicate continent.
 	 */
 	public void checkExistingContinent(String continentName,
-	    HashSet<String> continentset) throws InvalidContinentException 
+	    HashSet<String> continentset) throws InvalidContinentException
 	  {
 		if (continentset.stream().anyMatch((x) -> x
 		    .equalsIgnoreCase(continentName)) == true)
@@ -110,7 +114,7 @@ public class ValidateMapInput
 	 * @throws InvalidContinentException If there is a duplicate continent.
 	 */
 	public void checkCountinentWithoutCountry(
-	    HashMap<String, Continent> mapData) throws InvalidContinentException 
+	    HashMap<String, Continent> mapData) throws InvalidContinentException
 	  
 	  {
 		boolean invalid = false;
@@ -129,9 +133,9 @@ public class ValidateMapInput
 	/**
 	 * check if the country name is a continent name.
 	 * 
-	 * @param countryName country name
+	 * @param countryName  country name
 	 * @param continentSet continent list
-	 * @throws InvalidCountryException If there is a duplicate country 
+	 * @throws InvalidCountryException If there is a duplicate country
 	 */
 	public void checkCountryAgainstContinents(String countryName,
 	    HashSet<String> continentSet) throws InvalidCountryException
@@ -147,13 +151,13 @@ public class ValidateMapInput
 	 * check if the continent name is a country name.
 	 * 
 	 * @param continentName continent name
-	 * @param countrySet country list
+	 * @param countrySet    country list
 	 * @throws InvalidContinentException If there is a duplicate continent.
 	 */
 	public void checkContinentAgainstCountries(String continentName,
-	    HashSet<String> countrySet) throws InvalidContinentException 
+	    HashSet<String> countrySet) throws InvalidContinentException
 	  {
-
+		
 		if (countrySet.contains(continentName.toUpperCase()))
 		  {
 			throw new InvalidContinentException("continent name is not valid as it is a country name   " + continentName);
@@ -164,8 +168,8 @@ public class ValidateMapInput
 	 * check that both from and to country are not same and not a continent
 	 * name.
 	 * 
-	 * @param fromName first country
-	 * @param ToName second country
+	 * @param fromName     first country
+	 * @param ToName       second country
 	 * @param continentSet continent set
 	 * @throws InvalidLinkException If from and to countries are same.
 	 */
@@ -174,9 +178,10 @@ public class ValidateMapInput
 	  
 	  {
 		if ((continentSet.contains(ToName.toUpperCase())) || (continentSet
-		    .contains(fromName.toUpperCase())) ||  (ToName.equalsIgnoreCase(fromName)))
+		    .contains(fromName.toUpperCase())) || (ToName
+		        .equalsIgnoreCase(fromName)))
 		  {
-			throw new InvalidLinkException("Countries may have a contient name or from and to country are same "+fromName+"---->"+ToName);
+			throw new InvalidLinkException("Countries may have a contient name or from and to country are same " + fromName + "---->" + ToName);
 		  }
 		  
 	  }

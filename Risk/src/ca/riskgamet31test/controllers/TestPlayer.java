@@ -20,7 +20,6 @@ import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
-import ca.riskgamet31.utility.UserInputOutput;
 
 /**
  * Tests the Player class
@@ -47,11 +46,11 @@ public class TestPlayer
 	/**
 	 * Graph Class Reference
 	 */
-	static Graph G1,G2;
+	static Graph G1, G2;
 	/**
 	 * Continent Class Reference
 	 */
-	static Continent C1,C2;
+	static Continent C1, C2;
 	/**
 	 * GameMap Class Reference
 	 */
@@ -65,16 +64,15 @@ public class TestPlayer
 	
 	int A1, A2, A3;
 	static HashMap<String, Continent> HM1 = new HashMap<>();
+	
 	/**
-	 * Object created before all the test method 
+	 * Object created before all the test method
 	 * 
 	 */
-
 	
 	@BeforeClass
 	public static void testsetup()
 	  {
-		//UserInputOutput uio = UserInputOutput.getInstance();
 		G1 = new Graph();
 		G2 = new Graph();
 		c1 = new Country("Dubai");
@@ -100,16 +98,14 @@ public class TestPlayer
 		  {
 			p1 = new Player("player1", 7);
 			p2 = new Player("player2", 7);
-		  }
-		  catch (NullPointerException | InvalidPlayerNameException e)
+		  } catch (NullPointerException | InvalidPlayerNameException e)
 		  {
-			  e.printStackTrace();
-		  } 
-		catch (ca.riskgamet31.exceptions.InvalidNameException e) 
-		{
+			e.printStackTrace();
+		  } catch (ca.riskgamet31.exceptions.InvalidNameException e)
+		  {
 			
 			e.printStackTrace();
-		}
+		  }
 		GM1 = new GameMap();
 		G2.addNode(g1);
 		G2.addNode(g2);
@@ -143,18 +139,20 @@ public class TestPlayer
 		driver = new GameMainDriver();
 		
 		driver.setGameMap(GM1);
-		try {
+		try
+		  {
 			driver.getPlayerList().setPlayerList(p1);
 			driver.getPlayerList().setPlayerList(p2);
-		} catch (InvalidPlayerException e) {
-			// TODO Auto-generated catch block
+		  } catch (InvalidPlayerException e)
+		  {
 			e.printStackTrace();
-		}
+		  }
 	  }
+	  
 	/**
-	 * add and remove Country from player graph test method 
-	 */  
-
+	 * add and remove Country from player graph test method
+	 */
+	
 	@Test
 	public void testCountry()
 	  {
@@ -167,10 +165,11 @@ public class TestPlayer
 		A3 = p1.getCountry().size();
 		assertEquals(A1, A3);
 	  }
+	  
 	/**
-	 * Decrement army test method 
-	 */  
-
+	 * Decrement army test method
+	 */
+	
 	@Test
 	public void testarmies()
 	  {
@@ -178,10 +177,11 @@ public class TestPlayer
 		p1.decrementArmies(army1);
 		assertNotEquals(army1, p1);
 	  }
+	  
 	/**
-	 * Add and remove card from players graph test method 
-	 */ 
-
+	 * Add and remove card from players graph test method
+	 */
+	
 	@Test
 	public void testcard()
 	  {
@@ -191,10 +191,11 @@ public class TestPlayer
 		assertNotEquals(A1, A2);
 		
 	  }
+	  
 	/**
-	 * reinforcement Armies Calculation test method 
-	 */ 
-  
+	 * reinforcement Armies Calculation test method
+	 */
+	
 	@Test
 	public void testreinforcementArmiesCalc()
 	  {
@@ -202,31 +203,32 @@ public class TestPlayer
 		p1.addNewCard(card1);
 		p1.addNewCard(card2);
 		p1.addNewCard(card3);
-		//System.out.println(p1.reinforcementArmiesCalc(GM1,5));
-		assertEquals(expected, p1.reinforcementArmiesCalc(GM1,5));
+		assertEquals(expected, p1.reinforcementArmiesCalc(GM1, 5));
 	  }
+	  
 	/**
-	 * Distribute armies test method  
+	 * Distribute armies test method
 	 */
 	@Test
 	public void testdistributeArmies()
 	  {
 		int armiesForCountry1BeforeReinforcement = c1.getArmies();
 		int armiesForCountry2BeforeReinforcement = c2.getArmies();
-		System.out.println(armiesForCountry1BeforeReinforcement + "-"+armiesForCountry2BeforeReinforcement);
+		System.out
+		    .println(armiesForCountry1BeforeReinforcement + "-" + armiesForCountry2BeforeReinforcement);
 		int armiesForPlayerBeforeReinforcement = p1.getPlayerArmies();
-		String input = "Dubai\n10\nrussia\n2\n"+"Dubai\nRussia\n5\n"+"Y\ndubai\npakistan\ny\n3\n";
+		String input = "Dubai\n10\nrussia\n2\n" + "Dubai\nRussia\n5\n" + "Y\ndubai\npakistan\ny\n3\n";
 		InputStream in1 = new ByteArrayInputStream(input.getBytes());
-	    System.setIn(in1);
+		System.setIn(in1);
 		p1.reinforcement();
 		int armiesForCountry1AfterReinforcement = c1.getArmies();
 		int armiesForCountry2AfterReinforcement = c2.getArmies();
 		int armiesForPlayerAfterReinforcement = p1.getPlayerArmies();
 		assertEquals(armiesForCountry1BeforeReinforcement + armiesForCountry2BeforeReinforcement + armiesForPlayerBeforeReinforcement, armiesForCountry1AfterReinforcement + armiesForCountry2AfterReinforcement + armiesForPlayerAfterReinforcement);
 	  }
-
+	  
 	/**
-	 * fortification armies test method  
+	 * fortification armies test method
 	 */
 	@Test
 	public void testfortification()
@@ -234,10 +236,7 @@ public class TestPlayer
 		
 		int armiesForCountry1BeforeFortification = c1.getArmies();
 		int armiesForCountry2BeforeFortification = c2.getArmies();
-		//String input = "Dubai\nRussia\n5\n";
-		//InputStream in2 = new ByteArrayInputStream(input.getBytes());
-	    //System.setIn(in2);
-	    p1.getPlayerGraph().viewGraph();
+		p1.getPlayerGraph().viewGraph();
 		p1.fortification();
 		System.out.println("after fortification test method");
 		int armiesForCountry1AfterFortification = c1.getArmies();
@@ -245,19 +244,17 @@ public class TestPlayer
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
 		
 	  }
-	
+	  
 	@Test
 	public void testAttack()
-	{
-	    
-		//String input = "Y\ndubai\npakistan\ny\n3\n";
-		//InputStream in = new ByteArrayInputStream(input.getBytes());
-	    //System.setIn(in);
-	    p1.getPlayerGraph().viewGraph();
+	  {
+		
+		p1.getPlayerGraph().viewGraph();
 		p1.attack(driver);
 		assertEquals(c1.getCurrentOccupier(), c7.getCurrentOccupier());
-		assertEquals(1, driver.getPlayerList().getPlayerList().size()); //checking End Of Game
-	}
-}
-
-  
+		assertEquals(1, driver.getPlayerList().getPlayerList().size()); // checking
+		                                                                // End
+		                                                                // Of
+		                                                                // Game
+	  }
+  }

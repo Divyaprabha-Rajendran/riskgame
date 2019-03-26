@@ -5,8 +5,6 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import javax.naming.InvalidNameException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -23,11 +21,8 @@ import ca.riskgamet31.maincomps.Player;
  * @version 1.1
  * @since 1.0
  */
-
-
-
 public class TestStartupPhase
-{
+  {
 	/**
 	 * StartUpPhase Class Reference
 	 */
@@ -46,14 +41,18 @@ public class TestStartupPhase
 	static GraphNode G1, G2;
 	
 	/**
-	 * Object created before all the test method 
-	 * @throws  NullPointerException  when value is null
-	 * @throws InvalidPlayerNameException when player name is duplicate
-	 * @throws ca.riskgamet31.exceptions.InvalidNameException  when Name is invalid 
+	 * Object created before all the test method
+	 * 
+	 * @throws NullPointerException                           when value is null
+	 * @throws InvalidPlayerNameException                     when player name
+	 *                                                        is duplicate
+	 * @throws ca.riskgamet31.exceptions.InvalidNameException when Name is
+	 *                                                        invalid
 	 */
 	@BeforeClass
 	public static void Testsetup() throws NullPointerException,
-	     InvalidPlayerNameException, ca.riskgamet31.exceptions.InvalidNameException
+	    InvalidPlayerNameException,
+	    ca.riskgamet31.exceptions.InvalidNameException
 	  {
 		S1 = new StartUpPhase();
 		p1 = new Player("P1", 4);
@@ -63,24 +62,25 @@ public class TestStartupPhase
 		G2 = new GraphNode(C2);
 		p1.addCountry(G1);
 		p1.addCountry(G2);
-	
+		
 	  }
+	  
 	/**
-	 * Distribute Armies among the country test method 
+	 * Distribute Armies among the country test method
 	 * 
 	 */
-
+	
 	@Test
 	public void TestdistributeArmies()
 	  {
 		int a1 = p1.getPlayerArmies();
 		String input = "india\n1\nchina\n3\n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
-	    System.setIn(in);
+		System.setIn(in);
 		S1.distributeArmies(p1);
 		int a2 = p1.getPlayerArmies();
 		assertNotEquals(a1, a2);
-
+		
 	  }
 	  
   }

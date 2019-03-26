@@ -35,9 +35,9 @@ public class GameMap
 	  }
 	  
 	/**
-	 * @param gameMapFile        reference map xml file
+	 * @param gameMapFile    reference map xml file
 	 * @param continentsList list of continent objects
-	 * @param gameMapGraph       map graph
+	 * @param gameMapGraph   map graph
 	 */
 	public GameMap(String gameMapFile,
 	    HashMap<String, Continent> continentsList, Graph gameMapGraph)
@@ -130,7 +130,6 @@ public class GameMap
 	 * @return number of armies the player will get by owning complete
 	 *         continents
 	 */
-	
 	public int bonusArmiesForPlayer(String playerName)
 	  
 	  {

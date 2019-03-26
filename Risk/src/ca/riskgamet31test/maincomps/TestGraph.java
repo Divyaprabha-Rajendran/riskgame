@@ -1,7 +1,7 @@
 package ca.riskgamet31test.maincomps;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,25 +9,27 @@ import org.junit.Test;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
+
 /**
  * 
- * @author Fareed
+ * @author Fareed Tayar
  * @version 1.0
  * @since 1.0
  *
  */
 public class TestGraph
   {
-	/*
-	 *  Graph Class Reference
+	/**
+	 * Graph Class Reference
 	 */
 	public Graph testGraph;
-	/*
-	 *  GraphNode Class Reference
+	/**
+	 * GraphNode Class Reference
 	 */
 	public GraphNode g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13,
 	    g14, g15;
-	/*
+	
+	/**
 	 * TestGraph Constructor defined
 	 */
 	public TestGraph()
@@ -130,22 +132,24 @@ public class TestGraph
 		this.testGraph.addNode(g14);
 		this.testGraph.addNode(g15);
 	  }
-	  /**
-	   * Object created before all the test method 
-	   * 
-	   */
+	  
+	/**
+	 * Object created before all the test method
+	 * 
+	 */
 	@BeforeClass
-public static void setUp() throws Exception
+	public static void setUp() throws Exception
 	  {
 		
 		TestGraph testG = new TestGraph();
 		
 	  }
-	  /**
-	   *  Finding the graph is connected graph or not
-	   */
+	  
+	/**
+	 * Finding the graph is connected graph or not
+	 */
 	@Test
-public	void testIsConnectedFindPath()
+	public void testIsConnectedFindPath()
 	  {
 		
 		assertFalse(testGraph.isConnected());

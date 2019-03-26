@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
-
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.GameMap;
@@ -79,11 +78,11 @@ public class StartUpPhase
 	 * @param playerName name of the player
 	 * @return player
 	 * @throws InvalidPlayerNameException InvalidPlayerNameException
-	 * @throws NullPointerException NullPointerException
-	 * @throws InvalidNameException if the name has numbers or symbol
+	 * @throws NullPointerException       NullPointerException
+	 * @throws InvalidNameException       if the name has numbers or symbol
 	 */
 	public Player createPlayers(String playerName) throws NullPointerException,
-	     InvalidPlayerNameException, InvalidNameException
+	    InvalidPlayerNameException, InvalidNameException
 	  {
 		int army_count = getArmy(playerCount);
 		Player player = new Player(playerName, army_count);
@@ -92,8 +91,9 @@ public class StartUpPhase
 	  
 	/**
 	 * Distribute the countries available among players in roundrobin fashion.
+	 * 
 	 * @param players players list
-	 * @param map         game map
+	 * @param map     game map
 	 *
 	 */
 	public void distributeCountries(PlayerModel players, GameMap map)
@@ -141,7 +141,6 @@ public class StartUpPhase
 		  }
 	  }
 	  
-	
 	public void distributeCountriesSequ(PlayerModel players, GameMap map)
 	  {
 		ArrayList<GraphNode> actual_graph_nodes = map.getGameMapGraph()
@@ -184,8 +183,7 @@ public class StartUpPhase
 			  watchdog = 0;
 		  }
 	  }
-	
-	
+	  
 	/**
 	 * Distribute the armies of every player among the countries the player
 	 * owns. The method executes till all the player's armies are distributed.

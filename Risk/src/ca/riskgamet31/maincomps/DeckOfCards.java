@@ -21,10 +21,6 @@ public class DeckOfCards
 	 */
 	private ArrayList<Card> deckOfCards;
 	
-//	/**
-//	 * country arraylist
-//	 */
-//	private ArrayList<Country> countries;
 	/**
 	 * DrawCard object of card type
 	 */
@@ -51,15 +47,19 @@ public class DeckOfCards
 		  {
 			if (graphNodes.size() < 10)
 			  {
-			deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i).getNodeData().getCountryName()));
-			if (j == 2)
-			  j = 0;
-			deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i).getNodeData().getCountryName()));
-			if (j == 2)
-			  j = 0;
-			
-			  }else {
-				deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i).getNodeData().getCountryName()));
+				deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i)
+				    .getNodeData().getCountryName()));
+				if (j == 2)
+				  j = 0;
+				deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i)
+				    .getNodeData().getCountryName()));
+				if (j == 2)
+				  j = 0;
+				
+			  } else
+			  {
+				deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i)
+				    .getNodeData().getCountryName()));
 				if (j == 2)
 				  j = 0;
 				

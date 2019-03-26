@@ -4,8 +4,6 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
 
-import javax.naming.InvalidNameException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -31,8 +29,9 @@ public class TestPlayerModel
 	 * Player Model Class Reference
 	 */
 	static PlayerModel p1;
+	
 	/**
-	 * Object created before all the test method 
+	 * Object created before all the test method
 	 * 
 	 */
 	@BeforeClass
@@ -40,26 +39,25 @@ public class TestPlayerModel
 	  {
 		ArrayList<Player> PlayerList = new ArrayList<>();
 		p1 = new PlayerModel();
-
+		
 		try
 		  {
 			p2 = new Player("P1", 6);
-		  } 
-		 catch (NullPointerException | InvalidPlayerNameException e)
+		  } catch (NullPointerException | InvalidPlayerNameException e)
 		  {
-			 e.printStackTrace();
-		  } 
-		 catch (ca.riskgamet31.exceptions.InvalidNameException e) 
-		{
 			e.printStackTrace();
-		}
+		  } catch (ca.riskgamet31.exceptions.InvalidNameException e)
+		  {
+			e.printStackTrace();
+		  }
 		  
 	  }
+	  
 	/**
-	 * Set the players in the Player list  test method 
+	 * Set the players in the Player list test method
 	 * 
 	 */
-
+	
 	@Test
 	public void testSetPlayerList()
 	  {

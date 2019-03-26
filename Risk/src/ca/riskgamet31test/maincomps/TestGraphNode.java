@@ -22,14 +22,12 @@ import ca.riskgamet31.maincomps.GraphNode;
 public class TestGraphNode
   {
 	
-	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	  {
 		
 	  }
 	  
-	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception
 	  {
@@ -37,6 +35,7 @@ public class TestGraphNode
 	  
 	/**
 	 * setup method for test grap node
+	 * 
 	 * @throws Exception if some thing went wrong
 	 */
 	@Before
@@ -45,14 +44,14 @@ public class TestGraphNode
 		
 	  }
 	  
-	
 	@After
 	public void tearDown() throws Exception
 	  {
 	  }
+	  
 	/**
 	 * TO test if we are getting correct node data
-	  */
+	 */
 	@Test
 	public void testgetNodeData()
 	  {
@@ -63,18 +62,9 @@ public class TestGraphNode
 		assertEquals(con, Gn.getNodeData().getCountryName());
 	  }
 	  
-	// @Test
-//	public void  TestgetNodeNeighbors()
-//	{
-//		ArrayList<Country> neighbours = new ArrayList<>();
-//		neighbours.add()
-//		Country c = new Country("India", neighbours );
-//		GraphNode Gn = new GraphNode(c);
-//	String neighbour[] =  {"pakistan","bangladesh","bhutan","nepal"};	
-//	assertArrayEquals(neighbour,gn.getNodeNeighbors().toString());
-//	}
 	/**
-	 * TO test distance between graph node it will be -1 as we have not specifed any 
+	 * TO test distance between graph node it will be -1 as we have not specifed
+	 * any
 	 */
 	@Test
 	public void TestgetDistance()
@@ -84,9 +74,10 @@ public class TestGraphNode
 		GraphNode Gn = new GraphNode(c);
 		assertEquals(-1, Gn.getDistance());
 	  }
-	 /**
-	  * To test if we are getting correct parent node 
-	  */
+	  
+	/**
+	 * To test if we are getting correct parent node
+	 */
 	@Test
 	public void TestgetParentNode()
 	  {
@@ -97,9 +88,10 @@ public class TestGraphNode
 		assertEquals(con, Gn.getNodeData().getCountryName());
 		
 	  }
-	  /**
-	   * TO test if adding a neighbor works as required
-	   */
+	  
+	/**
+	 * TO test if adding a neighbor works as required
+	 */
 	@Test
 	public void TestAddNeighbour()
 	  {
@@ -113,9 +105,10 @@ public class TestGraphNode
 		assertEquals("INDIA", Gn1.getNodeNeighbors().get(0).getNodeData()
 		    .getCountryName());
 	  }
-	  /**
-	   * To test if removing a neighbor works as required
-	   */
+	  
+	/**
+	 * To test if removing a neighbor works as required
+	 */
 	@Test
 	public void TestRemoveNeighbour()
 	  {

@@ -164,8 +164,9 @@ public class Graph
 	  
 	/**
 	 * process for path discovery starts from a node and process the graph using
+	 * 
 	 * @param fromCountry base country
-	 * @param toCountry destination country
+	 * @param toCountry   destination country
 	 * @return true if there is a path between the two countries
 	 */
 	public boolean findPath(String fromCountry, String toCountry)

@@ -1,14 +1,10 @@
 
 package ca.riskgamet31test.mapdata;
 
-
-
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.util.ArrayList;
-
-import javax.naming.InvalidNameException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,7 +20,7 @@ import ca.riskgamet31.maincomps.GraphNode;
 /**
  * Tests the CreateMap class
  * 
- * @author Chitra 
+ * @author Chitra
  * @version 1.1
  * @since 1.0
  */
@@ -53,7 +49,7 @@ public class TestCreateMap
 	static Graph G1;
 	
 	/**
-	 * Object created before all the test method 
+	 * Object created before all the test method
 	 * 
 	 */
 	
@@ -70,30 +66,43 @@ public class TestCreateMap
 		countriesList = new ArrayList<>();
 		countriesList.add(g1);
 	  }
+	  
 	/**
 	 * Create graph node test method
-	 * @throws InvalidCountryException  if the country name is duplicate
-	 * @throws InvalidContinentException If there is a duplicate continent
-	 * @throws ca.riskgamet31.exceptions.InvalidNameException   if the name is invalid
 	 * 
-	 */  
- 
+	 * @throws InvalidCountryException                        if the country
+	 *                                                        name is duplicate
+	 * @throws InvalidContinentException                      If there is a
+	 *                                                        duplicate
+	 *                                                        continent
+	 * @throws ca.riskgamet31.exceptions.InvalidNameException if the name is
+	 *                                                        invalid
+	 * 
+	 */
 	@Test
-	public void TestcreateGraphNode() throws   InvalidContinentException, ca.riskgamet31.exceptions.InvalidNameException, InvalidCountryException
+	public void TestcreateGraphNode() throws InvalidContinentException,
+	    ca.riskgamet31.exceptions.InvalidNameException, InvalidCountryException
 	  {
 		int a1 = c1.getCountryMap().size();
 		c1.createGraphNode("america");
 		int a2 = c1.getCountryMap().size();
 		assertNotEquals(a1, a2);
 	  }
+	  
 	/**
 	 * Create continents test method
-	 * @throws InvalidContinentException If there is a duplicate continent
-	 * @throws ca.riskgamet31.exceptions.InvalidNameException   if the name is invalid
-	 */   
-
+	 * 
+	 * @throws InvalidContinentException                      If there is a
+	 *                                                        duplicate
+	 *                                                        continent
+	 * @throws ca.riskgamet31.exceptions.InvalidNameException if the name is
+	 *                                                        invalid
+	 */
+	
 	@Test
-	public void TestcreateContinents() throws ca.riskgamet31.exceptions.InvalidNameException, InvalidContinentException
+	public void TestcreateContinents()
+	    throws ca.riskgamet31.exceptions.InvalidNameException,
+	    InvalidContinentException
 	  {
 		int a1 = c1.getContinentSet().size();
 		Continent co1 = c1.createContinents("hongkong", 3, countriesList);
@@ -101,6 +110,5 @@ public class TestCreateMap
 		int a2 = c1.getContinentSet().size();
 		assertNotEquals(a1, a2);
 	  }
-	
+	  
   }
-

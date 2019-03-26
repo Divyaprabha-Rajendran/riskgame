@@ -29,17 +29,16 @@ public class TestDeckOfCards
 		
 	  }
 	  
-	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception
 	  {
 	  }
 	  
-	
-	 /**
-	  * setup method for deck of cards
-	  * @throws Exception if something went wrong
-	  */
+	/**
+	 * setup method for deck of cards
+	 * 
+	 * @throws Exception if something went wrong
+	 */
 	@Before
 	public void setUp() throws Exception
 	  {
@@ -48,27 +47,21 @@ public class TestDeckOfCards
 		Country countr = new Country("AUSTRALIA");
 	  }
 	  
-	
 	@After
 	public void tearDown() throws Exception
 	  {
 	  }
-	/**
-	 *Test for deck of cards if add functionality is working properly 
-	 */
 	  
+	/**
+	 * Test for deck of cards if add functionality is working properly
+	 */
+	
 	@Test
 	public void TestaddNewCard()
 	  {
 		ArrayList<GraphNode> neighbours = new ArrayList<>();
 		ArrayList<Card> nei = new ArrayList<>();
 		Country countr = new Country("AUSTRALIA");
-		// neighbours.add(cn);
-		// neighbours.add(con);
-		// neighbours.add(conu);
-		// neighbours.add(count);
-		
-		// String[] expected={"india","bang","myanmar","srilanka","australia"};
 		DeckOfCards doc = new DeckOfCards(neighbours);
 		Card ca = new Card("Infantry", countr.getCountryName());
 		System.out.println(ca.getCardType());

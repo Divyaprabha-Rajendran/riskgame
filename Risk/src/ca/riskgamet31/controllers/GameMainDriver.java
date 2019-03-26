@@ -29,7 +29,6 @@ import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
 import ca.riskgamet31.views.PhaseView;
 import ca.riskgamet31.views.PlayersWorldDominationView;
-import ca.riskgamet31.controllers.CreateMap;
 
 /**
  * Main driver class for the execution of game. Loading map, creating players
@@ -55,7 +54,6 @@ public class GameMainDriver extends Observable
 	
 	StartUpPhase StartUp;
 	
-	
 	/**
 	 * Deck of card for a game
 	 */
@@ -64,11 +62,11 @@ public class GameMainDriver extends Observable
 	/**
 	 * Turn In count during game
 	 */
-	public static int turnInCardsCount; 
+	public static int turnInCardsCount;
 	/**
 	 * phase info data structure to be passed to phase view observer
 	 */
-	private ArrayList<String> phaseInfo ;
+	private ArrayList<String> phaseInfo;
 	
 	private PlayersWorldDominationView playerWorldDominationView;
 	
@@ -87,8 +85,10 @@ public class GameMainDriver extends Observable
 		
 		playerWorldDominationView = new PlayersWorldDominationView();
 	  }
+	  
 	/**
-	 * to get how many times players exchanged cards  
+	 * to get how many times players exchanged cards
+	 * 
 	 * @return number of times players exchanged cards.
 	 */
 	public int getTurnInCardsCount()
@@ -96,16 +96,17 @@ public class GameMainDriver extends Observable
 		
 		return turnInCardsCount;
 	  }
-
+	  
 	/**
 	 * to update number of times players exchanged cards
+	 * 
 	 * @param turnInCardsCount new number of times cards been exchanged.
 	 */
 	public void setTurnInCardsCount(int turnInCardsCount)
 	  {
 		GameMainDriver.turnInCardsCount = turnInCardsCount;
 	  }
-
+	  
 	/**
 	 * to get players list
 	 * 
@@ -134,7 +135,8 @@ public class GameMainDriver extends Observable
 		Scanner scan = new Scanner(System.in);
 		
 		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Risk_MapData"));
+		chooser.setCurrentDirectory(new File(System
+		    .getProperty("user.dir") + "\\Risk_MapData"));
 		boolean continueEditing = true;
 		
 		while (continueEditing)
@@ -154,7 +156,7 @@ public class GameMainDriver extends Observable
 					int choice = chooser.showOpenDialog(chooser);
 					if (choice != JFileChooser.APPROVE_OPTION)
 					  xmlFile = new File(System
-						    .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
+					      .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
 					else
 					  xmlFile = chooser.getSelectedFile();
 					if (Desktop.isDesktopSupported())
@@ -180,37 +182,28 @@ public class GameMainDriver extends Observable
 					  {
 						GM.createGameMap(xmlFile.getPath());
 						continueEditing = false;
-					  }
-					catch(InvalidNameException e)
-					{
-						//System.out.println(e.getMessage());
-					}
-					catch(InvalidCountryException e)
-					{
-						//System.out.println(e.getMessage());
-					}
-					catch(InvalidContinentException e)
-					{
-						//System.out.println(e.getMessage());
-						
-					}
-					catch (InvalidGraphException e)
+					  } catch (InvalidNameException e)
 					  {
-						//System.out.println(e.getMessage());
-						//e.printStackTrace();
-					  }
-					catch(InvalidLinkException e)
-					{
-						//System.out.println(e.getMessage());
-						//e.printStackTrace();
-					}
-					catch(Exception e)
-					{
+						
+					  } catch (InvalidCountryException e)
+					  {
+						
+					  } catch (InvalidContinentException e)
+					  {
+						
+					  } catch (InvalidGraphException e)
+					  {
+						
+					  } catch (InvalidLinkException e)
+					  {
+						
+					  } catch (Exception e)
+					  {
 						System.err.println(e.getMessage());
 						System.err.println("XML file is malformed.");
-						//e.printStackTrace();
-					}
-					
+						
+					  }
+					  
 					break;
 				  }
 			  }
@@ -223,31 +216,32 @@ public class GameMainDriver extends Observable
 	 * Creates the game map from the CreateMap Class for the player.
 	 * 
 	 * @param xmlpath xml file path
-	 * @throws InvalidGraphException If the graph is invalid 
-	 * @throws InvalidNameException If the name of continent or country has special characters or numbers
-	 * @throws InvalidCountryException If there is a duplicate country
+	 * @throws InvalidGraphException     If the graph is invalid
+	 * @throws InvalidNameException      If the name of continent or country has
+	 *                                   special characters or numbers
+	 * @throws InvalidCountryException   If there is a duplicate country
 	 * @throws InvalidContinentException If there is a duplicate continent.
-	 * @throws InvalidLinkException If from and to countries are same.
-	 * @throws Exception For handling null values and XML malformed exceptions.
+	 * @throws InvalidLinkException      If from and to countries are same.
+	 * @throws Exception                 For handling null values and XML
+	 *                                   malformed exceptions.
 	 */
-	public void createGameMap(String xmlpath) throws InvalidGraphException, InvalidNameException,InvalidCountryException,
-	InvalidContinentException,InvalidLinkException,Exception
+	public void createGameMap(String xmlpath) throws InvalidGraphException,
+	    InvalidNameException, InvalidCountryException,
+	    InvalidContinentException, InvalidLinkException, Exception
 	  {
-			CreateMap cmap = new CreateMap(xmlpath);
+		CreateMap cmap = new CreateMap(xmlpath);
+		
+		HashMap<String, Continent> continentsList = cmap.generateGraph();
+		Graph gameMapGraph = new Graph(cmap.getAllCountryNodes());
+		if (gameMapGraph.isConnected())
+		  {
+			System.out
+			    .println("Risk game file and associated graphs and sub-graphs are valid... :)");
 			
-			HashMap<String, Continent> continentsList = cmap.generateGraph();
-			Graph gameMapGraph = new Graph(cmap.getAllCountryNodes());
-			if (gameMapGraph.isConnected())
-			  {
-				System.out.println("Risk game file and associated graphs and sub-graphs are valid... :)");
-				//gameMapGraph.viewGraph();
-				risk = new GameMap(xmlpath, continentsList, gameMapGraph);
-			  } else
-			  throw new InvalidGraphException("Invalid Map..graph is no connected..");
-			
-			//cmap.displayMap();
-		  
-		  
+			risk = new GameMap(xmlpath, continentsList, gameMapGraph);
+		  } else
+		  throw new InvalidGraphException("Invalid Map..graph is no connected..");
+		
 	  }
 	  
 	/**
@@ -261,7 +255,6 @@ public class GameMainDriver extends Observable
 	public void createPlayer() throws NullPointerException, InvalidNameException
 	  {
 		int no_players = 0;
-		//UserInputRequester uir = new UserInputRequester();
 		InputValidator inpV = new InputValidator();
 		this.updatePhaseInfo("Stratup game phase", "No players yet", "1- Creating players.\n2- Random distribution of countries.\n3- Players allocate armies to their countries\n");
 		this.setChanged();
@@ -273,9 +266,10 @@ public class GameMainDriver extends Observable
 				String userInput = "";
 				do
 				  {
-				userInput = UserInputOutput.getInstance().requestUserInput("Enter the number of players...");
-				
-				  }while(!inpV.validateNumbers(userInput));
+					userInput = UserInputOutput.getInstance()
+					    .requestUserInput("Enter the number of players...");
+					
+				  } while (!inpV.validateNumbers(userInput));
 				no_players = Integer.parseInt(userInput);
 				if (no_players > 6 || no_players < 2)
 				  {
@@ -295,13 +289,14 @@ public class GameMainDriver extends Observable
 			try
 			  {
 				
-				String name = "", userInput="";
+				String name = "", userInput = "";
 				do
 				  {
-				userInput = UserInputOutput.getInstance().requestUserInput("Enter player name...");
-				
-				  }while(!inpV.validateAlphaNum(userInput.trim()));
-				
+					userInput = UserInputOutput.getInstance()
+					    .requestUserInput("Enter player name...");
+					
+				  } while (!inpV.validateAlphaNum(userInput.trim()));
+				  
 				name = userInput;
 				Player player = StartUp.createPlayers(name);
 				Players.setPlayerList(player);
@@ -341,36 +336,38 @@ public class GameMainDriver extends Observable
 		  }
 		for (Player player : players)
 		  {
-			player.reinforcementArmiesCalc(risk,0);
+			player.reinforcementArmiesCalc(risk, 0);
 		  }
-		//to set the cards in deck of cards 
+		  
 		deck = new DeckOfCards(risk.getGameMapGraph().getGraphNodes());
 		
 	  }
-	
+	  
 	/**
 	 * to update current phase information
-	 * @param phaseName current phase name
-	 * @param playerName current player name
+	 * 
+	 * @param phaseName       current phase name
+	 * @param playerName      current player name
 	 * @param phaseActionInfo current phase general actions
 	 */
-	public void updatePhaseInfo(String phaseName,String playerName, String phaseActionInfo) {
+	public void updatePhaseInfo(String phaseName, String playerName,
+	    String phaseActionInfo)
+	  {
+		
+		this.phaseInfo.clear();
+		
+		phaseInfo.add(phaseName);
+		phaseInfo.add(playerName);
+		phaseInfo.add(phaseActionInfo);
+		
+	  }
 	  
-	  this.phaseInfo.clear();
-	  
-	  phaseInfo.add(phaseName);
-	  phaseInfo.add(playerName);
-	  phaseInfo.add(phaseActionInfo);
-	  
-	}
-	
 	/**
 	 * a method representing each turn
 	 * 
 	 */
 	public void playGame()
 	  {
-		//UserInputRequester userInputReq = new UserInputRequester();
 		boolean endGame = false;
 		Player currentPlayer;
 		int turnID = 0;
@@ -381,65 +378,70 @@ public class GameMainDriver extends Observable
 		  {
 			won = false;
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
-			//to add reinforcement calc for the cards
-			// recalculate reinforcement armies for both players
-			currentPlayer.reinforcementArmiesCalc(risk,0);
+			currentPlayer.reinforcementArmiesCalc(risk, 0);
 			
 			// reinforcement phase
-			//System.out.println("Turn is for " + currentPlayer.getplayerName());
-			//System.out.println("\t starting reinforcement phase");
-			this.updatePhaseInfo("Reinforcement Phase", currentPlayer.getplayerName(), "1- Calculate addtional armies.\n2- Allocate additional armies granted to player.\n");
+			
+			this.updatePhaseInfo("Reinforcement Phase", currentPlayer
+			    .getplayerName(), "1- Calculate addtional armies.\n2- Allocate additional armies granted to player.\n");
 			this.setChanged();
 			this.notifyObservers(phaseInfo);
 			
 			currentPlayer.reinforcement();
 			
-			/// attack phase
-			//System.out.println("\t starting attack phase");
-			this.updatePhaseInfo("Attack phase", currentPlayer.getplayerName(), "1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied.");
+			/// Attack phase
+			this.updatePhaseInfo("Attack phase", currentPlayer
+			    .getplayerName(), "1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied.");
 			this.setChanged();
 			this.notifyObservers(phaseInfo);
 			
-			won = currentPlayer.attack( this);
+			won = currentPlayer.attack(this);
 			
-			if(this.Players.getPlayerList().size() == 1)
-				{
-					endGame = true;
-					System.out.println("Player " + this.Players.getPlayerList().get(0).getplayerName() + " Won the game");
-				}
-			
-			// fortification phase
-			if (!endGame)
+			if (this.Players.getPlayerList().size() == 1)
 			  {
-			//System.out.println("\t starting fortification phase");
-			this.updatePhaseInfo("Fortification phase", currentPlayer.getplayerName(), "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n");
-			this.setChanged();
-			this.notifyObservers(phaseInfo);
-			if (currentPlayer.getPlayerGraph().getGraphNodes().stream().map(x -> x.getNodeData()).anyMatch((y) -> y.getArmies()>1)
-				&& currentPlayer.getPlayerGraph().getGraphNodes().size()>1)
-			  {
-			String userInput = UserInputOutput.getInstance().requestUserInput("Enter Y if you want to fortify");
-			if (userInput.toUpperCase().equals("Y"))
-			  {
-				currentPlayer.fortification();
+				endGame = true;
+				System.out.println("Player " + this.Players.getPlayerList()
+				    .get(0).getplayerName() + " Won the game");
 			  }
 			  
-			  }else {
-				
-				System.out.println(currentPlayer.getplayerName()+" can't fortify as he does not have more than 1 army in any country");
-				
-			  }
-			
-			
-			if(won)
-				{
-				  	Card card = this.getDeck().drawCard();
+			// Fortification phase
+			if (!endGame)
+			  {
+				this.updatePhaseInfo("Fortification phase", currentPlayer
+				    .getplayerName(), "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n");
+				this.setChanged();
+				this.notifyObservers(phaseInfo);
+				if (currentPlayer.getPlayerGraph().getGraphNodes().stream()
+				    .map(x -> x.getNodeData()).anyMatch((y) -> y
+				        .getArmies() > 1) && currentPlayer.getPlayerGraph()
+				            .getGraphNodes().size() > 1)
+				  {
+					String userInput = UserInputOutput.getInstance()
+					    .requestUserInput("Enter Y if you want to fortify");
+					if (userInput.toUpperCase().equals("Y"))
+					  {
+						currentPlayer.fortification();
+					  }
+					  
+				  } else
+				  {
+					
+					System.out.println(currentPlayer
+					    .getplayerName() + " can't fortify as he does not have more than 1 army in any country");
+					
+				  }
+				  
+				if (won)
+				  {
+					Card card = this.getDeck().drawCard();
 					currentPlayer.addNewCard(card);
-					System.out.println(currentPlayer.getplayerName() + " has received "+ card.getCardName() + " card!");
-				}
-			if (turnID >= this.Players.getPlayerList().size())
-			  turnID = 0;
-		  }
+					System.out.println(currentPlayer
+					    .getplayerName() + " has received " + card
+					        .getCardName() + " card!");
+				  }
+				if (turnID >= this.Players.getPlayerList().size())
+				  turnID = 0;
+			  }
 		  }
 		  
 		System.out.println("Game End");
@@ -456,7 +458,6 @@ public class GameMainDriver extends Observable
 		try
 		  {
 			String xmlpath = driver.getFileInput(driver);
-			// driver.createGameMap(xmlpath);
 			driver.createPlayer();
 			driver.setUpGame();
 			driver.risk.viewGameMap();
@@ -474,31 +475,35 @@ public class GameMainDriver extends Observable
 		  }
 		  
 	  }
+	  
 	/**
 	 * get the game map object
+	 * 
 	 * @return game map object
 	 */
 	public GameMap getGameMap()
-	{
+	  {
 		return risk;
-	}
-	
+	  }
+	  
 	/**
 	 * get the game map object
+	 * 
 	 * @param risk game map object
 	 */
 	public void setGameMap(GameMap risk)
-	{
+	  {
 		this.risk = risk;
-	}
-	
+	  }
+	  
 	/**
 	 * Deck of cards object
+	 * 
 	 * @return object for the deck pf cards
 	 */
 	public DeckOfCards getDeck()
-	{
+	  {
 		return deck;
-	}
+	  }
 	  
   }

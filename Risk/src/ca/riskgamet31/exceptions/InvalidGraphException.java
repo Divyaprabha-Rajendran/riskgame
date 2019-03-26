@@ -2,7 +2,8 @@ package ca.riskgamet31.exceptions;
 
 /**
  * Exception class if the graph is not a connected graph.
- * @author Divyaprabha 
+ * 
+ * @author Divyaprabha
  */
 public class InvalidGraphException extends Exception
   {

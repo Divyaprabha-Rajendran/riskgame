@@ -1,7 +1,5 @@
 package ca.riskgamet31.maincomps;
 
-import ca.riskgamet31.utility.ValidateMapInput;
-
 /**
  * main continent class
  * 
