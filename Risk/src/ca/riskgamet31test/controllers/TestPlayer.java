@@ -236,9 +236,7 @@ public class TestPlayer
 		
 		int armiesForCountry1BeforeFortification = c1.getArmies();
 		int armiesForCountry2BeforeFortification = c2.getArmies();
-		p1.getPlayerGraph().viewGraph();
 		p1.fortification();
-		System.out.println("after fortification test method");
 		int armiesForCountry1AfterFortification = c1.getArmies();
 		int armiesForCountry2AfterFortification = c2.getArmies();
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
@@ -251,7 +249,6 @@ public class TestPlayer
 	public void testAttack()
 	  {
 		
-		p1.getPlayerGraph().viewGraph();
 		p1.attack(driver);
 		assertEquals(c1.getCurrentOccupier(), c7.getCurrentOccupier());
 		assertEquals(1, driver.getPlayerList().getPlayerList().size()); 

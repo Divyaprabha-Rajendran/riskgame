@@ -151,5 +151,46 @@ public class TestGameMainDriver
 		File xmlFile = new File(System
 		    .getProperty("user.dir") + "\\Risk_MapData\\test_default_map_invalid_contient_name.xml");
 		G1.createGameMap(xmlFile.getPath());
+		
 	  }
+	
+	/**
+	 * reading the disconnected continent
+	 * 
+	 * @throws InvalidGraphException   when map is invalid graph
+	 * @throws InvalidCountryException when the country is duplicate
+	 * @throws InvalidLinkException    when the link is disconnected
+	 * @throws Exception               when there is exception is unexpectedly
+	 */
+	@Test(expected = ca.riskgamet31.exceptions.InvalidGraphException.class)
+	public void TestCreateMap2() throws InvalidGraphException,
+	    InvalidCountryException, InvalidLinkException, Exception
+	  {
+		File xmlFile = new File(System
+		    .getProperty("user.dir") + "\\Risk_MapData\\test_map_continent_not_connected.xml");
+		G1.createGameMap(xmlFile.getPath());
+		
+	  }
+	
+	/**
+	 * reading the disconnected map
+	 * 
+	 * @throws InvalidGraphException   when map is invalid graph
+	 * @throws InvalidCountryException when the country is duplicate
+	 * @throws InvalidLinkException    when the link is disconnected
+	 * @throws Exception               when there is exception is unexpectedly
+	 */
+	@Test(expected = ca.riskgamet31.exceptions.InvalidGraphException.class)
+	public void TestCreateMap3() throws InvalidGraphException,
+	    InvalidCountryException, InvalidLinkException, Exception
+	  {
+		File xmlFile = new File(System
+		    .getProperty("user.dir") + "\\Risk_MapData\\test_map_not_connected.xml");
+		G1.createGameMap(xmlFile.getPath());
+		
+	  }
+	
+	
+	
+	
   }

@@ -47,11 +47,9 @@ public class Player
 	 * @throws InvalidNameException       InvalidNameException
 	 * @throws InvalidPlayerNameException InvalidPlayerNameException
 	 */
-	public Player(String playersName, int army) throws NullPointerException,
+	public Player(String playersName, int army) throws
 	    InvalidNameException, InvalidPlayerNameException
 	  {
-		if (playersName == null)
-		  throw new NullPointerException("Null Player name");
 		validateInput(playersName);
 		this.playersName = playersName;
 		this.army = army;
