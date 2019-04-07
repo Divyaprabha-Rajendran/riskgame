@@ -337,14 +337,37 @@ public class AggressivePlayer implements Player
 		
 		
 		attDef = canAttack();
-		
-		while (attDef.size() == 2 ) {
-				boolean wonRound = this
-				    .attackRound(driver, attDef.get(0), attDef.get(1), true);
-				attDef.clear();
-				attDef = canAttack();
+		boolean wonRound = false;
+		if (attDef.size() == 2 ) {
+				 wonRound = attackRound(driver, attDef.get(0), attDef.get(1), true);
+				//attDef.clear();
+				//attDef = canAttack();
 				if (wonRound)
 				  won = true;
+				
+				ArrayList<GraphNode> otherNodes = new ArrayList<>();	
+				otherNodes.add(attDef.get(0));
+				
+				do {
+				
+			if (otherNodes.size() == 2) otherNodes.remove(1);
+			
+			if (attDef.get(0).getNodeNeighbors().stream().anyMatch(x-> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName()))) {
+			  
+			  otherNodes.add(attDef.get(0).getNodeNeighbors().stream()
+				  .filter(x-> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())).findFirst().get());
+			  
+			  wonRound = this
+				    .attackRound(driver, otherNodes.get(0), otherNodes.get(1), true);
+				//attDef.clear();
+				//attDef = canAttack();
+				if (wonRound)
+				  won = true;
+			}
+			
+			}
+			while(otherNodes.size() ==2);
+				
 		}
 		
 		int noOfPlayers = driver.getPlayerList().getPlayerList().size();
@@ -400,16 +423,16 @@ public class AggressivePlayer implements Player
 				noOfDicesForDefender = getDiceInputAllOut(defenderCountryNode
 				    .getNodeData(), "d");
 			  
-			 System.out.println(noOfDicesForAttacker); 
+			 //System.out.println(noOfDicesForAttacker); 
 			attackerRolls = dice.roll(noOfDicesForAttacker);
 			
-			System.out.println(noOfDicesForDefender);
+			//System.out.println(noOfDicesForDefender);
 			defenderRolls = dice.roll(noOfDicesForDefender);
 			
 			defenderLosses = 0;
 			attackerLosses = 0;
-			System.out.println(Arrays.toString(attackerRolls));
-			System.out.println(Arrays.toString(defenderRolls));
+			//System.out.println(Arrays.toString(attackerRolls));
+			//System.out.println(Arrays.toString(defenderRolls));
 			if (attackerRolls[0] > defenderRolls[0])
 			  {
 				defenderLosses++;
@@ -480,10 +503,12 @@ public class AggressivePlayer implements Player
 				  }
 				System.out
 				    .println("You must transfer " + min + " to " + max + " armies to your conqured territory");
-				  transferArmies = max;
-				attackerCountryNode.getNodeData().reduceArmies(transferArmies);
+				  //transferArmies = min;
+				
+				System.out.println(" min is "  + min +" max is " + max);
+				attackerCountryNode.getNodeData().reduceArmies(min);
 				defenderCountryNode.getNodeData()
-				    .increaseArmies(transferArmies);
+				    .increaseArmies(min);
 				won = true;
 			  }
 			  
