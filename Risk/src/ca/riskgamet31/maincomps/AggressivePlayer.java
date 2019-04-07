@@ -352,7 +352,8 @@ public class AggressivePlayer implements Player
 				
 			if (otherNodes.size() == 2) otherNodes.remove(1);
 			
-			if (attDef.get(0).getNodeNeighbors().stream().anyMatch(x-> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName()))) {
+			if (attDef.get(0).getNodeData().getArmies() > 1 && attDef.get(0).getNodeNeighbors().stream()
+				.anyMatch(x-> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName()))) {
 			  
 			  otherNodes.add(attDef.get(0).getNodeNeighbors().stream()
 				  .filter(x-> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())).findFirst().get());
@@ -375,7 +376,7 @@ public class AggressivePlayer implements Player
 		if (noOfPlayers > 1)
 			  {
 				System.out.println(this
-				    .getplayerName() + " can't attack from his countries - below");
+				    .getplayerName() + " can't attack from originally highest armies country - below");
 				this.getPlayerGraph().viewGraph();
 			  }
 		  
@@ -423,7 +424,7 @@ public class AggressivePlayer implements Player
 				noOfDicesForDefender = getDiceInputAllOut(defenderCountryNode
 				    .getNodeData(), "d");
 			  
-			 //System.out.println(noOfDicesForAttacker); 
+			// System.out.println(noOfDicesForAttacker); 
 			attackerRolls = dice.roll(noOfDicesForAttacker);
 			
 			//System.out.println(noOfDicesForDefender);
@@ -505,7 +506,7 @@ public class AggressivePlayer implements Player
 				    .println("You must transfer " + min + " to " + max + " armies to your conqured territory");
 				  //transferArmies = min;
 				
-				System.out.println(" min is "  + min +" max is " + max);
+				//System.out.println(" min is "  + min +" max is " + max);
 				attackerCountryNode.getNodeData().reduceArmies(min);
 				defenderCountryNode.getNodeData()
 				    .increaseArmies(min);

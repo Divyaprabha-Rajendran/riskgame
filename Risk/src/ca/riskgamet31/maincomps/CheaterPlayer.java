@@ -287,7 +287,7 @@ public class CheaterPlayer implements Player
 		//boolean allOut = false;
 		//boolean attack = false;
 		//ArrayList<GraphNode> attDef = new ArrayList<>();
-		System.out.println("Players graph");
+		//System.out.println("Players graph");
 		this.getPlayerGraph().viewGraph();
 		
 		ArrayList<GraphNode> destinationCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes()
@@ -296,8 +296,8 @@ public class CheaterPlayer implements Player
 			  .collect(Collectors.toList())); 
 		  
 		//attDef = canAttack();
-		System.out.println("Destination countries");
-		System.out.println(destinationCountries);
+		//System.out.println("Destination countries");
+		//System.out.println(destinationCountries);
        for (GraphNode countryNode : destinationCountries) {
 		  
     	 
