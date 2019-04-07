@@ -4,12 +4,18 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
+import ca.riskgamet31.maincomps.AggressivePlayer;
+import ca.riskgamet31.maincomps.BenevolentPlayer;
+import ca.riskgamet31.maincomps.CheaterPlayer;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.GraphNode;
+import ca.riskgamet31.maincomps.HumanPlayer;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.maincomps.RandomPlayer;
 import ca.riskgamet31.utility.Constants;
 
 /**
@@ -73,7 +79,7 @@ public class StartUpPhase
 	  }
 	  
 	/**
-	 * Creates a player object and add it to playermodel
+	 * Creates a player object and add it to player model
 	 * 
 	 * @param playerName name of the player
 	 * @return player
@@ -81,11 +87,33 @@ public class StartUpPhase
 	 * @throws NullPointerException       NullPointerException
 	 * @throws InvalidNameException       if the name has numbers or symbol
 	 */
-	public Player createPlayers(String playerName) throws NullPointerException,
+	public Player createPlayers(String playerData) throws NullPointerException,
 	    InvalidPlayerNameException, InvalidNameException
 	  {
+		String[] playerInfo = playerData.split(Pattern.quote("|"));
+		String playerType = playerInfo[0];
+		String playerName = playerInfo[1]+"-"+playerType;
 		int army_count = getArmy(playerCount);
-		Player player = new Player(playerName, army_count);
+		Player player = null;
+		switch(playerType)
+		{
+		  case "HUM":
+			player = new HumanPlayer(playerName, army_count);
+			break;
+		  case "AGG":
+			player = new AggressivePlayer(playerName, army_count);
+			break;
+		  case "BEN":
+			player = new BenevolentPlayer(playerName, army_count);
+			break;
+		  case "CHE":
+			player = new CheaterPlayer(playerName, army_count);
+			break;
+		  case "RAN":
+			player = new RandomPlayer(playerName, army_count);
+			break;
+		}
+		
 		return player;
 	  }
 	  
@@ -184,82 +212,6 @@ public class StartUpPhase
 		  }
 	  }
 	  
-	/**
-	 * Distribute the armies of every player among the countries the player
-	 * owns. The method executes till all the player's armies are distributed.
-	 * 
-	 * @param player player object to distribute armies for
-	 */
-	public void distributeArmies(Player player)
-	  {
-		Scanner scan = new Scanner(System.in);
-		
-		System.out.println();
-		System.out.println("Assigning armies for Player " + player
-		    .getplayerName());
-		while (player.getPlayerArmies() != 0)
-		  {
-			System.out.println();
-			System.out.println("Number of armies left..." + player
-			    .getPlayerArmies());
-			ArrayList<GraphNode> country_nodes = player.getCountry();
-			HashSet<String> owned_by_player = new HashSet<String>();
-			for (GraphNode node : country_nodes)
-			  {
-				owned_by_player.add(node.getNodeData().getCountryName());
-				System.out.println(node.toString());
-			  }
-			System.out.println("Enter the country name");
-			String country_name = scan.next().trim().toUpperCase();
-			
-			if (!country_name.equals(null))
-			  {
-				if (owned_by_player.contains(country_name))
-				  {
-					int armies = 0;
-					boolean validInput = false;
-					String text = "";
-					do
-					  {
-						
-						System.out
-						    .println("Enter the number of armies to place..");
-						do
-						  {
-							if (scan.hasNextLine())
-							  text = scan.nextLine();
-						  } while (text.length() == 0);
-						if (text.matches("\\d+"))
-						  validInput = true;
-					  } while (!validInput);
-					armies = Integer.parseInt(text);
-					
-					if (armies <= player.getPlayerArmies())
-					  {
-						for (GraphNode node : country_nodes)
-						  {
-							if (node.getNodeData().getCountryName()
-							    .equals(country_name.trim()))
-							  {
-								node.getNodeData().setArmies(node.getNodeData()
-								    .getArmies() + armies);
-								player.decrementArmies(armies);
-							  }
-						  }
-					  } else
-					  {
-						System.out.println("No sufficient armies");
-					  }
-				  } else
-				  {
-					System.out.println("Country not found...try again");
-				  }
-			  } else
-			  {
-				System.out.println("null value...try again");
-			  }
-		  }
-		  
-	  }
+
 	  
   }

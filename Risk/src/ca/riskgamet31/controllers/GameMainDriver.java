@@ -38,7 +38,7 @@ import ca.riskgamet31.views.PlayersWorldDominationView;
  * @version 1.0
  *
  */
-public class GameMainDriver extends Observable
+public class GameMainDriver extends Observable implements MainDriver  
   {
 	/**
 	 * game map member
@@ -61,11 +61,8 @@ public class GameMainDriver extends Observable
 	/**
 	 * Turn In count during game
 	 */
-	public static int turnInCardsCount;
-	/**
-	 * phase info data structure to be passed to phase view observer
-	 */
-	private ArrayList<String> phaseInfo;
+	public int turnInCardsCount;
+	
 	/**
 	 * player world domination view
 	 */
@@ -76,11 +73,12 @@ public class GameMainDriver extends Observable
 	 */
 	public GameMainDriver()
 	  {
+		phaseInfo.clear();
 		risk = null;
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
 		turnInCardsCount = 1;
-		phaseInfo = new ArrayList<>();
+		//phaseInfo = new ArrayList<>();
 		PhaseView phaseview = new PhaseView();
 		this.addObserver(phaseview);
 		
@@ -105,7 +103,7 @@ public class GameMainDriver extends Observable
 	 */
 	public void setTurnInCardsCount(int turnInCardsCount)
 	  {
-		GameMainDriver.turnInCardsCount = turnInCardsCount;
+		this.turnInCardsCount = turnInCardsCount;
 	  }
 	  
 	/**
@@ -127,7 +125,8 @@ public class GameMainDriver extends Observable
 	 * @throws IOException IOException
 	 *
 	 */
-	public String getFileInput(GameMainDriver GM) throws IOException
+	@Override
+	public String getFileInput(MainDriver GM) throws IOException
 	  {
 		
 		File xmlFile = new File(System
@@ -136,6 +135,7 @@ public class GameMainDriver extends Observable
 		Scanner scan = new Scanner(System.in);
 		
 		JFileChooser chooser = new JFileChooser();
+		
 		chooser.setCurrentDirectory(new File(System
 		    .getProperty("user.dir") + "\\Risk_MapData"));
 		boolean continueEditing = true;
@@ -181,7 +181,8 @@ public class GameMainDriver extends Observable
 				  {
 					try
 					  {
-						GM.createGameMap(xmlFile.getPath());
+						this.risk = GM.createGameMap(xmlFile.getPath());
+						
 						continueEditing = false;
 					  } catch (InvalidNameException e)
 					  {
@@ -212,38 +213,7 @@ public class GameMainDriver extends Observable
 		;
 		return xmlFile.getPath();
 	  }
-	  
-	/**
-	 * Creates the game map from the CreateMap Class for the player.
-	 * 
-	 * @param xmlpath xml file path
-	 * @throws InvalidGraphException     If the graph is invalid
-	 * @throws InvalidNameException      If the name of continent or country has
-	 *                                   special characters or numbers
-	 * @throws InvalidCountryException   If there is a duplicate country
-	 * @throws InvalidContinentException If there is a duplicate continent.
-	 * @throws InvalidLinkException      If from and to countries are same.
-	 * @throws Exception                 For handling null values and XML
-	 *                                   malformed exceptions.
-	 */
-	public void createGameMap(String xmlpath) throws InvalidGraphException,
-	    InvalidNameException, InvalidCountryException,
-	    InvalidContinentException, InvalidLinkException, Exception
-	  {
-		CreateMap cmap = new CreateMap(xmlpath);
-		
-		HashMap<String, Continent> continentsList = cmap.generateGraph();
-		Graph gameMapGraph = new Graph(cmap.getAllCountryNodes());
-		if (gameMapGraph.isConnected())
-		  {
-			System.out
-			    .println("Risk game file and associated graphs and sub-graphs are valid... :)");
-			
-			risk = new GameMap(xmlpath, continentsList, gameMapGraph);
-		  } else
-		  throw new InvalidGraphException("Invalid Map..graph is no connected..");
-		
-	  }
+	
 	  
 	/**
 	 * Creates players for the game after checking pre-conditions. A player name
@@ -253,6 +223,7 @@ public class GameMainDriver extends Observable
 	 * @throws NullPointerException NullPointerException
 	 * 
 	 */
+	@Override
 	public void createPlayer() throws NullPointerException, InvalidNameException
 	  {
 		int no_players = 0;
@@ -291,15 +262,19 @@ public class GameMainDriver extends Observable
 			  {
 				
 				String name = "", userInput = "";
-				do
-				  {
+				
 					userInput = UserInputOutput.getInstance()
-					    .requestUserInput("Enter player name...");
+					    .requestUserInput("Enter Type and name i.e. AGG|Dragon...");
 					
-				  } while (!inpV.validateAlphaNum(userInput.trim()));
 				  
 				name = userInput;
+				
+				
+				
 				Player player = StartUp.createPlayers(name);
+				
+				
+				
 				Players.setPlayerList(player);
 				i = i + 1;
 			  } catch (InvalidPlayerException exception)
@@ -318,6 +293,7 @@ public class GameMainDriver extends Observable
 	 * armies are distributed among countries the player own.
 	 *
 	 */
+	@Override
 	public void setUpGame()
 	  {
 		
@@ -327,7 +303,7 @@ public class GameMainDriver extends Observable
 		
 		for (Player player : players)
 		  {
-			StartUp.distributeArmies(player);
+			player.initialdistributeArmies();
 		  }
 		  
 		for (GraphNode gNode : risk.getGameMapGraph().getGraphNodes())
@@ -344,34 +320,19 @@ public class GameMainDriver extends Observable
 		
 	  }
 	  
-	/**
-	 * to update current phase information
-	 * 
-	 * @param phaseName       current phase name
-	 * @param playerName      current player name
-	 * @param phaseActionInfo current phase general actions
-	 */
-	public void updatePhaseInfo(String phaseName, String playerName,
-	    String phaseActionInfo)
-	  {
-		
-		this.phaseInfo.clear();
-		
-		phaseInfo.add(phaseName);
-		phaseInfo.add(playerName);
-		phaseInfo.add(phaseActionInfo);
-		
-	  }
-	  
+ 
 	/**
 	 * a method representing each turn
 	 * 
 	 */
-	public void playGame()
+	@Override
+	public String playGame()
 	  {
+		
 		boolean endGame = false;
 		Player currentPlayer;
 		int turnID = 0;
+		String winner = "NA";
 		boolean won = false;
 		this.addObserver(this.playerWorldDominationView);
 		
@@ -380,6 +341,8 @@ public class GameMainDriver extends Observable
 			won = false;
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
 			currentPlayer.reinforcementArmiesCalc(risk, 0);
+			
+			String userI = UserInputOutput.getInstance().requestUserInput("Press any key to Continue....");
 			
 			// reinforcement phase
 			
@@ -390,6 +353,7 @@ public class GameMainDriver extends Observable
 			
 			currentPlayer.reinforcement();
 			
+			userI = UserInputOutput.getInstance().requestUserInput("Press any key to Continue....");
 			/// Attack phase
 			this.updatePhaseInfo("Attack phase", currentPlayer
 			    .getplayerName(), "1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied.");
@@ -403,8 +367,11 @@ public class GameMainDriver extends Observable
 				endGame = true;
 				System.out.println("Player " + this.Players.getPlayerList()
 				    .get(0).getplayerName() + " Won the game");
+				winner = this.Players.getPlayerList()
+				    .get(0).getplayerName();
 			  }
-			  
+			
+			userI = UserInputOutput.getInstance().requestUserInput("Press any key to Continue....");
 			// Fortification phase
 			if (!endGame)
 			  {
@@ -412,26 +379,8 @@ public class GameMainDriver extends Observable
 				    .getplayerName(), "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n");
 				this.setChanged();
 				this.notifyObservers(phaseInfo);
-				if (currentPlayer.getPlayerGraph().getGraphNodes().stream()
-				    .map(x -> x.getNodeData()).anyMatch((y) -> y
-				        .getArmies() > 1) && currentPlayer.getPlayerGraph()
-				            .getGraphNodes().size() > 1)
-				  {
-					String userInput = UserInputOutput.getInstance()
-					    .requestUserInput("Enter Y if you want to fortify");
-					if (userInput.toUpperCase().equals("Y"))
-					  {
-						currentPlayer.fortification();
-					  }
-					  
-				  } else
-				  {
-					
-					System.out.println(currentPlayer
-					    .getplayerName() + " can't fortify as he does not have more than 1 army in any country");
-					
-				  }
-				  
+				
+				currentPlayer.fortification();
 				if (won)
 				  {
 					Card card = this.getDeck().drawCard();
@@ -445,7 +394,7 @@ public class GameMainDriver extends Observable
 			  }
 		  }
 		  
-		System.out.println("Game End");
+		return winner;
 	  }
 	  
 	/**
@@ -453,16 +402,17 @@ public class GameMainDriver extends Observable
 	 * 
 	 * @param args command line args
 	 */
-	public static void main(String[] args)
+	@Override
+	public void execute ()
 	  {
-		GameMainDriver driver = new GameMainDriver();
+		
 		try
 		  {
-			String xmlpath = driver.getFileInput(driver);
-			driver.createPlayer();
-			driver.setUpGame();
-			driver.risk.viewGameMap();
-			driver.playGame();
+			String xmlpath = this.getFileInput(this);
+			this.createPlayer();
+			this.setUpGame();
+			this.risk.viewGameMap();
+			this.playGame();
 		  } catch (InvalidNameException e)
 		  {
 			e.printStackTrace();

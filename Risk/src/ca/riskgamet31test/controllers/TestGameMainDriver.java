@@ -130,8 +130,8 @@ public class TestGameMainDriver
 		s1.setPlayerCount(2);
 		G1.createGameMap(xmlFile.getPath());
 		s1.distributeCountriesSequ(pm, G1.getGameMap());
-		System.out.println(p1.getCountry());
-		System.out.println(p2.getCountry());
+		System.out.println(p1.getPlayerCountriesGNodes());
+		System.out.println(p2.getPlayerCountriesGNodes());
 		assertEquals("[INDIA:1:p1]", p1.getPlayerGraph().getGraphNodes().get(2)
 		    .toString());
 	  }

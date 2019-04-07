@@ -144,7 +144,7 @@ public class PhaseView extends Observable implements Observer
 				  e.printStackTrace();
 				}
 			  
-			CardExchangeView cardExchangeView = new CardExchangeView();
+			CardExchangeView cardExchangeView = new CardExchangeView(o);
 			this.addObserver(cardExchangeView);
 			setChanged();
 			notifyObservers(currentPlayer);

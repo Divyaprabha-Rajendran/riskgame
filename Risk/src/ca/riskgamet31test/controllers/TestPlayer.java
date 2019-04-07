@@ -160,12 +160,12 @@ public class TestPlayer
 	public void testCountry()
 	  {
 		
-		A1 = p1.getCountry().size();
+		A1 = p1.getPlayerCountriesGNodes().size();
 		p1.addCountry(g1);
-		A2 = p1.getCountry().size();
+		A2 = p1.getPlayerCountriesGNodes().size();
 		assertNotEquals(A1, A2);
 		p1.removeCountry(g1);
-		A3 = p1.getCountry().size();
+		A3 = p1.getPlayerCountriesGNodes().size();
 		assertEquals(A1, A3);
 	  }
 	  

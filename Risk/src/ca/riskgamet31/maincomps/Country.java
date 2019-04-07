@@ -28,7 +28,7 @@ public class Country extends Observable
 	private String currentOccupier;
 	
 	/**
-	 * list of adjacent countries.
+	 * number of armies currently hosted by the country.
 	 */
 	private int armies;
 	
