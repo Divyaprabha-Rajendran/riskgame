@@ -307,43 +307,55 @@ public class CheaterPlayer implements Player
     	 
     	  for (GraphNode neighbor : otherPlayersNeighbors) {
     		
-    		  for (Player defender : driver.getPlayerList().getPlayerList())
+    		
+    		Player defendingPlayer = null;
+    		
+    		for (Player defender : driver.getPlayerList().getPlayerList())
   			  {
+  				
   				if (defender.getplayerName().equals(neighbor
   				    .getNodeData().getCurrentOccupier()))
   				  {
+  					defendingPlayer = defender;
   					
-  					neighbor.getNodeData().setCurrentOccupier(this.getplayerName());
-  	    		  neighbor.getNodeData().setArmies(1);
-  	    		  countryNode.getNodeData().setArmies(countryNode.getNodeData().getArmies()-1);
-  	    		  
-  	    		  if (won == false) won = true;
-  	    		  
-  	    		  this.getPlayerGraph().addNode(neighbor);
-  	    		  
-  	    		   defender.removeCountry(neighbor);
-  					
-  					if (defender.getPlayerCountriesGNodes().size() == 0)
-  		  			  {
-  		  				
-  		  				System.out.println(this
-  		  				    .getplayerName() + " will receive - " + defender.getHand()
-  		  				        .getCardsFromHand()
-  		  				        .size() + " - cards from player " + defender
-  		  				            .getplayerName());
-  		  				
-  		  				for (Card card : defender.getHand().getCardsFromHand())
-  		  				  {
-  		  					this.addNewCard(card);
-  		  				  }
-  		  				  
-  		  				driver.getPlayerList().getPlayerList().remove(defender);
-  		  				System.out.println("Player " + defender
-  		  				    .getplayerName() + " is removed from game.");
-  					
-  		  			  }
-  				  }			
+  				  }	
   			  } /// end of for loop for players
+    		  
+    		  
+    		  
+    		  neighbor.getNodeData().setCurrentOccupier(this.getplayerName());
+	    		  neighbor.getNodeData().setArmies(1);
+	    		  countryNode.getNodeData().setArmies(countryNode.getNodeData().getArmies()-1);
+	    		  
+	    		  if (won == false) won = true;
+	    		  
+	    		  this.getPlayerGraph().addNode(neighbor);
+	    		  
+	    		  defendingPlayer.removeCountry(neighbor);
+					
+					if (defendingPlayer.getPlayerCountriesGNodes().size() == 0)
+		  			  {
+		  				
+		  				System.out.println(this
+		  				    .getplayerName() + " will receive - " + defendingPlayer.getHand()
+		  				        .getCardsFromHand()
+		  				        .size() + " - cards from player " + defendingPlayer
+		  				            .getplayerName());
+		  				
+		  				for (Card card : defendingPlayer.getHand().getCardsFromHand())
+		  				  {
+		  					this.addNewCard(card);
+		  				  }
+		  				  
+		  				driver.getPlayerList().getPlayerList().remove(defendingPlayer);
+		  				System.out.println("Player " + defendingPlayer
+		  				    .getplayerName() + " is removed from game.");
+					
+		  			  }
+    		  
+    		  
+    		  
+    		  
     		  
     	  }
        }

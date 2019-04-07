@@ -26,9 +26,6 @@ public class RiskMainDriver
 		driver.execute();
 		// if tournament do something about it.
 		
-		
-		
-		
 	  }
 	  
   }
