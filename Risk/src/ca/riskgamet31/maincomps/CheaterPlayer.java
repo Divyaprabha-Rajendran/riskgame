@@ -283,12 +283,12 @@ public class CheaterPlayer implements Player
 	@Override
 	public boolean attack(GameMainDriver driver)
 	  {
-		boolean won = true;
+		boolean won = false;
 		//boolean allOut = false;
 		//boolean attack = false;
 		//ArrayList<GraphNode> attDef = new ArrayList<>();
-		
-		
+		System.out.println("Players graph");
+		this.getPlayerGraph().viewGraph();
 		
 		ArrayList<GraphNode> destinationCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes()
 			  .stream().filter(x -> x.getNodeData().getArmies() > 1).filter(i -> i.getNodeNeighbors().stream()
@@ -296,30 +296,55 @@ public class CheaterPlayer implements Player
 			  .collect(Collectors.toList())); 
 		  
 		//attDef = canAttack();
-		
+		System.out.println("Destination countries");
+		System.out.println(destinationCountries);
        for (GraphNode countryNode : destinationCountries) {
 		  
-    	  for (GraphNode neighbor : countryNode.getNodeNeighbors()) {
+    	 
+    	 ArrayList<GraphNode> otherPlayersNeighbors = new ArrayList<>(countryNode.getNodeNeighbors().stream()
+    		 .filter(x -> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())
+       		  ).collect(Collectors.toList()));
+    	 
+    	  for (GraphNode neighbor : otherPlayersNeighbors) {
     		
-    		if (!neighbor.getNodeData().getCurrentOccupier().equals(this.getplayerName())) {
-    		  
-    		  neighbor.getNodeData().setCurrentOccupier(this.getplayerName());
-    		  neighbor.getNodeData().setArmies(1);
-    		  countryNode.getNodeData().setArmies(countryNode.getNodeData().getArmies()-1);
-    		  
-    		  this.getPlayerGraph().addNode(neighbor);
-    		  
     		  for (Player defender : driver.getPlayerList().getPlayerList())
-    			  {
-    				if (defender.getplayerName().equals(neighbor
-    				    .getNodeData().getCurrentOccupier()))
-    				  {
-    					defender.removeCountry(neighbor);
-    					
-    				  }
-    			  }
-    		}
-    		
+  			  {
+  				if (defender.getplayerName().equals(neighbor
+  				    .getNodeData().getCurrentOccupier()))
+  				  {
+  					
+  					neighbor.getNodeData().setCurrentOccupier(this.getplayerName());
+  	    		  neighbor.getNodeData().setArmies(1);
+  	    		  countryNode.getNodeData().setArmies(countryNode.getNodeData().getArmies()-1);
+  	    		  
+  	    		  if (won == false) won = true;
+  	    		  
+  	    		  this.getPlayerGraph().addNode(neighbor);
+  	    		  
+  	    		   defender.removeCountry(neighbor);
+  					
+  					if (defender.getPlayerCountriesGNodes().size() == 0)
+  		  			  {
+  		  				
+  		  				System.out.println(this
+  		  				    .getplayerName() + " will receive - " + defender.getHand()
+  		  				        .getCardsFromHand()
+  		  				        .size() + " - cards from player " + defender
+  		  				            .getplayerName());
+  		  				
+  		  				for (Card card : defender.getHand().getCardsFromHand())
+  		  				  {
+  		  					this.addNewCard(card);
+  		  				  }
+  		  				  
+  		  				driver.getPlayerList().getPlayerList().remove(defender);
+  		  				System.out.println("Player " + defender
+  		  				    .getplayerName() + " is removed from game.");
+  					
+  		  			  }
+  				  }			
+  			  } /// end of for loop for players
+    		  
     	  }
        }
     	 return won;

@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.junit.platform.engine.support.hierarchical.Node.SkipResult;
-
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
@@ -598,7 +596,7 @@ public class RandomPlayer implements Player
 					adNodes.add(countryNode);
 					adNodes.add(destCountry);
 					continueSearch = false;
-					
+					break;
 				  }
 			  }
 		  }
@@ -624,14 +622,16 @@ public class RandomPlayer implements Player
 	  @Override
 	  public GraphNode canReinforce()
 		{
-		  SecureRandom random = new SecureRandom();
-		  int playerGraphSize = this.getPlayerGraph().getGraphNodes().size();
-		  int skipIndex = random.nextInt(playerGraphSize);
+		 // SecureRandom random = new SecureRandom();
+		 // int playerGraphSize = this.getPlayerGraph().getGraphNodes().size();
+		 // int skipIndex = random.nextInt(playerGraphSize);
+		 // GraphNode retNode = getPlayerGraph().getGraphNodes().stream().skip(skipIndex).findAny().orElse(new GraphNode(new Country("DUMMY")));
+			
+		  ArrayList<GraphNode> playerCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes());
 		  
+		  Collections.shuffle(playerCountries);
 		  
-		  GraphNode retNode = getPlayerGraph().getGraphNodes().stream().skip(skipIndex).findAny().orElse(new GraphNode(new Country("DUMMY")));
-			  
-		  return retNode;
+		  return playerCountries.stream().findAny().orElse(new GraphNode(new Country("DUMMY")));
 		}
 	  
   }
