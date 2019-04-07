@@ -356,7 +356,7 @@ public class GameMainDriver extends Observable implements MainDriver
 			userI = UserInputOutput.getInstance().requestUserInput("Press any key to Continue....");
 			/// Attack phase
 			this.updatePhaseInfo("Attack phase", currentPlayer
-			    .getplayerName(), "1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied.");
+			    .getplayerName(), attackphaseInfo(currentPlayer));
 			this.setChanged();
 			this.notifyObservers(phaseInfo);
 			
@@ -376,7 +376,7 @@ public class GameMainDriver extends Observable implements MainDriver
 			if (!endGame)
 			  {
 				this.updatePhaseInfo("Fortification phase", currentPlayer
-				    .getplayerName(), "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n");
+				    .getplayerName(), fortificationPhaseInfo(currentPlayer));
 				this.setChanged();
 				this.notifyObservers(phaseInfo);
 				
@@ -397,17 +397,61 @@ public class GameMainDriver extends Observable implements MainDriver
 		return winner;
 	  }
 	  
+	private String fortificationPhaseInfo(Player currentPlayer)
+	  {
+		// "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n"
+		String phaseInfoString = "";
+		switch (currentPlayer.getClass().getSimpleName()){
+		  case "HumanPlayer":
+			phaseInfoString=  "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n";
+			break;
+		  case "AggressivePlayer":
+			phaseInfoString =  "1- Always fortify when possible.\n2- fortify a country in order to maximize aggregation in one country.\n";
+			break;
+		  case "BenevolentPlayer":
+			phaseInfoString =  "1- fortify the weakest country\n";
+			break;
+		  case "CheaterPlayer":
+			phaseInfoString =  "1- doubles the number of armies on its countries that have neighbors belong to other players\n";
+			break;
+		  case "RandomPlayer":
+			phaseInfoString =  "1- fortify a random country.\n";
+			break;
+		}
+		
+		return phaseInfoString;
+
+	  }
+
+	private String attackphaseInfo(Player currentPlayer)
+	  {
+		//"1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied."
+		String phaseInfoString = "";
+		switch (currentPlayer.getClass().getSimpleName()){
+		  case "HumanPlayer":
+			phaseInfoString=  "1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied.\n";
+			break;
+		  case "AggressivePlayer":
+			phaseInfoString =  "1- Always attack when possible.\n2- keep Attacking from country with highest number of armies\n3- Win a card if one territory been occupied.\n";
+			break;
+		  case "BenevolentPlayer":
+			phaseInfoString =  "1- Never attack\n";
+			break;
+		  case "CheaterPlayer":
+			phaseInfoString =  "1- Always concqure adjecent countries to his owned countries\n";
+			break;
+		  case "RandomPlayer":
+			phaseInfoString =  "1- Random number of attacks.\n2- against random countries\n";
+			break;
+		}
+		
+		return phaseInfoString;
+	  }
+
 	private String reinforcementPhaseInfo(Player currentPlayer)
 	  {
 		
 		
-		//HumanPlayer
-		//AggressivePlayer
-		//BenevolentPlayer
-		//CheaterPlayer
-		//RandomPlayer
-		
-		//"1- Calculate addtional armies.\n2- Allocate additional armies granted to player.\n"
 		String phaseInfoString = "";
 		switch (currentPlayer.getClass().getSimpleName()){
 		  case "HumanPlayer":
