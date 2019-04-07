@@ -356,7 +356,8 @@ public class AggressivePlayer implements Player
 				.anyMatch(x-> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName()))) {
 			  
 			  otherNodes.add(attDef.get(0).getNodeNeighbors().stream()
-				  .filter(x-> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())).findFirst().get());
+				  .filter(x-> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName()))
+				  .findFirst().get());
 			  
 			  wonRound = this
 				    .attackRound(driver, otherNodes.get(0), otherNodes.get(1), true);

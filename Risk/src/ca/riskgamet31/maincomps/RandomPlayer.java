@@ -330,15 +330,14 @@ public class RandomPlayer implements Player
 	  {
 		boolean won = false;
 		SecureRandom random = new SecureRandom();
-		int noOfAttacks = random.nextInt(5);
+		int noOfAttacks = random.nextInt(10);
 		//boolean allOut = false;
 		//boolean attack = false;
 		ArrayList<GraphNode> attDef = new ArrayList<>();
 		
-		
 		attDef = canAttack();
 		int attackedAlready = 0;
-		while (attDef.size() == 2  && attackedAlready++ < noOfAttacks) {
+		while (attDef.size() == 2  && attackedAlready++ < noOfAttacks & attDef.get(0).getNodeData().getArmies() >1) {
 				boolean wonRound = this
 				    .attackRound(driver, attDef.get(0), attDef.get(1), true);
 				attDef.clear();
@@ -352,7 +351,7 @@ public class RandomPlayer implements Player
 		if (noOfPlayers > 1)
 			  {
 				System.out.println(this
-				    .getplayerName() + " can't attack from his countries - below");
+				    .getplayerName() + " choose not to attack any more in this turn or can't attack.");
 				this.getPlayerGraph().viewGraph();
 			  }
 		  
@@ -588,7 +587,7 @@ public class RandomPlayer implements Player
 				
 				GraphNode destCountry = countryNode.getNodeNeighbors().stream()
 				    .filter(y -> !(y.getNodeData().getCurrentOccupier()
-				        .equals(this.getplayerName()))).findAny()
+				        .equals(this.getplayerName()))).findFirst()
 				    .orElse(new GraphNode(new Country("DUMMY")));
 				
 				if (!destCountry.getNodeData().getCountryName().equals("DUMMY"))
@@ -596,7 +595,7 @@ public class RandomPlayer implements Player
 					adNodes.add(countryNode);
 					adNodes.add(destCountry);
 					continueSearch = false;
-					break;
+					
 				  }
 			  }
 		  }

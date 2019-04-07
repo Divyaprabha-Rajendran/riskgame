@@ -347,7 +347,7 @@ public class GameMainDriver extends Observable implements MainDriver
 			// reinforcement phase
 			
 			this.updatePhaseInfo("Reinforcement Phase", currentPlayer
-			    .getplayerName(), "1- Calculate addtional armies.\n2- Allocate additional armies granted to player.\n");
+			    .getplayerName(), reinforcementPhaseInfo(currentPlayer));
 			this.setChanged();
 			this.notifyObservers(phaseInfo);
 			
@@ -397,11 +397,40 @@ public class GameMainDriver extends Observable implements MainDriver
 		return winner;
 	  }
 	  
-	/**
-	 * main method of the game
-	 * 
-	 * @param args command line args
-	 */
+	private String reinforcementPhaseInfo(Player currentPlayer)
+	  {
+		
+		
+		//HumanPlayer
+		//AggressivePlayer
+		//BenevolentPlayer
+		//CheaterPlayer
+		//RandomPlayer
+		
+		//"1- Calculate addtional armies.\n2- Allocate additional armies granted to player.\n"
+		String phaseInfoString = "";
+		switch (currentPlayer.getClass().getSimpleName()){
+		  case "HumanPlayer":
+			phaseInfoString=  "1- Calculate addtional armies.\n2- Allocate additional armies granted to player.\n";
+			break;
+		  case "AggressivePlayer":
+			phaseInfoString =  "1- Calculate addtional armies.\n2- Reinforce the strongest country which can attack.\n";
+			break;
+		  case "BenevolentPlayer":
+			phaseInfoString =  "1- Calculate addtional armies.\n2- Reinforce the weakest country.\n";
+			break;
+		  case "CheaterPlayer":
+			phaseInfoString =  "1- Calculate addtional armies.\n2- double the number of armies in all player's countries.\n";
+			break;
+		  case "RandomPlayer":
+			phaseInfoString =  "1- Calculate addtional armies.\n2- Reinforce a random country.\n";
+			break;
+		}
+		
+		return phaseInfoString;
+	  }
+
+
 	@Override
 	public void execute ()
 	  {
