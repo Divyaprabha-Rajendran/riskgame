@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-//import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.controllers.TournamentMainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
@@ -54,7 +53,7 @@ public class AggressivePlayer implements Player
 	public AggressivePlayer(String playersName, int army) throws
 	    InvalidNameException, InvalidPlayerNameException
 	  {
-		//validateInput(playersName);
+		
 		this.playersName = playersName;
 		this.army = army;
 		playerCountryGraph = new Graph();
@@ -245,14 +244,8 @@ public class AggressivePlayer implements Player
 			-
 		(y.get(0).getNodeData().getArmies() + y.get(1).getNodeData().getArmies());
 	  };
-	  //i -> i.get(0).getNodeData().getArmies()+i.get(1).getNodeData().getArmies()
 	  returnedList = potintialList.stream().max(sumOfArmiesComparator).orElse(new ArrayList<>());
-	  
-	  //returnedList.add(sourceNode);
-	  //returnedList.add(desNode);
-	  //continueSearch = false;
 
-	  
 	  return returnedList;
 	  
 	}
@@ -335,8 +328,7 @@ public class AggressivePlayer implements Player
 	public boolean attack(MainDriver driver)
 	  {
 		boolean won = false;
-		//boolean allOut = false;
-		//boolean attack = false;
+		
 		ArrayList<GraphNode> attDef = new ArrayList<>();
 		
 		
@@ -344,8 +336,7 @@ public class AggressivePlayer implements Player
 		boolean wonRound = false;
 		if (attDef.size() == 2 ) {
 				 wonRound = attackRound(driver, attDef.get(0), attDef.get(1), true);
-				//attDef.clear();
-				//attDef = canAttack();
+				
 				if (wonRound)
 				  won = true;
 				
@@ -365,8 +356,7 @@ public class AggressivePlayer implements Player
 			  
 			  wonRound = this
 				    .attackRound(driver, otherNodes.get(0), otherNodes.get(1), true);
-				//attDef.clear();
-				//attDef = canAttack();
+				
 				if (wonRound)
 				  won = true;
 			}
@@ -422,23 +412,22 @@ public class AggressivePlayer implements Player
 			int attackerArmiesToSet = 0, defenderArmiesToSet = 0;
 			
 			  
-			  // to get dice input for attacker
+			  
 				noOfDicesForAttacker = getDiceInputAllOut(attackerCountryNode
 				    .getNodeData(), "a");
-				// to get dice input for defender
+				
 				noOfDicesForDefender = getDiceInputAllOut(defenderCountryNode
 				    .getNodeData(), "d");
 			  
-			// System.out.println(noOfDicesForAttacker); 
+			 
 			attackerRolls = dice.roll(noOfDicesForAttacker);
 			
-			//System.out.println(noOfDicesForDefender);
+			
 			defenderRolls = dice.roll(noOfDicesForDefender);
 			
 			defenderLosses = 0;
 			attackerLosses = 0;
-			//System.out.println(Arrays.toString(attackerRolls));
-			//System.out.println(Arrays.toString(defenderRolls));
+			
 			if (attackerRolls[0] > defenderRolls[0])
 			  {
 				defenderLosses++;
@@ -446,7 +435,7 @@ public class AggressivePlayer implements Player
 			  {
 				attackerLosses++;
 			  }
-			// Index 1 = second highest pair
+			
 			if (noOfDicesForAttacker > 1 && noOfDicesForDefender > 1)
 			  {
 				
@@ -459,7 +448,7 @@ public class AggressivePlayer implements Player
 					attackerLosses++;
 				  }
 			  }
-			// Calculate losses
+			
 			System.out.println("");
 			System.out.println("<Combat Result>" + "|" + attackerCountryNode
 			    .getNodeData()
@@ -509,9 +498,7 @@ public class AggressivePlayer implements Player
 				  }
 				System.out
 				    .println("You must transfer " + min + " to " + max + " armies to your conqured territory");
-				  //transferArmies = min;
-				
-				//System.out.println(" min is "  + min +" max is " + max);
+				  
 				attackerCountryNode.getNodeData().reduceArmies(min);
 				defenderCountryNode.getNodeData()
 				    .increaseArmies(min);
@@ -545,8 +532,7 @@ public class AggressivePlayer implements Player
 	
 	  /**
 		 * to execute exchange of cards
-		 * @param currentPlayer current player
-		 * @param hand currently player's hand
+		 * @param gameMainDriver current gameMainDriver of the game
 		 * @param request selected cards by the player
 		 * @return true if exchange been successful
 		 */
@@ -554,15 +540,10 @@ public class AggressivePlayer implements Player
 		    String request)
 		  {
 			
-			
-			//"Infantry", "Cavalry", "Artillery"
-			
-			   //long distinctCards = this.getHand().getCardsFromHand().stream().distinct().count();
 			      
 			Map<String,List<Card>> handsCards = this.getHand().getCardsFromHand().stream()
 				.collect(Collectors.groupingBy(Card::getCardType,Collectors.toList()));
 			  
-			/// 3 distinct cards
 			if (handsCards.size() == 3) {
 			 
 			  for (List<Card> listOfCards : handsCards.values()) {

@@ -55,7 +55,7 @@ public class HumanPlayer implements Player
 	public HumanPlayer(String playersName, int army) throws
 	    InvalidNameException, InvalidPlayerNameException
 	  {
-		//validateInput(playersName);
+		
 		this.playersName = playersName;
 		this.army = army;
 		playerCountryGraph = new Graph();
@@ -255,7 +255,6 @@ public class HumanPlayer implements Player
 				if (!tempText.equals("Y"))
 				  exit = true;
 			  }
-			// get base country
 			if (!exit)
 			  {
 				boolean valid = false;
@@ -278,7 +277,6 @@ public class HumanPlayer implements Player
 					      .println("check country name, ownership and no of armies");
 				  } while (!valid);
 				  
-				// get destination country
 				tempText = "";
 				valid = false;
 				do
@@ -301,7 +299,6 @@ public class HumanPlayer implements Player
 				  } while (!valid);
 				  
 				tempText = "";
-				// get number of armies
 				
 				boolean armiesNotInt = true;
 				do
@@ -448,7 +445,7 @@ public class HumanPlayer implements Player
 		
 		boolean selectanother = true;
 		
-		// get base country
+		
 		boolean validAcountry = false;
 		boolean validDcountry = false;
 		String Acountry = "", Dcountry = "";
@@ -481,7 +478,6 @@ public class HumanPlayer implements Player
 			  }
 		  } while (!validAcountry && !Acountry.equals("N"));
 		  
-		// get destination country
 		
 		if (validAcountry)
 		  {
@@ -666,18 +662,14 @@ public class HumanPlayer implements Player
 			
 			if (!allOut)
 			  {
-				// to get dice input for attacker
 				noOfDicesForAttacker = getDiceInput(attackerCountryNode
 				    .getNodeData(), "a");
-				// to get dice input for defender
 				noOfDicesForDefender = getDiceInput(defenderCountryNode
 				    .getNodeData(), "d");
 			  } else
 			  {
-				// to get dice input for attacker
 				noOfDicesForAttacker = getDiceInputAllOut(attackerCountryNode
 				    .getNodeData(), "a");
-				// to get dice input for defender
 				noOfDicesForDefender = getDiceInputAllOut(defenderCountryNode
 				    .getNodeData(), "d");
 			  }
@@ -695,7 +687,6 @@ public class HumanPlayer implements Player
 			  {
 				attackerLosses++;
 			  }
-			// Index 1 = second highest pair
 			if (noOfDicesForAttacker > 1 && noOfDicesForDefender > 1)
 			  {
 				
@@ -708,7 +699,6 @@ public class HumanPlayer implements Player
 					attackerLosses++;
 				  }
 			  }
-			// Calculate losses
 			System.out.println("");
 			System.out.println("<Combat Result>" + "|" + attackerCountryNode
 			    .getNodeData()
@@ -945,7 +935,6 @@ public class HumanPlayer implements Player
 				  System.out.println("Please enter a valid input");
 			  } while (dicesNotInt);
 			  
-			// check that number of dices should be between 1 to 3;
 			
 			if (noOfDices < 1 || noOfDices > maxDice || noOfDices > (i
 			    .equals("a") ? countryObj.getArmies() - 1 : countryObj
@@ -967,7 +956,6 @@ public class HumanPlayer implements Player
 	@Override
 	public ArrayList<GraphNode> canFortify()
 	  {
-		// TODO Auto-generated method stub
 		return null;
 	  }
 
@@ -976,7 +964,6 @@ public class HumanPlayer implements Player
 	@Override
 	public ArrayList<GraphNode> canAttack()
 	  {
-		// TODO Auto-generated method stub
 		return null;
 	  }
 
@@ -985,7 +972,6 @@ public class HumanPlayer implements Player
 	@Override
 	public GraphNode canReinforce()
 	  {
-		// TODO Auto-generated method stub
 		return null;
 	  }
 
@@ -993,8 +979,7 @@ public class HumanPlayer implements Player
 
 	  /**
 		 * to execute exchange of cards
-		 * @param currentPlayer current player
-		 * @param hand currently player's hand
+		 * @param gameMainDriver current gameMainDriver of the game
 		 * @param request selected cards by the player
 		 * @return true if exchange been successful
 		 */
@@ -1065,7 +1050,7 @@ public class HumanPlayer implements Player
 	@Override
 	public void executeFortification(ArrayList<GraphNode> fortifyNodes)
 	  {
-		// TODO Auto-generated method stub
+		
 		
 	  }
 	  

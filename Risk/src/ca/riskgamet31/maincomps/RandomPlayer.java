@@ -55,7 +55,6 @@ public class RandomPlayer implements Player
 	public RandomPlayer(String playersName, int army) throws
 	    InvalidNameException, InvalidPlayerNameException
 	  {
-		//validateInput(playersName);
 		this.playersName = playersName;
 		this.army = army;
 		playerCountryGraph = new Graph();
@@ -212,12 +211,10 @@ public class RandomPlayer implements Player
 		  .stream().filter(i -> i.getNodeNeighbors().stream().anyMatch(x -> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())) )
 		  .collect(Collectors.toList())); 
 	  
-	  //destinationCountries.sort((x2,x1) -> x1.getNodeData().getArmies() - x2.getNodeData().getArmies());
 	  
 	  List<GraphNode> sourceCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes()
 		  .stream().filter( i -> i.getNodeData().getArmies() > 1).collect(Collectors.toList()));
 	  
-	  //sourceCountries.sort((x2,x1) -> x1.getNodeData().getArmies() - x2.getNodeData().getArmies());
 	  
 	  boolean continueSearch = true;
 	  
@@ -240,11 +237,8 @@ public class RandomPlayer implements Player
 			}
 		  }
 	  }
-	  //SecureRandom random = new SecureRandom();
-	  //int skipIndex =  random.nextInt(potintialList.size());
-	  //skipIndex = skipIndex >=2 ? skipIndex : 0;
 	  
-	  Collections.shuffle(potintialList);//potintialList.stream().skip(skipIndex-1).findAny().orElse(new ArrayList<>());
+	  Collections.shuffle(potintialList);
 	  
 	   if (!potintialList.isEmpty())
 		 returnedList =  potintialList.get(0);
@@ -333,8 +327,7 @@ public class RandomPlayer implements Player
 		boolean won = false;
 		SecureRandom random = new SecureRandom();
 		int noOfAttacks = random.nextInt(10);
-		//boolean allOut = false;
-		//boolean attack = false;
+		
 		ArrayList<GraphNode> attDef = new ArrayList<>();
 		
 		attDef = canAttack();
@@ -396,10 +389,9 @@ public class RandomPlayer implements Player
 			int attackerArmiesToSet = 0, defenderArmiesToSet = 0;
 			
 			  
-			  // to get dice input for attacker
 				noOfDicesForAttacker = getDiceInputAllOut(attackerCountryNode
 				    .getNodeData(), "a");
-				// to get dice input for defender
+				
 				noOfDicesForDefender = getDiceInputAllOut(defenderCountryNode
 				    .getNodeData(), "d");
 			  
@@ -417,7 +409,7 @@ public class RandomPlayer implements Player
 			  {
 				attackerLosses++;
 			  }
-			// Index 1 = second highest pair
+			
 			if (noOfDicesForAttacker > 1 && noOfDicesForDefender > 1)
 			  {
 				
@@ -430,7 +422,7 @@ public class RandomPlayer implements Player
 					attackerLosses++;
 				  }
 			  }
-			// Calculate losses
+			
 			System.out.println("");
 			System.out.println("<Combat Result>" + "|" + attackerCountryNode
 			    .getNodeData()
@@ -514,8 +506,7 @@ public class RandomPlayer implements Player
 	
 	  /**
 		 * to execute exchange of cards
-		 * @param currentPlayer current player
-		 * @param hand currently player's hand
+		 * @param gameMainDriver current gameMainDriver of the game
 		 * @param request selected cards by the player
 		 * @return true if exchange been successful
 		 */
@@ -523,15 +514,10 @@ public class RandomPlayer implements Player
 	public boolean executeTurnInCard(MainDriver gameMainDriver,
 		    String request)
 		  {
-			
-			//"Infantry", "Cavalry", "Artillery"
-			
-			   //long distinctCards = this.getHand().getCardsFromHand().stream().distinct().count();
 			      
 			Map<String,List<Card>> handsCards = this.getHand().getCardsFromHand().stream()
 				.collect(Collectors.groupingBy(Card::getCardType,Collectors.toList()));
 			  
-			/// 3 distinct cards
 			if (handsCards.size() == 3) {
 			 
 			  for (List<Card> listOfCards : handsCards.values()) {
@@ -580,8 +566,6 @@ public class RandomPlayer implements Player
 	
 		Collections.shuffle(destinationCountries);
 		
-		//destinationCountries.sort((x2, x1) -> x1.getNodeData().getArmies() - x2
-		  //  .getNodeData().getArmies());
 		boolean continueSearch = true;
 		for (GraphNode countryNode : destinationCountries)
 		  {
@@ -624,10 +608,7 @@ public class RandomPlayer implements Player
 	  @Override
 	  public GraphNode canReinforce()
 		{
-		 // SecureRandom random = new SecureRandom();
-		 // int playerGraphSize = this.getPlayerGraph().getGraphNodes().size();
-		 // int skipIndex = random.nextInt(playerGraphSize);
-		 // GraphNode retNode = getPlayerGraph().getGraphNodes().stream().skip(skipIndex).findAny().orElse(new GraphNode(new Country("DUMMY")));
+		 
 			
 		  ArrayList<GraphNode> playerCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes());
 		  
