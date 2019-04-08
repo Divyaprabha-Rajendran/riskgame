@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ca.riskgamet31.controllers.GameMainDriver;
+import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.controllers.PlayerModel;
 import ca.riskgamet31.controllers.StartUpPhase;
 import ca.riskgamet31.exceptions.InvalidContinentException;
@@ -19,7 +20,9 @@ import ca.riskgamet31.exceptions.InvalidCountryException;
 import ca.riskgamet31.exceptions.InvalidGraphException;
 import ca.riskgamet31.exceptions.InvalidLinkException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
+import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.maincomps.RandomPlayer;
 
 /**
  * Tests the GameMainDriver class for creating players
@@ -50,7 +53,8 @@ public class TestGameMainDriver
 	 * Player Class Reference
 	 * 
 	 */
-	static Player p1, p2;
+	static RandomPlayer p1, p2;
+	static GameMap M1;
 	
 	/**
 	 * Object created before all the test method
@@ -70,8 +74,8 @@ public class TestGameMainDriver
 		s1 = new StartUpPhase();
 		P1 = new PlayerModel();
 		pm = new PlayerModel();
-		p1 = new Player("p1", 3);
-		p2 = new Player("p2", 4);
+		p1 = new RandomPlayer("p1", 3);
+		p2 = new RandomPlayer("p2", 4);
 		
 	  }
 	  
@@ -91,11 +95,13 @@ public class TestGameMainDriver
 		P1 = G1.getPlayerList();
 		int a1 = P1.getPlayerList().size();
 		String inputfromtestplayer = "Dubai\n10\nrussia\n2\n" + "Dubai\nRussia\n5\n" + "Y\ndubai\npakistan\ny\n3\n";
-		String input = "3\nabc\ncde\ngfg\n" + inputfromtestplayer;
+		String input = "3\nAGG|P1\nAGG|P2\nAGG|P3\n" + inputfromtestplayer;
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
+		System.out.println(a1);
 		G1.createPlayer();
 		int a2 = P1.getPlayerList().size();
+		System.out.println(a2);
 		assertNotEquals(a2, a1);
 		
 	  }
@@ -127,9 +133,9 @@ public class TestGameMainDriver
 		    .getProperty("user.dir") + "\\Risk_MapData\\small_map.xml");
 		pm.setPlayerList(p1);
 		pm.setPlayerList(p2);
-		s1.setPlayerCount(2);
-		G1.createGameMap(xmlFile.getPath());
-		s1.distributeCountriesSequ(pm, G1.getGameMap());
+		s1.setPlayerCount(2); 
+	    M1=G1.createGameMap(xmlFile.getPath());
+	    s1.distributeCountriesSequ(pm, M1);
 		System.out.println(p1.getPlayerCountriesGNodes());
 		System.out.println(p2.getPlayerCountriesGNodes());
 		assertEquals("[INDIA:1:p1]", p1.getPlayerGraph().getGraphNodes().get(2)
