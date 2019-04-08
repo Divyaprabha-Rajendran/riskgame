@@ -11,6 +11,7 @@ import ca.riskgamet31.controllers.PlayerModel;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.maincomps.RandomPlayer;
 
 /**
  * Tests the PlayerModel class
@@ -24,7 +25,7 @@ public class TestPlayerModel
 	/**
 	 * Player Class Reference
 	 */
-	static Player p2;
+	static RandomPlayer p2;
 	/**
 	 * Player Model Class Reference
 	 */
@@ -42,7 +43,7 @@ public class TestPlayerModel
 		
 		try
 		  {
-			p2 = new Player("P1", 6);
+			p2 = new RandomPlayer("P1", 6);
 		  } catch (NullPointerException | InvalidPlayerNameException e)
 		  {
 			e.printStackTrace();
