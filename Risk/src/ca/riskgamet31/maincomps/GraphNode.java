@@ -1,5 +1,6 @@
 package ca.riskgamet31.maincomps;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 1.0
  */
-public class GraphNode
+public class GraphNode implements Serializable
   {
 	
 	/**

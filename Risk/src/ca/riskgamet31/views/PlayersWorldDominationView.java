@@ -1,5 +1,6 @@
 package ca.riskgamet31.views;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
@@ -17,7 +18,7 @@ import ca.riskgamet31.maincomps.GraphNode;
  * @author Fareed Tayar
  * @version 1.2
  */
-public class PlayersWorldDominationView implements Observer
+public class PlayersWorldDominationView implements Observer,Serializable
   {
 	
 	/**

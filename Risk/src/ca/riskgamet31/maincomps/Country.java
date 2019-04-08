@@ -1,5 +1,6 @@
 package ca.riskgamet31.maincomps;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 import ca.riskgamet31.views.countryView;
@@ -14,7 +15,7 @@ import ca.riskgamet31.views.countryView;
  * @version 1.1
  * @since 1.0
  */
-public class Country extends Observable
+public class Country extends Observable implements Serializable
   {
 	
 	/**

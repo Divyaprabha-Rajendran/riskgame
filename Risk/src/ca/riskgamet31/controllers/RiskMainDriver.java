@@ -1,5 +1,6 @@
 package ca.riskgamet31.controllers;
 
+import ca.riskgamet31.utility.LoadGame;
 import ca.riskgamet31.utility.UserInputOutput;
 
 public class RiskMainDriver
@@ -13,7 +14,6 @@ public class RiskMainDriver
 	  System.out.println("3- For continue a saved game.");
 	  
 	}
-	
 	
 	public static void main(String[] args)
 	  {
@@ -32,6 +32,17 @@ public class RiskMainDriver
 			tournament.execute();			
 			break;
 		  case"3":
+			
+			LoadGame loadGame = new LoadGame();
+			try
+			  {
+				loadGame.resumeGame();
+			  } catch (Exception e)
+			  {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			  }
+			
 			break;
 		}
 	  }

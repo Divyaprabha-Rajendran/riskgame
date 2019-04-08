@@ -1,5 +1,6 @@
 package ca.riskgamet31.maincomps;
 
+import java.io.Serializable;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.stream.IntStream;
@@ -12,7 +13,7 @@ import java.util.stream.IntStream;
  * @since 1.0
  * 
  */
-public class Dice
+public class Dice implements Serializable
   {
 	
 	/**

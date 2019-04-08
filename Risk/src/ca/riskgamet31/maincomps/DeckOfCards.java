@@ -1,5 +1,6 @@
 package ca.riskgamet31.maincomps;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,7 +12,7 @@ import java.util.Collections;
  * @version 1.0
  * @since 1.0
  */
-public class DeckOfCards
+public class DeckOfCards implements Serializable
   {
 	/**
 	 * types of cards

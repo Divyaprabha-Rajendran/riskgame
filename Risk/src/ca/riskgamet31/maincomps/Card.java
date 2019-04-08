@@ -1,5 +1,7 @@
 package ca.riskgamet31.maincomps;
 
+import java.io.Serializable;
+
 /**
  * Card class
  * 
@@ -7,7 +9,7 @@ package ca.riskgamet31.maincomps;
  * @version 1.0
  * @since 1.0
  */
-public class Card
+public class Card implements Serializable
   {
 	
 	/**

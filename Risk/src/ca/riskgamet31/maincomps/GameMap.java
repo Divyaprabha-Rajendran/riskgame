@@ -1,5 +1,6 @@
 package ca.riskgamet31.maincomps;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -9,7 +10,7 @@ import java.util.HashMap;
  * @version 1.0
  * @since 1.0
  */
-public class GameMap
+public class GameMap implements Serializable
   {
 	/**
 	 * the map xml file, for info only

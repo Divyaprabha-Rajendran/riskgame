@@ -1,5 +1,6 @@
 package ca.riskgamet31.views;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,7 +17,7 @@ import ca.riskgamet31.utility.UserInputOutput;
  *@since 2.0
  *version 2.0
  */
-public class CardExchangeView implements Observer
+public class CardExchangeView implements Observer,Serializable
   {
 	
 	/**

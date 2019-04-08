@@ -3,12 +3,14 @@ package ca.riskgamet31.controllers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.xml.transform.TransformerException;
 
 import ca.riskgamet31.exceptions.InvalidContinentException;
 import ca.riskgamet31.exceptions.InvalidCountryException;
@@ -27,6 +29,7 @@ import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.Constants;
 import ca.riskgamet31.utility.InputValidator;
+import ca.riskgamet31.utility.SaveGame;
 import ca.riskgamet31.utility.UserInputOutput;
 import ca.riskgamet31.views.PhaseView;
 import ca.riskgamet31.views.PlayersWorldDominationView;
@@ -59,12 +62,43 @@ public class GameMainDriver extends Observable implements MainDriver
 	 */
 	DeckOfCards deck;
 	
-	
+	private int turnID;
+	public int getTurnID()
+	  {
+		return turnID;
+	  }
+
+	public void setTurnID(int turnID)
+	  {
+		this.turnID = turnID;
+	  }
+
+	public PlayerModel getPlayers()
+	  {
+		return Players;
+	  }
+
+	public void setPlayers(PlayerModel players)
+	  {
+		Players = players;
+	  }
+
 	/**
 	 * player world domination view
 	 */
 	private PlayersWorldDominationView playerWorldDominationView;
 	
+	public PlayersWorldDominationView getPlayerWorldDominationView()
+	  {
+		return playerWorldDominationView;
+	  }
+
+	public void setPlayerWorldDominationView(
+	    PlayersWorldDominationView playerWorldDominationView)
+	  {
+		this.playerWorldDominationView = playerWorldDominationView;
+	  }
+
 	/**
 	 * constructor for game main driver
 	 */
@@ -78,7 +112,7 @@ public class GameMainDriver extends Observable implements MainDriver
 		//phaseInfo = new ArrayList<>();
 		PhaseView phaseview = new PhaseView();
 		this.addObserver(phaseview);
-		
+		this.turnID = 0;
 		playerWorldDominationView = new PlayersWorldDominationView();
 	  }
 	  
@@ -328,7 +362,7 @@ public class GameMainDriver extends Observable implements MainDriver
 		
 		boolean endGame = false;
 		Player currentPlayer;
-		int turnID = 0;
+		
 		String winner = "NA";
 		boolean won = false;
 		this.addObserver(this.playerWorldDominationView);
@@ -389,6 +423,23 @@ public class GameMainDriver extends Observable implements MainDriver
 				if (turnID >= this.Players.getPlayerList().size())
 				  turnID = 0;
 			  }
+			
+			String userInput = UserInputOutput.getInstance().requestUserInput("Do you want to save the game Y/N?");
+			
+			if (userInput.equals("Y")) {
+			  
+			  SaveGame saveGame = new SaveGame();
+			  try
+				{
+				  saveGame.updateGame(this);
+				} catch (TransformerException | IOException e)
+				{
+				  // TODO Auto-generated catch block
+				  e.printStackTrace();
+				}
+			  
+			}
+			
 		  }
 		  
 		return winner;
@@ -525,6 +576,11 @@ public class GameMainDriver extends Observable implements MainDriver
 	public DeckOfCards getDeck()
 	  {
 		return deck;
+	  }
+
+	public void setDeck(DeckOfCards deck)
+	  {
+		this.deck = deck;
 	  }
 	  
   }

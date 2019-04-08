@@ -10,13 +10,14 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.Serializable;
 
 //import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 
-public interface Player
+public interface Player extends java.io.Serializable 
   {
 	
 	

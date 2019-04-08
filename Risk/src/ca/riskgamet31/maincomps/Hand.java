@@ -1,5 +1,6 @@
 package ca.riskgamet31.maincomps;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 1.0
  */
-public class Hand
+public class Hand implements Serializable
   {
 	
 	/**

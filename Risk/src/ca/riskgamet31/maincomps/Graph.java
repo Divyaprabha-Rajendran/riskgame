@@ -1,5 +1,6 @@
 package ca.riskgamet31.maincomps;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ import java.util.LinkedList;
  * @version 1.0
  * @since 1.0
  */
-public class Graph
+public class Graph implements Serializable
   {
 	
 	/**

@@ -1,5 +1,6 @@
 package ca.riskgamet31.controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ca.riskgamet31.exceptions.InvalidPlayerException;
@@ -11,7 +12,7 @@ import ca.riskgamet31.maincomps.Player;
  * @author Divia
  *
  */
-public class PlayerModel
+public class PlayerModel implements Serializable
   {
 	
 	/**

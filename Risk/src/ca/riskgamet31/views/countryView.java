@@ -1,5 +1,6 @@
 package ca.riskgamet31.views;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -10,7 +11,7 @@ import java.util.Observer;
  * @version 1.0
  * @since 1.0
  */
-public class countryView implements Observer
+public class countryView implements Observer,Serializable
   {
 	
 	/**

@@ -1,5 +1,6 @@
 package ca.riskgamet31.views;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,7 +15,7 @@ import ca.riskgamet31.maincomps.Player;
  * @author Fareed Tayar
  * @version 1.2
  */
-public class PhaseView extends Observable implements Observer
+public class PhaseView extends Observable implements Observer,Serializable
   {
 	
 	/**
