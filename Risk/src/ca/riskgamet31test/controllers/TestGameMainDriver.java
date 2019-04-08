@@ -94,7 +94,7 @@ public class TestGameMainDriver
 	  {
 		P1 = G1.getPlayerList();
 		int a1 = P1.getPlayerList().size();
-		String inputfromtestplayer = "Dubai\n10\nrussia\n2\n" + "Dubai\nRussia\n5\n" + "Y\ndubai\npakistan\ny\n3\n";
+		String inputfromtestplayer = "Dubai\n10\nrussia\n2\n" + "Y\nDubai\nRussia\n5\n" + "Y\ndubai\npakistan\ny\n3\n";
 		String input = "3\nAGG|P1\nAGG|P2\nAGG|P3\n" + inputfromtestplayer;
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);

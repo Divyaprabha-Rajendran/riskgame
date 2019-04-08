@@ -19,6 +19,7 @@ import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
+import ca.riskgamet31.maincomps.HumanPlayer;
 import ca.riskgamet31.maincomps.Player;
 
 /**
@@ -28,7 +29,7 @@ import ca.riskgamet31.maincomps.Player;
  * @version 1.1
  * @since 1.0
  */
-public class TestPlayer
+public class TestHumanPlayer
   {
 	/**
 	 * Country Class Reference
@@ -100,8 +101,8 @@ public class TestPlayer
 		g1.addNeighbor(g7);
 		try
 		  {
-			p1 = new Player("player1", 7);
-			p2 = new Player("player2", 7);
+			p1 = new HumanPlayer("player1", 7);
+			p2 = new HumanPlayer("player2", 7);
 		  } catch (NullPointerException | InvalidPlayerNameException e)
 		  {
 			e.printStackTrace();
@@ -217,7 +218,7 @@ public class TestPlayer
 		System.out
 		    .println(armiesForCountry1BeforeReinforcement + "-" + armiesForCountry2BeforeReinforcement);
 		int armiesForPlayerBeforeReinforcement = p1.getPlayerArmies();
-		String input = "Dubai\n10\nrussia\n2\n" + "Dubai\nRussia\n5\n" + "Y\ndubai\npakistan\ny\n3\n";
+		String input = "Dubai\n10\nrussia\n2\n" + "Y\nDubai\nRussia\n5\n" + "Y\ndubai\npakistan\ny\n3\n";
 		InputStream in1 = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in1);
 		p1.reinforcement();
