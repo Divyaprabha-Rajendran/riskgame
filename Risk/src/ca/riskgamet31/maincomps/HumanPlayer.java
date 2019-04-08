@@ -440,7 +440,7 @@ public class HumanPlayer implements Player
 	 * @return both attacking and target countries graph nodes.
 	 */
 	@Override
-	public ArrayList<GraphNode> AttDefCountries(GameMainDriver driver)
+	public ArrayList<GraphNode> AttDefCountries(MainDriver driver)
 	  {
 		GraphNode attackerCountryNode = new GraphNode(new Country("dummy"));
 		GraphNode defenderCountryNode = new GraphNode(new Country("dummy"));
@@ -547,7 +547,7 @@ public class HumanPlayer implements Player
 	 * @return true if attacker won at least one country
 	 */
 	@Override
-	public boolean attack(GameMainDriver driver)
+	public boolean attack(MainDriver driver)
 	  {
 		boolean won = false;
 		boolean allOut = false;
@@ -641,7 +641,7 @@ public class HumanPlayer implements Player
 	 * @return true if attacker occupied the attacked country.
 	 */
 	@Override
-	public boolean attackRound(GameMainDriver driver,
+	public boolean attackRound(MainDriver driver,
 	    GraphNode attackerCountryNode, GraphNode defenderCountryNode,
 	    boolean allOut)
 	  {
@@ -998,10 +998,11 @@ public class HumanPlayer implements Player
 		 * @return true if exchange been successful
 		 */
 	@Override	
-	public boolean executeTurnInCard(GameMainDriver gameMainDriver,
+	public boolean executeTurnInCard(MainDriver gameMainDriver1,
 		    String request)
 		  {
 			
+			GameMainDriver gameMainDriver = (GameMainDriver) gameMainDriver1;
 			InputValidator inpValidator = new InputValidator();
 			boolean executed = false;
 			

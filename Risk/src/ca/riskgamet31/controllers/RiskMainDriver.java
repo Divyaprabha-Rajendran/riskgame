@@ -22,10 +22,17 @@ public class RiskMainDriver
 		riskMainDriver.displayOptions();
 		String userSelection = UserInputOutput.getInstance().requestUserInput("Enter your selection");
 		// if single game Game main driver object then execute method
+		switch(userSelection) {
+		  case"1":
 		GameMainDriver driver = new GameMainDriver();
 		driver.execute();
-		// if tournament do something about it.
-		
+		break;
+		  case"2":
+			
+			break;
+		  case"3":
+			break;
+		}
 	  }
 	  
   }

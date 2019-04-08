@@ -37,8 +37,12 @@ public interface MainDriver
 	 * @throws IOException IOException
 	 *
 	 */
-	public String getFileInput(MainDriver GM) throws IOException;
+	public abstract String getFileInput(MainDriver GM) throws IOException;
 	  
+	
+	
+	
+	
 	/**
 	 * Creates the game map from the CreateMap Class for the player.
 	 * 
@@ -88,7 +92,7 @@ public interface MainDriver
 	 * armies are distributed among countries the player own.
 	 *
 	 */
-	 public void setUpGame();
+	 public  void setUpGame();
 	  
 	/**
 	 * to update current phase information
@@ -120,7 +124,9 @@ public interface MainDriver
 	 * 
 	 * @param args command line args
 	 */
-	public void execute ();
+	public  void execute();
+
+	public PlayerModel getPlayerList();
 	  
 	  
 	  
