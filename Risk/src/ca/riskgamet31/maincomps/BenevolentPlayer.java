@@ -51,7 +51,7 @@ public class BenevolentPlayer implements Player
 	public BenevolentPlayer(String playersName, int army) throws
 	    InvalidNameException, InvalidPlayerNameException
 	  {
-		//validateInput(playersName);
+		
 		this.playersName = playersName;
 		this.army = army;
 		playerCountryGraph = new Graph();
@@ -241,14 +241,8 @@ public class BenevolentPlayer implements Player
 			-
 		(y.get(0).getNodeData().getArmies() + y.get(1).getNodeData().getArmies());
 	  };
-	  //i -> i.get(0).getNodeData().getArmies()+i.get(1).getNodeData().getArmies()
-	  returnedList = potintialList.stream().max(sumOfArmiesComparator).orElse(new ArrayList<>());
 	  
-	  //returnedList.add(sourceNode);
-	  //returnedList.add(desNode);
-	  //continueSearch = false;
-
-	  
+	  returnedList = potintialList.stream().max(sumOfArmiesComparator).orElse(new ArrayList<>()); 
 	  return returnedList;
 	  
 	}
@@ -354,8 +348,7 @@ public class BenevolentPlayer implements Player
 	
 	  /**
 		 * to execute exchange of cards
-		 * @param currentPlayer current player
-		 * @param hand currently player's hand
+		 * @param gameMainDriver current gameMainDriver of the game
 		 * @param request selected cards by the player
 		 * @return true if exchange been successful
 		 */

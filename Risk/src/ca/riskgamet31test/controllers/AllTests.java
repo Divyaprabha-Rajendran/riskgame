@@ -16,7 +16,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * Run the all the test class at once.
  */
 @SuiteClasses(
-  { TestGameMainDriver.class, TestPlayerModel.class, TestStartupPhase.class, TestPlayer.class })
+  { TestGameMainDriver.class, TestPlayerModel.class, TestStartupPhase.class, TestHumanPlayer.class })
 public class AllTests
   {
 	

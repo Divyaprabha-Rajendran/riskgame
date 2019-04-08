@@ -138,7 +138,6 @@ public class Hand implements Serializable
 			        .getCardType().equals(handWithCards.get(index3)
 			            .getCardType()))
 			  {
-				// If all three cards have the same type
 				mustTurnInCards = true;
 				
 			  } else if (!handWithCards.get(index1).getCardType()
@@ -149,7 +148,6 @@ public class Hand implements Serializable
 			                      .getCardType().equals(handWithCards
 			                          .get(index3).getCardType()))
 			  {
-				// If all three cards have different types
 				mustTurnInCards = true;
 			  }
 		  }

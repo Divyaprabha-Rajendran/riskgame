@@ -25,6 +25,13 @@ import ca.riskgamet31.controllers.PlayerModel;
 import ca.riskgamet31.maincomps.*;
 import ca.riskgamet31.views.PlayersWorldDominationView;
 
+/**
+ * Backup class for storing data that must be used while resuming.
+ * Implements Serializable interface for storing objects.
+ * 
+ * @author Divyaprabha Rajendran
+ * @version 1.0
+ */
 class Backup implements java.io.Serializable 
 {
 	private String xmlPath;
@@ -39,7 +46,6 @@ class Backup implements java.io.Serializable
 	public String getXmlPath() {
 		return xmlPath;
 	}
-
 
 
 	public void setXmlPath(String xmlPath) {

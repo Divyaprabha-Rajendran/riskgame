@@ -22,19 +22,15 @@ public class TestHand
 	/**
 	 * Hand Class Reference
 	 */
-	static Hand H1, H2, H3, H4;
+	static Hand H1, H2, H3, H4, H5, H6;
 	/**
 	 * Card Class Reference
 	 */
-	static Card C1, C2, C3, C4;
+	static Card C1, C2, C3, C4, C5;
 	/**
 	 * Country Class Reference
 	 */
-	static Country c1, c2, c3, c4;
-	/**
-	 * Integer variable
-	 */
-	static int a1, a2;
+	static Country c1, c2, c3, c4, c5;
 	
 	/**
 	 * Object created before all the test method
@@ -47,15 +43,18 @@ public class TestHand
 		H2 = new Hand();
 		H3 = new Hand();
 		H4 = new Hand();
+		H5 = new Hand();
+		H6 = new Hand();
 		c1 = new Country("Dubai");
 		c2 = new Country("Russia");
 		c3 = new Country("Qator");
 		c4 = new Country("China");
+		c5 = new Country("India");
 		C1 = new Card("Infantry", c1.getCountryName());
 		C2 = new Card("Cavalry", c2.getCountryName());
 		C3 = new Card("Artillery", c3.getCountryName());
 		C4 = new Card("Infantry", c4.getCountryName());
-		
+		C5 = new Card("Infantry", c5.getCountryName());
 	  }
 	  
 	/**
@@ -65,10 +64,10 @@ public class TestHand
 	@Test
 	public void testaddcard()
 	  {
-		a1 = H1.getCardsFromHand().size();
+		int beforeaddingCardsSize = H1.getCardsFromHand().size();
 		H1.addCard(C1);
-		a2 = H1.getCardsFromHand().size();
-		assertNotEquals(a1, a2);
+		int afterAddingCardsSize = H1.getCardsFromHand().size();
+		assertNotEquals(1, afterAddingCardsSize);
 	  }
 	  
 	/**
@@ -82,7 +81,14 @@ public class TestHand
 		H2.addCard(C2);
 		H2.addCard(C3);
 		H2.addCard(C4);
+		H5.addCard(C1);
+		H5.addCard(C2);
+		H5.addCard(C3);
+		H5.addCard(C4);
+		H5.addCard(C5);
+		
 		assertEquals(false, H2.mustTurnInCards());
+		assertEquals(true, H5.mustTurnInCards());
 	  }
 	  
 	/**
@@ -109,10 +115,10 @@ public class TestHand
 		H3.addCard(C2);
 		H3.addCard(C3);
 		H3.addCard(C4);
-		a1 = H3.getCardsFromHand().size();
+		int beforeRemoveCardsSize = H3.getCardsFromHand().size();
 		H3.removeCardsFromHand(1, 2, 3);
-		a2 = H3.getCardsFromHand().size();
-		assertNotEquals(a1, a2);
+		int afterRemovingCatdsSize = H3.getCardsFromHand().size();
+		assertEquals(1, afterRemovingCatdsSize);
 	  }
 	  
 	/**
@@ -121,9 +127,16 @@ public class TestHand
 	@Test
 	public void testisEligibleToExchange()
 	  {
+		// for each of different types
 		H4.addCard(C1);
 		H4.addCard(C2);
 		H4.addCard(C3);
+		//for 3 of same type
+		H6.addCard(C1);
+		H6.addCard(C4);
+		H6.addCard(C5);
+		
 		assertEquals(true, H4.isEligibleToExchange());
+		assertEquals(true, H6.isEligibleToExchange());
 	  }
   }

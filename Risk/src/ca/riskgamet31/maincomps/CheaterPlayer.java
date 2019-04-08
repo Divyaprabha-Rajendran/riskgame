@@ -53,7 +53,6 @@ public class CheaterPlayer implements Player
 	public CheaterPlayer(String playersName, int army) throws
 	    InvalidNameException, InvalidPlayerNameException
 	  {
-		//validateInput(playersName);
 		this.playersName = playersName;
 		this.army = army;
 		playerCountryGraph = new Graph();
@@ -286,10 +285,7 @@ public class CheaterPlayer implements Player
 	public boolean attack(MainDriver driver)
 	  {
 		boolean won = false;
-		//boolean allOut = false;
-		//boolean attack = false;
-		//ArrayList<GraphNode> attDef = new ArrayList<>();
-		//System.out.println("Players graph");
+		
 		this.getPlayerGraph().viewGraph();
 		
 		ArrayList<GraphNode> destinationCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes()
@@ -297,9 +293,7 @@ public class CheaterPlayer implements Player
 				  .anyMatch(x -> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())) )
 			  .collect(Collectors.toList())); 
 		  
-		//attDef = canAttack();
-		//System.out.println("Destination countries");
-		//System.out.println(destinationCountries);
+		
        for (GraphNode countryNode : destinationCountries) {
 		  
     	 
@@ -321,7 +315,7 @@ public class CheaterPlayer implements Player
   					defendingPlayer = defender;
   					
   				  }	
-  			  } /// end of for loop for players
+  			  } 
     		  
     		  if (countryNode.getNodeData().getArmies()>1)
     			{  
@@ -384,26 +378,17 @@ public class CheaterPlayer implements Player
 	
 	  /**
 		 * to execute exchange of cards
-		 * @param currentPlayer current player
-		 * @param hand currently player's hand
+		 * @param gameMainDriver current gameMainDriver of the game
 		 * @param request selected cards by the player
 		 * @return true if exchange been successful
 		 */
 		
 	public boolean executeTurnInCard(MainDriver gameMainDriver,
 		    String request)
-		  {
-			
-			
-			
-			//"Infantry", "Cavalry", "Artillery"
-			
-			   //long distinctCards = this.getHand().getCardsFromHand().stream().distinct().count();
-			      
+		  {      
 			Map<String,List<Card>> handsCards = this.getHand().getCardsFromHand().stream()
 				.collect(Collectors.groupingBy(Card::getCardType,Collectors.toList()));
 			  
-			/// 3 distinct cards
 			if (handsCards.size() == 3) {
 			 
 			  for (List<Card> listOfCards : handsCards.values()) {

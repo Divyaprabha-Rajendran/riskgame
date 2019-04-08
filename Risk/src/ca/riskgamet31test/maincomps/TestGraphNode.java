@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ca.riskgamet31.maincomps.Country;
+import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
 
 /**
@@ -21,6 +22,10 @@ import ca.riskgamet31.maincomps.GraphNode;
  */
 public class TestGraphNode
   {
+	/**
+	 * Graph Class Reference
+	 */
+	static Graph G1, G2;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
@@ -41,7 +46,8 @@ public class TestGraphNode
 	@Before
 	public void setUp() throws Exception
 	  {
-		
+		G1 = new Graph();
+		G2 = new Graph();
 	  }
 	  
 	@After
@@ -71,8 +77,14 @@ public class TestGraphNode
 	  {
 		ArrayList<Country> neighbours = new ArrayList<>();
 		Country c = new Country("India");
-		GraphNode Gn = new GraphNode(c);
-		assertEquals(-1, Gn.getDistance());
+		GraphNode gn = new GraphNode(c);
+		GraphNode ngrGn = new GraphNode(new Country("Pakistan"));
+		G1.addNode(gn);
+		G1.addNode(ngrGn);
+		gn.addNeighbor(ngrGn);
+		G1.processGraph();
+		
+		assertEquals(0, gn.getDistance());
 	  }
 	  
 	/**
