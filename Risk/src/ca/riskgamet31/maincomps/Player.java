@@ -12,7 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.Serializable;
 
-//import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
@@ -110,14 +109,7 @@ public interface Player extends java.io.Serializable
 	 * @return number of player armies
 	 */
 	public int getPlayerArmies();
-	/*
-	/**
-	 * to get player turn in cards
-	 * 
-	 * @return player turn in cards
-	 
-	public int getTurnInCards();
-	*/
+	
 	/**
 	 * To add a new card to player's hand
 	 * 
@@ -175,14 +167,7 @@ public interface Player extends java.io.Serializable
 	 * @param cardIndexes indexes of cards to be removed
 	 */
 	public void removeCards(int[] cardIndexes);
-	/*
-	/**
-	 * To calculate the reinforcement armies by turning in cards
-	 * 
-	 * @return reinforcement armies by turning in cards value
-	 
-	int turnInCardsArmies();
-	*/
+	
 	/**
 	 * get player graph
 	 * 
@@ -269,10 +254,6 @@ public interface Player extends java.io.Serializable
 		  
 		return noOfDices;
 	  }
-	
-	
-	
-	
 	
 	/**
 	 * Distribute the armies of every player among the countries the player
