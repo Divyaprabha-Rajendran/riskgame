@@ -1,6 +1,5 @@
 package ca.riskgamet31.controllers;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,19 +14,20 @@ import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 
 /**
- * Main driver class for the execution of game. Loading map, creating players
- * and distribution of countries and armies happens here.
+ * an abstraction for main game driver for the execution of game. Loading map,
+ * creating players and distribution of countries and armies happens here.
  * 
- * @author Divyaprabha Rajendran
+ * @author Fareed Tayr
  * @version 1.0
  *
  */
-public interface MainDriver 
+public interface MainDriver
   {
 	/**
 	 * phase info data structure to be passed to phase view observer
-	 */  
+	 */
 	ArrayList<String> phaseInfo = new ArrayList<String>();
+	
 	/**
 	 * Gives different options to create a gamemap and returns the file path of
 	 * the chosen XML file
@@ -38,12 +38,12 @@ public interface MainDriver
 	 *
 	 */
 	public abstract String getFileInput(MainDriver GM) throws IOException;
-	  
 	
 	/**
 	 * Creates the game map from the CreateMap Class for the player.
 	 * 
-	 * @param xmlpath xml file path
+	 * @param xmlpath XML file path
+	 * @return Game map object
 	 * @throws InvalidGraphException     If the graph is invalid
 	 * @throws InvalidNameException      If the name of continent or country has
 	 *                                   special characters or numbers
@@ -53,9 +53,10 @@ public interface MainDriver
 	 * @throws Exception                 For handling null values and XML
 	 *                                   malformed exceptions.
 	 */
-	default public GameMap createGameMap(String xmlpath) throws InvalidGraphException,
-	    InvalidNameException, InvalidCountryException,
-	    InvalidContinentException, InvalidLinkException, Exception
+	default public GameMap createGameMap(String xmlpath)
+	    throws InvalidGraphException, InvalidNameException,
+	    InvalidCountryException, InvalidContinentException,
+	    InvalidLinkException, Exception
 	  {
 		CreateMap cmap = new CreateMap(xmlpath);
 		
@@ -81,8 +82,8 @@ public interface MainDriver
 	 * @throws NullPointerException NullPointerException
 	 * 
 	 */
-	public void createPlayer() throws NullPointerException, InvalidNameException;
-	  
+	public void createPlayer() throws NullPointerException,
+	    InvalidNameException;
 	
 	/**
 	 * sets up the game by calling the distributeCountries which randomly
@@ -90,8 +91,8 @@ public interface MainDriver
 	 * armies are distributed among countries the player own.
 	 *
 	 */
-	 public  void setUpGame();
-	  
+	public void setUpGame();
+	
 	/**
 	 * to update current phase information
 	 * 
@@ -113,18 +114,21 @@ public interface MainDriver
 	  
 	/**
 	 * a method representing each turn
-	 * 
+	 * @return name of winner.
 	 */
 	public String playGame();
-	  
+	
 	/**
 	 * main method of the game
 	 * 
-	 * @param args command line args
 	 */
-	public  void execute();
-
+	public void execute();
 	
-	public PlayerModel getPlayerList();  
-	  
+	/**
+	 * Array list for players
+	 * 
+	 * @return an array list of players
+	 */
+	public PlayerModel getPlayerList();
+	
   }

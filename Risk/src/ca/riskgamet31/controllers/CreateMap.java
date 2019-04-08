@@ -42,6 +42,7 @@ public class CreateMap
 	 * xml map file
 	 */
 	private File xmlFile = null;
+	
 	/**
 	 * document object for map file
 	 */
@@ -63,7 +64,7 @@ public class CreateMap
 	 */
 	private HashMap<String, Continent> mapData = null;
 	/**
-	 * map validate 
+	 * map validate
 	 */
 	private ValidateMapInput validateMap = null;
 	
@@ -355,7 +356,6 @@ public class CreateMap
 		for (GraphNode node : nodes)
 		  {
 			String neighbours = "";
-			String curr_country = node.getNodeData().getCountryName();
 			ArrayList<GraphNode> neighbour_node = node.getNodeNeighbors();
 			
 			for (GraphNode n_node : neighbour_node)
@@ -397,7 +397,6 @@ public class CreateMap
 	  {
 		for (Entry<String, Continent> entry : mapData.entrySet())
 		  {
-			String key = entry.getKey().toString();
 			Continent continent = entry.getValue();
 			continent.viewContinent();
 			System.out.println();

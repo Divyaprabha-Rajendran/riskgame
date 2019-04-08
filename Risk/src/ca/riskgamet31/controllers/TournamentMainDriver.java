@@ -3,49 +3,40 @@ package ca.riskgamet31.controllers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 
-import com.sun.xml.internal.fastinfoset.tools.TransformInputOutput;
-
 import ca.riskgamet31.exceptions.InvalidContinentException;
 import ca.riskgamet31.exceptions.InvalidCountryException;
 import ca.riskgamet31.exceptions.InvalidGraphException;
 import ca.riskgamet31.exceptions.InvalidLinkException;
 import ca.riskgamet31.exceptions.InvalidNameException;
-import ca.riskgamet31.exceptions.InvalidPlayerCountInput;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Card;
-import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.DeckOfCards;
 import ca.riskgamet31.maincomps.GameMap;
-import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.Constants;
 import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
-import ca.riskgamet31.views.PhaseView;
 import ca.riskgamet31.views.PlayersWorldDominationView;
 
 /**
- * Main driver class for the execution of game. Loading map, creating players
- * and distribution of countries and armies happens here.
+ * Main driver class for tournament mode execution of game. Loading map,
+ * creating players and distribution of countries and armies happens here.
  * 
- * @author Divyaprabha Rajendran
- * @version 1.0
- *
+ * @author Fareed Tayar
+ * @version 3.0
+ * @since 3.0
  */
-public class TournamentMainDriver extends Observable implements MainDriver  
+public class TournamentMainDriver extends Observable implements MainDriver
   {
 	/**
 	 * game map member
@@ -65,23 +56,34 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	 */
 	DeckOfCards deck;
 	
-	
 	/**
 	 * player world domination view
 	 */
 	private PlayersWorldDominationView playerWorldDominationView;
 	
 	/**
-	 * constructor for game main driver
+	 * list of maps will be player during the tournament
 	 */
 	private ArrayList<File> tournamentMaps;
 	
+	/**
+	 * list of players participating in the tournament.
+	 */
 	private ArrayList<String> tournamentPlayers;
 	
+	/**
+	 * number of games will be player per map during the tournament
+	 */
 	private int noOfGames;
 	
+	/**
+	 * maximum number of turns allowed during on game.
+	 */
 	private int noOfTurns;
 	
+	/**
+	 * constructor for tournament main driver
+	 */
 	public TournamentMainDriver()
 	  {
 		
@@ -93,9 +95,7 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
 		Constants.turnInCards = 1;
-		//phaseInfo = new ArrayList<>();
 		
-		//playerWorldDominationView = new PlayersWorldDominationView();
 	  }
 	  
 	/**
@@ -119,8 +119,6 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		Constants.turnInCards = turnInCardsCount;
 	  }
 	  
-	
-	
 	/**
 	 * to get players list
 	 * 
@@ -132,11 +130,10 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	  }
 	  
 	/**
-	 * Gives different options to create a gamemap and returns the file path of
-	 * the chosen XML file
+	 * to collect different inputs needed to play the tournament
 	 * 
 	 * @param GM main driver of the game
-	 * @return xmlFilePath map xml file path
+	 * @return a positive string indicating collecting needed information.
 	 * @throws IOException IOException
 	 *
 	 */
@@ -160,7 +157,8 @@ public class TournamentMainDriver extends Observable implements MainDriver
 			System.out.println("Choose an option...");
 			System.out.println("1. add maps to tournament...");
 			System.out.println("2. add players to tournament.");
-			System.out.println("3. set maximum number of allowed turns per game.");
+			System.out
+			    .println("3. set maximum number of allowed turns per game.");
 			System.out.println("4. set number of games per map.");
 			System.out.println("5. start playing..");
 			int option = scan.nextInt();
@@ -177,7 +175,7 @@ public class TournamentMainDriver extends Observable implements MainDriver
 					      .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
 					else
 					  xmlFile = chooser.getSelectedFile();
-					   
+					
 					if (Desktop.isDesktopSupported())
 					  {
 						Desktop.getDesktop().open(xmlFile);
@@ -218,7 +216,8 @@ public class TournamentMainDriver extends Observable implements MainDriver
 				  }
 				case 2:
 				  {
-					String userInput = UserInputOutput.getInstance().requestUserInput("Enter Players Type i.e. AGG|RAN|BEN|CHE");
+					String userInput = UserInputOutput.getInstance()
+					    .requestUserInput("Enter Players Type i.e. AGG|RAN|BEN|CHE");
 					
 					String[] playerTypes = userInput.split(Pattern.quote("|"));
 					
@@ -227,37 +226,38 @@ public class TournamentMainDriver extends Observable implements MainDriver
 					break;
 				  }
 				case 3:
-					  {
-						String userInput = UserInputOutput.getInstance().requestUserInput("Enter maximum number of allowed turns per game");
-						
-						noOfTurns = Integer.parseInt(userInput);
-						
-						break;
-					  }
+				  {
+					String userInput = UserInputOutput.getInstance()
+					    .requestUserInput("Enter maximum number of allowed turns per game");
+					
+					noOfTurns = Integer.parseInt(userInput);
+					
+					break;
+				  }
 				case 4:
-					  {
-						String userInput = UserInputOutput.getInstance().requestUserInput("Enter number of games per map");
-						
-						noOfGames = Integer.parseInt(userInput);
-						
-						break;
-					  }
+				  {
+					String userInput = UserInputOutput.getInstance()
+					    .requestUserInput("Enter number of games per map");
+					
+					noOfGames = Integer.parseInt(userInput);
+					
+					break;
+				  }
 				case 5:
 				  {
 					
-						continueEditing = false;
-					  
+					continueEditing = false;
+					
 					break;
 				  }
 			  }
 		  }
-		
+		  
 		return "Maps and other input are collected.";
 	  }
-	
 	  
 	/**
-	 * Creates players for the game after checking pre-conditions. A player name
+	 * Creates players for the game after checking Pre-conditions. A player name
 	 * cannot have special characters and duplication is not allowed.
 	 * 
 	 * @throws InvalidNameException InvalidNameException
@@ -275,20 +275,20 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		
 		StartUp.setPlayerCount(tournamentPlayers.size());
 		int i = 1;
-		for (String playerName : tournamentPlayers) {
-		Player player;
-		try
+		for (String playerName : tournamentPlayers)
 		  {
-			player = StartUp.createPlayers(playerName+"|Player"+i++);
-			Players.setPlayerList(player);
-		  
-		  } catch (InvalidPlayerNameException | InvalidPlayerException e)
-		  {
-			e.printStackTrace();
+			Player player;
+			try
+			  {
+				player = StartUp.createPlayers(playerName + "|Player" + i++);
+				Players.setPlayerList(player);
+				
+			  } catch (InvalidPlayerNameException | InvalidPlayerException e)
+			  {
+				e.printStackTrace();
+			  }
+			  
 		  }
-		
-		
-		}
 	  }
 	  
 	/**
@@ -325,28 +325,26 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	  }
 	  
 	/**
-	 * a method representing each turn
+	 * play of of game within the tournament
 	 * 
+	 * @return draw if no winner or winner name.
 	 */
 	@Override
 	public String playGame()
 	  {
 		
-		//phaseInfo.clear();
-		
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
 		setTurnInCardsCount(1);
-			try
-			  {
-				this.createPlayer();
-			  } catch (NullPointerException | InvalidNameException e)
-			  {
-				
-				e.printStackTrace();
-			  }
-			this.setUpGame();
-			//this.risk.viewGameMap();
+		try
+		  {
+			this.createPlayer();
+		  } catch (NullPointerException | InvalidNameException e)
+		  {
+			
+			e.printStackTrace();
+		  }
+		this.setUpGame();
 		
 		boolean endGame = false;
 		Player currentPlayer;
@@ -374,22 +372,15 @@ public class TournamentMainDriver extends Observable implements MainDriver
 				if (!turnedInCards)
 				  {
 					turnedInCards = currentPlayer
-					    .executeTurnInCard(this,"Select cards to exchange, ex: 235 , 999 to exit");
+					    .executeTurnInCard(this, "Select cards to exchange, ex: 235 , 999 to exit");
 				  }
 				  
 			  } else
 			  {
 				System.out.println("You are not eligible to exchange cards.");
 			  }
-			
-			
-			
-			
-			
-			
-			
+			  
 			currentPlayer.reinforcement();
-			
 			
 			won = currentPlayer.attack(this);
 			
@@ -398,14 +389,12 @@ public class TournamentMainDriver extends Observable implements MainDriver
 				endGame = true;
 				System.out.println("Player " + this.Players.getPlayerList()
 				    .get(0).getplayerName() + " Won the game");
-				winner = this.Players.getPlayerList()
-				    .get(0).getplayerName();
+				winner = this.Players.getPlayerList().get(0).getplayerName();
 			  }
-			
-			// Fortification phase
+			  
 			if (!endGame)
 			  {
-			
+				
 				currentPlayer.fortification();
 				if (won)
 				  {
@@ -423,159 +412,70 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		return winner;
 	  }
 	  
-	
-	private String fortificationPhaseInfo(Player currentPlayer)
-	  {
-		// "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n"
-		String phaseInfoString = "";
-		switch (currentPlayer.getClass().getSimpleName()){
-		  case "HumanPlayer":
-			phaseInfoString=  "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n";
-			break;
-		  case "AggressivePlayer":
-			phaseInfoString =  "1- Always fortify when possible.\n2- fortify a country in order to maximize aggregation in one country.\n";
-			break;
-		  case "BenevolentPlayer":
-			phaseInfoString =  "1- fortify the weakest country\n";
-			break;
-		  case "CheaterPlayer":
-			phaseInfoString =  "1- doubles the number of armies on its countries that have neighbors belong to other players\n";
-			break;
-		  case "RandomPlayer":
-			phaseInfoString =  "1- fortify a random country.\n";
-			break;
-		}
-		
-		return phaseInfoString;
-
-	  }
-
-	private String attackphaseInfo(Player currentPlayer)
-	  {
-		//"1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied."
-		String phaseInfoString = "";
-		switch (currentPlayer.getClass().getSimpleName()){
-		  case "HumanPlayer":
-			phaseInfoString=  "1- Choose to attack or not.\n2- Attack as many times as needed\n3- Win a card if one territory been occupied.\n";
-			break;
-		  case "AggressivePlayer":
-			phaseInfoString =  "1- Always attack when possible.\n2- keep Attacking from country with highest number of armies\n3- Win a card if one territory been occupied.\n";
-			break;
-		  case "BenevolentPlayer":
-			phaseInfoString =  "1- Never attack\n";
-			break;
-		  case "CheaterPlayer":
-			phaseInfoString =  "1- Always concqure adjecent countries to his owned countries\n";
-			break;
-		  case "RandomPlayer":
-			phaseInfoString =  "1- Random number of attacks.\n2- against random countries\n";
-			break;
-		}
-		
-		return phaseInfoString;
-	  }
-
-	private String reinforcementPhaseInfo(Player currentPlayer)
-	  {
-		
-		
-		String phaseInfoString = "";
-		switch (currentPlayer.getClass().getSimpleName()){
-		  case "HumanPlayer":
-			phaseInfoString=  "1- Calculate addtional armies.\n2- Allocate additional armies granted to player.\n";
-			break;
-		  case "AggressivePlayer":
-			phaseInfoString =  "1- Calculate addtional armies.\n2- Reinforce the strongest country which can attack.\n";
-			break;
-		  case "BenevolentPlayer":
-			phaseInfoString =  "1- Calculate addtional armies.\n2- Reinforce the weakest country.\n";
-			break;
-		  case "CheaterPlayer":
-			phaseInfoString =  "1- Calculate addtional armies.\n2- double the number of armies in all player's countries.\n";
-			break;
-		  case "RandomPlayer":
-			phaseInfoString =  "1- Calculate addtional armies.\n2- Reinforce a random country.\n";
-			break;
-		}
-		
-		return phaseInfoString;
-	  }
-
-
+	/**
+	 * main executor for the tournament printing a table showing tournament
+	 * result.
+	 */
 	@Override
-	public void execute ()
+	public void execute()
 	  {
 		try
 		  {
 			this.getFileInput(this);
 		  } catch (IOException e)
 		  {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		  }
+		  
+		ArrayList<ArrayList<String>> tournamentResult = new ArrayList<>(tournamentMaps
+		    .size());
 		
-		ArrayList<ArrayList<String>> tournamentResult = new ArrayList<>(tournamentMaps.size());
-		
-		for (int i = 0 ; i < tournamentMaps.size() ; i++) {
-		  
-		  ArrayList<String> mapResult = new ArrayList<>();
-		  
-		  for (int j = 0; j < noOfGames ; j++)
-			{
-		  
-		  try
-			  {
-				//this.setTurnInCardsCount(1);
-				this.risk = this.createGameMap(this.tournamentMaps.get(i).getPath());
-			  } catch (Exception e)
+		for (int i = 0; i < tournamentMaps.size(); i++)
+		  {
+			
+			ArrayList<String> mapResult = new ArrayList<>();
+			
+			for (int j = 0; j < noOfGames; j++)
 			  {
 				
-				e.printStackTrace();
-			  }  
-
-		  String winner = playGame();
-		  mapResult.add(winner);
-		  
-			}
-		  tournamentResult.add(mapResult); 
-		}
-		
-		/*System.out.print("\t");
-		for(int i=1 ; i <= noOfGames; i++)
-		  System.out.print("Game"+i+"\t\t");
-		System.out.println("");
-		  int s = 1;
-		for (ArrayList<String> mapRes : tournamentResult) {
-		  
-		  System.out.print("Map-"+s+++"  ");
-		  for (String roundResult : mapRes) {
-			System.out.print(roundResult+"\t");
-		  }
-		  System.out.println("");
-		  
-		}*/
-		
-		//String.format("%20s %20s %12s"
-		
-		System.out.printf("%-25s","");
-		for(int i=1 ; i <= noOfGames; i++)
-		  {
-		  System.out.printf("%-25s","Game"+i);
-		  
-	  }
-		  System.out.println("\n");
-		  int s = 1;
-		
-		  for (ArrayList<String> mapRes : tournamentResult) {
-			  
-			  System.out.printf("%-25s","Map"+s++);
-			  
-			  for (String roundResult : mapRes) {
-				System.out.printf("%-25s",roundResult);
+				try
+				  {
+					this.risk = this.createGameMap(this.tournamentMaps.get(i)
+					    .getPath());
+				  } catch (Exception e)
+				  {
+					
+					e.printStackTrace();
+				  }
+				  
+				String winner = playGame();
+				mapResult.add(winner);
+				
 			  }
-			  System.out.println("");
-			}  
+			tournamentResult.add(mapResult);
+		  }
+		  
+		System.out.printf("%-25s", "");
+		for (int i = 1; i <= noOfGames; i++)
+		  {
+			System.out.printf("%-25s", "Game" + i);
 			
+		  }
+		System.out.println("\n");
+		int s = 1;
+		
+		for (ArrayList<String> mapRes : tournamentResult)
+		  {
+			
+			System.out.printf("%-25s", "Map" + s++);
+			
+			for (String roundResult : mapRes)
+			  {
+				System.out.printf("%-25s", roundResult);
+			  }
+			System.out.println("");
+		  }
+		  
 	  }
 	  
 	/**
@@ -589,7 +489,7 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	  }
 	  
 	/**
-	 * get the game map object
+	 * sets the game map object
 	 * 
 	 * @param risk game map object
 	 */
@@ -601,7 +501,7 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	/**
 	 * Deck of cards object
 	 * 
-	 * @return object for the deck pf cards
+	 * @return object for the deck of cards
 	 */
 	public DeckOfCards getDeck()
 	  {

@@ -2,8 +2,6 @@ package ca.riskgamet31.controllers;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import ca.riskgamet31.exceptions.InvalidNameException;
@@ -81,8 +79,8 @@ public class StartUpPhase
 	/**
 	 * Creates a player object and add it to player model
 	 * 
-	 * @param playerName name of the player
-	 * @return player
+	 * @param playerData data string for player type and name info
+	 * @return Player return created player object.
 	 * @throws InvalidPlayerNameException InvalidPlayerNameException
 	 * @throws NullPointerException       NullPointerException
 	 * @throws InvalidNameException       if the name has numbers or symbol
@@ -92,28 +90,28 @@ public class StartUpPhase
 	  {
 		String[] playerInfo = playerData.split(Pattern.quote("|"));
 		String playerType = playerInfo[0];
-		String playerName = playerInfo[1]+"-"+playerType;
+		String playerName = playerInfo[1] + "-" + playerType;
 		int army_count = getArmy(playerCount);
 		Player player = null;
-		switch(playerType)
-		{
-		  case "HUM":
-			player = new HumanPlayer(playerName, army_count);
-			break;
-		  case "AGG":
-			player = new AggressivePlayer(playerName, army_count);
-			break;
-		  case "BEN":
-			player = new BenevolentPlayer(playerName, army_count);
-			break;
-		  case "CHE":
-			player = new CheaterPlayer(playerName, army_count);
-			break;
-		  case "RAN":
-			player = new RandomPlayer(playerName, army_count);
-			break;
-		}
-		
+		switch (playerType)
+		  {
+			case "HUM":
+			  player = new HumanPlayer(playerName, army_count);
+			  break;
+			case "AGG":
+			  player = new AggressivePlayer(playerName, army_count);
+			  break;
+			case "BEN":
+			  player = new BenevolentPlayer(playerName, army_count);
+			  break;
+			case "CHE":
+			  player = new CheaterPlayer(playerName, army_count);
+			  break;
+			case "RAN":
+			  player = new RandomPlayer(playerName, army_count);
+			  break;
+		  }
+		  
 		return player;
 	  }
 	  
@@ -211,7 +209,5 @@ public class StartUpPhase
 			  watchdog = 0;
 		  }
 	  }
-	  
-
 	  
   }
