@@ -176,9 +176,11 @@ public class TestHumanPlayer
 	@Test
 	public void testarmies()
 	  {
+		p2.setArmies(12);
+		int playerArmiesBefore = p2.getPlayerArmies();
 		int army1 = 12;
-		p1.decrementArmies(army1);
-		assertNotEquals(army1, p1);
+		p2.decrementArmies(army1);
+		assertEquals(0, p2.getPlayerArmies());
 	  }
 	  
 	/**

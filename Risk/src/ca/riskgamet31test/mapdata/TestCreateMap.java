@@ -2,6 +2,7 @@
 package ca.riskgamet31test.mapdata;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class TestCreateMap
 		int a1 = c1.getCountryMap().size();
 		c1.createGraphNode("america");
 		int a2 = c1.getCountryMap().size();
-		assertNotEquals(a1, a2);
+		assertEquals(1, a2);
 	  }
 	  
 	/**
@@ -105,7 +106,7 @@ public class TestCreateMap
 		Continent co1 = c1.createContinents("hongkong", 3, countriesList);
 		c1.getContinentSet().add(co1.getContinentName());
 		int a2 = c1.getContinentSet().size();
-		assertNotEquals(a1, a2);
+		assertEquals(a1 + 1, a2);
 	  }
 	
 	  
