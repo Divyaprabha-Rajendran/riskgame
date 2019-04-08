@@ -539,7 +539,8 @@ public class TournamentMainDriver extends Observable implements MainDriver
 			}
 		  tournamentResult.add(mapResult); 
 		}
-		System.out.print("\t");
+		
+		/*System.out.print("\t");
 		for(int i=1 ; i <= noOfGames; i++)
 		  System.out.print("Game"+i+"\t\t");
 		System.out.println("");
@@ -552,8 +553,29 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		  }
 		  System.out.println("");
 		  
-		}
+		}*/
 		
+		//String.format("%20s %20s %12s"
+		
+		System.out.printf("%-25s","");
+		for(int i=1 ; i <= noOfGames; i++)
+		  {
+		  System.out.printf("%-25s","Game"+i);
+		  
+	  }
+		  System.out.println("\n");
+		  int s = 1;
+		
+		  for (ArrayList<String> mapRes : tournamentResult) {
+			  
+			  System.out.printf("%-25s","Map"+s++);
+			  
+			  for (String roundResult : mapRes) {
+				System.out.printf("%-25s",roundResult);
+			  }
+			  System.out.println("");
+			}  
+			
 	  }
 	  
 	/**
