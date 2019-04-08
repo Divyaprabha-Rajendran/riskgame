@@ -8,6 +8,7 @@ import org.junit.Test;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.maincomps.RandomPlayer;
 
 /**
  * Tests the GameMap class
@@ -25,7 +26,7 @@ public class TestGameMap
 	/**
 	 * Player Class Reference
 	 */
-	static Player p1;
+	static RandomPlayer p1;
 	
 	/**
 	 * Object created before all the test method
@@ -37,7 +38,7 @@ public class TestGameMap
 		G1 = new GameMap();
 		try
 		  {
-			p1 = new Player("P1", 7);
+			p1 = new RandomPlayer("P1", 7);
 		  } catch (NullPointerException | InvalidPlayerNameException e)
 		  {
 			e.printStackTrace();
