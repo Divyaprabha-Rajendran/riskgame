@@ -9,6 +9,13 @@ import javax.xml.transform.TransformerException;
 
 import ca.riskgamet31.controllers.GameMainDriver;
 
+/**
+ * Creating a backup object and storing the serialized object during the runtime.
+ * 
+ * @author Divyaprabha Rajendran
+ * @version 1.0
+ */
+
 public class SaveGame implements java.io.Serializable
 {
 
@@ -18,20 +25,30 @@ public class SaveGame implements java.io.Serializable
 	 {
 		 currBkp=new Backup();
 	 }
-	public void updateGame(GameMainDriver gm) throws TransformerException, IOException
+	 
+	 /**
+	  * creates a backup object by storing the data as serialized object in a file.
+	  *
+	  * @param game To save the current state of the game.
+	  * 
+	  * @throws TransformerException Exception in transforming the object into serilaizable
+	  * @throws IOException  Exception while handling the input and output to the file
+	  */
+	 
+	public void updateGame(GameMainDriver game) throws TransformerException, IOException
 	{
 		String xmlFilePath = System
 			    .getProperty("user.dir") +"\\Risk_MapData\\game_obj.ser";
 	    
-		currBkp.setGameMap(gm.getGameMap());
-		currBkp.setXmlPath(gm.getGameMap().getGameMapFile());
-		currBkp.setTurnInCardsCount(gm.getTurnInCardsCount());
-		currBkp.setTurnId(gm.getTurnID());
+		currBkp.setGameMap(game.getGameMap());
+		currBkp.setXmlPath(game.getGameMap().getGameMapFile());
+		currBkp.setTurnInCardsCount(game.getTurnInCardsCount());
+		currBkp.setTurnId(game.getTurnID());
 		
-		currBkp.setDeck(gm.getDeck());
-		currBkp.setPlayers(gm.getPlayerList());
+		currBkp.setDeck(game.getDeck());
+		currBkp.setPlayers(game.getPlayerList());
 		
-		currBkp.setPlayerWorldDominationView(gm.getPlayerWorldDominationView());
+		currBkp.setPlayerWorldDominationView(game.getPlayerWorldDominationView());
 		
 		FileOutputStream file = new FileOutputStream(xmlFilePath); 
        ObjectOutputStream out = new ObjectOutputStream(file); 

@@ -17,6 +17,12 @@ import ca.riskgamet31.views.PlayersWorldDominationView;
 import javax.xml.parsers.*;
 import java.io.*;
 
+/**
+ * Restoring the data from the serialized object.
+ * 
+ * @author Divyaprabha Rajendran
+ * @version 1.0
+ */
 public class LoadGame 
 {
 	Backup currBkp;
@@ -25,7 +31,18 @@ public class LoadGame
 	 {
 		 currBkp=new Backup();
 	 }
-    public void resumeGame() throws InvalidGraphException, InvalidNameException, InvalidCountryException, InvalidContinentException, InvalidLinkException, Exception
+	 
+	 /**
+	  * creates a new gamemaindriver object from the serialized object and starts playing where the game crashed or stopped.
+	  * 
+	  *  @throws InvalidGraphException Exception if the graph is invalid for reasons like null value.
+	  *  @throws InvalidNameException  Exception if the countries or continents having not proper names.
+	  *  @throws InvalidCountryException  Exception if the country is not valid.
+	  *  @throws InvalidContinentException Exception if the continent is not valid.
+	  *  @throws InvalidLinkException Exception if the links established are not proper.
+	  */
+    
+	 public void resumeGame() throws InvalidGraphException, InvalidNameException, InvalidCountryException, InvalidContinentException, InvalidLinkException, Exception
     {
       
       GameMainDriver gm = new GameMainDriver();
@@ -39,10 +56,6 @@ public class LoadGame
           
         in.close(); 
         file.close(); 
-        
-       // String xmlpath = currBkp.getXmlPath();
-        
-        //GameMap gMap = gm.createGameMap(xmlpath);
         
         gm.setGameMap(currBkp.getGameMap());
         
