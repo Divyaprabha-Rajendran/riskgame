@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ca.riskgamet31.controllers.GameMainDriver;
+//import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
@@ -128,7 +128,7 @@ public interface Player
 	
 	ArrayList<GraphNode> canAttack();
 	
-	boolean executeTurnInCard(GameMainDriver gmd, String request);
+	boolean executeTurnInCard(MainDriver gmd, String request);
 	
 	
 	/**
@@ -209,7 +209,7 @@ public interface Player
 	 * @param driver main game driver
 	 * @return both attacking and target countries graph nodes.
 	 */
-	public ArrayList<GraphNode> AttDefCountries(GameMainDriver driver);
+	public ArrayList<GraphNode> AttDefCountries(MainDriver driver);
 	
 	/**
 	 * main attack method
@@ -217,7 +217,7 @@ public interface Player
 	 * @param driver main game driver
 	 * @return true if attacker won at least one country
 	 */
-	public boolean attack(GameMainDriver driver);
+	public boolean attack(MainDriver driver);
 	
 	/**
 	 * a method to handle individual attack rounds
@@ -228,7 +228,7 @@ public interface Player
 	 * @param allOut              all-Out option
 	 * @return true if attacker occupied the attacked country.
 	 */
-	public boolean attackRound(GameMainDriver driver, GraphNode attackerCountryNode,
+	public boolean attackRound(MainDriver driver, GraphNode attackerCountryNode,
 	    GraphNode defenderCountryNode, boolean allOut);
 	
 	/**

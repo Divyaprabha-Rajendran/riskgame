@@ -3,10 +3,14 @@ package ca.riskgamet31.controllers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 
@@ -38,7 +42,7 @@ import ca.riskgamet31.views.PlayersWorldDominationView;
  * @version 1.0
  *
  */
-public class GameMainDriver extends Observable implements MainDriver  
+public class TournamentMainDriver extends Observable implements MainDriver  
   {
 	/**
 	 * game map member
@@ -71,9 +75,21 @@ public class GameMainDriver extends Observable implements MainDriver
 	/**
 	 * constructor for game main driver
 	 */
-	public GameMainDriver()
+	private ArrayList<File> tournamentMaps;
+	
+	private ArrayList<String> tournamentPlayers;
+	
+	private int noOfGames;
+	
+	private int noOfTurns;
+	
+	public TournamentMainDriver()
 	  {
-		phaseInfo.clear();
+		
+		tournamentMaps = new ArrayList<>();
+		tournamentPlayers = new ArrayList<>();
+		noOfGames = 0;
+		noOfTurns = 0;
 		risk = null;
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
@@ -82,7 +98,7 @@ public class GameMainDriver extends Observable implements MainDriver
 		PhaseView phaseview = new PhaseView();
 		this.addObserver(phaseview);
 		
-		playerWorldDominationView = new PlayersWorldDominationView();
+		//playerWorldDominationView = new PlayersWorldDominationView();
 	  }
 	  
 	/**
@@ -143,9 +159,11 @@ public class GameMainDriver extends Observable implements MainDriver
 		while (continueEditing)
 		  {
 			System.out.println("Choose an option...");
-			System.out.println("1. open and edit existing map...");
-			System.out.println("2. open default map..");
-			System.out.println("3. start playing..");
+			System.out.println("1. add maps to tournament...");
+			System.out.println("2. add players to tournament.");
+			System.out.println("3. set maximum number of allowed turns per game.");
+			System.out.println("4. set number of games per map.");
+			System.out.println("5. start playing..");
 			int option = scan.nextInt();
 			
 			switch (option)
@@ -160,9 +178,37 @@ public class GameMainDriver extends Observable implements MainDriver
 					      .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
 					else
 					  xmlFile = chooser.getSelectedFile();
+					   
 					if (Desktop.isDesktopSupported())
 					  {
 						Desktop.getDesktop().open(xmlFile);
+						
+						try
+						  {
+							GameMap aMap = GM.createGameMap(xmlFile.getPath());
+							tournamentMaps.add(xmlFile);
+							
+						  } catch (InvalidNameException e)
+						  {
+							
+						  } catch (InvalidCountryException e)
+						  {
+							
+						  } catch (InvalidContinentException e)
+						  {
+							
+						  } catch (InvalidGraphException e)
+						  {
+							
+						  } catch (InvalidLinkException e)
+						  {
+							
+						  } catch (Exception e)
+						  {
+							System.err.println(e.getMessage());
+							System.err.println("XML file is malformed.");
+							
+						  }
 					  } else
 					  {
 						System.out.println("not a valid file");
@@ -172,46 +218,41 @@ public class GameMainDriver extends Observable implements MainDriver
 				  }
 				case 2:
 				  {
-					xmlFile = new File(System
-					    .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
+					String userInput = UserInputOutput.getInstance().requestUserInput("Enter Players Type i.e. AGG|RAN|BEN|CHE");
+					
+					String[] playerTypes = userInput.split(Pattern.quote("|"));
+					
+					tournamentPlayers.addAll(Arrays.asList(playerTypes));
 					
 					break;
 				  }
 				case 3:
-				  {
-					try
 					  {
-						this.risk = GM.createGameMap(xmlFile.getPath());
+						String userInput = UserInputOutput.getInstance().requestUserInput("Enter maximum number of allowed turns per game");
 						
-						continueEditing = false;
-					  } catch (InvalidNameException e)
-					  {
+						noOfTurns = Integer.parseInt(userInput);
 						
-					  } catch (InvalidCountryException e)
-					  {
-						
-					  } catch (InvalidContinentException e)
-					  {
-						
-					  } catch (InvalidGraphException e)
-					  {
-						
-					  } catch (InvalidLinkException e)
-					  {
-						
-					  } catch (Exception e)
-					  {
-						System.err.println(e.getMessage());
-						System.err.println("XML file is malformed.");
-						
+						break;
 					  }
+				case 4:
+					  {
+						String userInput = UserInputOutput.getInstance().requestUserInput("Enter number of games per map");
+						
+						noOfGames = Integer.parseInt(userInput);
+						
+						break;
+					  }
+				case 5:
+				  {
+					
+						continueEditing = false;
 					  
 					break;
 				  }
 			  }
 		  }
-		;
-		return xmlFile.getPath();
+		
+		return "Maps and other input are collected.";
 	  }
 	
 	  
@@ -231,60 +272,24 @@ public class GameMainDriver extends Observable implements MainDriver
 		this.updatePhaseInfo("Stratup game phase", "No players yet", "1- Creating players.\n2- Random distribution of countries.\n3- Players allocate armies to their countries\n");
 		this.setChanged();
 		this.notifyObservers(phaseInfo);
-		do
-		  {
-			try
-			  {
-				String userInput = "";
-				do
-				  {
-					userInput = UserInputOutput.getInstance()
-					    .requestUserInput("Enter the number of players...");
-					
-				  } while (!inpV.validateNumbers(userInput));
-				no_players = Integer.parseInt(userInput);
-				if (no_players > 6 || no_players < 2)
-				  {
-					throw new InvalidPlayerCountInput("You can choose players of 3 to 6");
-				  }
-			  } catch (InvalidPlayerCountInput e)
-			  {
-				System.out.println(e);
-			  }
-		  } while (no_players > 6 || no_players < 2);
-		  
-		StartUp.setPlayerCount(no_players);
 		
-		int i = 0;
-		while (i < no_players)
+		
+		StartUp.setPlayerCount(tournamentPlayers.size());
+		int i = 1;
+		for (String playerName : tournamentPlayers) {
+		Player player;
+		try
 		  {
-			try
-			  {
-				
-				String name = "", userInput = "";
-				
-					userInput = UserInputOutput.getInstance()
-					    .requestUserInput("Enter Type and name i.e. AGG|Dragon...");
-					
-				  
-				name = userInput;
-				
-				
-				
-				Player player = StartUp.createPlayers(name);
-				
-				
-				
-				Players.setPlayerList(player);
-				i = i + 1;
-			  } catch (InvalidPlayerException exception)
-			  {
-				System.out.println(exception);
-			  } catch (InvalidPlayerNameException exception)
-			  {
-				System.out.println(exception);
-			  }
+			player = StartUp.createPlayers(playerName+"|Player"+i++);
+			Players.setPlayerList(player);
+		  
+		  } catch (InvalidPlayerNameException | InvalidPlayerException e)
+		  {
+			e.printStackTrace();
 		  }
+		
+		
+		}
 	  }
 	  
 	/**

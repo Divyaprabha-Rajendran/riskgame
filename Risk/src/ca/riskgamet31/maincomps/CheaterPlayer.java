@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import ca.riskgamet31.controllers.GameMainDriver;
+import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 
@@ -268,7 +269,7 @@ public class CheaterPlayer implements Player
 	 * @return both attacking and target countries graph nodes.
 	 */
 	@Override
-	public ArrayList<GraphNode> AttDefCountries(GameMainDriver driver)
+	public ArrayList<GraphNode> AttDefCountries(MainDriver driver)
 	  {
 		ArrayList<GraphNode> dummyList = new ArrayList<>();
 		return dummyList;
@@ -281,7 +282,7 @@ public class CheaterPlayer implements Player
 	 * @return true if attacker won at least one country
 	 */
 	@Override
-	public boolean attack(GameMainDriver driver)
+	public boolean attack(MainDriver driver)
 	  {
 		boolean won = false;
 		//boolean allOut = false;
@@ -372,7 +373,7 @@ public class CheaterPlayer implements Player
 	 * @return true if attacker occupied the attacked country.
 	 */
 	@Override
-	public boolean attackRound(GameMainDriver driver,
+	public boolean attackRound(MainDriver driver,
 	    GraphNode attackerCountryNode, GraphNode defenderCountryNode,
 	    boolean allOut)
 	  {
@@ -388,9 +389,12 @@ public class CheaterPlayer implements Player
 		 * @return true if exchange been successful
 		 */
 		
-	public boolean executeTurnInCard(GameMainDriver gameMainDriver,
+	public boolean executeTurnInCard(MainDriver gameMainDriver1,
 		    String request)
 		  {
+			
+			
+			GameMainDriver gameMainDriver = (GameMainDriver) gameMainDriver1;
 			//"Infantry", "Cavalry", "Artillery"
 			
 			   //long distinctCards = this.getHand().getCardsFromHand().stream().distinct().count();
@@ -422,16 +426,13 @@ public class CheaterPlayer implements Player
 				}
 			  
 			}
-					
 					this.setArmies(this
 					    .getPlayerArmies() + (gameMainDriver.turnInCardsCount++ * 5));
 					System.out.println("Now " + this
 					    .getplayerName() + ": is eligible for " + this
 					        .getPlayerArmies() + " armies");
 					System.out.println("Current player's hand has " + hand
-					    .getCardsFromHand());
-					
-				  
+					    .getCardsFromHand()); 
 			  
 			return true;
 		  }
