@@ -13,6 +13,7 @@ import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.maincomps.RandomPlayer;
 
 /**
  * Tests the StartupPhase class
@@ -30,7 +31,7 @@ public class TestStartupPhase
 	/**
 	 * Player Class Reference
 	 */
-	static Player p1, p2;
+	static RandomPlayer p1, p2;
 	/**
 	 * Country Class Reference
 	 */
@@ -55,7 +56,7 @@ public class TestStartupPhase
 	    ca.riskgamet31.exceptions.InvalidNameException
 	  {
 		S1 = new StartUpPhase();
-		p1 = new Player("P1", 4);
+		p1 = new RandomPlayer("P1", 4);
 		C1 = new Country("india");
 		C2 = new Country("china");
 		G1 = new GraphNode(C1);
@@ -76,7 +77,7 @@ public class TestStartupPhase
 		String input = "india\n1\nchina\n3\n";
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
-		S1.distributeArmies(p1);
+		p1.initialdistributeArmies();
 		int a2 = p1.getPlayerArmies();
 		assertNotEquals(a1, a2);
 		
