@@ -12,6 +12,7 @@ import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.controllers.TournamentMainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
+import ca.riskgamet31.utility.Constants;
 
 /**
  * main Players class
@@ -206,7 +207,8 @@ public class AggressivePlayer implements Player
 	  
 	  ArrayList<GraphNode> returnedList = new ArrayList<>();
 	  
-	  List<GraphNode> destinationCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes().stream().filter(i -> i.getNodeNeighbors().stream().anyMatch(x -> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())) ).collect(Collectors.toList())); 
+	  List<GraphNode> destinationCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes()
+		  .stream().filter(i -> i.getNodeNeighbors().stream().anyMatch(x -> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())) ).collect(Collectors.toList())); 
 	  
 	  destinationCountries.sort((x2,x1) -> x1.getNodeData().getArmies() - x2.getNodeData().getArmies());
 	  
@@ -548,11 +550,11 @@ public class AggressivePlayer implements Player
 		 * @param request selected cards by the player
 		 * @return true if exchange been successful
 		 */
-	public boolean executeTurnInCard(MainDriver gameMainDriver1,
+	public boolean executeTurnInCard(MainDriver gameMainDriver,
 		    String request)
 		  {
 			
-			TournamentMainDriver gameMainDriver = (TournamentMainDriver)gameMainDriver1;
+			
 			//"Infantry", "Cavalry", "Artillery"
 			
 			   //long distinctCards = this.getHand().getCardsFromHand().stream().distinct().count();
@@ -575,7 +577,7 @@ public class AggressivePlayer implements Player
 			  for (List<Card> listOfCardsPerType : handsCards.values()) {
 				  
 				if (listOfCardsPerType.size() >= 3 && continueDelete) {
-				  
+				  				  
 				  this.getHand().getCardsFromHand().remove(listOfCardsPerType.get(0));
 				  this.getHand().getCardsFromHand().remove(listOfCardsPerType.get(1));
 				  this.getHand().getCardsFromHand().remove(listOfCardsPerType.get(2));
@@ -586,7 +588,7 @@ public class AggressivePlayer implements Player
 			}
 					
 					this.setArmies(this
-					    .getPlayerArmies() + (gameMainDriver.turnInCardsCount++ * 5));
+					    .getPlayerArmies() + (Constants.turnInCards++ * 5));
 					System.out.println("Now " + this
 					    .getplayerName() + ": is eligible for " + this
 					        .getPlayerArmies() + " armies");

@@ -7,10 +7,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ca.riskgamet31.controllers.GameMainDriver;
+
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
+import ca.riskgamet31.utility.Constants;
 import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
 
@@ -998,11 +999,11 @@ public class HumanPlayer implements Player
 		 * @return true if exchange been successful
 		 */
 	@Override	
-	public boolean executeTurnInCard(MainDriver gameMainDriver1,
+	public boolean executeTurnInCard(MainDriver gameMainDriver,
 		    String request)
 		  {
 			
-			GameMainDriver gameMainDriver = (GameMainDriver) gameMainDriver1;
+			
 			InputValidator inpValidator = new InputValidator();
 			boolean executed = false;
 			
@@ -1042,7 +1043,7 @@ public class HumanPlayer implements Player
 					        .parseInt(selectedCards[1]), Integer
 					            .parseInt(selectedCards[2]));
 					
-					this.setArmies(this.getPlayerArmies() + (gameMainDriver.turnInCardsCount++ * 5));
+					this.setArmies(this.getPlayerArmies() + (Constants.turnInCards++ * 5));
 					System.out.println("Now " + this
 					    .getplayerName() + ": is eligible for " + this
 					        .getPlayerArmies() + " armies");

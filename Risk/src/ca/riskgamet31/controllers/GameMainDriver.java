@@ -25,6 +25,7 @@ import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.utility.Constants;
 import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
 import ca.riskgamet31.views.PhaseView;
@@ -58,10 +59,6 @@ public class GameMainDriver extends Observable implements MainDriver
 	 */
 	DeckOfCards deck;
 	
-	/**
-	 * Turn In count during game
-	 */
-	public int turnInCardsCount;
 	
 	/**
 	 * player world domination view
@@ -77,7 +74,7 @@ public class GameMainDriver extends Observable implements MainDriver
 		risk = null;
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
-		turnInCardsCount = 1;
+		Constants.turnInCards = 1;
 		//phaseInfo = new ArrayList<>();
 		PhaseView phaseview = new PhaseView();
 		this.addObserver(phaseview);
@@ -93,7 +90,7 @@ public class GameMainDriver extends Observable implements MainDriver
 	public int getTurnInCardsCount()
 	  {
 		
-		return turnInCardsCount;
+		return Constants.turnInCards;
 	  }
 	  
 	/**
@@ -103,7 +100,7 @@ public class GameMainDriver extends Observable implements MainDriver
 	 */
 	public void setTurnInCardsCount(int turnInCardsCount)
 	  {
-		this.turnInCardsCount = turnInCardsCount;
+		Constants.turnInCards = turnInCardsCount;
 	  }
 	  
 	/**

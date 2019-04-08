@@ -24,11 +24,12 @@ public class RiskMainDriver
 		// if single game Game main driver object then execute method
 		switch(userSelection) {
 		  case"1":
-		GameMainDriver driver = new GameMainDriver();
-		driver.execute();
+		GameMainDriver singleGameDriver = new GameMainDriver();
+		singleGameDriver.execute();
 		break;
 		  case"2":
-			
+			TournamentMainDriver tournament = new TournamentMainDriver();
+			tournament.execute();			
 			break;
 		  case"3":
 			break;

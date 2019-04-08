@@ -13,6 +13,7 @@ import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
+import ca.riskgamet31.utility.Constants;
 
 /**
  * main Players class
@@ -338,8 +339,10 @@ public class RandomPlayer implements Player
 		
 		attDef = canAttack();
 		int attackedAlready = 0;
-		while (attDef.size() == 2  && attackedAlready++ < noOfAttacks & attDef.get(0).getNodeData().getArmies() >1) {
-				boolean wonRound = this
+		while (attDef.size() == 2  && attackedAlready++ < noOfAttacks && attDef.get(0).getNodeData().getArmies() >1) {
+				
+		  System.out.println("RANDON bug:"+attDef.get(0)+" "+attDef.get(1));
+		  boolean wonRound = this
 				    .attackRound(driver, attDef.get(0), attDef.get(1), true);
 				attDef.clear();
 				attDef = canAttack();
@@ -517,11 +520,10 @@ public class RandomPlayer implements Player
 		 * @return true if exchange been successful
 		 */
 		
-	public boolean executeTurnInCard(MainDriver gameMainDriver1,
+	public boolean executeTurnInCard(MainDriver gameMainDriver,
 		    String request)
 		  {
 			
-			GameMainDriver gameMainDriver = (GameMainDriver) gameMainDriver1;
 			//"Infantry", "Cavalry", "Artillery"
 			
 			   //long distinctCards = this.getHand().getCardsFromHand().stream().distinct().count();
@@ -555,14 +557,12 @@ public class RandomPlayer implements Player
 			}
 					
 					this.setArmies(this
-					    .getPlayerArmies() + (gameMainDriver.turnInCardsCount++ * 5));
+					    .getPlayerArmies() + (Constants.turnInCards++ * 5));
 					System.out.println("Now " + this
 					    .getplayerName() + ": is eligible for " + this
 					        .getPlayerArmies() + " armies");
 					System.out.println("Current player's hand has " + hand
 					    .getCardsFromHand());
-					
-				  
 			  
 			return true;
 		  }

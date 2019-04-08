@@ -40,9 +40,6 @@ public interface MainDriver
 	public abstract String getFileInput(MainDriver GM) throws IOException;
 	  
 	
-	
-	
-	
 	/**
 	 * Creates the game map from the CreateMap Class for the player.
 	 * 
@@ -86,6 +83,7 @@ public interface MainDriver
 	 */
 	public void createPlayer() throws NullPointerException, InvalidNameException;
 	  
+	
 	/**
 	 * sets up the game by calling the distributeCountries which randomly
 	 * distributes countries among players. Once the countries are distributed,
@@ -126,8 +124,7 @@ public interface MainDriver
 	 */
 	public  void execute();
 
-	public PlayerModel getPlayerList();
-	  
-	  
+	
+	public PlayerModel getPlayerList();  
 	  
   }

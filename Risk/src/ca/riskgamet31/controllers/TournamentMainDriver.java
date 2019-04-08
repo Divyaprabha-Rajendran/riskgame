@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 
+import com.sun.xml.internal.fastinfoset.tools.TransformInputOutput;
+
 import ca.riskgamet31.exceptions.InvalidContinentException;
 import ca.riskgamet31.exceptions.InvalidCountryException;
 import ca.riskgamet31.exceptions.InvalidGraphException;
@@ -29,6 +31,7 @@ import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.utility.Constants;
 import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
 import ca.riskgamet31.views.PhaseView;
@@ -62,10 +65,6 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	 */
 	DeckOfCards deck;
 	
-	/**
-	 * Turn In count during game
-	 */
-	public int turnInCardsCount;
 	
 	/**
 	 * player world domination view
@@ -93,10 +92,8 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		risk = null;
 		Players = new PlayerModel();
 		StartUp = new StartUpPhase();
-		turnInCardsCount = 1;
+		Constants.turnInCards = 1;
 		//phaseInfo = new ArrayList<>();
-		PhaseView phaseview = new PhaseView();
-		this.addObserver(phaseview);
 		
 		//playerWorldDominationView = new PlayersWorldDominationView();
 	  }
@@ -109,7 +106,7 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	public int getTurnInCardsCount()
 	  {
 		
-		return turnInCardsCount;
+		return Constants.turnInCards;
 	  }
 	  
 	/**
@@ -119,9 +116,11 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	 */
 	public void setTurnInCardsCount(int turnInCardsCount)
 	  {
-		this.turnInCardsCount = turnInCardsCount;
+		Constants.turnInCards = turnInCardsCount;
 	  }
 	  
+	
+	
 	/**
 	 * to get players list
 	 * 
@@ -185,6 +184,7 @@ public class TournamentMainDriver extends Observable implements MainDriver
 						
 						try
 						  {
+							
 							GameMap aMap = GM.createGameMap(xmlFile.getPath());
 							tournamentMaps.add(xmlFile);
 							
@@ -273,7 +273,6 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		this.setChanged();
 		this.notifyObservers(phaseInfo);
 		
-		
 		StartUp.setPlayerCount(tournamentPlayers.size());
 		int i = 1;
 		for (String playerName : tournamentPlayers) {
@@ -325,7 +324,6 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		
 	  }
 	  
- 
 	/**
 	 * a method representing each turn
 	 * 
@@ -334,36 +332,64 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	public String playGame()
 	  {
 		
+		//phaseInfo.clear();
+		
+		Players = new PlayerModel();
+		StartUp = new StartUpPhase();
+		setTurnInCardsCount(1);
+			try
+			  {
+				this.createPlayer();
+			  } catch (NullPointerException | InvalidNameException e)
+			  {
+				
+				e.printStackTrace();
+			  }
+			this.setUpGame();
+			//this.risk.viewGameMap();
+		
 		boolean endGame = false;
 		Player currentPlayer;
 		int turnID = 0;
-		String winner = "NA";
+		int realTurnID = 0;
+		String winner = "Draw";
 		boolean won = false;
-		this.addObserver(this.playerWorldDominationView);
 		
-		while (!endGame)
+		while (!endGame && realTurnID < this.noOfTurns)
 		  {
+			realTurnID++;
 			won = false;
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
 			currentPlayer.reinforcementArmiesCalc(risk, 0);
 			
-			String userI = UserInputOutput.getInstance().requestUserInput("Press any key to Continue....");
+			boolean turnedInCards = false;
+			if (currentPlayer.getHand().isEligibleToExchange())
+			  {
+				while (currentPlayer.getHand().mustTurnInCards())
+				  {
+					turnedInCards = currentPlayer
+					    .executeTurnInCard(this, "Must exchange cards: Select cards to exchange, ex: 235");
+				  }
+				  
+				if (!turnedInCards)
+				  {
+					turnedInCards = currentPlayer
+					    .executeTurnInCard(this,"Select cards to exchange, ex: 235 , 999 to exit");
+				  }
+				  
+			  } else
+			  {
+				System.out.println("You are not eligible to exchange cards.");
+			  }
 			
-			// reinforcement phase
 			
-			this.updatePhaseInfo("Reinforcement Phase", currentPlayer
-			    .getplayerName(), reinforcementPhaseInfo(currentPlayer));
-			this.setChanged();
-			this.notifyObservers(phaseInfo);
+			
+			
+			
+			
 			
 			currentPlayer.reinforcement();
 			
-			userI = UserInputOutput.getInstance().requestUserInput("Press any key to Continue....");
-			/// Attack phase
-			this.updatePhaseInfo("Attack phase", currentPlayer
-			    .getplayerName(), attackphaseInfo(currentPlayer));
-			this.setChanged();
-			this.notifyObservers(phaseInfo);
 			
 			won = currentPlayer.attack(this);
 			
@@ -376,15 +402,10 @@ public class TournamentMainDriver extends Observable implements MainDriver
 				    .get(0).getplayerName();
 			  }
 			
-			userI = UserInputOutput.getInstance().requestUserInput("Press any key to Continue....");
 			// Fortification phase
 			if (!endGame)
 			  {
-				this.updatePhaseInfo("Fortification phase", currentPlayer
-				    .getplayerName(), fortificationPhaseInfo(currentPlayer));
-				this.setChanged();
-				this.notifyObservers(phaseInfo);
-				
+			
 				currentPlayer.fortification();
 				if (won)
 				  {
@@ -402,6 +423,7 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		return winner;
 	  }
 	  
+	
 	private String fortificationPhaseInfo(Player currentPlayer)
 	  {
 		// "1- Choose to fortify or not.\n2- Move as many armies as need to one territory.\n"
@@ -483,26 +505,55 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	@Override
 	public void execute ()
 	  {
-		
 		try
 		  {
-			String xmlpath = this.getFileInput(this);
-			this.createPlayer();
-			this.setUpGame();
-			this.risk.viewGameMap();
-			this.playGame();
-		  } catch (InvalidNameException e)
-		  {
-			e.printStackTrace();
-			
+			this.getFileInput(this);
 		  } catch (IOException e)
 		  {
-			e.printStackTrace();
-		  } catch (NullPointerException e)
-		  {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		  }
+		
+		ArrayList<ArrayList<String>> tournamentResult = new ArrayList<>(tournamentMaps.size());
+		
+		for (int i = 0 ; i < tournamentMaps.size() ; i++) {
 		  
+		  ArrayList<String> mapResult = new ArrayList<>();
+		  
+		  for (int j = 0; j < noOfGames ; j++)
+			{
+		  
+		  try
+			  {
+				//this.setTurnInCardsCount(1);
+				this.risk = this.createGameMap(this.tournamentMaps.get(i).getPath());
+			  } catch (Exception e)
+			  {
+				
+				e.printStackTrace();
+			  }  
+
+		  String winner = playGame();
+		  mapResult.add(winner);
+		  
+			}
+		  tournamentResult.add(mapResult); 
+		}
+		System.out.print("\t");
+		for(int i=1 ; i <= noOfGames; i++)
+		  System.out.print("Game"+i+"\t\t");
+		System.out.println("");
+		  int s = 1;
+		for (ArrayList<String> mapRes : tournamentResult) {
+		  
+		  System.out.print("Map-"+s+++"  ");
+		  for (String roundResult : mapRes) {
+			System.out.print(roundResult+"\t");
+		  }
+		  System.out.println("");
+		  
+		}
+		
 	  }
 	  
 	/**

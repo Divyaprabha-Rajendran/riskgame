@@ -28,6 +28,8 @@ public class Constants
 	 */
 	public static final int ARMIES_5_PLAYERS = 25;
 	
+	public static int turnInCards = 1;
+	
 	/**
 	 * Armies if 6 players are playing
 	 */
@@ -37,4 +39,6 @@ public class Constants
 	 * Armies if not valid player count is entered
 	 */
 	public static final int ARMIES_NOTVALID_PLAYERS = -1;
+	
+	
   }

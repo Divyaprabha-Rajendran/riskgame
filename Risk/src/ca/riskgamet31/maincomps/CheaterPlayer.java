@@ -11,6 +11,7 @@ import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
+import ca.riskgamet31.utility.Constants;
 
 /**
  * main Players class
@@ -250,8 +251,8 @@ public class CheaterPlayer implements Player
 		System.out.println("All Country armies will be doubled for " + this.getplayerName());
 		
 		for (GraphNode countryNode : this.getPlayerGraph().getGraphNodes()) {
-		  
-		  countryNode.getNodeData().setArmies(countryNode.getNodeData().getArmies()*2);
+		  int reinforcementNumber = countryNode.getNodeData().getArmies()*2>=100000?100000:countryNode.getNodeData().getArmies()*2;
+		  countryNode.getNodeData().setArmies(reinforcementNumber);
 		  
 		}
 		
@@ -322,8 +323,8 @@ public class CheaterPlayer implements Player
   				  }	
   			  } /// end of for loop for players
     		  
-    		  
-    		  
+    		  if (countryNode.getNodeData().getArmies()>1)
+    			{  
     		  neighbor.getNodeData().setCurrentOccupier(this.getplayerName());
 	    		  neighbor.getNodeData().setArmies(1);
 	    		  countryNode.getNodeData().setArmies(countryNode.getNodeData().getArmies()-1);
@@ -354,7 +355,7 @@ public class CheaterPlayer implements Player
 					
 		  			  }
     		  
-    		  
+    	  }
     		  
     		  
     		  
@@ -389,12 +390,12 @@ public class CheaterPlayer implements Player
 		 * @return true if exchange been successful
 		 */
 		
-	public boolean executeTurnInCard(MainDriver gameMainDriver1,
+	public boolean executeTurnInCard(MainDriver gameMainDriver,
 		    String request)
 		  {
 			
 			
-			GameMainDriver gameMainDriver = (GameMainDriver) gameMainDriver1;
+			
 			//"Infantry", "Cavalry", "Artillery"
 			
 			   //long distinctCards = this.getHand().getCardsFromHand().stream().distinct().count();
@@ -427,7 +428,7 @@ public class CheaterPlayer implements Player
 			  
 			}
 					this.setArmies(this
-					    .getPlayerArmies() + (gameMainDriver.turnInCardsCount++ * 5));
+					    .getPlayerArmies() + (Constants.turnInCards++ * 5));
 					System.out.println("Now " + this
 					    .getplayerName() + ": is eligible for " + this
 					        .getPlayerArmies() + " armies");
