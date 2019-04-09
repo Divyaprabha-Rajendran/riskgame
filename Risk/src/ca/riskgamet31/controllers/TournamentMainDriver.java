@@ -26,7 +26,6 @@ import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.utility.Constants;
 import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
-import ca.riskgamet31.views.PlayersWorldDominationView;
 
 /**
  * Main driver class for tournament mode execution of game. Loading map,
@@ -55,11 +54,6 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	 * Deck of card for a game
 	 */
 	DeckOfCards deck;
-	
-	/**
-	 * player world domination view
-	 */
-	private PlayersWorldDominationView playerWorldDominationView;
 	
 	/**
 	 * list of maps will be player during the tournament

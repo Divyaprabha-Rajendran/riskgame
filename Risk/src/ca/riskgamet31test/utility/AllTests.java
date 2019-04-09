@@ -1,4 +1,4 @@
-package ca.riskgame31test.utility;
+package ca.riskgamet31test.utility;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
