@@ -60,7 +60,7 @@
 		</link>
 		<link>
 			<from-country>china</from-country>
-			<to-country>india,pakistan,nepal,japan,mongolia,srilanka,newzealand</to-country>
+			<to-country>india,pakistan,nepal,japan,mongolia,srilanka,newzealand,usa</to-country>
 		</link>
 		<link>
 			<from-country>pakistan</from-country>
@@ -92,7 +92,7 @@
 		</link>
 		<link>
 			<from-country>usa</from-country>
-			<to-country>ghana</to-country>
+			<to-country>ghana,china,eastaustralia</to-country>
 		</link>
 		<link>
 			<from-country>brazil</from-country>
@@ -160,7 +160,7 @@
 		</link>
 		<link>
 			<from-country>eastaustralia</from-country>
-			<to-country>westaustralia</to-country>
+			<to-country>westaustralia,usa</to-country>
 		</link>
 		<link>
 			<from-country>westaustralia</from-country>
