@@ -65,7 +65,7 @@ public class Continent implements Serializable
 	 * to get continent graph
 	 * 
 	 * @return continent graph
-	 */	
+	 */
 	public Graph getContinentGraph()
 	  {
 		return continentGraph;
@@ -120,10 +120,6 @@ public class Continent implements Serializable
 		return "Continent [continent Name=" + continentName + ", Bonus Armies=" + additionalBonusArmies + "]";
 	  }
 	  
-	/**
-	 * 
-	 */
-	
 	/**
 	 * prints a view of the continent graph elements
 	 */

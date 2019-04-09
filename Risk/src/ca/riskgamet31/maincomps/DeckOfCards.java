@@ -20,7 +20,7 @@ public class DeckOfCards implements Serializable
 	private String[] typesOfCards;
 	
 	/**
-	 * Arraylist of cards to store it in deck
+	 * Array list of cards to store it in deck
 	 */
 	private ArrayList<Card> deckOfCards;
 	
@@ -49,14 +49,14 @@ public class DeckOfCards implements Serializable
 		for (int i = 0, j = 0; i < graphNodes.size(); i++, j++)
 		  {
 			
-			for (int k = 0; k< 20 ; k++) {
-			deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i)
+			for (int k = 0; k < 20; k++)
+			  {
+				deckOfCards.add(new Card(typesOfCards[j], graphNodes.get(i)
 				    .getNodeData().getCountryName()));
-			}
-				if (j == 2)
-				  j = 0;
-				
-				
+			  }
+			if (j == 2)
+			  j = 0;
+			
 		  }
 		Collections.shuffle(deckOfCards);
 	  }

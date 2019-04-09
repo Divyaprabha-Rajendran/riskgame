@@ -55,6 +55,11 @@ public class Hand implements Serializable
 		return handWithCards;
 	  }
 	  
+	/**
+	 * utility method if player is eligible to exchange cards
+	 * 
+	 * @return true if player can exchange
+	 */
 	public boolean isEligibleToExchange()
 	  {
 		boolean isElegible = false;
