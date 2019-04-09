@@ -507,5 +507,69 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	  {
 		return deck;
 	  }
+	
+	/**
+	 * getting tournament map list
+	 * @return arraylist for tournament map list
+	 */
+	public ArrayList<File> getTournamentMaps() {
+		return tournamentMaps;
+	}
+
+	/**
+	 * set list of maps in tournament mode
+	 * @param tournamentMaps list of maps to set in tournament mode
+	 */
+	public void setTournamentMaps(ArrayList<File> tournamentMaps) {
+		this.tournamentMaps = tournamentMaps;
+	}
+
+	/**
+	 * get tournament players list
+	 * @return get tournament players list
+	 */
+	public ArrayList<String> getTournamentPlayers() {
+		return tournamentPlayers;
+	}
+
+	/**
+	 * to send tournament players
+	 * @param tournamentPlayers set tournament players
+	 */
+	public void setTournamentPlayers(ArrayList<String> tournamentPlayers) {
+		this.tournamentPlayers = tournamentPlayers;
+	}
+
+	/**
+	 * get number of games
+	 * @return get number of games
+	 */
+	public int getNoOfGames() {
+		return noOfGames;
+	}
+
+	/**
+	 * set number of games
+	 * @param noOfGames set number of games 
+	 */
+	public void setNoOfGames(int noOfGames) {
+		this.noOfGames = noOfGames;
+	}
+
+	/**
+	 * get number of turns
+	 * @return get number of turns
+	 */
+	public int getNoOfTurns() {
+		return noOfTurns;
+	}
+
+	/**
+	 * set number of turns
+	 * @param noOfTurns set number of turns
+	 */
+	public void setNoOfTurns(int noOfTurns) {
+		this.noOfTurns = noOfTurns;
+	}
 	  
   }
