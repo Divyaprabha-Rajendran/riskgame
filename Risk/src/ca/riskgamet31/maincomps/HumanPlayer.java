@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
@@ -16,7 +13,7 @@ import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
 
 /**
- * main Players class
+ * Human Players class
  * 
  * @author YD
  * @version 1.0
@@ -51,9 +48,8 @@ public class HumanPlayer implements Player
 	 * @throws InvalidNameException       InvalidNameException
 	 * @throws InvalidPlayerNameException InvalidPlayerNameException
 	 */
-	
-	public HumanPlayer(String playersName, int army) throws
-	    InvalidNameException, InvalidPlayerNameException
+	public HumanPlayer(String playersName, int army)
+	    throws InvalidNameException, InvalidPlayerNameException
 	  {
 		
 		this.playersName = playersName;
@@ -61,8 +57,6 @@ public class HumanPlayer implements Player
 		playerCountryGraph = new Graph();
 		hand = new Hand();
 	  }
-	  
-	
 	  
 	/**
 	 * to get the name of the player
@@ -109,8 +103,6 @@ public class HumanPlayer implements Player
 		
 	  }
 	  
-
-	  
 	/**
 	 * To increment reinforcement armies in player's graph
 	 * 
@@ -143,18 +135,7 @@ public class HumanPlayer implements Player
 	  {
 		return this.army;
 	  }
-	 /* 
-	/**
-	 * to get player turn in cards
-	 * 
-	 * @return player turn in cards
-	 
-	@Override
-	public int getTurnInCards()
-	  {
-		return GameMainDriver.turnInCardsCount;
-	  }
-	  */
+	  
 	/**
 	 * To add a new card to player's hand
 	 * 
@@ -200,18 +181,6 @@ public class HumanPlayer implements Player
 		hand.removeCardsFromHand(cardIndexes[0], cardIndexes[1], cardIndexes[2]);
 	  }
 	  
-	/*
-	 * To calculate the reinforcement armies by turning in cards
-	 * 
-	 * @return reinforcement armies by turning in cards value
-	 
-	@Override
-	public int turnInCardsArmies()
-	  {
-		
-		return this.getTurnInCards() * 5;
-	  }
-	 */ 
 	/**
 	 * get player graph
 	 * 
@@ -243,118 +212,123 @@ public class HumanPlayer implements Player
 		boolean secondtime = false;
 		boolean exit = false;
 		
-		if (UserInputOutput.getInstance().requestUserInput("Do you want to Fortify Y/N").equals("Y"))
-		  {  
-		do
+		if (UserInputOutput.getInstance()
+		    .requestUserInput("Do you want to Fortify Y/N").equals("Y"))
 		  {
-			
-			if (secondtime)
+			do
 			  {
-				tempText = UserInputOutput.getInstance()
-				    .requestUserInput("Do you want to continue fortification?");
-				if (!tempText.equals("Y"))
-				  exit = true;
-			  }
-			if (!exit)
-			  {
-				boolean valid = false;
-				do
+				
+				if (secondtime)
 				  {
-					System.out.println();
-					
 					tempText = UserInputOutput.getInstance()
-					    .requestUserInput("Enter base country");
+					    .requestUserInput("Do you want to continue fortification?");
+					if (!tempText.equals("Y"))
+					  exit = true;
+				  }
+				if (!exit)
+				  {
+					boolean valid = false;
+					do
+					  {
+						System.out.println();
+						
+						tempText = UserInputOutput.getInstance()
+						    .requestUserInput("Enter base country");
+						
+						final String fromcountry1 = tempText;
+						fromCountry = fromcountry1;
+						if (this.getPlayerGraph().getGraphNodes().stream()
+						    .anyMatch((x) -> x.getNodeData().getCountryName()
+						        .equals(fromcountry1) && x.getNodeData()
+						            .getArmies() > 1))
+						  valid = true;
+						else
+						  System.out
+						      .println("check country name, ownership and no of armies");
+					  } while (!valid);
+					  
+					tempText = "";
+					valid = false;
+					do
+					  {
+						
+						tempText = UserInputOutput.getInstance()
+						    .requestUserInput("Enter target country:");
+						
+						final String toCountry1 = tempText;
+						toCountry = toCountry1;
+						
+						if ((this.getPlayerGraph().getGraphNodes().stream()
+						    .map((x) -> x.getNodeData().getCountryName())
+						    .anyMatch((x) -> x
+						        .equals(toCountry1))) && !toCountry
+						            .equals(fromCountry))
+						  {
+							valid = true;
+						  } else
+						  System.out
+						      .println("check country name and ownership");
+					  } while (!valid);
+					  
+					tempText = "";
 					
-					final String fromcountry1 = tempText;
-					fromCountry = fromcountry1;
-					if (this.getPlayerGraph().getGraphNodes().stream()
-					    .anyMatch((x) -> x.getNodeData().getCountryName()
-					        .equals(fromcountry1) && x.getNodeData()
-					            .getArmies() > 1))
-					  valid = true;
+					boolean armiesNotInt = true;
+					do
+					  {
+						System.out.println();
+						tempText = UserInputOutput.getInstance()
+						    .requestUserInput("Enter number of Armies:");
+						String nOArmies = tempText;
+						
+						if (nOArmies.matches("\\d+"))
+						  {
+							armiesNotInt = false;
+							
+							noOfArmies = Integer.parseInt(nOArmies);
+						  } else
+						  System.out.println("Please enter valid input");
+					  } while (armiesNotInt);
+					  
+					for (GraphNode gNode : this.getPlayerGraph()
+					    .getGraphNodes())
+					  {
+						
+						if ((gNode.getNodeData().getCountryName()
+						    .equals(fromCountry)))
+						  fromCountryobj = gNode.getNodeData();
+					  }
+					  
+					if (this.getPlayerGraph().findPath(fromCountry, toCountry))
+					  path = true;
 					else
 					  System.out
-					      .println("check country name, ownership and no of armies");
-				  } while (!valid);
+					      .println("there is no path between base and distination countries.");
+					
+					if (noOfArmies >= fromCountryobj.getArmies())
+					  System.out.println("not enough armies to move");
+					if (toCountry.equals(fromCountry))
+					  System.out
+					      .println("source and destination countries should be different");
+					
+					secondtime = true;
+				  }
 				  
-				tempText = "";
-				valid = false;
-				do
-				  {
-					
-					tempText = UserInputOutput.getInstance()
-					    .requestUserInput("Enter target country:");
-					
-					final String toCountry1 = tempText;
-					toCountry = toCountry1;
-					
-					if ((this.getPlayerGraph().getGraphNodes().stream().map((
-					    x) -> x.getNodeData().getCountryName()).anyMatch((
-					        x) -> x.equals(toCountry1))) && !toCountry
-					            .equals(fromCountry))
-					  {
-						valid = true;
-					  } else
-					  System.out.println("check country name and ownership");
-				  } while (!valid);
-				  
-				tempText = "";
-				
-				boolean armiesNotInt = true;
-				do
-				  {
-					System.out.println();
-					tempText = UserInputOutput.getInstance()
-					    .requestUserInput("Enter number of Armies:");
-					String nOArmies = tempText;
-					
-					if (nOArmies.matches("\\d+"))
-					  {
-						armiesNotInt = false;
-						
-						noOfArmies = Integer.parseInt(nOArmies);
-					  } else
-					  System.out.println("Please enter valid input");
-				  } while (armiesNotInt);
-				  
+			  } while ((!path || noOfArmies >= fromCountryobj
+			      .getArmies() || toCountry.equals(fromCountry)) && !exit);
+			if (!exit)
+			  {
 				for (GraphNode gNode : this.getPlayerGraph().getGraphNodes())
 				  {
 					
 					if ((gNode.getNodeData().getCountryName()
-					    .equals(fromCountry)))
-					  fromCountryobj = gNode.getNodeData();
+					    .equals(toCountry)))
+					  toCountryobj = gNode.getNodeData();
 				  }
 				  
-				if (this.getPlayerGraph().findPath(fromCountry, toCountry))
-				  path = true;
-				else
-				  System.out
-				      .println("there is no path between base and distination countries.");
-				
-				if (noOfArmies >= fromCountryobj.getArmies())
-				  System.out.println("not enough armies to move");
-				if (toCountry.equals(fromCountry))
-				  System.out
-				      .println("source and destination countries should be different");
-				
-				secondtime = true;
+				fromCountryobj.reduceArmies(noOfArmies);
+				toCountryobj.increaseArmies(noOfArmies);
 			  }
-			  
-		  } while ((!path || noOfArmies >= fromCountryobj
-		      .getArmies() || toCountry.equals(fromCountry)) && !exit);
-		if (!exit)
-		  {
-			for (GraphNode gNode : this.getPlayerGraph().getGraphNodes())
-			  {
-				
-				if ((gNode.getNodeData().getCountryName().equals(toCountry)))
-				  toCountryobj = gNode.getNodeData();
-			  }
-			  
-			fromCountryobj.reduceArmies(noOfArmies);
-			toCountryobj.increaseArmies(noOfArmies);
 		  }
-	  }
 	  }
 	  
 	/**
@@ -373,7 +347,8 @@ public class HumanPlayer implements Player
 			System.out.println();
 			System.out.println("Number of armies left..." + this
 			    .getPlayerArmies());
-			ArrayList<GraphNode> country_nodes = this.getPlayerCountriesGNodes();
+			ArrayList<GraphNode> country_nodes = this
+			    .getPlayerCountriesGNodes();
 			HashSet<String> owned_by_player = new HashSet<String>();
 			for (GraphNode node : country_nodes)
 			  {
@@ -445,7 +420,6 @@ public class HumanPlayer implements Player
 		
 		boolean selectanother = true;
 		
-		
 		boolean validAcountry = false;
 		boolean validDcountry = false;
 		String Acountry = "", Dcountry = "";
@@ -478,7 +452,6 @@ public class HumanPlayer implements Player
 			  }
 		  } while (!validAcountry && !Acountry.equals("N"));
 		  
-		
 		if (validAcountry)
 		  {
 			do
@@ -638,9 +611,8 @@ public class HumanPlayer implements Player
 	 * @return true if attacker occupied the attacked country.
 	 */
 	@Override
-	public boolean attackRound(MainDriver driver,
-	    GraphNode attackerCountryNode, GraphNode defenderCountryNode,
-	    boolean allOut)
+	public boolean attackRound(MainDriver driver, GraphNode attackerCountryNode,
+	    GraphNode defenderCountryNode, boolean allOut)
 	  {
 		String tempText = "";
 		int noOfDicesForAttacker = 0;
@@ -781,8 +753,8 @@ public class HumanPlayer implements Player
 			  {
 				
 				System.out.println(this
-				    .getplayerName() + " will receive - " + defenderObj.getHand()
-				        .getCardsFromHand()
+				    .getplayerName() + " will receive - " + defenderObj
+				        .getHand().getCardsFromHand()
 				        .size() + " - cards from player " + defenderObj
 				            .getplayerName());
 				
@@ -821,7 +793,8 @@ public class HumanPlayer implements Player
 			System.out.println();
 			System.out.println("Number of armies left..." + this
 			    .getPlayerArmies());
-			ArrayList<GraphNode> country_nodes = this.getPlayerCountriesGNodes();
+			ArrayList<GraphNode> country_nodes = this
+			    .getPlayerCountriesGNodes();
 			HashSet<String> owned_by_player = new HashSet<String>();
 			for (GraphNode node : country_nodes)
 			  {
@@ -880,7 +853,7 @@ public class HumanPlayer implements Player
 		  }
 		  
 	  }
-	
+	  
 	/**
 	 * To get the dice input after rolling it
 	 * 
@@ -913,8 +886,7 @@ public class HumanPlayer implements Player
 					
 					tempText = UserInputOutput.getInstance()
 					    .requestUserInput("Enter number of armies to attack with (max-3):");
-					System.out
-					    .println();
+					System.out.println();
 				  } else
 				  {
 					System.out
@@ -923,7 +895,7 @@ public class HumanPlayer implements Player
 					tempText = UserInputOutput.getInstance()
 					    .requestUserInput("Enter number of armies to defend (max-2):");
 				  }
-				
+				  
 				String nODices = tempText;
 				
 				if (nODices.matches("\\d+"))
@@ -935,7 +907,6 @@ public class HumanPlayer implements Player
 				  System.out.println("Please enter a valid input");
 			  } while (dicesNotInt);
 			  
-			
 			if (noOfDices < 1 || noOfDices > maxDice || noOfDices > (i
 			    .equals("a") ? countryObj.getArmies() - 1 : countryObj
 			        .getArmies()))
@@ -950,110 +921,115 @@ public class HumanPlayer implements Player
 		  } while (diceCountValid);
 		return noOfDices;
 	  }
-
-
-
+	  
+	/**
+	 * utility method for fortification main method, not used
+	 * 
+	 * @return and empty array list
+	 */
 	@Override
 	public ArrayList<GraphNode> canFortify()
 	  {
 		return null;
 	  }
-
-
-
+	  
+	/**
+	 * utility method for attack method
+	 * 
+	 * @return not used , an empty list.
+	 */
 	@Override
 	public ArrayList<GraphNode> canAttack()
 	  {
 		return null;
 	  }
-
-
-
+	  
+	/**
+	 * utility method for reinforcement not used
+	 * 
+	 * @return an empty list.
+	 */
 	@Override
 	public GraphNode canReinforce()
 	  {
 		return null;
 	  }
-
-
-
-	  /**
-		 * to execute exchange of cards
-		 * @param gameMainDriver current gameMainDriver of the game
-		 * @param request selected cards by the player
-		 * @return true if exchange been successful
-		 */
-	@Override	
-	public boolean executeTurnInCard(MainDriver gameMainDriver,
-		    String request)
+	  
+	/**
+	 * to execute exchange of cards
+	 * 
+	 * @param gameMainDriver current gameMainDriver of the game
+	 * @param request        selected cards by the player
+	 * @return true if exchange been successful
+	 */
+	@Override
+	public boolean executeTurnInCard(MainDriver gameMainDriver, String request)
+	  {
+		
+		InputValidator inpValidator = new InputValidator();
+		boolean executed = false;
+		
+		String userInput = "";
+		String[] selectedCards;
+		boolean validSelection = false;
+		do
 		  {
 			
-			
-			InputValidator inpValidator = new InputValidator();
-			boolean executed = false;
-			
-			String userInput = "";
-			String[] selectedCards;
-			boolean validSelection = false;
 			do
 			  {
-				
-				do
-				  {
-					userInput = UserInputOutput.getInstance()
-					    .requestUserInput(request);
-				  } while (!inpValidator.validateNumbers(userInput) || userInput
-				      .length() != 3);
-				  
-				selectedCards = userInput.split("(?<=\\G.{1})");
-				
-				validSelection = (Integer.parseInt(selectedCards[0]) <= hand
-				    .getCardsFromHand().size() && Integer
-				        .parseInt(selectedCards[0]) > 0) && (Integer
-				            .parseInt(selectedCards[1]) <= hand.getCardsFromHand()
-				                .size() && Integer
-				                    .parseInt(selectedCards[1]) > 0) && (Integer
-				                        .parseInt(selectedCards[2]) <= hand
-				                            .getCardsFromHand().size() && Integer
-				                                .parseInt(selectedCards[2]) > 0) && checkUniqueNumbers(selectedCards);
-				
-				if (validSelection && !Arrays.toString(selectedCards)
-				    .equals("999") && hand.canTurnInCards(Integer
-				        .parseInt(selectedCards[0]), Integer
-				            .parseInt(selectedCards[1]), Integer
-				                .parseInt(selectedCards[2])))
-				  {
-					hand.removeCardsFromHand(Integer
-					    .parseInt(selectedCards[0]), Integer
-					        .parseInt(selectedCards[1]), Integer
-					            .parseInt(selectedCards[2]));
-					
-					this.setArmies(this.getPlayerArmies() + (Constants.turnInCards++ * 5));
-					System.out.println("Now " + this
-					    .getplayerName() + ": is eligible for " + this
-					        .getPlayerArmies() + " armies");
-					System.out.println("Current player's hand has " + hand
-					    .getCardsFromHand());
-					executed = true;
-				  } else
-				  {
-					System.out.println("Wrong cards selection");
-				  }
-			  } while (!Arrays.toString(selectedCards).equals("999") && !executed);
+				userInput = UserInputOutput.getInstance()
+				    .requestUserInput(request);
+			  } while (!inpValidator.validateNumbers(userInput) || userInput
+			      .length() != 3);
 			  
-			return executed;
-		  }
+			selectedCards = userInput.split("(?<=\\G.{1})");
+			
+			validSelection = (Integer.parseInt(selectedCards[0]) <= hand
+			    .getCardsFromHand().size() && Integer
+			        .parseInt(selectedCards[0]) > 0) && (Integer
+			            .parseInt(selectedCards[1]) <= hand.getCardsFromHand()
+			                .size() && Integer
+			                    .parseInt(selectedCards[1]) > 0) && (Integer
+			                        .parseInt(selectedCards[2]) <= hand
+			                            .getCardsFromHand().size() && Integer
+			                                .parseInt(selectedCards[2]) > 0) && checkUniqueNumbers(selectedCards);
+			
+			if (validSelection && !Arrays.toString(selectedCards)
+			    .equals("999") && hand.canTurnInCards(Integer
+			        .parseInt(selectedCards[0]), Integer
+			            .parseInt(selectedCards[1]), Integer
+			                .parseInt(selectedCards[2])))
+			  {
+				hand.removeCardsFromHand(Integer
+				    .parseInt(selectedCards[0]), Integer
+				        .parseInt(selectedCards[1]), Integer
+				            .parseInt(selectedCards[2]));
+				
+				this.setArmies(this
+				    .getPlayerArmies() + (Constants.turnInCards++ * 5));
+				System.out.println("Now " + this
+				    .getplayerName() + ": is eligible for " + this
+				        .getPlayerArmies() + " armies");
+				System.out.println("Current player's hand has " + hand
+				    .getCardsFromHand());
+				executed = true;
+			  } else
+			  {
+				System.out.println("Wrong cards selection");
+			  }
+		  } while (!Arrays.toString(selectedCards).equals("999") && !executed);
+		  
+		return executed;
+	  }
 	  
-
-
-
+	/**
+	 * executes fortification , not used
+	 * 
+	 */
 	@Override
 	public void executeFortification(ArrayList<GraphNode> fortifyNodes)
 	  {
 		
-		
 	  }
-	  
-
 	  
   }

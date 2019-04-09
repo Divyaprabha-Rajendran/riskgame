@@ -2,23 +2,22 @@ package ca.riskgamet31.maincomps;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.Serializable;
 
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 
-public interface Player extends java.io.Serializable 
+/**
+ * player abstraction interface
+ * 
+ * @author Fareed Tayar
+ * @version 3.0
+ */
+public interface Player extends java.io.Serializable
   {
-	
 	
 	/**
 	 * validate the input
@@ -27,8 +26,8 @@ public interface Player extends java.io.Serializable
 	 * @throws InvalidNameException       InvalidNameException
 	 * @throws InvalidPlayerNameException InvalidPlayerNameException
 	 */
-	default public void validateInput(String playersName) throws InvalidNameException,
-	    InvalidPlayerNameException
+	default public void validateInput(String playersName)
+	    throws InvalidNameException, InvalidPlayerNameException
 	  {
 		Pattern name_pattern = Pattern.compile("[^A-Za-z0-9]");
 		Matcher match = name_pattern.matcher(playersName);
@@ -37,6 +36,7 @@ public interface Player extends java.io.Serializable
 			throw new InvalidPlayerNameException("Player name contains special characters " + playersName);
 		  }
 	  }
+	  
 	/**
 	 * to get the name of the player
 	 * 
@@ -72,7 +72,8 @@ public interface Player extends java.io.Serializable
 	 * @param armiescardsAmount amount of armies got by exchanging cards
 	 * @return No. of reinforcement armies that player will get
 	 */
-	default public int reinforcementArmiesCalc(GameMap gameMap, int armiescardsAmount)
+	default public int reinforcementArmiesCalc(GameMap gameMap,
+	    int armiescardsAmount)
 	  {
 		int armiesForCountries = 0;
 		int armiesForContinentsBonus = 0;
@@ -89,6 +90,7 @@ public interface Player extends java.io.Serializable
 		this.setArmies(totalArmiesToAdd);
 		return totalArmiesToAdd;
 	  }
+	  
 	/**
 	 * To increment reinforcement armies in player's graph
 	 * 
@@ -117,12 +119,26 @@ public interface Player extends java.io.Serializable
 	 */
 	void addNewCard(Card card);
 	
+	/**
+	 * utility method for fortification
+	 * 
+	 * @return array list of countries to fortify
+	 */
 	ArrayList<GraphNode> canFortify();
 	
+	/**
+	 * utility method for attack
+	 * 
+	 * @return array list of countries to attack
+	 */
 	ArrayList<GraphNode> canAttack();
 	
+	/**
+	 * exchange card method
+	 * 
+	 * @return true if exchange was successful
+	 */
 	boolean executeTurnInCard(MainDriver gmd, String request);
-	
 	
 	/**
 	 * to verify selected cards indexes are not the same.
@@ -134,7 +150,7 @@ public interface Player extends java.io.Serializable
 	  {
 		boolean uniqueNumber = true;
 		Arrays.sort(request);
-		for (int i = 0; i < request.length-1; i++)
+		for (int i = 0; i < request.length - 1; i++)
 		  {
 			if (request[i].equals(request[i + 1]))
 			  {
@@ -144,7 +160,12 @@ public interface Player extends java.io.Serializable
 		  }
 		return uniqueNumber;
 	  }
-	
+	  
+	/**
+	 * utility method for reinforcement
+	 * 
+	 * @return best country to fortify based on palyer's strategy
+	 */
 	GraphNode canReinforce();
 	
 	/**
@@ -236,7 +257,7 @@ public interface Player extends java.io.Serializable
 	 * @return output of rolled dice input
 	 */
 	default public int getDiceInputAllOut(Country countryObj, String i)
-{
+	  {
 		
 		int noOfDices = 0;
 		
@@ -254,40 +275,45 @@ public interface Player extends java.io.Serializable
 		  
 		return noOfDices;
 	  }
-	
+	  
 	/**
 	 * Distribute the armies of every player among the countries the player
 	 * owns. The method executes till all the player's armies are distributed.
 	 * 
-	 * 
 	 */
-	default public void initialdistributeArmies() {
-	  
-	   System.out.println();
-	   this.getPlayerGraph().viewGraph();
-	   
-	   System.out.println("\nAssigning armies for Player " + this
-		    .getplayerName() + " - Current Armies "+ this.getPlayerArmies()+"\n");
+	default public void initialdistributeArmies()
+	  {
 		
+		System.out.println();
+		this.getPlayerGraph().viewGraph();
+		
+		System.out.println("\nAssigning armies for Player " + this
+		    .getplayerName() + " - Current Armies " + this
+		        .getPlayerArmies() + "\n");
 		
 		while (this.getPlayerArmies() > 0)
 		  {
-			Iterator<GraphNode> playerGraphIterator = this.getPlayerCountriesGNodes().iterator();
+			Iterator<GraphNode> playerGraphIterator = this
+			    .getPlayerCountriesGNodes().iterator();
 			
-			while(playerGraphIterator.hasNext() && this.getPlayerArmies() > 0) {
+			while (playerGraphIterator.hasNext() && this.getPlayerArmies() > 0)
+			  {
+				
+				playerGraphIterator.next().getNodeData().increaseArmies(1);
+				this.decrementArmies(1);
+			  }
 			  
-			  playerGraphIterator.next().getNodeData().increaseArmies(1);
-			  this.decrementArmies(1);
-			}	 
-					  
 		  }
-		
+		  
 		this.getPlayerGraph().viewGraph();
 		System.out.println("");
+		
+	  }
 	  
-	  
-	}
-	
+	/**
+	 * utility method for fortification
+	 * 
+	 */
 	public void executeFortification(ArrayList<GraphNode> fortifyNodes);
 	
   }
