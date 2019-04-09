@@ -11,7 +11,7 @@ import java.util.Observer;
  * @version 1.0
  * @since 1.0
  */
-public class countryView implements Observer,Serializable
+public class countryView implements Observer, Serializable
   {
 	
 	/**
@@ -20,6 +20,8 @@ public class countryView implements Observer,Serializable
 	String countryName;
 	
 	/**
+	 * constructor for country view
+	 * 
 	 * @param countryName constructs the viewer
 	 */
 	public countryView(String countryName)
@@ -31,6 +33,9 @@ public class countryView implements Observer,Serializable
 	  
 	/**
 	 * to be called by the country object whenever an observed change occurred.
+	 * 
+	 * @param o   observable object
+	 * @param arg data object
 	 */
 	@Override
 	public void update(Observable o, Object arg)

@@ -1,37 +1,41 @@
 package ca.riskgamet31.views;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.maincomps.Hand;
 import ca.riskgamet31.maincomps.Player;
-import ca.riskgamet31.utility.InputValidator;
-import ca.riskgamet31.utility.UserInputOutput;
 
 /**
  * card exchange view using Observer pattern
+ * 
  * @author Fareed Tayar
- *@since 2.0
- *version 2.0
+ * @since 2.0
+ * @version 2.0
  */
-public class CardExchangeView implements Observer,Serializable
+public class CardExchangeView implements Observer, Serializable
   {
 	
 	/**
-	 * a no args constructor
+	 * main driver data member
 	 */
 	private GameMainDriver gameMainDriver;
 	
+	/**
+	 * constructor for Card exchange view
+	 * 
+	 * @param gameMD
+	 */
 	public CardExchangeView(Observable gameMD)
 	  {
-		this.gameMainDriver = (GameMainDriver)gameMD;
+		this.gameMainDriver = (GameMainDriver) gameMD;
 	  }
 	  
 	/**
 	 * to process exchange of cards
+	 * 
 	 * @param currentPlayer current player exchanging the cards
 	 */
 	public void processCardExchange(Player currentPlayer)
@@ -57,7 +61,7 @@ public class CardExchangeView implements Observer,Serializable
 			if (!turnedInCards)
 			  {
 				turnedInCards = currentPlayer
-				    .executeTurnInCard(this.gameMainDriver,"Select cards to exchange, ex: 235 , 999 to exit");
+				    .executeTurnInCard(this.gameMainDriver, "Select cards to exchange, ex: 235 , 999 to exit");
 			  }
 			  
 		  } else
@@ -68,9 +72,10 @@ public class CardExchangeView implements Observer,Serializable
 	  }
 	  
 	/**
-	 *to be executed when the view is triggered
-	 *@param o the observable object
-	 *@param arg data object passed from observed object
+	 * to be executed when the view is triggered
+	 * 
+	 * @param o   the observable object
+	 * @param arg data object passed from observed object
 	 */
 	@Override
 	public void update(Observable o, Object arg)
@@ -80,5 +85,4 @@ public class CardExchangeView implements Observer,Serializable
 		
 	  }
 	  
-	
   }

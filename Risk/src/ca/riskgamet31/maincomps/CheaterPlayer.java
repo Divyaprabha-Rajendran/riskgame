@@ -11,7 +11,7 @@ import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.utility.Constants;
 
 /**
- * main Players class
+ * Cheater Player class implementing cheater strategy
  * 
  * @author YD
  * @version 1.0

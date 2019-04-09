@@ -13,7 +13,7 @@ import ca.riskgamet31.utility.InputValidator;
 import ca.riskgamet31.utility.UserInputOutput;
 
 /**
- * Human Players class
+ * Human Players class implementing human strategy
  * 
  * @author YD
  * @version 1.0
