@@ -4,19 +4,17 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.exceptions.InvalidNameException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.utility.Constants;
 
 /**
- * main Players class
+ * Random Players class implementing random strategy
  * 
  * @author YD
  * @version 1.0
@@ -51,17 +49,14 @@ public class RandomPlayer implements Player
 	 * @throws InvalidNameException       InvalidNameException
 	 * @throws InvalidPlayerNameException InvalidPlayerNameException
 	 */
-	
-	public RandomPlayer(String playersName, int army) throws
-	    InvalidNameException, InvalidPlayerNameException
+	public RandomPlayer(String playersName, int army)
+	    throws InvalidNameException, InvalidPlayerNameException
 	  {
 		this.playersName = playersName;
 		this.army = army;
 		playerCountryGraph = new Graph();
 		hand = new Hand();
 	  }
-	  
-	
 	  
 	/**
 	 * to get the name of the player
@@ -108,8 +103,6 @@ public class RandomPlayer implements Player
 		
 	  }
 	  
-
-	  
 	/**
 	 * To increment reinforcement armies in player's graph
 	 * 
@@ -142,7 +135,6 @@ public class RandomPlayer implements Player
 	  {
 		return this.army;
 	  }
-	  
 	  
 	/**
 	 * To add a new card to player's hand
@@ -189,8 +181,6 @@ public class RandomPlayer implements Player
 		hand.removeCardsFromHand(cardIndexes[0], cardIndexes[1], cardIndexes[2]);
 	  }
 	  
-	
-	  
 	/**
 	 * get player graph
 	 * 
@@ -203,71 +193,77 @@ public class RandomPlayer implements Player
 	  }
 	  
 	@Override
-	public ArrayList<GraphNode> canFortify(){
-	  
-	  ArrayList<GraphNode> returnedList = new ArrayList<>();
-	  
-	  List<GraphNode> destinationCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes()
-		  .stream().filter(i -> i.getNodeNeighbors().stream().anyMatch(x -> !x.getNodeData().getCurrentOccupier().equals(this.getplayerName())) )
-		  .collect(Collectors.toList())); 
-	  
-	  
-	  List<GraphNode> sourceCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes()
-		  .stream().filter( i -> i.getNodeData().getArmies() > 1).collect(Collectors.toList()));
-	  
-	  
-	  boolean continueSearch = true;
-	  
-	  ArrayList< ArrayList<GraphNode>> potintialList = new ArrayList<>();
-	  
-	  
-	  for (GraphNode desNode : destinationCountries) {
+	public ArrayList<GraphNode> canFortify()
+	  {
 		
-		for (GraphNode sourceNode : sourceCountries)
+		ArrayList<GraphNode> returnedList = new ArrayList<>();
+		
+		List<GraphNode> destinationCountries = new ArrayList<>(this
+		    .getPlayerGraph().getGraphNodes().stream().filter(i -> i
+		        .getNodeNeighbors().stream().anyMatch(x -> !x.getNodeData()
+		            .getCurrentOccupier().equals(this.getplayerName())))
+		    .collect(Collectors.toList()));
+		
+		List<GraphNode> sourceCountries = new ArrayList<>(this.getPlayerGraph()
+		    .getGraphNodes().stream().filter(i -> i.getNodeData()
+		        .getArmies() > 1).collect(Collectors.toList()));
+		
+		boolean continueSearch = true;
+		
+		ArrayList<ArrayList<GraphNode>> potintialList = new ArrayList<>();
+		
+		for (GraphNode desNode : destinationCountries)
 		  {
-			if (!sourceNode.equals(desNode)) {
-			  
-			if (this.getPlayerGraph().findPath(sourceNode.getNodeData().getCountryName(), desNode.getNodeData().getCountryName())) 
+			
+			for (GraphNode sourceNode : sourceCountries)
 			  {
-				ArrayList<GraphNode> pairNodes = new ArrayList<>();
-				pairNodes.add(sourceNode);
-				pairNodes.add(desNode);
-			    potintialList.add(pairNodes); 
-			}
-			}
+				if (!sourceNode.equals(desNode))
+				  {
+					
+					if (this.getPlayerGraph().findPath(sourceNode.getNodeData()
+					    .getCountryName(), desNode.getNodeData()
+					        .getCountryName()))
+					  {
+						ArrayList<GraphNode> pairNodes = new ArrayList<>();
+						pairNodes.add(sourceNode);
+						pairNodes.add(desNode);
+						potintialList.add(pairNodes);
+					  }
+				  }
+			  }
 		  }
+		  
+		Collections.shuffle(potintialList);
+		
+		if (!potintialList.isEmpty())
+		  returnedList = potintialList.get(0);
+		return returnedList;
+		
 	  }
 	  
-	  Collections.shuffle(potintialList);
-	  
-	   if (!potintialList.isEmpty())
-		 returnedList =  potintialList.get(0);
-	  return returnedList;
-	  
-	}
-	
+	/**
+	 * fortification method for random player
+	 */
 	@Override
-	public void fortification() {
-	  
-	  ArrayList<GraphNode> fortifyNodes = canFortify();
-	  if (fortifyNodes.size() == 2)
+	public void fortification()
+	  {
+		
+		ArrayList<GraphNode> fortifyNodes = canFortify();
+		if (fortifyNodes.size() == 2)
 		  {
-				executeFortification(fortifyNodes);
-			  
+			executeFortification(fortifyNodes);
+			
 		  } else
 		  {
 			
-			System.out.println(this
-			    .getplayerName() + " can't fortify");
+			System.out.println(this.getplayerName() + " can't fortify");
 			
 		  }
+		  
+	  }
 	  
-	  
-	}
-	
 	/**
-	 * Fortification phase starting method according to user's entered armies,
-	 * fortification will be performed
+	 * Fortification execution method , fortification will be performed
 	 * 
 	 */
 	@Override
@@ -275,11 +271,12 @@ public class RandomPlayer implements Player
 	  {
 		this.getPlayerGraph().viewGraph();
 		SecureRandom random = new SecureRandom();
-		int noOfArmies = random.nextInt(fortifyNodes.get(0).getNodeData().getArmies()-1)+1;
-			  
-			fortifyNodes.get(0).getNodeData().reduceArmies(noOfArmies);
-			fortifyNodes.get(1).getNodeData().increaseArmies(noOfArmies);
-		  
+		int noOfArmies = random.nextInt(fortifyNodes.get(0).getNodeData()
+		    .getArmies() - 1) + 1;
+		
+		fortifyNodes.get(0).getNodeData().reduceArmies(noOfArmies);
+		fortifyNodes.get(1).getNodeData().increaseArmies(noOfArmies);
+		
 	  }
 	  
 	/**
@@ -293,13 +290,13 @@ public class RandomPlayer implements Player
 		GraphNode reinforceCountry = canReinforce();
 		
 		System.out.println();
-		System.out.println("Assigning armies for Player " + this.getplayerName());
+		System.out.println("Assigning armies for Player " + this
+		    .getplayerName());
 		System.out.println("Number of armies left..." + this.getPlayerArmies());
 		reinforceCountry.getNodeData().setArmies(reinforceCountry.getNodeData()
-								      .getArmies() + this.getPlayerArmies());
+		    .getArmies() + this.getPlayerArmies());
 		this.decrementArmies(this.getPlayerArmies());
-			
-		  
+		
 	  }
 	  
 	/**
@@ -332,26 +329,28 @@ public class RandomPlayer implements Player
 		
 		attDef = canAttack();
 		int attackedAlready = 0;
-		while (attDef.size() == 2  && attackedAlready++ < noOfAttacks && attDef.get(0).getNodeData().getArmies() >1) {
-				
-		  System.out.println("RANDON bug:"+attDef.get(0)+" "+attDef.get(1));
-		  boolean wonRound = this
-				    .attackRound(driver, attDef.get(0), attDef.get(1), true);
-				attDef.clear();
-				attDef = canAttack();
-				if (wonRound)
-				  won = true;
-		}
-		
+		while (attDef.size() == 2 && attackedAlready++ < noOfAttacks && attDef
+		    .get(0).getNodeData().getArmies() > 1)
+		  {
+			
+			System.out.println("RANDON bug:" + attDef.get(0) + " " + attDef
+			    .get(1));
+			boolean wonRound = this.attackRound(driver, attDef.get(0), attDef
+			    .get(1), true);
+			attDef.clear();
+			attDef = canAttack();
+			if (wonRound)
+			  won = true;
+		  }
+		  
 		int noOfPlayers = driver.getPlayerList().getPlayerList().size();
 		
 		if (noOfPlayers > 1)
-			  {
-				System.out.println(this
-				    .getplayerName() + " choose not to attack any more in this turn or can't attack.");
-				this.getPlayerGraph().viewGraph();
-			  }
-		  
+		  {
+			System.out.println(this
+			    .getplayerName() + " choose not to attack any more in this turn or can't attack.");
+			this.getPlayerGraph().viewGraph();
+		  }
 		  
 		return won;
 	  }
@@ -366,9 +365,8 @@ public class RandomPlayer implements Player
 	 * @return true if attacker occupied the attacked country.
 	 */
 	@Override
-	public boolean attackRound(MainDriver driver,
-	    GraphNode attackerCountryNode, GraphNode defenderCountryNode,
-	    boolean allOut)
+	public boolean attackRound(MainDriver driver, GraphNode attackerCountryNode,
+	    GraphNode defenderCountryNode, boolean allOut)
 	  {
 		String tempText = "";
 		int noOfDicesForAttacker = 0;
@@ -388,14 +386,12 @@ public class RandomPlayer implements Player
 			int transferArmies = 0;
 			int attackerArmiesToSet = 0, defenderArmiesToSet = 0;
 			
-			  
-				noOfDicesForAttacker = getDiceInputAllOut(attackerCountryNode
-				    .getNodeData(), "a");
-				
-				noOfDicesForDefender = getDiceInputAllOut(defenderCountryNode
-				    .getNodeData(), "d");
-			  
-			  
+			noOfDicesForAttacker = getDiceInputAllOut(attackerCountryNode
+			    .getNodeData(), "a");
+			
+			noOfDicesForDefender = getDiceInputAllOut(defenderCountryNode
+			    .getNodeData(), "d");
+			
 			attackerRolls = dice.roll(noOfDicesForAttacker);
 			defenderRolls = dice.roll(noOfDicesForDefender);
 			
@@ -409,7 +405,7 @@ public class RandomPlayer implements Player
 			  {
 				attackerLosses++;
 			  }
-			
+			  
 			if (noOfDicesForAttacker > 1 && noOfDicesForDefender > 1)
 			  {
 				
@@ -422,7 +418,7 @@ public class RandomPlayer implements Player
 					attackerLosses++;
 				  }
 			  }
-			
+			  
 			System.out.println("");
 			System.out.println("<Combat Result>" + "|" + attackerCountryNode
 			    .getNodeData()
@@ -472,7 +468,7 @@ public class RandomPlayer implements Player
 				  }
 				System.out
 				    .println("You must transfer " + min + " to " + max + " armies to your conqured territory");
-				  transferArmies = max;
+				transferArmies = max;
 				attackerCountryNode.getNodeData().reduceArmies(transferArmies);
 				defenderCountryNode.getNodeData()
 				    .increaseArmies(transferArmies);
@@ -483,8 +479,8 @@ public class RandomPlayer implements Player
 			  {
 				
 				System.out.println(this
-				    .getplayerName() + " will receive - " + defenderObj.getHand()
-				        .getCardsFromHand()
+				    .getplayerName() + " will receive - " + defenderObj
+				        .getHand().getCardsFromHand()
 				        .size() + " - cards from player " + defenderObj
 				            .getplayerName());
 				
@@ -503,57 +499,68 @@ public class RandomPlayer implements Player
 		  
 		return won;
 	  }
-	
-	  /**
-		 * to execute exchange of cards
-		 * @param gameMainDriver current gameMainDriver of the game
-		 * @param request selected cards by the player
-		 * @return true if exchange been successful
-		 */
+	  
+	/**
+	 * to execute exchange of cards
+	 * 
+	 * @param gameMainDriver current gameMainDriver of the game
+	 * @param request        selected cards by the player
+	 * @return true if exchange been successful
+	 */
+	public boolean executeTurnInCard(MainDriver gameMainDriver, String request)
+	  {
 		
-	public boolean executeTurnInCard(MainDriver gameMainDriver,
-		    String request)
+		Map<String, List<Card>> handsCards = this.getHand().getCardsFromHand()
+		    .stream().collect(Collectors
+		        .groupingBy(Card::getCardType, Collectors.toList()));
+		
+		if (handsCards.size() == 3)
 		  {
-			      
-			Map<String,List<Card>> handsCards = this.getHand().getCardsFromHand().stream()
-				.collect(Collectors.groupingBy(Card::getCardType,Collectors.toList()));
-			  
-			if (handsCards.size() == 3) {
-			 
-			  for (List<Card> listOfCards : handsCards.values()) {
-				  
+			
+			for (List<Card> listOfCards : handsCards.values())
+			  {
+				
 				this.getHand().getCardsFromHand().remove(listOfCards.get(0));
-				}
+			  }
 			  
-			}else {
-			  
-			  boolean continueDelete = true;
-			  
-			  for (List<Card> listOfCardsPerType : handsCards.values()) {
-				  
-				if (listOfCardsPerType.size() >= 3 && continueDelete) {
-				  
-				  this.getHand().getCardsFromHand().remove(listOfCardsPerType.get(0));
-				  this.getHand().getCardsFromHand().remove(listOfCardsPerType.get(1));
-				  this.getHand().getCardsFromHand().remove(listOfCardsPerType.get(2));
-				  continueDelete = false;
-				}
-				}
-			  
-			}
+		  } else
+		  {
+			
+			boolean continueDelete = true;
+			
+			for (List<Card> listOfCardsPerType : handsCards.values())
+			  {
+				
+				if (listOfCardsPerType.size() >= 3 && continueDelete)
+				  {
 					
-					this.setArmies(this
-					    .getPlayerArmies() + (Constants.turnInCards++ * 5));
-					System.out.println("Now " + this
-					    .getplayerName() + ": is eligible for " + this
-					        .getPlayerArmies() + " armies");
-					System.out.println("Current player's hand has " + hand
-					    .getCardsFromHand());
+					this.getHand().getCardsFromHand().remove(listOfCardsPerType
+					    .get(0));
+					this.getHand().getCardsFromHand().remove(listOfCardsPerType
+					    .get(1));
+					this.getHand().getCardsFromHand().remove(listOfCardsPerType
+					    .get(2));
+					continueDelete = false;
+				  }
+			  }
 			  
-			return true;
 		  }
-
-	
+		  
+		this.setArmies(this.getPlayerArmies() + (Constants.turnInCards++ * 5));
+		System.out.println("Now " + this
+		    .getplayerName() + ": is eligible for " + this
+		        .getPlayerArmies() + " armies");
+		System.out.println("Current player's hand has " + hand
+		    .getCardsFromHand());
+		
+		return true;
+	  }
+	  
+	/**
+	 * utility method for random player attack method
+	 * 
+	 * @return array list of attacking and to be attacked nodes
+	 */
 	@Override
 	public ArrayList<GraphNode> canAttack()
 	  {
@@ -563,7 +570,7 @@ public class RandomPlayer implements Player
 		List<GraphNode> destinationCountries = new ArrayList<>(this
 		    .getPlayerGraph().getGraphNodes().stream().filter(i -> i
 		        .getNodeData().getArmies() > 1).collect(Collectors.toList()));
-	
+		
 		Collections.shuffle(destinationCountries);
 		
 		boolean continueSearch = true;
@@ -589,32 +596,37 @@ public class RandomPlayer implements Player
 		  
 		return adNodes;
 	  }
-
-		/**
-		 * To get the dice input after rolling it
-		 * 
-		 * @param countryObj country of attacker of defender
-		 * @param i          identifier that whether dice is rolling for attacker or
-		 *                   defender
-		 * @return output of rolled dice input
-		 */
-		@Override
-		public int getDiceInput(Country countryObj, String i)
-		  {
-					return 0;
-		  }
-
+	  
+	/**
+	 * To get the dice input after rolling it
+	 * 
+	 * @param countryObj country of attacker of defender
+	 * @param i          identifier that whether dice is rolling for attacker or
+	 *                   defender
+	 * @return 0 based on random player attacking strategy
+	 */
+	@Override
+	public int getDiceInput(Country countryObj, String i)
+	  {
+		return 0;
+	  }
+	  
+	/**
+	 * utility method for random player reinforcement method
+	 * 
+	 * @return graph node for Random player to reinforce.
+	 */
+	@Override
+	public GraphNode canReinforce()
+	  {
 		
-	  @Override
-	  public GraphNode canReinforce()
-		{
-		 
-			
-		  ArrayList<GraphNode> playerCountries = new ArrayList<>(this.getPlayerGraph().getGraphNodes());
-		  
-		  Collections.shuffle(playerCountries);
-		  
-		  return playerCountries.stream().findAny().orElse(new GraphNode(new Country("DUMMY")));
-		}
+		ArrayList<GraphNode> playerCountries = new ArrayList<>(this
+		    .getPlayerGraph().getGraphNodes());
+		
+		Collections.shuffle(playerCountries);
+		
+		return playerCountries.stream().findAny()
+		    .orElse(new GraphNode(new Country("DUMMY")));
+	  }
 	  
   }
