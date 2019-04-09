@@ -168,7 +168,7 @@ public class TestBenevolentPlayer
 	  }
 	  
 	/**
-	 * Distribute armies test method
+	 * reinforcement test method
 	 */
 	@Test
 	public void testreinforcement()
@@ -196,7 +196,7 @@ public class TestBenevolentPlayer
 		}
 
 	/**
-	 * countries the cheater player can cheat
+	 * to test fortify for benevolent player
 	 */
 	@Test
 	public void testcanFortify()
@@ -208,7 +208,9 @@ public class TestBenevolentPlayer
 		assertEquals("RUSSIA", fortifyCountries.get(0).getNodeData().getCountryName()); //Source Node
 		assertEquals("DUBAI", fortifyCountries.get(1).getNodeData().getCountryName()); //Dest Node
 	}
-	
+	/**
+	 * to test reinforcement benevolent player
+	 */
 	@Test
 	public void testCanReinforcement()
 	{
