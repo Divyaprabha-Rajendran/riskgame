@@ -171,7 +171,7 @@ public class TestCheaterPlayer
 	  }
 	  
 	/**
-	 * Distribute armies test method
+	 * reinforcement test method
 	 */
 	@Test
 	public void testreinforcement()
@@ -207,7 +207,7 @@ public class TestCheaterPlayer
 		assertEquals(armiesForCountry2BeforeFortification * 2, armiesForCountry2AfterFortification);
 	  }
 	  /**
-	   * to test attack
+	   * to test attack for cheater player
 	   */
 	@Test
 	public void testAttack()
@@ -219,7 +219,7 @@ public class TestCheaterPlayer
 	  }
 	
 	/**
-	 * countries the cheater player can cheat
+	 *  to test fortify method for cheater player
 	 */
 	@Test
 	public void testcanFortify()
