@@ -17,7 +17,7 @@ import ca.riskgamet31.maincomps.Graph;
  * an abstraction for main game driver for the execution of game. Loading map,
  * creating players and distribution of countries and armies happens here.
  * 
- * @author Fareed Tayr
+ * @author Fareed Tayr.
  * @version 1.0
  *
  */
@@ -114,6 +114,7 @@ public interface MainDriver
 	  
 	/**
 	 * a method representing each turn
+	 * 
 	 * @return name of winner.
 	 */
 	public String playGame();

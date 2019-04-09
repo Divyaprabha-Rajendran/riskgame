@@ -39,7 +39,7 @@ import ca.riskgamet31.utility.ValidateMapInput;
 public class CreateMap
   {
 	/**
-	 * xml map file
+	 * xml map file.
 	 */
 	private File xmlFile = null;
 	

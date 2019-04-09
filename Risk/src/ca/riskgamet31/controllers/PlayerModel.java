@@ -9,7 +9,7 @@ import ca.riskgamet31.maincomps.Player;
 /**
  * array list of players
  * 
- * @author Divia
+ * @author Divia.
  *
  */
 public class PlayerModel implements Serializable

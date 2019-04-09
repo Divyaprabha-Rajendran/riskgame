@@ -41,7 +41,7 @@ import ca.riskgamet31.views.PlayersWorldDominationView;
 public class GameMainDriver extends Observable implements MainDriver
   {
 	/**
-	 * Deck of card for a game
+	 * Deck of card for a game.
 	 */
 	DeckOfCards deck;
 	/**

@@ -6,7 +6,7 @@ import ca.riskgamet31.utility.UserInputOutput;
 /**
  * the main launcher for the game
  * 
- * @author Fareed Tayar
+ * @author Fareed Tayar.
  * @version 3.0
  * @since 3.0
  */
