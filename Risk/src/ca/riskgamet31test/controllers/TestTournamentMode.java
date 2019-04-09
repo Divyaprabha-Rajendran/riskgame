@@ -8,14 +8,25 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ca.riskgamet31.controllers.TournamentMainDriver;
-
+/**
+ * Tests the Player class
+ * 
+ * @author ish
+ * @version 1.1
+ * @since 1.0
+ */
 public class TestTournamentMode {
-
+	/**
+	 *  setup Reference
+	 */
 	static File xmlFile;
 	static File xmlFile1;
 	static File xmlFile2;
 	static File xmlFile3;
 	static TournamentMainDriver tGmd;
+	/**
+	 * Setup method for tournament test class
+	 */
 	@Before
 	public void setUp()
 	{
@@ -43,7 +54,9 @@ public class TestTournamentMode {
 		tGmd.setNoOfGames(4);
 		tGmd.setTournamentPlayers(playerTournaments);
 	}
-	
+	/**
+	 * test execute method for tournament mode
+	 */
 	@Test
 	public void testTournamentMode()
 	{
