@@ -18,7 +18,6 @@ public class RiskMainDriver
 	 */
 	public void displayOptions()
 	  {
-		
 		System.out
 		    .println("------------------Welcome to Risk Game----------------");
 		System.out.println("1- For new Single Game.");
