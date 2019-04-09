@@ -170,7 +170,7 @@ public class TestRandomPlayer
 	  }
 	
 	/**
-	 * countries the cheater player can cheat
+	 * to test for fortify method for random player
 	 */
 	@Test
 	public void testcanFortify()
@@ -190,7 +190,7 @@ public class TestRandomPlayer
 	}
 	
 	/**
-	 * countries the cheater player can cheat
+	 * to test attack method for random player
 	 */
 	@Test
 	public void testcanAttack()
@@ -208,7 +208,9 @@ public class TestRandomPlayer
 		System.out.println(cntr.size());
 		assertNotEquals(1, cntr.size());
 	}
-	
+	/**
+	 * to test for reinforcement for random player
+	 */
 	@Test
 	public void testCanReinforcement()
 	{
