@@ -1,6 +1,5 @@
 package ca.riskgamet31test.controllers;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
-import ca.riskgamet31.maincomps.AggressivePlayer;
 import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.Country;
@@ -76,7 +74,7 @@ public class TestRandomPlayer
 	/**
 	 * Object created before all the test method
 	 * 
-	 */	
+	 */
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -103,7 +101,7 @@ public class TestRandomPlayer
 		g7 = new GraphNode(c7);
 		g8 = new GraphNode(c8);
 		g1.addNeighbor(g2);
-		//g1.addNeighbor(g3);
+		// g1.addNeighbor(g3);
 		g1.addNeighbor(g7);
 		g2.addNeighbor(g8);
 		g2.addNeighbor(g1);
@@ -131,7 +129,7 @@ public class TestRandomPlayer
 		G2.addNode(g8);
 		C1 = new Continent("Africa", 3, G2);
 		C2 = new Continent("Asia", 5, G1);
-		C3 = new Continent("Syria", 3,  G2);
+		C3 = new Continent("Syria", 3, G2);
 		HM1.put("Africa", C1);
 		HM1.put("Asia", C2);
 		HM1.put("Syria", C3);
@@ -168,52 +166,69 @@ public class TestRandomPlayer
 			e.printStackTrace();
 		  }
 	  }
-	
+	  
 	/**
 	 * to test for fortify method for random player
 	 */
 	@Test
 	public void testcanFortify()
-	{
+	  {
 		HashSet<ArrayList<GraphNode>> cntr = new HashSet<>();
 		ArrayList<GraphNode> a = p1.canFortify();
 		ArrayList<GraphNode> b = p1.canFortify();
 		ArrayList<GraphNode> c = p1.canFortify();
 		ArrayList<GraphNode> d = p1.canFortify();
+		ArrayList<GraphNode> aa = p1.canFortify();
+		ArrayList<GraphNode> bb = p1.canFortify();
+		ArrayList<GraphNode> cc = p1.canFortify();
+		ArrayList<GraphNode> dd = p1.canFortify();
 		cntr.add(a);
 		cntr.add(b);
 		cntr.add(c);
 		cntr.add(d);
+		cntr.add(aa);
+		cntr.add(bb);
+		cntr.add(cc);
+		cntr.add(dd);
 		System.out.println(cntr);
 		System.out.println(cntr.size());
 		assertNotEquals(1, cntr.size());
-	}
-	
+	  }
+	  
 	/**
 	 * to test attack method for random player
 	 */
 	@Test
 	public void testcanAttack()
-	{
+	  {
 		HashSet<ArrayList<GraphNode>> cntr = new HashSet<>();
 		ArrayList<GraphNode> a = p1.canAttack();
 		ArrayList<GraphNode> b = p1.canAttack();
 		ArrayList<GraphNode> c = p1.canAttack();
 		ArrayList<GraphNode> d = p1.canAttack();
+		ArrayList<GraphNode> aa = p1.canAttack();
+		ArrayList<GraphNode> ba = p1.canAttack();
+		ArrayList<GraphNode> ca = p1.canAttack();
+		ArrayList<GraphNode> da = p1.canAttack();
 		cntr.add(a);
 		cntr.add(b);
 		cntr.add(c);
 		cntr.add(d);
+		cntr.add(aa);
+		cntr.add(ba);
+		cntr.add(ca);
+		cntr.add(da);
 		System.out.println(cntr);
 		System.out.println(cntr.size());
 		assertNotEquals(1, cntr.size());
-	}
+	  }
+	  
 	/**
 	 * to test for reinforcement for random player
 	 */
 	@Test
 	public void testCanReinforcement()
-	{
+	  {
 		HashSet<String> cntr = new HashSet<>();
 		GraphNode a = p1.canReinforce();
 		GraphNode b = p1.canReinforce();
@@ -226,5 +241,5 @@ public class TestRandomPlayer
 		System.out.println(cntr);
 		System.out.println(cntr.size());
 		assertNotEquals(1, cntr.size());
-	}
+	  }
   }

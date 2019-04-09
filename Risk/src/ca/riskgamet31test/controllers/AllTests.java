@@ -4,19 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-/**
- * test suite for the contorllers test package
- * @author Chitra
- * @version 1.0
- * @since 1.0
- *
- */
 @RunWith(Suite.class)
-/**
- * Run the all the test class at once.
- */
 @SuiteClasses(
-  { TestAggresivePlayer.class,TestBenevolentPlayer.class,TestCheaterPlayer.class,TestRandomPlayer.class,TestTournamentMode.class,TestGameMainDriver.class, TestPlayerModel.class, TestStartupPhase.class, TestHumanPlayer.class })
+  { TestAggresivePlayer.class, TestBenevolentPlayer.class, TestCheaterPlayer.class, TestGameMainDriver.class, TestHumanPlayer.class, TestPlayerModel.class, TestRandomPlayer.class, TestStartupPhase.class, TestTournamentMode.class })
 public class AllTests
   {
 	
