@@ -26,7 +26,7 @@ public class CardExchangeView implements Observer, Serializable
 	/**
 	 * constructor for Card exchange view
 	 * 
-	 * @param gameMD
+	 * @param gameMD the observable object
 	 */
 	public CardExchangeView(Observable gameMD)
 	  {

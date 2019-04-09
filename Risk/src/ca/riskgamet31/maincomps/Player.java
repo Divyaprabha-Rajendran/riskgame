@@ -136,6 +136,9 @@ public interface Player extends java.io.Serializable
 	/**
 	 * exchange card method
 	 * 
+	 * @param gmd     the main driver of game type
+	 * @param request selected cards to exchange
+	 * 
 	 * @return true if exchange was successful
 	 */
 	boolean executeTurnInCard(MainDriver gmd, String request);
@@ -313,6 +316,7 @@ public interface Player extends java.io.Serializable
 	/**
 	 * utility method for fortification
 	 * 
+	 * @param fortifyNodes select from and to countries to fortify
 	 */
 	public void executeFortification(ArrayList<GraphNode> fortifyNodes);
 	
