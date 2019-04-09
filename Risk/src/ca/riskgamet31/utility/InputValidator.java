@@ -47,7 +47,7 @@ public class InputValidator
 		
 		if (input.length() > 0)
 		  {
-			Pattern stringPattern = Pattern.compile("[1-9]*$");
+			Pattern stringPattern = Pattern.compile("\\d+");
 			Matcher matcher = stringPattern.matcher(input);
 			return matcher.matches();
 		  } else

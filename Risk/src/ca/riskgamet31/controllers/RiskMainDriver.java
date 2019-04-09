@@ -37,6 +37,7 @@ public class RiskMainDriver
 		riskMainDriver.displayOptions();
 		String userSelection = UserInputOutput.getInstance()
 		    .requestUserInput("Enter your selection");
+		
 		switch (userSelection)
 		  {
 			case "1":

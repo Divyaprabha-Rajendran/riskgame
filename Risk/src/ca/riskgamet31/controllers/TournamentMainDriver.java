@@ -151,17 +151,17 @@ public class TournamentMainDriver extends Observable implements MainDriver
 		chooser.setCurrentDirectory(new File(System
 		    .getProperty("user.dir") + "\\Risk_MapData"));
 		boolean continueEditing = true;
-		
+		InputValidator iv = new InputValidator();
 		while (continueEditing)
 		  {
-			System.out.println("Choose an option...");
-			System.out.println("1. add maps to tournament...");
-			System.out.println("2. add players to tournament.");
-			System.out
-			    .println("3. set maximum number of allowed turns per game.");
-			System.out.println("4. set number of games per map.");
-			System.out.println("5. start playing..");
-			int option = scan.nextInt();
+			String input = "";
+			do
+			  {
+				input = UserInputOutput.getInstance()
+				    .requestUserInput("Choose an option...\n1. add maps to tournament...\n2. add players to tournament.\n3. set maximum number of allowed turns per game.\n4. set number of games per map.\n5. start tournament..");
+				
+			  } while (!iv.validateNumbers(input));
+			int option = Integer.parseInt(input);
 			
 			switch (option)
 			  {
@@ -218,28 +218,76 @@ public class TournamentMainDriver extends Observable implements MainDriver
 				  {
 					String userInput = UserInputOutput.getInstance()
 					    .requestUserInput("Enter Players Type i.e. AGG|RAN|BEN|CHE");
-					
+					boolean addPlayerTypes = true;
 					String[] playerTypes = userInput.split(Pattern.quote("|"));
-					
-					tournamentPlayers.addAll(Arrays.asList(playerTypes));
+					for (int i = 0; i < playerTypes.length; i++)
+					  {
+						
+						if (!playerTypes[i].equals("AGG") && !playerTypes[i]
+						    .equals("RAN") && !playerTypes[i]
+						        .equals("BEN") && !playerTypes[i].equals("CHE"))
+						  {
+							addPlayerTypes = false;
+							System.out
+							    .println(playerTypes[i] + " is not an accepted player type for tournament");
+						  }
+					  }
+					  
+					if (playerTypes.length < 2 || playerTypes.length > 4)
+					  {
+						addPlayerTypes = false;
+						System.out
+						    .println("Number of players should be between 2 and 4");
+					  }
+					  
+					if (addPlayerTypes)
+					  tournamentPlayers.addAll(Arrays.asList(playerTypes));
 					
 					break;
 				  }
 				case 3:
 				  {
-					String userInput = UserInputOutput.getInstance()
-					    .requestUserInput("Enter maximum number of allowed turns per game");
-					
-					noOfTurns = Integer.parseInt(userInput);
+					String userInput = "";
+					boolean addNumOfTurns = true;
+					do
+					  {
+						userInput = UserInputOutput.getInstance()
+						    .requestUserInput("Enter number of allowed turns per game between 10 and 50 turns");
+						
+					  } while (!iv.validateNumbers(userInput));
+					if (Integer.parseInt(userInput) < 10 || Integer
+					    .parseInt(userInput) > 50)
+					  {
+						addNumOfTurns = false;
+						System.out
+						    .println("Valid number of Turns is between 10 and 50.");
+					  }
+					if (addNumOfTurns)
+					  noOfTurns = Integer.parseInt(userInput);
 					
 					break;
 				  }
 				case 4:
 				  {
-					String userInput = UserInputOutput.getInstance()
-					    .requestUserInput("Enter number of games per map");
+					String userInput = "";
 					
-					noOfGames = Integer.parseInt(userInput);
+					boolean addNumOfGames = true;
+					do
+					  {
+						userInput = UserInputOutput.getInstance()
+						    .requestUserInput("Enter number of games per map between 1 and 5.");
+						
+					  } while (!iv.validateNumbers(userInput));
+					  
+					if (Integer.parseInt(userInput) < 1 || Integer
+					    .parseInt(userInput) > 5)
+					  {
+						addNumOfGames = false;
+						System.out
+						    .println("Valid number of games is between 1 and 5 games per map");
+					  }
+					if (addNumOfGames)
+					  noOfGames = Integer.parseInt(userInput);
 					
 					break;
 				  }
@@ -507,69 +555,85 @@ public class TournamentMainDriver extends Observable implements MainDriver
 	  {
 		return deck;
 	  }
-	
+	  
 	/**
 	 * getting tournament map list
+	 * 
 	 * @return arraylist for tournament map list
 	 */
-	public ArrayList<File> getTournamentMaps() {
+	public ArrayList<File> getTournamentMaps()
+	  {
 		return tournamentMaps;
-	}
-
+	  }
+	  
 	/**
 	 * set list of maps in tournament mode
+	 * 
 	 * @param tournamentMaps list of maps to set in tournament mode
 	 */
-	public void setTournamentMaps(ArrayList<File> tournamentMaps) {
+	public void setTournamentMaps(ArrayList<File> tournamentMaps)
+	  {
 		this.tournamentMaps = tournamentMaps;
-	}
-
+	  }
+	  
 	/**
 	 * get tournament players list
+	 * 
 	 * @return get tournament players list
 	 */
-	public ArrayList<String> getTournamentPlayers() {
+	public ArrayList<String> getTournamentPlayers()
+	  {
 		return tournamentPlayers;
-	}
-
+	  }
+	  
 	/**
 	 * to send tournament players
+	 * 
 	 * @param tournamentPlayers set tournament players
 	 */
-	public void setTournamentPlayers(ArrayList<String> tournamentPlayers) {
+	public void setTournamentPlayers(ArrayList<String> tournamentPlayers)
+	  {
 		this.tournamentPlayers = tournamentPlayers;
-	}
-
+	  }
+	  
 	/**
 	 * get number of games
+	 * 
 	 * @return get number of games
 	 */
-	public int getNoOfGames() {
+	public int getNoOfGames()
+	  {
 		return noOfGames;
-	}
-
+	  }
+	  
 	/**
 	 * set number of games
-	 * @param noOfGames set number of games 
+	 * 
+	 * @param noOfGames set number of games
 	 */
-	public void setNoOfGames(int noOfGames) {
+	public void setNoOfGames(int noOfGames)
+	  {
 		this.noOfGames = noOfGames;
-	}
-
+	  }
+	  
 	/**
 	 * get number of turns
+	 * 
 	 * @return get number of turns
 	 */
-	public int getNoOfTurns() {
+	public int getNoOfTurns()
+	  {
 		return noOfTurns;
-	}
-
+	  }
+	  
 	/**
 	 * set number of turns
+	 * 
 	 * @param noOfTurns set number of turns
 	 */
-	public void setNoOfTurns(int noOfTurns) {
+	public void setNoOfTurns(int noOfTurns)
+	  {
 		this.noOfTurns = noOfTurns;
-	}
+	  }
 	  
   }
