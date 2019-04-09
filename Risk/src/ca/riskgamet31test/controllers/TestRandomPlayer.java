@@ -3,10 +3,9 @@ package ca.riskgamet31test.controllers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,15 +13,15 @@ import org.junit.Test;
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
+import ca.riskgamet31.maincomps.AggressivePlayer;
 import ca.riskgamet31.maincomps.Card;
-import ca.riskgamet31.maincomps.CheaterPlayer;
 import ca.riskgamet31.maincomps.Continent;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
-import ca.riskgamet31.maincomps.HumanPlayer;
 import ca.riskgamet31.maincomps.Player;
+import ca.riskgamet31.maincomps.RandomPlayer;
 
 /**
  * Tests the Player class
@@ -31,7 +30,7 @@ import ca.riskgamet31.maincomps.Player;
  * @version 1.1
  * @since 1.0
  */
-public class TestCheaterPlayer
+public class TestRandomPlayer
   {
 	/**
 	 * Country Class Reference
@@ -110,9 +109,9 @@ public class TestCheaterPlayer
 		g2.addNeighbor(g1);
 		try
 		  {
-			p1 = new CheaterPlayer("player1", 7);
-			p2 = new CheaterPlayer("player2", 7);
-			p3 = new CheaterPlayer("player3", 7);
+			p1 = new RandomPlayer("player1", 7);
+			p2 = new RandomPlayer("player2", 7);
+			p3 = new RandomPlayer("player3", 7);
 		  } catch (NullPointerException | InvalidPlayerNameException e)
 		  {
 			e.printStackTrace();
@@ -169,69 +168,63 @@ public class TestCheaterPlayer
 			e.printStackTrace();
 		  }
 	  }
-	  
-	/**
-	 * reinforcement test method
-	 */
-	@Test
-	public void testreinforcement()
-	  {
-		int armiesForCountry1BeforeReinforcement = c1.getArmies();
-		int armiesForCountry2BeforeReinforcement = c2.getArmies();
-		p1.reinforcement();
-		int armiesForCountry1AfterReinforcement = c1.getArmies();
-		int armiesForCountry2AfterReinforcement = c2.getArmies();
-		//System.out.println(armiesForCountry2BeforeFortification);
-		//System.out.println(armiesForCountry2AfterFortification);
-		//assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
-		assertEquals(armiesForCountry1BeforeReinforcement * 2, armiesForCountry1AfterReinforcement);
-		assertEquals(armiesForCountry2BeforeReinforcement * 2, armiesForCountry2AfterReinforcement);
-	  }
-	  
-	/**
-	 * fortification armies test method
-	 */
-	@Test
-	public void testfortification()
-	  {
-		
-		int armiesForCountry1BeforeFortification = c1.getArmies();
-		int armiesForCountry2BeforeFortification = c2.getArmies();
-		p1.fortification();
-		int armiesForCountry1AfterFortification = c1.getArmies();
-		int armiesForCountry2AfterFortification = c2.getArmies();
-		//System.out.println(armiesForCountry2BeforeFortification);
-		//System.out.println(armiesForCountry2AfterFortification);
-		//assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
-		assertEquals(armiesForCountry1BeforeFortification * 2, armiesForCountry1AfterFortification);
-		assertEquals(armiesForCountry2BeforeFortification * 2, armiesForCountry2AfterFortification);
-	  }
-	  /**
-	   * to test attack for cheater player
-	   */
-	@Test
-	public void testAttack()
-	  {
-		
-		p1.attack(driver);
-		assertEquals(c1.getCurrentOccupier(), c8.getCurrentOccupier());
-		assertEquals(1, driver.getPlayerList().getPlayerList().size()); 
-	  }
 	
 	/**
-	 *  to test fortify method for cheater player
+	 * to test for fortify method for random player
 	 */
 	@Test
 	public void testcanFortify()
 	{
-		ArrayList<GraphNode> fortifyCountries = new ArrayList<>();
-		fortifyCountries = p1.canFortify();
-		p1.getPlayerGraph().viewGraph();
-		//System.out.println(fortifyCountries.size());
-		//System.out.println(fortifyCountries.get(0).getNodeData().getCountryName());
-		//System.out.println(fortifyCountries.get(1).getNodeData().getCountryName());
-		assertEquals(2, fortifyCountries.size());
-		assertEquals("DUBAI", fortifyCountries.get(0).getNodeData().getCountryName());
-		assertEquals("RUSSIA", fortifyCountries.get(1).getNodeData().getCountryName());
+		HashSet<ArrayList<GraphNode>> cntr = new HashSet<>();
+		ArrayList<GraphNode> a = p1.canFortify();
+		ArrayList<GraphNode> b = p1.canFortify();
+		ArrayList<GraphNode> c = p1.canFortify();
+		ArrayList<GraphNode> d = p1.canFortify();
+		cntr.add(a);
+		cntr.add(b);
+		cntr.add(c);
+		cntr.add(d);
+		System.out.println(cntr);
+		System.out.println(cntr.size());
+		assertNotEquals(1, cntr.size());
+	}
+	
+	/**
+	 * to test attack method for random player
+	 */
+	@Test
+	public void testcanAttack()
+	{
+		HashSet<ArrayList<GraphNode>> cntr = new HashSet<>();
+		ArrayList<GraphNode> a = p1.canAttack();
+		ArrayList<GraphNode> b = p1.canAttack();
+		ArrayList<GraphNode> c = p1.canAttack();
+		ArrayList<GraphNode> d = p1.canAttack();
+		cntr.add(a);
+		cntr.add(b);
+		cntr.add(c);
+		cntr.add(d);
+		System.out.println(cntr);
+		System.out.println(cntr.size());
+		assertNotEquals(1, cntr.size());
+	}
+	/**
+	 * to test for reinforcement for random player
+	 */
+	@Test
+	public void testCanReinforcement()
+	{
+		HashSet<String> cntr = new HashSet<>();
+		GraphNode a = p1.canReinforce();
+		GraphNode b = p1.canReinforce();
+		GraphNode c = p1.canReinforce();
+		GraphNode d = p1.canReinforce();
+		cntr.add(a.getNodeData().getCountryName());
+		cntr.add(b.getNodeData().getCountryName());
+		cntr.add(c.getNodeData().getCountryName());
+		cntr.add(d.getNodeData().getCountryName());
+		System.out.println(cntr);
+		System.out.println(cntr.size());
+		assertNotEquals(1, cntr.size());
 	}
   }
