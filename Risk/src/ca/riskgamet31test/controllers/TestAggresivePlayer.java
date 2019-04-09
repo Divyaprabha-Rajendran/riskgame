@@ -167,7 +167,7 @@ public class TestAggresivePlayer
 	  }
 	  
 	/**
-	 * Distribute armies test method
+	 * reinforcement test method
 	 */
 	@Test
 	public void testreinforcement()
@@ -215,7 +215,7 @@ public class TestAggresivePlayer
 	  }
 	
 	/**
-	 * countries the cheater player can cheat
+	 * to test fortify method for aggresive player
 	 */
 	@Test
 	public void testcanFortify()
@@ -232,7 +232,7 @@ public class TestAggresivePlayer
 	}
 	
 	/**
-	 * countries the cheater player can cheat
+	 * to test attack for aggresive player 
 	 */
 	@Test
 	public void testcanAttack()
@@ -244,7 +244,9 @@ public class TestAggresivePlayer
 		//System.out.println(adNodes.get(0).getNodeData().getCountryName());
 	//	System.out.println(adNodes.get(1).getNodeData().getCountryName());
 	}
-	
+	/**
+	 * to test reinforcement for aggresive player
+	 */
 	@Test
 	public void testCanReinforcement()
 	{
