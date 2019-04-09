@@ -25,9 +25,15 @@ import java.io.*;
  */
 public class LoadGame 
 {
+	/**
+	 * Backup Object to save the game state
+	 */
 	Backup currBkp;
 	 
-	 public LoadGame()
+	 /**
+	 * Constructor for creating the backup object. 
+	 */
+	public LoadGame()
 	 {
 		 currBkp=new Backup();
 	 }

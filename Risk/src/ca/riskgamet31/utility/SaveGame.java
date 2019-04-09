@@ -19,8 +19,14 @@ import ca.riskgamet31.controllers.GameMainDriver;
 public class SaveGame implements java.io.Serializable
 {
 
+	/**
+	 * Backup Object to save the game state
+	 */
 	 Backup currBkp;
 	 
+	 /**
+	  * Constructor for creating the backup object. 
+	  */
 	 public SaveGame()
 	 {
 		 currBkp=new Backup();
