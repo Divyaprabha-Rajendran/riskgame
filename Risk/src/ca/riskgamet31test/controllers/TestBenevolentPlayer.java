@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
@@ -28,6 +30,7 @@ import ca.riskgamet31.maincomps.Player;
  * @version 1.1
  * @since 1.0
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestBenevolentPlayer
   {
 	/**
@@ -174,9 +177,9 @@ public class TestBenevolentPlayer
 	public void testreinforcement()
 	  {
 		int playerArmiesBeforeReinforcement = p1.getPlayerArmies();
-		int armiesForCountry2BeforeReinforcement = c1.getArmies();
+		int armiesForCountry2BeforeReinforcement = c2.getArmies();
 		p1.reinforcement();
-		int armiesForCountry2AfterReinforcement = c1.getArmies();
+		int armiesForCountry2AfterReinforcement = c2.getArmies();
 		assertEquals(armiesForCountry2BeforeReinforcement + playerArmiesBeforeReinforcement, armiesForCountry2AfterReinforcement);
 	  }
 	  
@@ -216,6 +219,6 @@ public class TestBenevolentPlayer
 	{
 		p1.getPlayerGraph().viewGraph();
 		GraphNode a = p1.canReinforce();
-		assertEquals("RUSSIA", a.getNodeData().getCountryName());
+		assertEquals("DUBAI", a.getNodeData().getCountryName());
 	}
   }
