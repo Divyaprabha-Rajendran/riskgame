@@ -418,10 +418,10 @@ public class GameMainDriver extends Observable implements MainDriver
 	@Override
 	public String playGame()
 	  {
-		
+		Scanner in = new Scanner(System.in);
 		boolean endGame = false;
 		Player currentPlayer;
-		
+		String sIn = "a";
 		String winner = "NA";
 		boolean won = false;
 		this.addObserver(this.playerWorldDominationView);
@@ -432,9 +432,8 @@ public class GameMainDriver extends Observable implements MainDriver
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
 			currentPlayer.reinforcementArmiesCalc(risk, 0);
 			
-			String userI = UserInputOutput.getInstance()
-			    .requestUserInput("Press any key to Continue....");
-			
+			System.out.print("Press any key to continue...");
+			sIn = in.nextLine();
 			// reinforcement phase
 			
 			this.updatePhaseInfo("Reinforcement Phase", currentPlayer
@@ -444,8 +443,9 @@ public class GameMainDriver extends Observable implements MainDriver
 			
 			currentPlayer.reinforcement();
 			
-			userI = UserInputOutput.getInstance()
-			    .requestUserInput("Press any key to Continue....");
+			System.out.print("Press any key to continue...");
+			sIn = in.nextLine();
+			
 			/// Attack phase
 			this.updatePhaseInfo("Attack phase", currentPlayer
 			    .getplayerName(), attackphaseInfo(currentPlayer));
@@ -462,11 +462,13 @@ public class GameMainDriver extends Observable implements MainDriver
 				winner = this.Players.getPlayerList().get(0).getplayerName();
 			  }
 			  
-			userI = UserInputOutput.getInstance()
-			    .requestUserInput("Press any key to Continue....");
 			// Fortification phase
 			if (!endGame)
 			  {
+				
+				System.out.print("Press any key to continue...");
+				sIn = in.nextLine();
+				
 				this.updatePhaseInfo("Fortification phase", currentPlayer
 				    .getplayerName(), fortificationPhaseInfo(currentPlayer));
 				this.setChanged();

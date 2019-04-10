@@ -323,7 +323,7 @@ public class RandomPlayer implements Player
 	  {
 		boolean won = false;
 		SecureRandom random = new SecureRandom();
-		int noOfAttacks = random.nextInt(10);
+		int noOfAttacks = random.nextInt(20);
 		
 		ArrayList<GraphNode> attDef = new ArrayList<>();
 		
@@ -333,8 +333,6 @@ public class RandomPlayer implements Player
 		    .get(0).getNodeData().getArmies() > 1)
 		  {
 			
-			System.out.println("RANDON bug:" + attDef.get(0) + " " + attDef
-			    .get(1));
 			boolean wonRound = this.attackRound(driver, attDef.get(0), attDef
 			    .get(1), true);
 			attDef.clear();
