@@ -1,10 +1,7 @@
 package ca.riskgamet31test.controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,7 +18,6 @@ import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.GameMap;
 import ca.riskgamet31.maincomps.Graph;
 import ca.riskgamet31.maincomps.GraphNode;
-import ca.riskgamet31.maincomps.HumanPlayer;
 import ca.riskgamet31.maincomps.Player;
 
 /**
@@ -77,7 +73,7 @@ public class TestCheaterPlayer
 	/**
 	 * Object created before all the test method
 	 * 
-	 */	
+	 */
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -104,7 +100,6 @@ public class TestCheaterPlayer
 		g7 = new GraphNode(c7);
 		g8 = new GraphNode(c8);
 		g1.addNeighbor(g2);
-		//g1.addNeighbor(g3);
 		g1.addNeighbor(g7);
 		g2.addNeighbor(g8);
 		g2.addNeighbor(g1);
@@ -132,7 +127,7 @@ public class TestCheaterPlayer
 		G2.addNode(g8);
 		C1 = new Continent("Africa", 3, G2);
 		C2 = new Continent("Asia", 5, G1);
-		C3 = new Continent("Syria", 3,  G2);
+		C3 = new Continent("Syria", 3, G2);
 		HM1.put("Africa", C1);
 		HM1.put("Asia", C2);
 		HM1.put("Syria", C3);
@@ -181,9 +176,6 @@ public class TestCheaterPlayer
 		p1.reinforcement();
 		int armiesForCountry1AfterReinforcement = c1.getArmies();
 		int armiesForCountry2AfterReinforcement = c2.getArmies();
-		//System.out.println(armiesForCountry2BeforeFortification);
-		//System.out.println(armiesForCountry2AfterFortification);
-		//assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
 		assertEquals(armiesForCountry1BeforeReinforcement * 2, armiesForCountry1AfterReinforcement);
 		assertEquals(armiesForCountry2BeforeReinforcement * 2, armiesForCountry2AfterReinforcement);
 	  }
@@ -200,38 +192,35 @@ public class TestCheaterPlayer
 		p1.fortification();
 		int armiesForCountry1AfterFortification = c1.getArmies();
 		int armiesForCountry2AfterFortification = c2.getArmies();
-		//System.out.println(armiesForCountry2BeforeFortification);
-		//System.out.println(armiesForCountry2AfterFortification);
-		//assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
 		assertEquals(armiesForCountry1BeforeFortification * 2, armiesForCountry1AfterFortification);
 		assertEquals(armiesForCountry2BeforeFortification * 2, armiesForCountry2AfterFortification);
 	  }
-	  /**
-	   * to test attack for cheater player
-	   */
+	  
+	/**
+	 * to test attack for cheater player
+	 */
 	@Test
 	public void testAttack()
 	  {
 		
 		p1.attack(driver);
 		assertEquals(c1.getCurrentOccupier(), c8.getCurrentOccupier());
-		assertEquals(1, driver.getPlayerList().getPlayerList().size()); 
+		assertEquals(1, driver.getPlayerList().getPlayerList().size());
 	  }
-	
+	  
 	/**
-	 *  to test fortify method for cheater player
+	 * to test fortify method for cheater player
 	 */
 	@Test
 	public void testcanFortify()
-	{
+	  {
 		ArrayList<GraphNode> fortifyCountries = new ArrayList<>();
 		fortifyCountries = p1.canFortify();
 		p1.getPlayerGraph().viewGraph();
-		//System.out.println(fortifyCountries.size());
-		//System.out.println(fortifyCountries.get(0).getNodeData().getCountryName());
-		//System.out.println(fortifyCountries.get(1).getNodeData().getCountryName());
 		assertEquals(2, fortifyCountries.size());
-		assertEquals("DUBAI", fortifyCountries.get(0).getNodeData().getCountryName());
-		assertEquals("RUSSIA", fortifyCountries.get(1).getNodeData().getCountryName());
-	}
+		assertEquals("DUBAI", fortifyCountries.get(0).getNodeData()
+		    .getCountryName());
+		assertEquals("RUSSIA", fortifyCountries.get(1).getNodeData()
+		    .getCountryName());
+	  }
   }

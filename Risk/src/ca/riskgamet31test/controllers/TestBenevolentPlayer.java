@@ -13,7 +13,6 @@ import org.junit.runners.MethodSorters;
 import ca.riskgamet31.controllers.GameMainDriver;
 import ca.riskgamet31.exceptions.InvalidPlayerException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
-import ca.riskgamet31.maincomps.AggressivePlayer;
 import ca.riskgamet31.maincomps.BenevolentPlayer;
 import ca.riskgamet31.maincomps.Card;
 import ca.riskgamet31.maincomps.Continent;
@@ -77,7 +76,7 @@ public class TestBenevolentPlayer
 	/**
 	 * Object created before all the test method
 	 * 
-	 */	
+	 */
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -104,7 +103,6 @@ public class TestBenevolentPlayer
 		g7 = new GraphNode(c7);
 		g8 = new GraphNode(c8);
 		g1.addNeighbor(g2);
-		//g1.addNeighbor(g3);
 		g1.addNeighbor(g7);
 		g2.addNeighbor(g8);
 		g2.addNeighbor(g1);
@@ -132,7 +130,7 @@ public class TestBenevolentPlayer
 		G2.addNode(g8);
 		C1 = new Continent("Africa", 3, G2);
 		C2 = new Continent("Asia", 5, G1);
-		C3 = new Continent("Syria", 3,  G2);
+		C3 = new Continent("Syria", 3, G2);
 		HM1.put("Africa", C1);
 		HM1.put("Asia", C2);
 		HM1.put("Syria", C3);
@@ -196,29 +194,32 @@ public class TestBenevolentPlayer
 		int armiesForCountry1AfterFortification = c1.getArmies();
 		int armiesForCountry2AfterFortification = c2.getArmies();
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
-		}
-
+	  }
+	  
 	/**
 	 * to test fortify for benevolent player
 	 */
 	@Test
 	public void testcanFortify()
-	{
+	  {
 		p1.getPlayerGraph().viewGraph();
 		ArrayList<GraphNode> fortifyCountries = new ArrayList<>();
 		fortifyCountries = p1.canFortify();
 		assertEquals(2, fortifyCountries.size());
-		assertEquals("RUSSIA", fortifyCountries.get(0).getNodeData().getCountryName()); //Source Node
-		assertEquals("DUBAI", fortifyCountries.get(1).getNodeData().getCountryName()); //Dest Node
-	}
+		assertEquals("RUSSIA", fortifyCountries.get(0).getNodeData()
+		    .getCountryName());
+		assertEquals("DUBAI", fortifyCountries.get(1).getNodeData()
+		    .getCountryName());
+	  }
+	  
 	/**
 	 * to test reinforcement benevolent player
 	 */
 	@Test
 	public void testCanReinforcement()
-	{
+	  {
 		p1.getPlayerGraph().viewGraph();
 		GraphNode a = p1.canReinforce();
 		assertEquals("DUBAI", a.getNodeData().getCountryName());
-	}
+	  }
   }

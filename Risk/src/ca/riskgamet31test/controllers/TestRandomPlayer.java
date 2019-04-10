@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -101,7 +102,6 @@ public class TestRandomPlayer
 		g7 = new GraphNode(c7);
 		g8 = new GraphNode(c8);
 		g1.addNeighbor(g2);
-		// g1.addNeighbor(g3);
 		g1.addNeighbor(g7);
 		g2.addNeighbor(g8);
 		g2.addNeighbor(g1);
@@ -201,7 +201,7 @@ public class TestRandomPlayer
 	@Test
 	public void testcanAttack()
 	  {
-		HashSet<ArrayList<GraphNode>> cntr = new HashSet<>();
+		Set<ArrayList<GraphNode>> cntr = new HashSet<>();
 		ArrayList<GraphNode> a = p1.canAttack();
 		ArrayList<GraphNode> b = p1.canAttack();
 		ArrayList<GraphNode> c = p1.canAttack();
@@ -210,6 +210,10 @@ public class TestRandomPlayer
 		ArrayList<GraphNode> ba = p1.canAttack();
 		ArrayList<GraphNode> ca = p1.canAttack();
 		ArrayList<GraphNode> da = p1.canAttack();
+		ArrayList<GraphNode> aaa = p1.canAttack();
+		ArrayList<GraphNode> baa = p1.canAttack();
+		ArrayList<GraphNode> caa = p1.canAttack();
+		ArrayList<GraphNode> daa = p1.canAttack();
 		cntr.add(a);
 		cntr.add(b);
 		cntr.add(c);
@@ -218,6 +222,10 @@ public class TestRandomPlayer
 		cntr.add(ba);
 		cntr.add(ca);
 		cntr.add(da);
+		cntr.add(aaa);
+		cntr.add(baa);
+		cntr.add(caa);
+		cntr.add(daa);
 		System.out.println(cntr);
 		System.out.println(cntr.size());
 		assertNotEquals(1, cntr.size());

@@ -9,10 +9,11 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import ca.riskgamet31.controllers.GameMainDriver;
-import ca.riskgamet31.controllers.MainDriver;
 import ca.riskgamet31.controllers.PlayerModel;
 import ca.riskgamet31.controllers.StartUpPhase;
 import ca.riskgamet31.exceptions.InvalidContinentException;
@@ -21,7 +22,6 @@ import ca.riskgamet31.exceptions.InvalidGraphException;
 import ca.riskgamet31.exceptions.InvalidLinkException;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.GameMap;
-import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.maincomps.RandomPlayer;
 
 /**
@@ -33,6 +33,7 @@ import ca.riskgamet31.maincomps.RandomPlayer;
  * @since 1.0
  * 
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestGameMainDriver
   {
 	/**
@@ -89,7 +90,7 @@ public class TestGameMainDriver
 	 * 
 	 */
 	@Test
-	public void TestcreatePlayer() throws NullPointerException,
+	public void Test4createPlayer() throws NullPointerException,
 	    ca.riskgamet31.exceptions.InvalidNameException
 	  {
 		P1 = G1.getPlayerList();
@@ -98,10 +99,8 @@ public class TestGameMainDriver
 		String input = "3\nAGG|P1\nAGG|P2\nAGG|P3\n" + inputfromtestplayer;
 		InputStream in = new ByteArrayInputStream(input.getBytes());
 		System.setIn(in);
-		System.out.println(a1);
 		G1.createPlayer();
 		int a2 = P1.getPlayerList().size();
-		System.out.println(a2);
 		assertNotEquals(a2, a1);
 		
 	  }
@@ -125,7 +124,7 @@ public class TestGameMainDriver
 	 *                                                        unexpectedly
 	 */
 	@Test
-	public void TestStartup() throws InvalidGraphException,
+	public void Test1Startup() throws InvalidGraphException,
 	    ca.riskgamet31.exceptions.InvalidNameException, InvalidCountryException,
 	    InvalidContinentException, InvalidLinkException, Exception
 	  {
@@ -133,9 +132,9 @@ public class TestGameMainDriver
 		    .getProperty("user.dir") + "\\Risk_MapData\\small_map.xml");
 		pm.setPlayerList(p1);
 		pm.setPlayerList(p2);
-		s1.setPlayerCount(2); 
-	    M1=G1.createGameMap(xmlFile.getPath());
-	    s1.distributeCountriesSequ(pm, M1);
+		s1.setPlayerCount(2);
+		M1 = G1.createGameMap(xmlFile.getPath());
+		s1.distributeCountriesSequ(pm, M1);
 		System.out.println(p1.getPlayerCountriesGNodes());
 		System.out.println(p2.getPlayerCountriesGNodes());
 		assertEquals("[INDIA:1:p1]", p1.getPlayerGraph().getGraphNodes().get(2)
@@ -151,7 +150,7 @@ public class TestGameMainDriver
 	 * @throws Exception               when there is exception is unexpectedly
 	 */
 	@Test(expected = ca.riskgamet31.exceptions.InvalidNameException.class)
-	public void TestCreateMap() throws InvalidGraphException,
+	public void Test5CreateMap() throws InvalidGraphException,
 	    InvalidCountryException, InvalidLinkException, Exception
 	  {
 		File xmlFile = new File(System
@@ -159,7 +158,7 @@ public class TestGameMainDriver
 		G1.createGameMap(xmlFile.getPath());
 		
 	  }
-	
+	  
 	/**
 	 * reading the disconnected continent
 	 * 
@@ -169,7 +168,7 @@ public class TestGameMainDriver
 	 * @throws Exception               when there is exception is unexpectedly
 	 */
 	@Test(expected = ca.riskgamet31.exceptions.InvalidGraphException.class)
-	public void TestCreateMap2() throws InvalidGraphException,
+	public void Test2CreateMap2() throws InvalidGraphException,
 	    InvalidCountryException, InvalidLinkException, Exception
 	  {
 		File xmlFile = new File(System
@@ -177,7 +176,7 @@ public class TestGameMainDriver
 		G1.createGameMap(xmlFile.getPath());
 		
 	  }
-	
+	  
 	/**
 	 * reading the disconnected map
 	 * 
@@ -187,7 +186,7 @@ public class TestGameMainDriver
 	 * @throws Exception               when there is exception is unexpectedly
 	 */
 	@Test(expected = ca.riskgamet31.exceptions.InvalidGraphException.class)
-	public void TestCreateMap3() throws InvalidGraphException,
+	public void Test3CreateMap3() throws InvalidGraphException,
 	    InvalidCountryException, InvalidLinkException, Exception
 	  {
 		File xmlFile = new File(System
@@ -195,8 +194,5 @@ public class TestGameMainDriver
 		G1.createGameMap(xmlFile.getPath());
 		
 	  }
-	
-	
-	
-	
+	  
   }

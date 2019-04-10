@@ -195,7 +195,7 @@ public class GameMainDriver extends Observable implements MainDriver
 			this.createPlayer();
 			this.setUpGame();
 			this.risk.viewGameMap();
-			this.playGame();
+			String winner = this.playGame();
 		  } catch (InvalidNameException e)
 		  {
 			e.printStackTrace();

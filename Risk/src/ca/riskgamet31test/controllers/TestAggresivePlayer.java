@@ -73,7 +73,7 @@ public class TestAggresivePlayer
 	/**
 	 * Object created before all the test method
 	 * 
-	 */	
+	 */
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -100,7 +100,6 @@ public class TestAggresivePlayer
 		g7 = new GraphNode(c7);
 		g8 = new GraphNode(c8);
 		g1.addNeighbor(g2);
-		//g1.addNeighbor(g3);
 		g1.addNeighbor(g7);
 		g2.addNeighbor(g8);
 		g2.addNeighbor(g1);
@@ -128,7 +127,7 @@ public class TestAggresivePlayer
 		G2.addNode(g8);
 		C1 = new Continent("Africa", 3, G2);
 		C2 = new Continent("Asia", 5, G1);
-		C3 = new Continent("Syria", 3,  G2);
+		C3 = new Continent("Syria", 3, G2);
 		HM1.put("Africa", C1);
 		HM1.put("Asia", C2);
 		HM1.put("Syria", C3);
@@ -175,12 +174,7 @@ public class TestAggresivePlayer
 		int playerArmiesBeforeReinforcement = p1.getPlayerArmies();
 		int armiesForCountry2BeforeReinforcement = c2.getArmies();
 		p1.reinforcement();
-		//int armiesForCountry1AfterFortification = c1.getArmies();
 		int armiesForCountry2AfterReinforcement = c2.getArmies();
-		//System.out.println(armiesForCountry2BeforeFortification);
-		//System.out.println(armiesForCountry2AfterFortification);
-		//assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
-		//assertEquals(armiesForCountry1BeforeFortification * 2, armiesForCountry1AfterFortification);
 		assertEquals(armiesForCountry2BeforeReinforcement + playerArmiesBeforeReinforcement, armiesForCountry2AfterReinforcement);
 	  }
 	  
@@ -196,61 +190,57 @@ public class TestAggresivePlayer
 		p1.fortification();
 		int armiesForCountry1AfterFortification = c1.getArmies();
 		int armiesForCountry2AfterFortification = c2.getArmies();
-		//System.out.println(armiesForCountry2BeforeFortification);
-		//System.out.println(armiesForCountry2AfterFortification);
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
-		//assertEquals(armiesForCountry1BeforeFortification * 2, armiesForCountry1AfterFortification);
-		//assertEquals(armiesForCountry2BeforeFortification * 2, armiesForCountry2AfterFortification);
+		
 	  }
-	  /**
-	   * to test attack
-	   */
+	  
+	/**
+	 * to test attack
+	 */
 	@Test
 	public void testAttack()
 	  {
 		
 		p1.attack(driver);
 		assertEquals(c1.getCurrentOccupier(), c8.getCurrentOccupier());
-		assertEquals(2, driver.getPlayerList().getPlayerList().size()); 
+		assertEquals(2, driver.getPlayerList().getPlayerList().size());
 	  }
-	
+	  
 	/**
 	 * to test fortify method for aggresive player
 	 */
 	@Test
 	public void testcanFortify()
-	{
+	  {
 		ArrayList<GraphNode> fortifyCountries = new ArrayList<>();
 		fortifyCountries = p1.canFortify();
-		//p1.getPlayerGraph().viewGraph();
-		//System.out.println(fortifyCountries.size());
-		//System.out.println(fortifyCountries.get(0).getNodeData().getCountryName());
-		//System.out.println(fortifyCountries.get(1).getNodeData().getCountryName());
 		assertEquals(2, fortifyCountries.size());
-		assertEquals("DUBAI", fortifyCountries.get(0).getNodeData().getCountryName());
-		assertEquals("RUSSIA", fortifyCountries.get(1).getNodeData().getCountryName());
-	}
-	
+		assertEquals("DUBAI", fortifyCountries.get(0).getNodeData()
+		    .getCountryName());
+		assertEquals("RUSSIA", fortifyCountries.get(1).getNodeData()
+		    .getCountryName());
+	  }
+	  
 	/**
-	 * to test attack for aggresive player 
+	 * to test attack for aggresive player
 	 */
 	@Test
 	public void testcanAttack()
-	{
+	  {
 		ArrayList<GraphNode> adNodes = new ArrayList<GraphNode>();
 		adNodes = p1.canAttack();
 		assertEquals("RUSSIA", adNodes.get(0).getNodeData().getCountryName());
 		assertEquals("SYRIA", adNodes.get(1).getNodeData().getCountryName());
-		//System.out.println(adNodes.get(0).getNodeData().getCountryName());
-	//	System.out.println(adNodes.get(1).getNodeData().getCountryName());
-	}
+		
+	  }
+	  
 	/**
 	 * to test reinforcement for aggresive player
 	 */
 	@Test
 	public void testCanReinforcement()
-	{
+	  {
 		GraphNode a = p1.canReinforce();
 		assertEquals("RUSSIA", a.getNodeData().getCountryName());
-	}
+	  }
   }
