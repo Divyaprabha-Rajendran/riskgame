@@ -80,7 +80,7 @@ public class LoadGameTest
 	  {
 		
 		String xmlFilePath = System
-		    .getProperty("user.dir") + "\\Risk_MapData\\game_obj.ser";
+		    .getProperty("user.dir") + "\\Risk_MapData\\RiskGameSave.ser";
 		
 		FileInputStream file = new FileInputStream(xmlFilePath);
 		ObjectInputStream in = new ObjectInputStream(file);

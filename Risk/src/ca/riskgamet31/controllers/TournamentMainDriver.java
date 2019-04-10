@@ -162,50 +162,57 @@ public class TournamentMainDriver extends Observable implements MainDriver
 				
 				case 1:
 				  {
-					
-					int choice = chooser.showOpenDialog(chooser);
-					if (choice != JFileChooser.APPROVE_OPTION)
-					  xmlFile = new File(System
-					      .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
-					else
-					  xmlFile = chooser.getSelectedFile();
-					
-					if (Desktop.isDesktopSupported())
+					if (tournamentMaps.size() < 5)
 					  {
-						Desktop.getDesktop().open(xmlFile);
+						int choice = chooser.showOpenDialog(chooser);
+						if (choice != JFileChooser.APPROVE_OPTION)
+						  xmlFile = new File(System
+						      .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");
+						else
+						  xmlFile = chooser.getSelectedFile();
 						
-						try
+						if (Desktop.isDesktopSupported())
 						  {
+							Desktop.getDesktop().open(xmlFile);
 							
-							GameMap aMap = GM.createGameMap(xmlFile.getPath());
-							tournamentMaps.add(xmlFile);
-							
-						  } catch (InvalidNameException e)
+							try
+							  {
+								
+								GameMap aMap = GM.createGameMap(xmlFile
+								    .getPath());
+								tournamentMaps.add(xmlFile);
+								
+							  } catch (InvalidNameException e)
+							  {
+								
+							  } catch (InvalidCountryException e)
+							  {
+								
+							  } catch (InvalidContinentException e)
+							  {
+								
+							  } catch (InvalidGraphException e)
+							  {
+								
+							  } catch (InvalidLinkException e)
+							  {
+								
+							  } catch (Exception e)
+							  {
+								System.err.println(e.getMessage());
+								System.err.println("XML file is malformed.");
+								
+							  }
+						  } else
 						  {
-							
-						  } catch (InvalidCountryException e)
-						  {
-							
-						  } catch (InvalidContinentException e)
-						  {
-							
-						  } catch (InvalidGraphException e)
-						  {
-							
-						  } catch (InvalidLinkException e)
-						  {
-							
-						  } catch (Exception e)
-						  {
-							System.err.println(e.getMessage());
-							System.err.println("XML file is malformed.");
-							
+							System.out.println("not a valid file");
 						  }
 					  } else
 					  {
-						System.out.println("not a valid file");
+						System.out
+						    .println("Number of maps should be between 1 and 5.");
+						System.exit(0);
 					  }
-					  
 					break;
 				  }
 				case 2:
@@ -235,8 +242,11 @@ public class TournamentMainDriver extends Observable implements MainDriver
 					  }
 					  
 					if (addPlayerTypes)
-					  tournamentPlayers.addAll(Arrays.asList(playerTypes));
-					
+					  {
+						tournamentPlayers.addAll(Arrays.asList(playerTypes));
+						System.out.println("Tournament Players types will be:");
+						System.out.println(tournamentPlayers.toString());
+					  }
 					break;
 				  }
 				case 3:
@@ -249,6 +259,7 @@ public class TournamentMainDriver extends Observable implements MainDriver
 						    .requestUserInput("Enter number of allowed turns per game between 10 and 50 turns");
 						
 					  } while (!iv.validateNumbers(userInput));
+					  
 					if (Integer.parseInt(userInput) < 10 || Integer
 					    .parseInt(userInput) > 50)
 					  {
@@ -257,8 +268,11 @@ public class TournamentMainDriver extends Observable implements MainDriver
 						    .println("Valid number of Turns is between 10 and 50.");
 					  }
 					if (addNumOfTurns)
-					  noOfTurns = Integer.parseInt(userInput);
-					
+					  {
+						noOfTurns = Integer.parseInt(userInput);
+						System.out
+						    .println("Maximum number of turns is set to: " + noOfTurns);
+					  }
 					break;
 				  }
 				case 4:
@@ -281,8 +295,11 @@ public class TournamentMainDriver extends Observable implements MainDriver
 						    .println("Valid number of games is between 1 and 5 games per map");
 					  }
 					if (addNumOfGames)
-					  noOfGames = Integer.parseInt(userInput);
-					
+					  {
+						noOfGames = Integer.parseInt(userInput);
+						System.out
+						    .println("Number of games is set to: " + noOfGames);
+					  }
 					break;
 				  }
 				case 5:
