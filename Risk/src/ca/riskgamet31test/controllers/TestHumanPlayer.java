@@ -74,7 +74,7 @@ public class TestHumanPlayer
 	/**
 	 * Object created before all the test method
 	 * 
-	 */	
+	 */
 	@BeforeClass
 	public static void testsetup()
 	  {
@@ -245,15 +245,16 @@ public class TestHumanPlayer
 		assertEquals(armiesForCountry1BeforeFortification + armiesForCountry2BeforeFortification, armiesForCountry1AfterFortification + armiesForCountry2AfterFortification);
 		
 	  }
-	  /**
-	   * to test attack
-	   */
+	  
+	/**
+	 * to test attack
+	 */
 	@Test
 	public void testAttack()
 	  {
 		
 		p1.attack(driver);
 		assertEquals(c1.getCurrentOccupier(), c7.getCurrentOccupier());
-		assertEquals(1, driver.getPlayerList().getPlayerList().size()); 
+		assertEquals(1, driver.getPlayerList().getPlayerList().size());
 	  }
   }

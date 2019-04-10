@@ -20,7 +20,7 @@ public class Country extends Observable implements Serializable
 	
 	/**
 	 * Country name
-	 */	
+	 */
 	private final String countryName;
 	
 	/**

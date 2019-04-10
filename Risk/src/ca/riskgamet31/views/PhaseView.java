@@ -15,7 +15,7 @@ import ca.riskgamet31.maincomps.Player;
  * @author Fareed Tayar
  * @version 1.2
  */
-public class PhaseView extends Observable implements Observer,Serializable
+public class PhaseView extends Observable implements Observer, Serializable
   {
 	
 	/**

@@ -164,7 +164,10 @@ public class TournamentMainDriver extends Observable implements MainDriver
 				  {
 					if (tournamentMaps.size() < 5)
 					  {
+						chooser.setRequestFocusEnabled(true);
 						int choice = chooser.showOpenDialog(chooser);
+						chooser.setRequestFocusEnabled(true);
+						chooser.requestFocus();
 						if (choice != JFileChooser.APPROVE_OPTION)
 						  xmlFile = new File(System
 						      .getProperty("user.dir") + "\\Risk_MapData\\default_map.xml");

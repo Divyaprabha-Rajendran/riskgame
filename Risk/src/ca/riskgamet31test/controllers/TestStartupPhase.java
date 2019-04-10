@@ -12,7 +12,6 @@ import ca.riskgamet31.controllers.StartUpPhase;
 import ca.riskgamet31.exceptions.InvalidPlayerNameException;
 import ca.riskgamet31.maincomps.Country;
 import ca.riskgamet31.maincomps.GraphNode;
-import ca.riskgamet31.maincomps.Player;
 import ca.riskgamet31.maincomps.RandomPlayer;
 
 /**

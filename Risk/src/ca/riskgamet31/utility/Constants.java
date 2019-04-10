@@ -40,5 +40,4 @@ public class Constants
 	 */
 	public static final int ARMIES_NOTVALID_PLAYERS = -1;
 	
-	
   }

@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Test Suite class for testing saving and loading of gamestate.
+ * 
  * @author Divyaprabha Rajendran
  * @version 1.0
  */
@@ -13,7 +14,9 @@ import org.junit.runners.Suite.SuiteClasses;
 /**
  * Run the all the test class at once.
  */
-@SuiteClasses({ SaveGameTest.class,LoadGameTest.class  })
-public class AllTests {
-
-}
+@SuiteClasses(
+  { SaveGameTest.class, LoadGameTest.class })
+public class AllTests
+  {
+	
+  }

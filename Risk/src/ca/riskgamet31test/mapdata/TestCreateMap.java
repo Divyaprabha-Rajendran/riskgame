@@ -1,7 +1,6 @@
 
 package ca.riskgamet31test.mapdata;
 
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -108,9 +107,5 @@ public class TestCreateMap
 		int a2 = c1.getContinentSet().size();
 		assertEquals(a1 + 1, a2);
 	  }
-	
-	  
-	  
-	
 	  
   }

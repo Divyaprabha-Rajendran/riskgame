@@ -18,7 +18,7 @@ import ca.riskgamet31.maincomps.GraphNode;
  * @author Fareed Tayar
  * @version 1.2
  */
-public class PlayersWorldDominationView implements Observer,Serializable
+public class PlayersWorldDominationView implements Observer, Serializable
   {
 	
 	/**
@@ -77,7 +77,8 @@ public class PlayersWorldDominationView implements Observer,Serializable
 	  
 	/**
 	 * update method to be executed when view is triggered
-	 * @param o observed object
+	 * 
+	 * @param o   observed object
 	 * @param arg data object passed from the observable
 	 */
 	@Override

@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * test suite for map data test classes
+ * 
  * @author Fareed Tayar
  *
  */

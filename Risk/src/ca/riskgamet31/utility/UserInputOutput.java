@@ -19,6 +19,7 @@ public class UserInputOutput
 	 * scanner to be used for all the game
 	 */
 	private static Scanner scanner;
+	
 	/**
 	 * constructor
 	 */
@@ -26,10 +27,12 @@ public class UserInputOutput
 	  {
 		scanner = new Scanner(System.in);
 	  }
-	  /**
-	   * method to return an instance of the class
-	   * @return an instance of the class object
-	   */
+	  
+	/**
+	 * method to return an instance of the class
+	 * 
+	 * @return an instance of the class object
+	 */
 	public static UserInputOutput getInstance()
 	  {
 		

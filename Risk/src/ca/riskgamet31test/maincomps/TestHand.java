@@ -131,7 +131,7 @@ public class TestHand
 		H4.addCard(C1);
 		H4.addCard(C2);
 		H4.addCard(C3);
-		//for 3 of same type
+		// for 3 of same type
 		H6.addCard(C1);
 		H6.addCard(C4);
 		H6.addCard(C5);
