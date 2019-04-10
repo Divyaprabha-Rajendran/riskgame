@@ -428,12 +428,36 @@ public class GameMainDriver extends Observable implements MainDriver
 		
 		while (!endGame)
 		  {
+			
 			won = false;
+			if (!endGame)
+			  {
+				String userInput = UserInputOutput.getInstance()
+				    .requestUserInput("Do you want to save the game Y/N?");
+				
+				if (userInput.equals("Y"))
+				  {
+					
+					SaveGame saveGame = new SaveGame();
+					try
+					  {
+						saveGame.updateGame(this);
+					  } catch (TransformerException | IOException e)
+					  {
+						
+						e.printStackTrace();
+					  }
+					  
+				  }
+			  }
+			  
 			currentPlayer = this.Players.getPlayerList().get(turnID++);
 			currentPlayer.reinforcementArmiesCalc(risk, 0);
-			
-			System.out.print("Press any key to continue...");
-			sIn = in.nextLine();
+			if (!currentPlayer.getClass().getSimpleName().equals("HumanPlayer"))
+			  {
+				System.out.print("Press Enter key to continue...");
+				sIn = in.nextLine();
+			  }
 			// reinforcement phase
 			
 			this.updatePhaseInfo("Reinforcement Phase", currentPlayer
@@ -443,9 +467,11 @@ public class GameMainDriver extends Observable implements MainDriver
 			
 			currentPlayer.reinforcement();
 			
-			System.out.print("Press any key to continue...");
-			sIn = in.nextLine();
-			
+			if (!currentPlayer.getClass().getSimpleName().equals("HumanPlayer"))
+			  {
+				System.out.print("Press Enter key to continue...");
+				sIn = in.nextLine();
+			  }
 			/// Attack phase
 			this.updatePhaseInfo("Attack phase", currentPlayer
 			    .getplayerName(), attackphaseInfo(currentPlayer));
@@ -466,9 +492,12 @@ public class GameMainDriver extends Observable implements MainDriver
 			if (!endGame)
 			  {
 				
-				System.out.print("Press any key to continue...");
-				sIn = in.nextLine();
-				
+				if (!currentPlayer.getClass().getSimpleName()
+				    .equals("HumanPlayer"))
+				  {
+					System.out.print("Press Enter key to continue...");
+					sIn = in.nextLine();
+				  }
 				this.updatePhaseInfo("Fortification phase", currentPlayer
 				    .getplayerName(), fortificationPhaseInfo(currentPlayer));
 				this.setChanged();
@@ -485,24 +514,6 @@ public class GameMainDriver extends Observable implements MainDriver
 				  }
 				if (turnID >= this.Players.getPlayerList().size())
 				  turnID = 0;
-			  }
-			  
-			String userInput = UserInputOutput.getInstance()
-			    .requestUserInput("Do you want to save the game Y/N?");
-			
-			if (userInput.equals("Y"))
-			  {
-				
-				SaveGame saveGame = new SaveGame();
-				try
-				  {
-					saveGame.updateGame(this);
-				  } catch (TransformerException | IOException e)
-				  {
-					
-					e.printStackTrace();
-				  }
-				  
 			  }
 			  
 		  }
